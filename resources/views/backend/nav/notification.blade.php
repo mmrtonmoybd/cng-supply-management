@@ -54,18 +54,20 @@ function loadNotifications() {
 
             if (data.unread_count > 0) {
                 container.innerHTML += `<div class="dropdown-divider"></div>
-                <a href=\"{{ route('backend.notifications.all') }}\" class="dropdown-item dropdown-footer">See all notifications</a>
+                <a href="{{ route('backend.notifications.all') }}" class="dropdown-item dropdown-footer">See all notifications</a>
                 <a href="#" class="dropdown-item dropdown-footer" id="markAllRead">Mark all as read</a>`;
             } else {
                 container.innerHTML += `<div class="dropdown-divider"></div>
-                <a href=\"{{ route('backend.notifications.all') }}\" class="dropdown-item dropdown-footer">See all notifications</a>
+                <a href="{{ route('backend.notifications.all') }}" class="dropdown-item dropdown-footer">See all notifications</a>
                 <a href="#" class="dropdown-item dropdown-footer">All notifications read</a>`;
             }
         });
 }
 
-// Poll every 30 seconds
-setInterval(loadNotifications, 30000);
+// Polling interval based on environment
+const isLiveServer = {{ config('app.live_server') ? 'true' : 'false' }};
+const pollingInterval = isLiveServer ? 1000 : 30000; // 1 second for live server, 30 seconds otherwise
+setInterval(loadNotifications, pollingInterval);
 
 // Load initially
 document.addEventListener("DOMContentLoaded", function () {

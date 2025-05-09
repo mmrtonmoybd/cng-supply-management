@@ -12,8 +12,8 @@ class NotificationController extends Controller
         $user = $request->user();
         $perPage = 6;
 
-        $unread = $user->unreadNotifications()->paginate($perPage, ['*'], 'unread_page');
-        $read = $user->readNotifications()->paginate($perPage, ['*'], 'read_page');
+        $unread = $user->unreadNotifications()->orderBy('created_at', 'DESC')->paginate($perPage, ['*'], 'unread_page');
+        $read = $user->readNotifications()->orderBy('created_at', 'DESC')->paginate($perPage, ['*'], 'read_page');
 
         return response()->json([
             'unread' => $unread,

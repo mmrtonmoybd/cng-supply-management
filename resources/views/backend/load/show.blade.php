@@ -1,6 +1,6 @@
 @extends('boilerplate::layout.index', [
-    'title' => 'Load Entry Details',
-    'subtitle' => 'View Load Entry',
+    'title' => 'Load Details',
+    'subtitle' => 'View Load',
 ])
 
 @section('content')
@@ -14,7 +14,7 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
         <x-boilerplate::card>
-            <h4 class="mb-4">Load Entry Information</h4>
+            <h4 class="mb-4">Load Information</h4>
             <table class="table table-bordered table-striped">
                 <tbody>
                     <tr><th>Date</th><td>{{ $loadEntry->date }}</td></tr>

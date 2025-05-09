@@ -24,10 +24,7 @@ return new class extends Migration
             $table->decimal('diesel_litter', 15, 2)->nullable();
             $table->decimal('diesel_rate', 15, 2)->nullable();
             $table->string('factory_name')->nullable();
-            $table->enum('status', [
-                'use',
-                'not_use',
-            ]); // 0 = pending, 1 = approved, 2 = rejected
+            $table->boolean('status')->default(0); // 0 = pending, 1 = approved, 2 = rejected
             $table->mediumText('remark')->nullable();
             $table->timestamps();
         });

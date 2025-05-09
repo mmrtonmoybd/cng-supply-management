@@ -1,6 +1,6 @@
 @extends('boilerplate::layout.index', [
     'title' => 'Load',
-    'subtitle' => 'Load Entry',
+    'subtitle' => 'Load create',
 ])
 
 @section('content')
@@ -11,7 +11,7 @@
                 <span class="far fa-arrow-alt-circle-left text-muted"></span>
             </a>
             <span class="btn-group float-right">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-danger">
                     Save
                 </button>
             </span>
@@ -65,7 +65,10 @@
             <x-boilerplate::input name='factory_name' label='Factory Name' :value="old('factory_name')" placeholder='Factory Name'/>
         </div>
         <div class="col-6">
-            <x-boilerplate::input type='select' name='status' label='Status' :options="['use' => 'Use', 'not_use' => 'Not Use']" required :value="old('status')" placeholder='Status'/>
+            <x-boilerplate::select2 name="status" label="Status" minimum-results-for-search="1" required>
+                <option value="1" @if (old('status', 1) == '1') selected="selected" @endif>Use</option>
+                <option value="0" @if (old('status') == '0') selected="selected" @endif>Not use</option>
+           </x-boilerplate::select2>
         </div>
     </div>
     <div class="row">

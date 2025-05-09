@@ -9,11 +9,11 @@ class Loadentry implements MenuItemInterface
 {
     public function make(Builder $menu)
     {
-        $menu->add('LoadEntry', [
+        $menu->add('Load', [
             'route' => 'backend.load.index',
             'active' => 'backend.load.*',
-            'permission' => 'backend',
-            'icon' => 'square',
+            'permission' => 'load_index',
+            'icon' => 'fa fa-plus',
             'order' => 100,
         ]);
     }

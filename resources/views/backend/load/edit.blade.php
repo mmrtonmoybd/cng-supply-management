@@ -1,6 +1,6 @@
 @extends('boilerplate::layout.index', [
     'title' => 'Load',
-    'subtitle' => 'Edit Load Entry',
+    'subtitle' => 'Edit Load',
 ])
 
 @section('content')
@@ -65,7 +65,11 @@
             <x-boilerplate::input name='factory_name' label='Factory Name' :value="old('factory_name', $loadEntry->factory_name ?? '')" placeholder='Factory Name'/>
         </div>
         <div class="col-6">
-            <x-boilerplate::input type='select' name='status' label='Status' :options="['use' => 'Use', 'not_use' => 'Not Use']" required :value="old('status', $loadEntry->status ?? '')" placeholder='Status'/>
+
+            <x-boilerplate::select2 name="status" label="Status" minimum-results-for-search="1" required>
+                <option value="1" @if (old('status', $loadEntry->status) == '1') selected="selected" @endif>Use</option>
+                <option value="0" @if (old('status', $loadEntry->status) == '0') selected="selected" @endif>Not use</option>
+           </x-boilerplate::select2>
         </div>
     </div>
     <div class="row">

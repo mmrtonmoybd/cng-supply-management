@@ -1,8 +1,8 @@
 @extends('boilerplate::layout.index', [
-    'title' => 'Load Entry',
-    'subtitle' => 'Load Entry lists',
+    'title' => 'Load',
+    'subtitle' => 'Load lists',
     'breadcrumb' => [
-        'Load Entry' => 'backend.load.index',
+        'Load' => 'backend.load.index',
     ]
 ])
 
@@ -10,8 +10,8 @@
     <div class="row">
         <div class="col-12 mbl">
             <span class="float-right pb-3">
-                <a href="{{route('backend.load.create')}}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Load Entry
+                <a href="{{route('backend.load.create')}}" class="btn btn-danger">
+                    <i class="fas fa-plus"></i> Load
                     
                 </a>
             </span>

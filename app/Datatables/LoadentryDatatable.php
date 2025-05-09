@@ -19,9 +19,9 @@ class LoadentryDatatable extends Datatable
     public function setUp()
     {
         $this->order('id', 'desc')
+            ->permissions('load_index')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
-            ->stateSave()
             ->setRowId('id');
     }
 
@@ -61,7 +61,12 @@ class LoadentryDatatable extends Datatable
                 ->data('factory_name'),
 
             Column::add(__('Status'))
-                ->data('status'),
+                ->data('status', function ($user) {
+                    return $user->status == 1 ? '<span class="badge badge-pill badge-success">Use</span>' : '<span class="badge badge-pill badge-danger">Not Use</span>';
+                })->filterOptions([
+                    1 => 'Use',
+                    0 => 'Not Use',
+                ]),
 
             Column::add(__('Remark'))
                 ->data('remark'),

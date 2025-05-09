@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Load;
 use App\Http\Controllers\Controller;
 use App\Models\LoadEntry;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class LoadEntryController extends Controller
 {
@@ -13,6 +14,8 @@ class LoadEntryController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', LoadEntry::class);
+
         return view('backend.load.list');
     }
 
@@ -21,6 +24,8 @@ class LoadEntryController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', LoadEntry::class);
+
         return view('backend.load.create');
     }
 
@@ -29,6 +34,8 @@ class LoadEntryController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('create', LoadEntry::class);
+
         $validated = $request->validate([
             'date' => 'required|date',
             'vehicle_reg_number' => 'required|string|max:255',
@@ -41,7 +48,7 @@ class LoadEntryController extends Controller
             'diesel_litter' => 'nullable|numeric',
             'diesel_rate' => 'nullable|numeric',
             'factory_name' => 'nullable|string|max:255',
-            'status' => 'required|in:use,not_use',
+            'status' => 'required|boolean',
             'remark' => 'nullable|string',
         ]);
         LoadEntry::create($validated);
@@ -57,6 +64,8 @@ class LoadEntryController extends Controller
      */
     public function show(LoadEntry $loadEntry)
     {
+        Gate::authorize('view', $loadEntry);
+
         return view('backend.load.show', compact('loadEntry'));
     }
 
@@ -65,6 +74,8 @@ class LoadEntryController extends Controller
      */
     public function edit(LoadEntry $loadEntry)
     {
+        Gate::authorize('update', $loadEntry);
+
         return view('backend.load.edit', compact('loadEntry'));
     }
 
@@ -73,6 +84,8 @@ class LoadEntryController extends Controller
      */
     public function update(Request $request, LoadEntry $loadEntry)
     {
+        Gate::authorize('update', $loadEntry);
+
         $validated = $request->validate([
             'date' => 'required|date',
             'vehicle_reg_number' => 'required|string|max:255',
@@ -85,7 +98,7 @@ class LoadEntryController extends Controller
             'diesel_litter' => 'nullable|numeric',
             'diesel_rate' => 'nullable|numeric',
             'factory_name' => 'nullable|string|max:255',
-            'status' => 'required|in:use,not_use',
+            'status' => 'required|boolean',
             'remark' => 'nullable|string',
         ]);
         $loadEntry->update($validated);
@@ -98,6 +111,8 @@ class LoadEntryController extends Controller
      */
     public function destroy(LoadEntry $loadEntry)
     {
+        Gate::authorize('delete', $loadEntry);
+
         return response()->json(['success' => $loadEntry->delete() ?? false]);
     }
 }
