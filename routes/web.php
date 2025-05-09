@@ -1,0 +1,46 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+
+$default = [
+    'prefix' => config('boilerplate.app.prefix', ''),
+    'domain' => config('boilerplate.app.domain', ''),
+    'middleware' => [
+        'web',
+        'boilerplatelocale',
+        'boilerplateauth',
+        'ability:admin,backend_access', 'boilerplate.emailverified',
+    ],
+    'as' => 'backend.',
+];
+
+Route::group($default, function () {
+
+    Route::get('/clear', function () {
+        $exitCode = Artisan::call('optimize:clear');
+        // return what you want
+    });
+
+    Route::get('/cache', function () {
+        $exitCode = Artisan::call('optimize');
+        // return what you want
+    });
+
+    Route::get('/storagelink', function () {
+        $exitCode = Artisan::call('storage:link');
+        // return what you want
+    });
+
+    Route::group([], function () {
+        Route::get('/notifications', [App\Http\Controllers\Backend\Notification\NotificationController::class, 'fetch']);
+        Route::post('/notifications/mark-read', [App\Http\Controllers\Backend\Notification\NotificationController::class, 'markRead']);
+        Route::post('/notifications/mark-read/{id}', [App\Http\Controllers\Backend\Notification\NotificationController::class, 'markSingleRead']);
+        Route::get('/notifications/all', [App\Http\Controllers\Backend\Notification\NotificationController::class, 'all'])->name('notifications.all');
+    });
+
+
+   Route::resource('load/load-entry', App\Http\Controllers\Backend\Load\LoadEntryController::class)->names('load');
+
+
+});
