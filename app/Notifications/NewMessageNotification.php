@@ -18,7 +18,7 @@ class NewMessageNotification extends Notification
     {
         return [
             'message' => 'You Lol!',
-            'url' => url('/backend/userprofile') // or any route you want
+            'url' => url('/backend/userprofile'), // or any route you want
         ];
     }
 }

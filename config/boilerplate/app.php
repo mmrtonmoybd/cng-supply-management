@@ -2,27 +2,27 @@
 
 return [
     // Backend routes prefix. Ex: "admin" => "http://..../admin"
-    'prefix'            => '/',
+    'prefix' => '/',
 
     // Backend domain if different as current domain. Ex: "admin.mydomain.tld"
-    'domain'            => '',
+    'domain' => '',
 
     // Redirect to this route after login
-    'redirectTo'        => 'boilerplate.dashboard',
+    'redirectTo' => 'boilerplate.dashboard',
 
     // Activating daily logs and showing log viewer
-    'logs'              => false,
+    'logs' => false,
 
     // When set to true, allows admins to view the site as a user of their choice
-    'allowImpersonate'  => false,
+    'allowImpersonate' => false,
 
     // If true, the session will be kept alive and the user must log out
-    'keepalive'         => false,
+    'keepalive' => false,
 
     // Allows to generate text with ChatGPT in TinyMCE
-    'openai'   => [
-        'key'          => env('OPENAI_API_KEY'),
-        'model'        => 'gpt-3.5-turbo',
+    'openai' => [
+        'key' => env('OPENAI_API_KEY'),
+        'model' => 'gpt-3.5-turbo',
         'organization' => env('OPENAI_API_ORGANIZATION'),
     ],
 ];

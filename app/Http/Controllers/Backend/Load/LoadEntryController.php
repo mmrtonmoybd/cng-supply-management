@@ -45,6 +45,7 @@ class LoadEntryController extends Controller
             'remark' => 'nullable|string',
         ]);
         LoadEntry::create($validated);
+
         return redirect()->route('backend.load.index')->with('growl', [
             'The data has been correctly added.',
             'success',
@@ -88,6 +89,7 @@ class LoadEntryController extends Controller
             'remark' => 'nullable|string',
         ]);
         $loadEntry->update($validated);
+
         return redirect()->route('backend.load.index')->with('growl', ['The data has been correctly updated.', 'success']);
     }
 

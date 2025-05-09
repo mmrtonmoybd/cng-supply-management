@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-
 $default = [
     'prefix' => config('boilerplate.app.prefix', ''),
     'domain' => config('boilerplate.app.domain', ''),
@@ -39,8 +38,6 @@ Route::group($default, function () {
         Route::get('/notifications/all', [App\Http\Controllers\Backend\Notification\NotificationController::class, 'all'])->name('notifications.all');
     });
 
-
-   Route::resource('load/load-entry', App\Http\Controllers\Backend\Load\LoadEntryController::class)->names('load');
-
+    Route::resource('load/load-entry', App\Http\Controllers\Backend\Load\LoadEntryController::class)->names('load');
 
 });

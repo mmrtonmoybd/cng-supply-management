@@ -19,7 +19,7 @@ class LoadEntry extends Model
         'factory_name',
         'status',
         'remark',
-        'diesel_litter',	
+        'diesel_litter',
         'diesel_rate',
     ];
 }

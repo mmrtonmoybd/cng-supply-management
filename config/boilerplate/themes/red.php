@@ -6,46 +6,46 @@
  * Shadow : 0-4.
  */
 return [
-    'navbar'  => [
-        'bg'     => 'red',
-        'type'   => 'dark',
+    'navbar' => [
+        'bg' => 'red',
+        'type' => 'dark',
         'border' => true,
-        'user'   => [
+        'user' => [
             'visible' => true,
-            'shadow'  => 0,
+            'shadow' => 0,
         ],
         'right' => ['backend.nav.notification'],
     ],
     'sidebar' => [
-        'type'    => 'dark',
-        'shadow'  => 0,
-        'border'  => true,
+        'type' => 'dark',
+        'shadow' => 0,
+        'border' => true,
         'compact' => false,
-        'links'   => [
-            'bg'     => 'red',
+        'links' => [
+            'bg' => 'red',
             'shadow' => 0,
         ],
-        'brand'   => [
-            'bg'   => 'red',
+        'brand' => [
+            'bg' => 'red',
             'logo' => [
-                'bg'     => 'white',
-                'icon'   => '<i class="fa fa-cubes"></i>',
-                'text'   => '<strong>Mars Bangla</strong> Fuel Solution Ltd.',
+                'bg' => 'white',
+                'icon' => '<i class="fa fa-cubes"></i>',
+                'text' => '<strong>Mars Bangla</strong> Fuel Solution Ltd.',
                 'shadow' => 2,
             ],
         ],
-        'user'    => [
+        'user' => [
             'visible' => false,
-            'shadow'  => 2,
+            'shadow' => 2,
         ],
     ],
-    'footer'  => [
-        'visible'    => true,
+    'footer' => [
+        'visible' => true,
         'vendorname' => 'Boilerplate',
         'vendorlink' => '',
     ],
-    'card'    => [
-        'outline'       => true,
+    'card' => [
+        'outline' => true,
         'default_color' => 'red',
     ],
 ];

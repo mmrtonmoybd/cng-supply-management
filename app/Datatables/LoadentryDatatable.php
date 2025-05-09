@@ -19,10 +19,10 @@ class LoadentryDatatable extends Datatable
     public function setUp()
     {
         $this->order('id', 'desc')
-             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
-             ->condensed()
-             ->stateSave()
-             ->setRowId('id');
+            ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
+            ->condensed()
+            ->stateSave()
+            ->setRowId('id');
     }
 
     public function columns(): array
@@ -34,7 +34,7 @@ class LoadentryDatatable extends Datatable
             Column::add(__('Date'))
                 ->width('180px')
                 ->data('date')
-                ->dateFormat(__("D MMMM YYYY")),
+                ->dateFormat(__('D MMMM YYYY')),
 
             Column::add(__('Car No'))
                 ->data('vehicle_reg_number'),
@@ -81,7 +81,7 @@ class LoadentryDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (LoadEntry $loadentry) {
-                    return join([
+                    return implode([
                         Button::show('backend.load.show', $loadentry),
                         Button::edit('backend.load.edit', $loadentry),
                         Button::delete('backend.load.destroy', $loadentry),
