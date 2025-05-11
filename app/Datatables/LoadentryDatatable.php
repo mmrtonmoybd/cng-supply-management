@@ -34,7 +34,7 @@ class LoadentryDatatable extends Datatable
             Column::add(__('Date'))
                 ->width('180px')
                 ->data('date')
-                ->dateFormat(__('D MMMM YYYY')),
+                ->dateFormat(__('DD-MM-YYYY')),
 
             Column::add(__('Car No'))
                 ->data('vehicle_reg_number'),

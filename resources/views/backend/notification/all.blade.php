@@ -13,7 +13,10 @@
                     @foreach($notifications as $notification)
                         <li class="list-group-item {{ $notification->read_at ? 'text-muted' : 'font-weight-bold' }}">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span>{!! $notification->data['message'] ?? $notification->data['title'] ?? 'Notification' !!}</span>
+                                <div class="d-flex align-items-center">
+                                    <span class="mr-2"><i class="{{ $notification->data['icon'] ?? 'fas fa-bell' }}"></i></span>
+                                    <span>{!! $notification->data['message'] ?? $notification->data['title'] ?? 'Notification' !!}</span>
+                                </div>
                                 <small>{{ $notification->created_at->diffForHumans() }}</small>
                             </div>
                             @if($notification->read_at)

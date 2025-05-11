@@ -13,7 +13,7 @@ class Loadentry implements MenuItemInterface
             'route' => 'backend.load.index',
             'active' => 'backend.load.*',
             'permission' => 'load_index',
-            'icon' => 'fa fa-plus',
+            'icon' => 'fas fa-truck-loading',
             'order' => 100,
         ]);
     }

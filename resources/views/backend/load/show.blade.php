@@ -30,8 +30,8 @@
                     <tr><th>Factory Name</th><td>{{ $loadEntry->factory_name }}</td></tr>
                     <tr><th>Status</th><td>{{ ucfirst($loadEntry->status) }}</td></tr>
                     <tr><th>Remark</th><td>{{ $loadEntry->remark }}</td></tr>
-                    <tr><th>Created At</th><td>{{ $loadEntry->created_at }}</td></tr>
-                    <tr><th>Updated At</th><td>{{ $loadEntry->updated_at }}</td></tr>
+                    <tr><th>Created At</th><td>{{ $loadEntry->created_at->format('d-m-Y h:i A') }}</td></tr>
+                    <tr><th>Updated At</th><td>{{ $loadEntry->updated_at->format('d-m-Y h:i A') }}</td></tr>
                 </tbody>
             </table>
         </x-boilerplate::card>

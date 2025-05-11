@@ -62,7 +62,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', Sebastienheyd\Boilerplate\Models\User::class),
+            'model' => Sebastienheyd\Boilerplate\Models\User::class,
         ],
 
         // 'users' => [

@@ -2,20 +2,26 @@
 
 namespace App\Notifications;
 
+use App\Models\LoadEntry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Sebastienheyd\Boilerplate\Models\User;
 
 class LoadAddNotification extends Notification
 {
     use Queueable;
 
+    protected $loadEntry;
+    protected $user;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(LoadEntry $loadEntry, $user)
     {
-        //
+        $this->loadEntry = $loadEntry;
+        $this->user = $user;
     }
 
     /**
@@ -25,29 +31,18 @@ class LoadAddNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
-    {
-        return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(object $notifiable): array
+    public function toDatabase(object $notifiable): array
     {
         return [
-            //
+            'message' => 'New load added for Car no: '. $this->loadEntry->vehicle_reg_number . ' and input by ' . $this->user->first_name . ' ' . $this->user->last_name,
+            'url' => route('backend.load.show', $this->loadEntry->id),
+            'icon' => 'fas fa-truck-loading',
         ];
     }
 }

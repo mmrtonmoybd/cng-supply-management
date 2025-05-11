@@ -40,4 +40,9 @@ Route::group($default, function () {
 
     Route::resource('load/load-entry', App\Http\Controllers\Backend\Load\LoadEntryController::class)->names('load');
 
+    Route::get('test',App\Http\Controllers\Test::class . '@index')->name('test.index');
+
+    Route::get('activity', App\Http\Controllers\Backend\Activity\ActivityController::class . '@index')->name('activity.index');
+    Route::get('activity/{activity}', App\Http\Controllers\Backend\Activity\ActivityController::class . '@show')->name('activity.show');
+
 });
