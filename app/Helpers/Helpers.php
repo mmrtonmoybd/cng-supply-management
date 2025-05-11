@@ -1,11 +1,9 @@
 <?php
 
-if (!function_exists('getRolePermissionUsersId')) {
+if (! function_exists('getRolePermissionUsersId')) {
     /**
      * Get the unique user IDs that have the specified roles or permissions.
      *
-     * @param mixed $roles
-     * @param mixed $permissions
      * @return array
      */
     function getRolePermissionUsersId(mixed $roles, mixed $permissions)

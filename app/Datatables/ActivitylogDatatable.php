@@ -2,12 +2,12 @@
 
 namespace App\Datatables;
 
+use Illuminate\Database\Eloquent\Builder;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
 use Sebastienheyd\Boilerplate\Models\User;
 use Spatie\Activitylog\Models\Activity;
-use Illuminate\Database\Eloquent\Builder;
 
 class ActivitylogDatatable extends Datatable
 {
@@ -35,7 +35,7 @@ class ActivitylogDatatable extends Datatable
 
             Column::add(__('Date'))
                 ->width('180px')
-                ->data('created_at', function($data) {
+                ->data('created_at', function ($data) {
                     return $data->created_at->format('d-m-Y h:i A');
                 })->filterType('daterangepicker')->filter(function (Builder $query, $value) {
                     $dates = explode(' - ', $value);
@@ -47,10 +47,10 @@ class ActivitylogDatatable extends Datatable
                         $query->whereBetween('created_at', [$startDate, $endDate]);
                     } catch (\Carbon\Exceptions\InvalidFormatException $e) {
                         // Log the error and skip filtering if the format is invalid
-                        \Log::error('Invalid date format in ActivitylogDatatable filter: ' . $e->getMessage());
+                        \Log::error('Invalid date format in ActivitylogDatatable filter: '.$e->getMessage());
                     }
                 }),
-            
+
             Column::add(__('Module'))
                 ->data('log_name'),
 
@@ -64,9 +64,10 @@ class ActivitylogDatatable extends Datatable
                 ]),
 
             Column::add(__('User'))
-                ->data('causer_id', function ($causer_id ) {
-                      $find = User::find($causer_id->causer_id);
-                      return $find->first_name . ' ' . $find->last_name;
+                ->data('causer_id', function ($causer_id) {
+                    $find = User::find($causer_id->causer_id);
+
+                    return $find->first_name.' '.$find->last_name;
                 })->filterOptions(function () {
                     return User::all()->pluck('name', 'id')->toArray();
                 })->filter(function ($query, $q) {
@@ -96,7 +97,7 @@ class ActivitylogDatatable extends Datatable
                     return $output;
                 }),
 
-                Column::add()
+            Column::add()
                 ->width('20px')
                 ->actions(function (Activity $activity) {
                     return implode([

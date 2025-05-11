@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Sebastienheyd\Boilerplate\Models\User;
 
 class Test extends Controller
@@ -17,5 +16,4 @@ class Test extends Controller
         $user = User::whereIn('id', $maketogether)->get();
         dd($aduser, $permissionuser, $maketogether, $user);
     }
-
 }

@@ -6,12 +6,13 @@ use App\Notifications\LoadAddNotification;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Notification;
 use Sebastienheyd\Boilerplate\Models\User;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class LoadEntry extends Model
 {
     use LogsActivity;
+
     protected $fillable = [
         // Add your fillable attributes here, e.g.
         'date',
@@ -32,15 +33,15 @@ class LoadEntry extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->logAll()
-        ->useLogName('Load')
-        ->logExcept(['created_at', 'updated_at'])
-        ->logOnlyDirty()
-        ->dontSubmitEmptyLogs();
+            ->logAll()
+            ->useLogName('Load')
+            ->logExcept(['created_at', 'updated_at'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
     }
 
-    protected static function booted() : void
+    protected static function booted(): void
     {
         static::created(function (LoadEntry $model) {
             $user = User::whereIn('id', getRolePermissionUsersId('admin', 'load_index'))->get();
