@@ -40,11 +40,21 @@ Route::group($default, function () {
 
     Route::resource('load/load-entry', App\Http\Controllers\Backend\Load\LoadEntryController::class)->names('load');
 
-    Route::get('test', App\Http\Controllers\Test::class.'@index')->name('test.index');
-
     Route::get('activity', App\Http\Controllers\Backend\Activity\ActivityController::class.'@index')->name('activity.index');
     Route::get('activity/{activity}', App\Http\Controllers\Backend\Activity\ActivityController::class.'@show')->name('activity.show');
 
     Route::resource('pump', App\Http\Controllers\Backend\Pump\PumpController::class)->names('pump');
 
 });
+
+Route::get('test', App\Http\Controllers\Test::class.'@index')->name('test.index');
+
+Route::get('/migration', function () {
+        $exitCode = Artisan::call('migrate');
+        // return what you want
+    });
+
+Route::get('/appkey', function () {
+        $exitCode = Artisan::call('key:generate');
+        // return what you want
+    });
