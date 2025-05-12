@@ -82,8 +82,8 @@ class PumpDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (Pump $pump) {
                     return implode([
-                       auth()->user()->ability(['admin'], 'pump_index') ? Button::show('backend.pump.show', $pump->id) : null,
-                       auth()->user()->ability(['admin'], 'pump_update') ? Button::edit('backend.pump.edit', $pump->id) : null,
+                        auth()->user()->ability(['admin'], 'pump_index') ? Button::show('backend.pump.show', $pump->id) : null,
+                        auth()->user()->ability(['admin'], 'pump_update') ? Button::edit('backend.pump.edit', $pump->id) : null,
                         // Button::delete('pump.destroy', $pump),
                     ]);
                 }),
