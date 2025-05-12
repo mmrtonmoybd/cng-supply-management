@@ -19,7 +19,7 @@ class PumpDatatable extends Datatable
     public function setUp()
     {
         $this->order('id', 'desc')
-             ->permissions('load_index')
+            ->permissions('load_index')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
             ->permissions('pump_index')
@@ -34,7 +34,7 @@ class PumpDatatable extends Datatable
                 ->width('20px'),
             Column::add('Load date')
                 ->data('loada.date')
-                ->dateFormat(__("boilerplate::date.Ymd")),
+                ->dateFormat(__('boilerplate::date.Ymd')),
 
             Column::add('Car no')
                 ->data('loada.vehicle_reg_number'),
@@ -55,10 +55,10 @@ class PumpDatatable extends Datatable
 
             Column::add('Diesel Rate')
                 ->data('loada.diesel_rate'),
-            
+
             Column::add(__('Payment Date'))
                 ->data('payment_date')
-                ->dateFormat(__("boilerplate::date.Ymd")),
+                ->dateFormat(__('boilerplate::date.Ymd')),
 
             Column::add(__('Payment'))
                 ->data('payment'),
@@ -81,9 +81,9 @@ class PumpDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (Pump $pump) {
-                    return join([
-                         Button::show('backend.pump.show', $pump->id),
-                         Button::edit('backend.pump.edit', $pump->id),
+                    return implode([
+                        Button::show('backend.pump.show', $pump->id),
+                        Button::edit('backend.pump.edit', $pump->id),
                         // Button::delete('pump.destroy', $pump),
                     ]);
                 }),
