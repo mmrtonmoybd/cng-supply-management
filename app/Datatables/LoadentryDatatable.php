@@ -87,9 +87,9 @@ class LoadentryDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (LoadEntry $loadentry) {
                     return implode([
-                        Button::show('backend.load.show', $loadentry),
-                        Button::edit('backend.load.edit', $loadentry),
-                        Button::delete('backend.load.destroy', $loadentry),
+                        auth()->user()->ability(['admin'], 'load_index') ? Button::show('backend.load.show', $loadentry) : null,
+                        auth()->user()->ability(['admin'], 'load_update') ? Button::edit('backend.load.edit', $loadentry) : null,
+                        auth()->user()->ability(['admin'], 'load_delete') ? Button::delete('backend.load.destroy', $loadentry) : null,
                     ]);
                 }),
         ];
