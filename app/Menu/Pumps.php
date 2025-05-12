@@ -12,7 +12,7 @@ class Pumps implements MenuItemInterface
         $menu->add('Pumps', [
             'route' => 'backend.pump.index',
             'active' => 'backend.pump.*',
-            'permission' => 'backend',
+            'permission' => 'pump_index',
             'icon' => 'fas fa-gas-pump',
             'order' => 110,
         ]);
