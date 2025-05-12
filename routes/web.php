@@ -50,11 +50,11 @@ Route::group($default, function () {
 Route::get('test', App\Http\Controllers\Test::class.'@index')->name('test.index');
 
 Route::get('/migration', function () {
-        $exitCode = Artisan::call('migrate');
-        // return what you want
-    });
+    $exitCode = Artisan::call('migrate');
+    // return what you want
+});
 
 Route::get('/appkey', function () {
-        $exitCode = Artisan::call('key:generate');
-        // return what you want
-    });
+    $exitCode = Artisan::call('key:generate');
+    // return what you want
+});
