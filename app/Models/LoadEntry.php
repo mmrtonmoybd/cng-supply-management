@@ -47,6 +47,14 @@ class LoadEntry extends Model
             $user = User::whereIn('id', getRolePermissionUsersId('admin', 'load_index'))->get();
             // Use Notification facade to notify all users at once
             Notification::send($user, new LoadAddNotification($model, auth()->user()));
+
+            // Automatically create a Pump entry
+            Pump::create(['load_entry_id' => $model->id]);
         });
+    }
+
+    public function pump()
+    {
+        return $this->hasOne(Pump::class);
     }
 }

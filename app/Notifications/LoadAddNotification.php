@@ -39,7 +39,7 @@ class LoadAddNotification extends Notification
     public function toDatabase(object $notifiable): array
     {
         return [
-            'message' => 'New load added for Car no: '.$this->loadEntry->vehicle_reg_number.' and input by '.$this->user->first_name.' '.$this->user->last_name,
+            'message' => 'New load added for Car no: '.$this->loadEntry->vehicle_reg_number,
             'url' => route('backend.load.show', $this->loadEntry->id),
             'icon' => 'fas fa-truck-loading',
         ];

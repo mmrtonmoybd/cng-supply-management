@@ -45,4 +45,6 @@ Route::group($default, function () {
     Route::get('activity', App\Http\Controllers\Backend\Activity\ActivityController::class.'@index')->name('activity.index');
     Route::get('activity/{activity}', App\Http\Controllers\Backend\Activity\ActivityController::class.'@show')->name('activity.show');
 
+    Route::resource('pump', App\Http\Controllers\Backend\Pump\PumpController::class)->names('pump');
+
 });

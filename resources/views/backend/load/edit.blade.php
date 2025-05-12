@@ -11,7 +11,7 @@
                 <span class="far fa-arrow-alt-circle-left text-muted"></span>
             </a>
             <span class="btn-group float-right">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-danger">
                     Update
                 </button>
             </span>

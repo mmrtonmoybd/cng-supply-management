@@ -6,6 +6,8 @@ use App\Models\LoadEntry;
 use App\Policies\LoadPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Pump;
+use App\Policies\PumpPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,5 +25,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::policy(LoadEntry::class, LoadPolicy::class);
+        Gate::policy(Pump::class, PumpPolicy::class);
     }
 }
