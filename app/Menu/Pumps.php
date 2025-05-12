@@ -13,7 +13,7 @@ class Pumps implements MenuItemInterface
             'route' => 'backend.pump.index',
             'active' => 'backend.pump.*',
             'permission' => 'backend',
-            'icon' => 'square',
+            'icon' => 'fas fa-gas-pump',
             'order' => 110,
         ]);
     }
