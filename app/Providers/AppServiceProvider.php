@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use App\Models\LoadEntry;
+use App\Models\Pump;
 use App\Policies\LoadPolicy;
+use App\Policies\PumpPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-use App\Models\Pump;
-use App\Policies\PumpPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {

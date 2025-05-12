@@ -15,6 +15,7 @@ class PumpController extends Controller
     public function index()
     {
         Gate::authorize('viewAny', Pump::class);
+
         return view('backend.pump.list');
     }
 
@@ -40,6 +41,7 @@ class PumpController extends Controller
     public function show(Pump $pump)
     {
         Gate::authorize('viewAny', $pump);
+
         return view('backend.pump.show', compact('pump'));
     }
 

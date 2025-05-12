@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\Pump;
-use Illuminate\Auth\Access\Response;
 use Sebastienheyd\Boilerplate\Models\User;
 
 class PumpPolicy
