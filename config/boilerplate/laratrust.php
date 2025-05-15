@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'user' => Sebastienheyd\Boilerplate\Models\User::class,
-    'role' => Sebastienheyd\Boilerplate\Models\Role::class,
-    'permission' => Sebastienheyd\Boilerplate\Models\Permission::class,
+    'user' => App\Models\Boilerplate\User::class,
+    'role' => App\Models\Boilerplate\Role::class,
+    'permission' => App\Models\Boilerplate\Permission::class,
 ];

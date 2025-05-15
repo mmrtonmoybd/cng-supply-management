@@ -23,10 +23,6 @@
                     <tr><th>M3</th><td>{{ $loadEntry->cng_purchase_m3 }}</td></tr>
                     <tr><th>Rate</th><td>{{ $loadEntry->rate }}</td></tr>
                     <tr><th>Purchase Taka</th><td>{{ $loadEntry->purchase_taka }}</td></tr>
-                    <tr><th>Fuel Cost</th><td>{{ $loadEntry->fuel_cost }}</td></tr>
-                    <tr><th>Fuel Pump</th><td>{{ $loadEntry->fuel_pump }}</td></tr>
-                    <tr><th>Diesel Litre</th><td>{{ $loadEntry->diesel_litter }}</td></tr>
-                    <tr><th>Diesel Rate</th><td>{{ $loadEntry->diesel_rate }}</td></tr>
                     <tr><th>Factory Name</th><td>{{ $loadEntry->factory_name }}</td></tr>
                     <tr><th>Status</th><td>{{ ucfirst($loadEntry->status) }}</td></tr>
                     <tr><th>Remark</th><td>{{ $loadEntry->remark }}</td></tr>

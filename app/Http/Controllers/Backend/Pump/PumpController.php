@@ -15,7 +15,6 @@ class PumpController extends Controller
     public function index()
     {
         Gate::authorize('viewAny', Pump::class);
-
         return view('backend.pump.list');
     }
 
@@ -65,29 +64,26 @@ class PumpController extends Controller
         $request->validate([
             'payment_date' => 'nullable|date',
             'payment' => 'nullable|numeric|min:0',
-            'balance' => 'nullable|numeric|min:0',
             'vehicle_reg_number' => 'required|string|max:255',
             'pump_name' => 'nullable|required|string|max:255',
             'cng_purchase_m3' => 'nullable|numeric|min:0',
             'rate' => 'required|numeric|min:0',
             'purchase_taka' => 'required|numeric|min:0',
-            'fuel_cost' => 'nullable|numeric|min:0',
-            'fuel_pump' => 'nullable|string|max:255',
             'factory_name' => 'nullable|string|max:255',
             'status' => 'nullable|required|boolean',
             'remark' => 'nullable|string|max:1000',
             'remarks' => 'nullable|string|max:1000',
-            'diesel_litter' => 'nullable|numeric|min:0',
-            'diesel_rate' => 'nullable|numeric|min:0',
         ]);
 
         $onlyrequest = $request->only([
             'payment_date',
             'payment',
-            'balance',
         ]);
 
+        $balance = $pump->loada->purchase_taka - $request->input('payment');
+
         $marge = array_merge([
+            'balance' => $balance,
             'remarks' => $request->input('premarks'),
         ], $onlyrequest);
 
@@ -99,13 +95,9 @@ class PumpController extends Controller
             'cng_purchase_m3',
             'rate',
             'purchase_taka',
-            'fuel_cost',
-            'fuel_pump',
             'factory_name',
             'status',
             'remark',
-            'diesel_litter',
-            'diesel_rate',
         ]);
 
         $pump->loada()->update($onlyreq);
@@ -119,5 +111,72 @@ class PumpController extends Controller
     public function destroy(Pump $pump)
     {
         //
+    }
+
+    /**
+     * Show the filter form
+     */
+    public function filter()
+    {
+        Gate::authorize('viewAny', Pump::class);
+        
+        // Get unique pump names for the dropdown
+        $pumpNames = Pump::join('load_entries', 'pumps.load_entry_id', '=', 'load_entries.id')
+            ->select('load_entries.pump_name')
+            ->distinct()
+            ->pluck('pump_name')
+            ->filter()
+            ->values();
+
+        return view('backend.pump.filter', compact('pumpNames'));
+    }
+
+    /**
+     * Show filtered results
+     */
+    public function showFilter(Request $request)
+    {
+        Gate::authorize('viewAny', Pump::class);
+
+        $query = Pump::with('loada');
+
+        // Filter by pump name if provided
+        if ($request->filled('pump_name')) {
+            $query->whereHas('loada', function ($q) use ($request) {
+                $q->where('pump_name', $request->pump_name);
+            });
+        }
+
+        // Filter by car number if provided
+        if ($request->filled('car_no')) {
+            $query->whereHas('loada', function ($q) use ($request) {
+                $q->where('vehicle_reg_number', 'like', '%' . $request->car_no . '%');
+            });
+        }
+
+        // Filter by date range if provided
+        if ($request->filled('date_range')) {
+            $dates = explode(' - ', $request->date_range);
+            if (count($dates) == 2) {
+                $query->whereHas('loada', function ($q) use ($dates) {
+                    $q->whereBetween('date', [
+                        date('Y-m-d', strtotime($dates[0])),
+                        date('Y-m-d', strtotime($dates[1]))
+                    ]);
+                });
+            }
+        }
+
+        $results = $query->orderBy('created_at', 'desc')->paginate(10);
+        
+        // Get unique pump names for the dropdown
+        $pumpNames = Pump::join('load_entries', 'pumps.load_entry_id', '=', 'load_entries.id')
+            ->select('load_entries.pump_name')
+            ->distinct()
+            ->pluck('pump_name')
+            ->filter()
+            ->values();
+
+        return view('backend.pump.filter', compact('results', 'pumpNames'));
     }
 }

@@ -11,7 +11,7 @@ return [
         'type' => 'dark',
         'border' => true,
         'user' => [
-            'visible' => true,
+            'visible' => false,
             'shadow' => 0,
         ],
         'right' => ['backend.nav.notification'],

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Sebastienheyd\Boilerplate\Models\User;
+use App\Models\Boilerplate\User;
 
 class Test extends Controller
 {

@@ -22,13 +22,9 @@
                     <tr><th>CNG Purchase (m3)</th><td>{{ $pump->loada->cng_purchase_m3 ?? 'N/A' }}</td></tr>
                     <tr><th>Rate</th><td>{{ $pump->loada->rate ?? 'N/A' }}</td></tr>
                     <tr><th>Purchase Taka</th><td>{{ $pump->loada->purchase_taka ?? 'N/A' }}</td></tr>
-                    <tr><th>Fuel Cost</th><td>{{ $pump->loada->fuel_cost ?? 'N/A' }}</td></tr>
-                    <tr><th>Fuel Pump</th><td>{{ $pump->loada->fuel_pump ?? 'N/A' }}</td></tr>
                     <tr><th>Factory Name</th><td>{{ $pump->loada->factory_name ?? 'N/A' }}</td></tr>
                     <tr><th>Status</th><td>{{ $pump->loada->status ?? 'N/A' }}</td></tr>
                     <tr><th>Remark</th><td>{{ $pump->loada->remark ?? 'N/A' }}</td></tr>
-                    <tr><th>Diesel (Litter)</th><td>{{ $pump->loada->diesel_litter ?? 'N/A' }}</td></tr>
-                    <tr><th>Diesel Rate</th><td>{{ $pump->loada->diesel_rate ?? 'N/A' }}</td></tr>
                 </tbody>
             </table>
             <h4 class="mb-4">Payment Information</h4>

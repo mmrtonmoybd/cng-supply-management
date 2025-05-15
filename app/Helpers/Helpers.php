@@ -8,8 +8,8 @@ if (! function_exists('getRolePermissionUsersId')) {
      */
     function getRolePermissionUsersId(mixed $roles, mixed $permissions)
     {
-        $aduser = Sebastienheyd\Boilerplate\Models\User::whereHasRole($roles)->get('id')->pluck('id')->toArray();
-        $permissionuser = Sebastienheyd\Boilerplate\Models\User::whereHasPermission($permissions)->get('id')->pluck('id')->toArray();
+        $aduser = App\Models\Boilerplate\User::whereHasRole($roles)->get('id')->pluck('id')->toArray();
+        $permissionuser = App\Models\Boilerplate\User::whereHasPermission($permissions)->get('id')->pluck('id')->toArray();
 
         return array_unique(array_merge($aduser, $permissionuser));
     }

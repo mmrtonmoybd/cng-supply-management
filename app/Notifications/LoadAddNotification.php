@@ -17,10 +17,9 @@ class LoadAddNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct(LoadEntry $loadEntry, $user)
+    public function __construct(LoadEntry $loadEntry)
     {
         $this->loadEntry = $loadEntry;
-        $this->user = $user;
     }
 
     /**

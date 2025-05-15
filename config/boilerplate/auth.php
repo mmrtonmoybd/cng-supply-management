@@ -7,7 +7,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Sebastienheyd\Boilerplate\Models\User::class,
+            'model' => App\Models\Boilerplate\User::class,
             'table' => 'users',
         ],
     ],

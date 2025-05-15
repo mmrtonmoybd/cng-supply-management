@@ -43,10 +43,6 @@ class LoadEntryController extends Controller
             'cng_purchase_m3' => 'required|numeric',
             'rate' => 'required|numeric',
             'purchase_taka' => 'required|numeric',
-            'fuel_cost' => 'nullable|numeric',
-            'fuel_pump' => 'nullable|string|max:255',
-            'diesel_litter' => 'nullable|numeric',
-            'diesel_rate' => 'nullable|numeric',
             'factory_name' => 'nullable|string|max:255',
             'status' => 'required|boolean',
             'remark' => 'nullable|string',
@@ -93,10 +89,6 @@ class LoadEntryController extends Controller
             'cng_purchase_m3' => 'required|numeric',
             'rate' => 'required|numeric',
             'purchase_taka' => 'required|numeric',
-            'fuel_cost' => 'nullable|numeric',
-            'fuel_pump' => 'nullable|string|max:255',
-            'diesel_litter' => 'nullable|numeric',
-            'diesel_rate' => 'nullable|numeric',
             'factory_name' => 'nullable|string|max:255',
             'status' => 'required|boolean',
             'remark' => 'nullable|string',
@@ -114,5 +106,45 @@ class LoadEntryController extends Controller
         Gate::authorize('delete', $loadEntry);
 
         return response()->json(['success' => $loadEntry->delete() ?? false]);
+    }
+
+    /**
+     * Show the filter form for LoadEntry
+     */
+    public function filter()
+    {
+        Gate::authorize('viewAny', LoadEntry::class);
+        $pumpNames = LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
+        return view('backend.load.filter', compact('pumpNames'));
+    }
+
+    /**
+     * Show filtered results for LoadEntry
+     */
+    public function showFilter(Request $request)
+    {
+        Gate::authorize('viewAny', LoadEntry::class);
+        $query = LoadEntry::query();
+        if ($request->filled('pump_name')) {
+            $query->where('pump_name', $request->pump_name);
+        }
+        if ($request->filled('car_no')) {
+            $query->where('vehicle_reg_number', 'like', '%' . $request->car_no . '%');
+        }
+        if ($request->filled('date_range')) {
+            $dates = explode(' - ', $request->date_range);
+            if (count($dates) == 2) {
+                $query->whereBetween('date', [
+                    date('Y-m-d', strtotime($dates[0])),
+                    date('Y-m-d', strtotime($dates[1]))
+                ]);
+            }
+        }
+        if ($request->filled('status') && in_array($request->status, ['0','1'])) {
+            $query->where('status', $request->status);
+        }
+        $results = $query->orderBy('created_at', 'desc')->paginate(10);
+        $pumpNames = LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
+        return view('backend.load.filter', compact('results', 'pumpNames'));
     }
 }

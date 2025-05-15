@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Pump;
-use Sebastienheyd\Boilerplate\Models\User;
+use App\Models\Boilerplate\User;
 
 class PumpPolicy
 {

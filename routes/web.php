@@ -44,6 +44,10 @@ Route::group($default, function () {
     Route::get('activity/{activity}', App\Http\Controllers\Backend\Activity\ActivityController::class.'@show')->name('activity.show');
 
     Route::resource('pump', App\Http\Controllers\Backend\Pump\PumpController::class)->names('pump');
+    Route::get('pump-filter', [App\Http\Controllers\Backend\Pump\PumpController::class, 'filter'])->name('pump.filter');
+    Route::get('pump-filter/show', [App\Http\Controllers\Backend\Pump\PumpController::class, 'showFilter'])->name('pump.showFilter');
+    Route::get('load-filter', [App\Http\Controllers\Backend\Load\LoadEntryController::class, 'filter'])->name('load.filter');
+    Route::get('load-filter/show', [App\Http\Controllers\Backend\Load\LoadEntryController::class, 'showFilter'])->name('load.showFilter');
 
 });
 

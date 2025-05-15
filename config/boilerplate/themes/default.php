@@ -11,7 +11,7 @@ return [
         'type' => 'light',
         'border' => true,
         'user' => [
-            'visible' => false,
+            'visible' => true,
             'shadow' => 0,
         ],
         'right' => ['backend.nav.notification'],
@@ -30,12 +30,12 @@ return [
             'logo' => [
                 'bg' => 'blue',
                 'icon' => '<i class="fa fa-cubes"></i>',
-                'text' => '<strong>BO</strong>ilerplate',
+                'text' => '<strong>Mars Bangla</strong> Fuel Solution Ltd.',
                 'shadow' => 2,
             ],
         ],
         'user' => [
-            'visible' => true,
+            'visible' => false,
             'shadow' => 2,
         ],
     ],

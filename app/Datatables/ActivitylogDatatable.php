@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use Sebastienheyd\Boilerplate\Models\User;
+use App\Models\Boilerplate\User;
 use Spatie\Activitylog\Models\Activity;
 
 class ActivitylogDatatable extends Datatable
@@ -35,21 +35,9 @@ class ActivitylogDatatable extends Datatable
 
             Column::add(__('Date'))
                 ->width('180px')
-                ->data('created_at', function ($data) {
-                    return $data->created_at->format('d-m-Y h:i A');
-                })->filterType('daterangepicker')->filter(function (Builder $query, $value) {
-                    $dates = explode(' - ', $value);
-
-                    try {
-                        $startDate = \Carbon\Carbon::createFromFormat('d/m/Y', trim($dates[0]));
-                        $endDate = \Carbon\Carbon::createFromFormat('d/m/Y', trim($dates[1]));
-
-                        $query->whereBetween('created_at', [$startDate, $endDate]);
-                    } catch (\Carbon\Exceptions\InvalidFormatException $e) {
-                        // Log the error and skip filtering if the format is invalid
-                        \Log::error('Invalid date format in ActivitylogDatatable filter: '.$e->getMessage());
-                    }
-                }),
+                ->data('created_at')
+                ->filterType('daterangepicker')
+                ->dateFormat('YYYY-MM-DD hh:mm:ss A'),
 
             Column::add(__('Module'))
                 ->data('log_name'),

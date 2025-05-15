@@ -11,7 +11,7 @@
                 <span class="far fa-arrow-alt-circle-left text-muted"></span>
             </a>
             <span class="btn-group float-right">
-                <button type="submit" class="btn btn-danger">
+                <button type="submit" class="btn btn-primary">
                     Save
                 </button>
             </span>
@@ -30,7 +30,18 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <x-boilerplate::input name='pump_name' label='Pump Name' required :value="old('pump_name')" placeholder='Pump Name'/>
+            @php
+                $pumpOptions = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray();
+            @endphp
+            <select name="pump_name" id="pump_name" class="form-control select2-pump" required>
+                <option value="">Select Pump Name</option>
+                @foreach ($pumpOptions as $key => $value)
+                    <option value="{{ $key }}" @if (old('pump_name') == $key) selected @endif>{{ $value }}</option>
+                @endforeach
+                @if(old('pump_name') && !array_key_exists(old('pump_name'), $pumpOptions))
+                    <option value="{{ old('pump_name') }}" selected>{{ old('pump_name') }}</option>
+                @endif
+            </select>
         </div>
         <div class="col-6">
             <x-boilerplate::input name='cng_purchase_m3' label='M3' type='number' step='0.01' required :value="old('cng_purchase_m3')" placeholder='M3'/>
@@ -42,22 +53,6 @@
         </div>
         <div class="col-6">
             <x-boilerplate::input name='purchase_taka' label='Purchase Taka' type='number' step='0.01' required :value="old('purchase_taka')" placeholder='Purchase Taka'/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <x-boilerplate::input name='fuel_cost' label='Fuel Cost' type='number' step='0.01' :value="old('fuel_cost')" placeholder='Fuel Cost'/>
-        </div>
-        <div class="col-6">
-            <x-boilerplate::input name='fuel_pump' label='Fuel Pump' :value="old('fuel_pump')" placeholder='Fuel Pump'/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <x-boilerplate::input name='diesel_litter' label='Diesel Litre' type='number' step='0.01' :value="old('diesel_litter')" placeholder='Diesel Litre'/>
-        </div>
-        <div class="col-6">
-            <x-boilerplate::input name='diesel_rate' label='Diesel Rate' type='number' step='0.01' :value="old('diesel_rate')" placeholder='Diesel Rate'/>
         </div>
     </div>
     <div class="row">
@@ -81,3 +76,21 @@
     </div>
 </x-boilerplate::form>
 @endsection
+
+@push('js')
+<script>
+$(document).ready(function() {
+    $('#pump_name').select2({
+        tags: true,
+        placeholder: 'Select Pump Name',
+        allowClear: true,
+        width: '100%',
+        language: {
+            noResults: function() {
+                return 'No results found. Type to add new.';
+            }
+        }
+    });
+});
+</script>
+@endpush

@@ -40,7 +40,11 @@ class LoadentryDatatable extends Datatable
                 ->data('vehicle_reg_number'),
 
             Column::add(__('Pump Name'))
-                ->data('pump_name'),
+                ->data('pump_name')
+                ->filterOptions(LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray())
+                ->filter(function ($query, $value) {
+                    return $query->where('pump_name', 'LIKE', '%' . $value. '%');
+                }),
 
             Column::add(__('M3'))
                 ->data('cng_purchase_m3'),
@@ -50,12 +54,6 @@ class LoadentryDatatable extends Datatable
 
             Column::add(__('Purchase Taka'))
                 ->data('purchase_taka'),
-
-            Column::add(__('Fuel Cost'))
-                ->data('fuel_cost'),
-
-            Column::add(__('Fuel Pump'))
-                ->data('fuel_pump'),
 
             Column::add(__('Factory Name'))
                 ->data('factory_name'),
@@ -70,18 +68,6 @@ class LoadentryDatatable extends Datatable
 
             Column::add(__('Remark'))
                 ->data('remark'),
-
-            Column::add(__('Diesel Litter'))
-                ->data('diesel_litter'),
-
-            Column::add(__('Diesel Rate'))
-                ->data('diesel_rate'),
-
-            Column::add(__('Created At'))
-                ->data('created_at'),
-
-            Column::add(__('Updated At'))
-                ->data('updated_at'),
 
             Column::add()
                 ->width('20px')

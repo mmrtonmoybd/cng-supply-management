@@ -11,7 +11,7 @@
                 <span class="far fa-arrow-alt-circle-left text-muted"></span>
             </a>
             <span class="btn-group float-right">
-                <button type="submit" class="btn btn-danger">
+                <button type="submit" class="btn btn-primary">
                     Update
                 </button>
             </span>
@@ -35,9 +35,6 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <x-boilerplate::input name='balance' label='Balance' type='number' step='0.01' required :value="old('balance', $pump->balance ?? '')" placeholder='Balance'/>
-                    </div>
-                    <div class="col-6">
                         <x-boilerplate::input name='premarks' label='Remarks' :value="old('premarks', $pump->remarks ?? '')" placeholder='Remarks'/>
                     </div>
                 </div>
@@ -59,7 +56,19 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <x-boilerplate::input name='pump_name' label='Pump Name' required :value="old('pump_name', $pump->loada->pump_name ?? '')" placeholder='Pump Name'/>
+                                @php
+                                    $pumpOptions = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray();
+                                    $selectedPump = old('pump_name', $pump->loada->pump_name ?? '');
+                                @endphp
+                                <select name="pump_name" id="pump_name" class="form-control select2-pump" required>
+                                    <option value="">Select Pump Name</option>
+                                    @foreach ($pumpOptions as $key => $value)
+                                        <option value="{{ $key }}" @if ($selectedPump == $key) selected @endif>{{ $value }}</option>
+                                    @endforeach
+                                    @if($selectedPump && !array_key_exists($selectedPump, $pumpOptions))
+                                        <option value="{{ $selectedPump }}" selected>{{ $selectedPump }}</option>
+                                    @endif
+                                </select>
                             </div>
                             <div class="col-6">
                                 <x-boilerplate::input name='cng_purchase_m3' label='CNG Purchase (M3)' type='number' step='0.01' required :value="old('cng_purchase_m3', $pump->loada->cng_purchase_m3 ?? '')" placeholder='CNG Purchase (M3)'/>
@@ -71,14 +80,6 @@
                             </div>
                             <div class="col-6">
                                 <x-boilerplate::input name='purchase_taka' label='Purchase Taka' type='number' step='0.01' required :value="old('purchase_taka', $pump->loada->purchase_taka ?? '')" placeholder='Purchase Taka'/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <x-boilerplate::input name='fuel_cost' label='Fuel Cost' type='number' step='0.01' :value="old('fuel_cost', $pump->loada->fuel_cost ?? '')" placeholder='Fuel Cost'/>
-                            </div>
-                            <div class="col-6">
-                                <x-boilerplate::input name='fuel_pump' label='Fuel Pump' :value="old('fuel_pump', $pump->loada->fuel_pump ?? '')" placeholder='Fuel Pump'/>
                             </div>
                         </div>
                         <div class="row">
@@ -120,3 +121,22 @@
     </div>
 </x-boilerplate::form>
 @endsection
+
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#pump_name').select2({
+        tags: true,
+        placeholder: 'Select Pump Name',
+        allowClear: true,
+        width: '100%',
+        language: {
+            noResults: function() {
+                return 'No results found. Type to add new.';
+            }
+        }
+    });
+});
+</script>
+@endpush
