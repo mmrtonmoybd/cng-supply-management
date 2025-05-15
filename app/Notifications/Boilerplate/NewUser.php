@@ -31,7 +31,7 @@ class NewUser extends Notification
     {
         $currentUser = \Auth::user();
 
-        return (new MailMessage())
+        return (new MailMessage)
             ->markdown('boilerplate::notifications.email')
             ->greeting(__('boilerplate::notifications.greeting', ['firstname' => $notifiable->first_name]))
             ->subject(__('boilerplate::notifications.newuser.subject', ['name' => config('app.name')]))

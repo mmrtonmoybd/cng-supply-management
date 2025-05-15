@@ -33,7 +33,6 @@ class ResetPasswordController
      *
      * If no token is present, display the link request form.
      *
-     * @param  Request  $request
      * @param  string|null  $token
      * @return Application|Factory|View
      */
@@ -48,9 +47,9 @@ class ResetPasswordController
     protected function rules()
     {
         return [
-            'token'    => 'required',
-            'email'    => 'required|email',
-            'password' => ['required', 'confirmed', new Password()],
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => ['required', 'confirmed', new Password],
         ];
     }
 }

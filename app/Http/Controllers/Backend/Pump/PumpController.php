@@ -15,6 +15,7 @@ class PumpController extends Controller
     public function index()
     {
         Gate::authorize('viewAny', Pump::class);
+
         return view('backend.pump.list');
     }
 
@@ -119,7 +120,7 @@ class PumpController extends Controller
     public function filter()
     {
         Gate::authorize('viewAny', Pump::class);
-        
+
         // Get unique pump names for the dropdown
         $pumpNames = Pump::join('load_entries', 'pumps.load_entry_id', '=', 'load_entries.id')
             ->select('load_entries.pump_name')
@@ -150,7 +151,7 @@ class PumpController extends Controller
         // Filter by car number if provided
         if ($request->filled('car_no')) {
             $query->whereHas('loada', function ($q) use ($request) {
-                $q->where('vehicle_reg_number', 'like', '%' . $request->car_no . '%');
+                $q->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
             });
         }
 
@@ -161,14 +162,14 @@ class PumpController extends Controller
                 $query->whereHas('loada', function ($q) use ($dates) {
                     $q->whereBetween('date', [
                         date('Y-m-d', strtotime($dates[0])),
-                        date('Y-m-d', strtotime($dates[1]))
+                        date('Y-m-d', strtotime($dates[1])),
                     ]);
                 });
             }
         }
 
         $results = $query->orderBy('created_at', 'desc')->paginate(10);
-        
+
         // Get unique pump names for the dropdown
         $pumpNames = Pump::join('load_entries', 'pumps.load_entry_id', '=', 'load_entries.id')
             ->select('load_entries.pump_name')

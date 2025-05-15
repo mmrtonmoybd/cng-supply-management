@@ -16,10 +16,10 @@ use App\Http\Controllers\Boilerplate\Users\RolesController;
 use App\Http\Controllers\Boilerplate\Users\UsersController;
 
 Route::group([
-    'prefix'     => config('boilerplate.app.prefix', ''),
-    'domain'     => config('boilerplate.app.domain', ''),
+    'prefix' => config('boilerplate.app.prefix', ''),
+    'domain' => config('boilerplate.app.domain', ''),
     'middleware' => ['web', 'boilerplate.locale'],
-    'as'         => 'boilerplate.',
+    'as' => 'boilerplate.',
 ], function () {
     // Logout
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');

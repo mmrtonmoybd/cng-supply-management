@@ -2,11 +2,10 @@
 
 namespace App\Datatables;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Boilerplate\User;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Boilerplate\User;
 use Spatie\Activitylog\Models\Activity;
 
 class ActivitylogDatatable extends Datatable

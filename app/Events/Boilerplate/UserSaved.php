@@ -2,10 +2,10 @@
 
 namespace App\Events\Boilerplate;
 
+use App\Models\Boilerplate\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\Boilerplate\User;
 
 class UserSaved
 {

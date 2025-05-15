@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Pump;
 use App\Models\Boilerplate\User;
+use App\Models\Pump;
 
 class PumpPolicy
 {

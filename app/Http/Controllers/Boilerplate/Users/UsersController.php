@@ -48,7 +48,6 @@ class UsersController
     /**
      * Store a newly created user in storage.
      *
-     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws ValidationException
@@ -56,9 +55,9 @@ class UsersController
     public function store(Request $request)
     {
         $this->validate($request, [
-            'last_name'  => 'required',
+            'last_name' => 'required',
             'first_name' => 'required',
-            'email'      => 'required|email|unique:users,email,NULL,id,deleted_at,NULL',
+            'email' => 'required|email|unique:users,email,NULL,id,deleted_at,NULL',
         ]);
 
         $input = $request->all();
@@ -90,7 +89,7 @@ class UsersController
         $user = $userModel::findOrFail($id);
 
         return view('boilerplate::users.edit', [
-            'user'  => $user,
+            'user' => $user,
             'roles' => Auth::user()->hasRole('admin') ? $role::all() : $role::whereNotIn('name', ['admin'])->get(),
         ]);
     }
@@ -99,8 +98,6 @@ class UsersController
      * Update the specified user in storage.
      *
      * @param  int  $id
-     * @param  Request  $request
-     * @return RedirectResponse
      *
      * @throws ValidationException
      */
@@ -110,9 +107,9 @@ class UsersController
         $user = $userModel::findOrFail($id);
 
         $this->validate($request, [
-            'last_name'  => 'required',
+            'last_name' => 'required',
             'first_name' => 'required',
-            'email'      => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,'.$id,
         ]);
 
         $user->update($request->all());
@@ -120,14 +117,13 @@ class UsersController
         $user->roles()->sync(array_keys($request->input('roles', [])));
 
         return redirect()->route('boilerplate.users.edit', $user)
-                         ->with('growl', [__('boilerplate::users.successmod'), 'success']);
+            ->with('growl', [__('boilerplate::users.successmod'), 'success']);
     }
 
     /**
      * Remove the specified user from storage.
      *
      * @param  int  $id
-     * @return JsonResponse
      */
     public function destroy($id): JsonResponse
     {
@@ -140,7 +136,6 @@ class UsersController
     /**
      * Show the form to set a new password on the first login.
      *
-     * @param  $token
      * @return Application|Factory|View
      */
     public function firstLogin($token)
@@ -159,7 +154,6 @@ class UsersController
     /**
      * Store a newly created password in storage after the first login.
      *
-     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws ValidationException
@@ -167,8 +161,8 @@ class UsersController
     public function firstLoginPost(Request $request)
     {
         $this->validate($request, [
-            'token'                 => 'required',
-            'password'              => ['required', 'confirmed', new Password()],
+            'token' => 'required',
+            'password' => ['required', 'confirmed', new Password],
         ]);
 
         $userModel = config('boilerplate.auth.providers.users.model');
@@ -182,7 +176,7 @@ class UsersController
         Auth::attempt(['email' => $user->email, 'password' => $request->input('password'), 'active' => 1]);
 
         return redirect()->route(config('boilerplate.app.redirectTo', 'boilerplate.dashboard'))
-                         ->with('growl', [__('boilerplate::users.newpassword'), 'success']);
+            ->with('growl', [__('boilerplate::users.newpassword'), 'success']);
     }
 
     /**
@@ -198,15 +192,14 @@ class UsersController
     /**
      * Post user profile.
      *
-     * @param  Request  $request
      * @return RedirectResponse
      */
     public function profilePost(Request $request)
     {
         $input = $request->validate([
-            'last_name'             => 'required',
-            'first_name'            => 'required',
-            'password'              => ['nullable', 'confirmed', new Password()],
+            'last_name' => 'required',
+            'first_name' => 'required',
+            'password' => ['nullable', 'confirmed', new Password],
         ]);
 
         if (! empty(trim($input['password']))) {
@@ -219,7 +212,7 @@ class UsersController
         $request->user()->update($input);
 
         return redirect()->route('boilerplate.user.profile')
-                         ->with('growl', [__('boilerplate::users.profile.successupdate'), 'success']);
+            ->with('growl', [__('boilerplate::users.profile.successupdate'), 'success']);
     }
 
     /**
@@ -245,7 +238,6 @@ class UsersController
     /**
      * Avatar upload post.
      *
-     * @param  Request  $request
      * @return JsonResponse
      */
     public function avatarUpload(Request $request)
@@ -298,8 +290,6 @@ class UsersController
 
     /**
      * Session keep-alive.
-     *
-     * @param  Request  $request
      */
     public function sessionKeepAlive(Request $request)
     {
@@ -312,7 +302,6 @@ class UsersController
     /**
      * Store setting for the current user.
      *
-     * @param  Request  $request
      * @return JsonResponse
      */
     public function storeSetting(Request $request)

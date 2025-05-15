@@ -43,7 +43,7 @@ class LoginController
         }
 
         return view('boilerplate::auth.login', [
-            'expired'  => $request->get('expired', false),
+            'expired' => $request->get('expired', false),
             'redirect' => $request->get('path', false),
         ]);
     }
@@ -51,7 +51,6 @@ class LoginController
     /**
      * Validate the user login request.
      *
-     * @param  Request  $request
      *
      * @throws ValidationException
      */
@@ -59,7 +58,7 @@ class LoginController
     {
         $this->validate($request, [
             $this->username() => 'required|exists:users,'.$this->username().',active,1',
-            'password'        => 'required',
+            'password' => 'required',
         ], [
             $this->username().'.exists' => __('auth.failed'),
         ]);
@@ -68,7 +67,6 @@ class LoginController
     /**
      * Send the response after the user was authenticated.
      *
-     * @param  Request  $request
      * @return RedirectResponse|JsonResponse|bool
      */
     protected function sendLoginResponse(Request $request)
@@ -91,8 +89,6 @@ class LoginController
     /**
      * The user has been authenticated.
      *
-     * @param  Request  $request
-     * @param  $user
      * @return bool
      */
     protected function authenticated(Request $request, $user)
@@ -109,7 +105,6 @@ class LoginController
     /**
      * Log the user out of the application.
      *
-     * @param  Request  $request
      * @return RedirectResponse|JsonResponse
      */
     public function logout(Request $request)

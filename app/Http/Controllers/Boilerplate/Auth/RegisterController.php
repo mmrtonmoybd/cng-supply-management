@@ -55,16 +55,15 @@ class RegisterController
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'last_name'  => 'required|max:255',
+            'last_name' => 'required|max:255',
             'first_name' => 'required|max:255',
-            'email'      => 'required|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
-            'password'   => ['required', 'confirmed', new Password()],
+            'email' => 'required|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
+            'password' => ['required', 'confirmed', new Password],
         ]);
     }
 
@@ -85,7 +84,6 @@ class RegisterController
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
      * @return mixed
      */
     protected function create(array $data)
@@ -98,11 +96,11 @@ class RegisterController
         $roleModel = config('laratrust.models.role');
 
         $user = $userModel::withTrashed()->updateOrCreate(['email' => $data['email']], [
-            'active'     => true,
+            'active' => true,
             'first_name' => $data['first_name'],
-            'last_name'  => $data['last_name'],
-            'email'      => $data['email'],
-            'password'   => bcrypt($data['password']),
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
             'last_login' => Carbon::now()->toDateTimeString(),
         ]);
 
@@ -135,7 +133,6 @@ class RegisterController
     /**
      * If e-mail has been verified, redirect to the given route.
      *
-     * @param  EmailVerificationRequest  $request
      * @return Application|RedirectResponse|Redirector
      */
     public function emailVerifyRequest(EmailVerificationRequest $request)
@@ -148,7 +145,6 @@ class RegisterController
     /**
      * Send verification e-mail.
      *
-     * @param  Request  $request
      * @return RedirectResponse
      */
     public function emailSendVerification(Request $request)

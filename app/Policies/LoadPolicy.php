@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\LoadEntry;
 use App\Models\Boilerplate\User;
+use App\Models\LoadEntry;
 
 class LoadPolicy
 {

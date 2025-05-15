@@ -43,7 +43,7 @@ class LoadentryDatatable extends Datatable
                 ->data('pump_name')
                 ->filterOptions(LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray())
                 ->filter(function ($query, $value) {
-                    return $query->where('pump_name', 'LIKE', '%' . $value. '%');
+                    return $query->where('pump_name', 'LIKE', '%'.$value.'%');
                 }),
 
             Column::add(__('M3'))

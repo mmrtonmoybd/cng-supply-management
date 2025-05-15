@@ -4,10 +4,10 @@ namespace App\Datatables;
 
 use App\Models\LoadEntry;
 use App\Models\Pump;
+use Illuminate\Database\Eloquent\Builder;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use Illuminate\Database\Eloquent\Builder;
 
 class PumpDatatable extends Datatable
 {
@@ -35,7 +35,7 @@ class PumpDatatable extends Datatable
             Column::add(__('Id'))
                 ->data('id')
                 ->name('pumps.id'),
-            
+
             Column::add('Load date')
                 ->data('loada.date')
                 ->dateFormat(__('boilerplate::date.Ymd'))
@@ -44,7 +44,7 @@ class PumpDatatable extends Datatable
                     $dates = explode(' - ', $value);
                     $dateRange = $dates[0];
                     [$startDate, $endDate] = explode('|', $dateRange);
-                    
+
                     return $query->whereHas('loada', function ($query) use ($startDate, $endDate) {
                         $query->whereBetween('date', [$startDate, $endDate]);
                     });
@@ -57,9 +57,9 @@ class PumpDatatable extends Datatable
                 ->data('loada.pump_name')
                 ->filterOptions(LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray())
                 ->filter(function ($query, $value) {
-                    //return $query->where('pump_name', 'LIKE', '%' . $value. '%');
+                    // return $query->where('pump_name', 'LIKE', '%' . $value. '%');
                     return $query->whereHas('loada', function ($query) use ($value) {
-                        $query->where('pump_name', 'LIKE', '%' . $value . '%');
+                        $query->where('pump_name', 'LIKE', '%'.$value.'%');
                     });
                 }),
 

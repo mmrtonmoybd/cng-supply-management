@@ -20,10 +20,10 @@ class DashboardController
     public function index()
     {
         $JSparams = json_encode([
-            'modal_route'   => route('boilerplate.dashboard.add-widget'),
-            'load_widget'   => route('boilerplate.dashboard.load-widget'),
-            'save_widgets'  => route('boilerplate.dashboard.save-widgets'),
-            'edit_widget'   => route('boilerplate.dashboard.edit-widget'),
+            'modal_route' => route('boilerplate.dashboard.add-widget'),
+            'load_widget' => route('boilerplate.dashboard.load-widget'),
+            'save_widgets' => route('boilerplate.dashboard.save-widgets'),
+            'edit_widget' => route('boilerplate.dashboard.edit-widget'),
             'update_widget' => route('boilerplate.dashboard.update-widget'),
         ]);
 
@@ -34,6 +34,7 @@ class DashboardController
 
             if ($widgetSlug === 'line-break') {
                 $widgets[] = '<div class="d-line-break"></div>';
+
                 continue;
             }
 
@@ -46,7 +47,7 @@ class DashboardController
             $widget->set($params)->make();
 
             $widgets[] = view('boilerplate::dashboard.widget', [
-                'widget'  => $widget,
+                'widget' => $widget,
                 'content' => $widget->render(),
             ])->render();
         }
@@ -57,7 +58,6 @@ class DashboardController
     /**
      * Show modal to add / remove a widget to the dashboard.
      *
-     * @param  Request  $request
      * @return Application|Factory|View|\Illuminate\Foundation\Application
      */
     public function addWidget(Request $request)
@@ -71,7 +71,6 @@ class DashboardController
     /**
      * Add a widget to the dashboard with a wrapper to allow editing.
      *
-     * @param  Request  $request
      * @return Application|Factory|View|\Illuminate\Foundation\Application
      */
     public function loadWidget(Request $request)
@@ -88,7 +87,6 @@ class DashboardController
     /**
      * Show modal to edit widget settings.
      *
-     * @param  Request  $request
      * @return Application|Factory|View|\Illuminate\Foundation\Application
      */
     public function editWidget(Request $request)
@@ -109,7 +107,6 @@ class DashboardController
     /**
      * Updates widget settings and saves them for the current user.
      *
-     * @param  Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function updateWidget(Request $request)
@@ -144,17 +141,16 @@ class DashboardController
         $widget->set($settings)->make();
 
         return response()->json([
-            'success'  => true,
-            'slug'     => $request->post('widget-slug'),
+            'success' => true,
+            'slug' => $request->post('widget-slug'),
             'settings' => json_encode($settings),
-            'widget'   => $widget->render(),
+            'widget' => $widget->render(),
         ]);
     }
 
     /**
      * Saves all dashboard widgets, will be used when moved, deleted, etc...
      *
-     * @param  Request  $request
      * @return void
      */
     public function saveWidgets(Request $request)
@@ -167,7 +163,6 @@ class DashboardController
     /**
      * Get widget from repository or show a 404 error page.
      *
-     * @param  $slug
      * @return mixed
      */
     private function getWidgetOrFail($slug)
@@ -198,7 +193,6 @@ class DashboardController
     /**
      * Get widget settings for the current user.
      *
-     * @param  $slug
      * @return array|mixed
      */
     private function getWidgetUserSettings($slug)
@@ -216,8 +210,6 @@ class DashboardController
     /**
      * Set widget settings for the current user.
      *
-     * @param  $slug
-     * @param  $settings
      * @return true
      */
     private function setWidgetUserSettings($slug, $settings)

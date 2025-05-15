@@ -115,6 +115,7 @@ class LoadEntryController extends Controller
     {
         Gate::authorize('viewAny', LoadEntry::class);
         $pumpNames = LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
+
         return view('backend.load.filter', compact('pumpNames'));
     }
 
@@ -129,22 +130,23 @@ class LoadEntryController extends Controller
             $query->where('pump_name', $request->pump_name);
         }
         if ($request->filled('car_no')) {
-            $query->where('vehicle_reg_number', 'like', '%' . $request->car_no . '%');
+            $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
         }
         if ($request->filled('date_range')) {
             $dates = explode(' - ', $request->date_range);
             if (count($dates) == 2) {
                 $query->whereBetween('date', [
                     date('Y-m-d', strtotime($dates[0])),
-                    date('Y-m-d', strtotime($dates[1]))
+                    date('Y-m-d', strtotime($dates[1])),
                 ]);
             }
         }
-        if ($request->filled('status') && in_array($request->status, ['0','1'])) {
+        if ($request->filled('status') && in_array($request->status, ['0', '1'])) {
             $query->where('status', $request->status);
         }
         $results = $query->orderBy('created_at', 'desc')->paginate(10);
         $pumpNames = LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
+
         return view('backend.load.filter', compact('results', 'pumpNames'));
     }
 }

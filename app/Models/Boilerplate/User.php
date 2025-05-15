@@ -2,6 +2,12 @@
 
 namespace App\Models\Boilerplate;
 
+use App\Events\Boilerplate\UserCreated;
+use App\Events\Boilerplate\UserDeleted;
+use App\Events\Boilerplate\UserSaved;
+use App\Notifications\Boilerplate\NewUser;
+use App\Notifications\Boilerplate\ResetPassword;
+use App\Notifications\Boilerplate\VerifyEmail;
 use Carbon\Carbon;
 use Creativeorange\Gravatar\Facades\Gravatar;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -10,17 +16,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
-use App\Events\Boilerplate\UserCreated;
-use App\Events\Boilerplate\UserDeleted;
-use App\Events\Boilerplate\UserSaved;
-use App\Notifications\Boilerplate\NewUser;
-use App\Notifications\Boilerplate\ResetPassword;
-use App\Notifications\Boilerplate\VerifyEmail;
 
-class User extends Authenticatable implements MustVerifyEmail, LaratrustUser
+class User extends Authenticatable implements LaratrustUser, MustVerifyEmail
 {
-    use Notifiable;
     use HasRolesAndPermissions;
+    use Notifiable;
     use SoftDeletes;
 
     protected $casts = ['settings' => 'array'];
@@ -41,7 +41,7 @@ class User extends Authenticatable implements MustVerifyEmail, LaratrustUser
     protected $dispatchesEvents = [
         'created' => UserCreated::class,
         'deleted' => UserDeleted::class,
-        'saved'   => UserSaved::class,
+        'saved' => UserSaved::class,
     ];
 
     public static function boot()
@@ -58,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail, LaratrustUser
     public function sendEmailVerificationNotification()
     {
         if (config('boilerplate.auth.verify_email')) {
-            $this->notify(new VerifyEmail());
+            $this->notify(new VerifyEmail);
         }
     }
 
@@ -86,7 +86,6 @@ class User extends Authenticatable implements MustVerifyEmail, LaratrustUser
     /**
      * Return last name in uppercase by default.
      *
-     * @param  $value
      * @return string
      */
     public function getLastNameAttribute($value)
@@ -97,7 +96,6 @@ class User extends Authenticatable implements MustVerifyEmail, LaratrustUser
     /**
      * Return first name with first char of every word in uppercase.
      *
-     * @param  $value
      * @return string
      */
     public function getFirstNameAttribute($value)
@@ -193,9 +191,9 @@ class User extends Authenticatable implements MustVerifyEmail, LaratrustUser
 
         return 'https://ui-avatars.com/api/?'.http_build_query([
             'background' => 'F0F0F0',
-            'color'      => '333',
-            'size'       => 170,
-            'name'       => $this->getNameAttribute(),
+            'color' => '333',
+            'size' => 170,
+            'name' => $this->getNameAttribute(),
         ]);
     }
 

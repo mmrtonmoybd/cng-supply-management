@@ -14,7 +14,7 @@ class ResetPassword extends \Illuminate\Auth\Notifications\ResetPassword
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage())
+        return (new MailMessage)
             ->markdown('boilerplate::notifications.email')
             ->greeting(__('boilerplate::notifications.greeting', ['firstname' => $notifiable->first_name]))
             ->subject(__('boilerplate::notifications.resetpassword.subject'))
