@@ -49,6 +49,13 @@ Route::group($default, function () {
     Route::get('load-filter', [App\Http\Controllers\Backend\Load\LoadEntryController::class, 'filter'])->name('load.filter');
     Route::get('load-filter/show', [App\Http\Controllers\Backend\Load\LoadEntryController::class, 'showFilter'])->name('load.showFilter');
 
+    Route::group(['prefix' => 'factory', 'as' => 'factory.'], function () {
+        Route::resource('dispansar', App\Http\Controllers\Backend\Factory\DispansarController::class)->names('dispansar');
+        Route::get('dispansar/load-entry-select2', [App\Http\Controllers\Backend\Factory\DispansarController::class, 'loadEntrySelect2'])->name('dispansar.loadEntrySelect2');
+        Route::get('dispansar-filter', [App\Http\Controllers\Backend\Factory\DispansarController::class, 'filter'])->name('dispansar.filter');
+        Route::get('dispansar-filter/show', [App\Http\Controllers\Backend\Factory\DispansarController::class, 'showFilter'])->name('dispansar.showFilter');
+    });
+
 });
 
 Route::get('test', App\Http\Controllers\Test::class.'@index')->name('test.index');

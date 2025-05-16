@@ -57,4 +57,13 @@ class LoadEntry extends Model
     {
         return $this->hasOne(Pump::class);
     }
+
+    public function scopeLocalScopeName($query, $q)
+    {
+    $query->selectRaw('id as select2_id, CONCAT("Car no: ", vehicle_reg_number, ", Pump name: ", pump_name, " & Date: ", date) as select2_text')
+          ->where('vehicle_reg_number', 'like', "$q%")
+          ->orWhere('pump_name', 'like', "$q%")
+          ->where('status', 0)
+          ->orderBy('select2_id', 'ASC');
+   }
 }

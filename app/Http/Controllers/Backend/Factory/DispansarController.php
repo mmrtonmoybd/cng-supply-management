@@ -1,0 +1,202 @@
+<?php
+
+namespace App\Http\Controllers\Backend\Factory;
+
+use App\Http\Controllers\Controller;
+use App\Models\Dispansar;
+use App\Models\LoadEntry;
+use Illuminate\Http\Request;
+
+class DispansarController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        return view('backend.factory.dispansar.list');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        return view('backend.factory.dispansar.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'load_entry_id' => 'required|integer|exists:load_entries,id',
+            'bill_no' => 'nullable|numeric',
+            'bill_date' => 'nullable|date',
+            'opening_reading' => 'nullable|numeric',
+            'closing_reading' => 'nullable|numeric',
+            'rate' => 'numeric|required',
+            'in' => 'nullable|numeric',
+            'out' => 'nullable|numeric',
+            'cash_receipt_date' => 'nullable|date',
+            'cash_receipt_amount' => 'nullable|numeric',
+            'recived_by' => 'nullable|string|max:255',
+            'remarks' => 'nullable|string|max:1000',
+        ]);
+
+        $data = [];
+
+        $data['total_reading'] = $request->input('closing_reading') - $request->input('opening_reading');
+        $data['bill_amount'] = $request->input('rate') * $data['total_reading'];
+
+        $load = LoadEntry::find($request->input('load_entry_id'));
+        $data['difference_m3'] = $data['total_reading'] - $load->cng_purchase_m3;
+        $data['difference_taka'] = $data['bill_amount'] - $load->purchase_taka;
+        $data['balance'] = $request->input('cash_receipt_amount') - $data['bill_amount'];
+
+        // Correctly merge $validated and $data
+        $finalData = array_merge($validated, $data);
+
+        //dd($finalData);
+
+        Dispansar::create($finalData);
+        $load->status = 1;
+        $load->save();
+
+        return redirect()->route('backend.factory.dispansar.index')
+            ->with('growl', ['Factory Dispenser created successfully.', 'success']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Dispansar $dispansar)
+    {
+        return view('backend.factory.dispansar.show', compact('dispansar'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Dispansar $dispansar)
+    {
+        return view('backend.factory.dispansar.edit', compact('dispansar'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Dispansar $dispansar)
+    {
+        $validated = $request->validate([
+            'load_entry_id' => 'required|integer|exists:load_entries,id',
+            'bill_no' => 'nullable|numeric',
+            'bill_date' => 'nullable|date',
+            'opening_reading' => 'nullable|numeric',
+            'closing_reading' => 'nullable|numeric',
+            'rate' => 'numeric|required',
+            'in' => 'nullable|numeric',
+            'out' => 'nullable|numeric',
+            'cash_receipt_date' => 'nullable|date',
+            'cash_receipt_amount' => 'nullable|numeric',
+            'recived_by' => 'nullable|string|max:255',
+            'remarks' => 'nullable|string|max:1000',
+        ]);
+
+        $data = [];
+        $data['total_reading'] = $request->input('closing_reading') - $request->input('opening_reading');
+        $data['bill_amount'] = $request->input('rate') * $data['total_reading'];
+        $load = \App\Models\LoadEntry::find($request->input('load_entry_id'));
+        $data['difference_m3'] = $data['total_reading'] - $load->cng_purchase_m3;
+        $data['difference_taka'] = $data['bill_amount'] - $load->purchase_taka;
+        $data['balance'] = $request->input('cash_receipt_amount') - $data['bill_amount'];
+        $finalData = array_merge($validated, $data);
+        $load_old = \App\Models\LoadEntry::find($dispansar->load_entry_id);
+        $load_old->status = 0;
+        $load_old->save();
+        $dispansar->update($finalData);
+        $load->status = 1;
+        $load->save();
+        return redirect()->route('backend.factory.dispansar.index')
+            ->with('growl', ['Factory Dispenser updated successfully.', 'success']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Dispansar $dispansar)
+    {
+        $load = \App\Models\LoadEntry::find($dispansar->load_entry_id);
+        $load->status = 0;
+        $load->save();
+        return response()->json(['success' => $dispansar->delete() ?? false]);
+    }
+
+    /**
+     * AJAX for LoadEntry select2 in Dispenser create/edit
+     */
+    public function loadEntrySelect2(Request $request)
+    {
+        $search = $request->input('q');
+        $query = \App\Models\LoadEntry::query();
+        if ($search) {
+            $query->where(function($q) use ($search) {
+                $q->where('vehicle_reg_number', 'like', "%$search%")
+                  ->orWhere('pump_name', 'like', "%$search%")
+                  ->orWhere('date', 'like', "%$search%")
+                  ->orWhere('id', $search);
+            });
+        }
+        $results = $query->orderByDesc('id')->limit(20)->get();
+        $data = $results->map(function($item) {
+            return [
+                'id' => $item->id,
+                'text' => 'Car no: ' . $item->vehicle_reg_number . ', Pump name: ' . $item->pump_name . ' & Date: ' . $item->date,
+            ];
+        });
+        return response()->json(['results' => $data]);
+    }
+
+    /**
+     * Show the filter form for Dispenser
+     */
+    public function filter()
+    {
+        $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
+        return view('backend.factory.dispansar.filter', compact('pumpNames'));
+    }
+
+    /**
+     * Show filtered results for Dispenser
+     */
+    public function showFilter(Request $request)
+    {
+        $query = Dispansar::with('loada');
+        if ($request->filled('pump_name')) {
+            $query->whereHas('loada', function ($q) use ($request) {
+                $q->where('pump_name', $request->pump_name);
+            });
+        }
+        if ($request->filled('car_no')) {
+            $query->whereHas('loada', function ($q) use ($request) {
+                $q->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
+            });
+        }
+        if ($request->filled('date_range')) {
+            $dates = explode(' - ', $request->date_range);
+            if (count($dates) == 2) {
+                $query->whereHas('loada', function ($q) use ($dates) {
+                    $q->whereBetween('date', [
+                        date('Y-m-d', strtotime($dates[0])),
+                        date('Y-m-d', strtotime($dates[1])),
+                    ]);
+                });
+            }
+        }
+        $results = $query->orderBy('created_at', 'desc')->paginate(10);
+        $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
+        return view('backend.factory.dispansar.filter', compact('results', 'pumpNames'));
+    }
+
+}
