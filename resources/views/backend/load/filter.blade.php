@@ -94,7 +94,9 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="3" class="text-right">Total</th>
+                        <th></th>
+                        <th></th>
+                        <th class="text-right">Total</th>
                         <th>{{ $totalM3 }}</th>
                         <th></th>
                         <th>{{ $totalPurchaseTaka }}</th>
@@ -118,12 +120,21 @@
 
 @push('css')
 <link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
 @endpush
 
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script>
 $(document).ready(function() {
     $('#pump_name').select2({
@@ -149,6 +160,40 @@ $(document).ready(function() {
     });
     $('#date_range').on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
+    });
+
+    // DataTable export buttons
+    var now = new Date();
+    var dateStr = now.getFullYear() + '-' + (now.getMonth()+1).toString().padStart(2, '0') + '-' + now.getDate().toString().padStart(2, '0') + '_' + now.getHours().toString().padStart(2, '0') + now.getMinutes().toString().padStart(2, '0') + now.getSeconds().toString().padStart(2, '0');
+    var fileName = 'load-filter-' + dateStr;
+    var table = $('.table.table-bordered').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                title: 'Load Filter Results',
+                filename: fileName,
+                exportOptions: { columns: ':visible' },
+                footer: true
+            },
+            {
+                extend: 'pdfHtml5',
+                title: 'Load Filter Results',
+                filename: fileName,
+                exportOptions: { columns: ':visible' },
+                footer: true
+            },
+            {
+                extend: 'print',
+                title: 'Load Filter Results',
+                exportOptions: { columns: ':visible' },
+                footer: true
+            }
+        ],
+        paging: false,
+        searching: false,
+        ordering: false,
+        info: false
     });
 });
 </script>
