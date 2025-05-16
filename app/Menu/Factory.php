@@ -11,7 +11,7 @@ class Factory implements MenuItemInterface
     {
         $item = $menu->add('Factory', [
             'permission' => 'backend',
-            'active' => 'boilerplate.dashboard',
+            'active' => 'backend.factory.*',
             'icon' => 'fas fa-industry',
             'order' => 120,
         ]);

@@ -37,6 +37,7 @@
                         </div>
                     </div>
                     @component('boilerplate::input', ['name' => 'email', 'label' => 'boilerplate::users.email', 'help' => 'boilerplate::users.create.help'])@endcomponent
+                    @component('boilerplate::input', ['name' => 'employee_id', 'label' => 'Employee Id', 'help' => 'boilerplate::users.create.help'])@endcomponent
                 @endcomponent
             </div>
             <div class="col-lg-6">

@@ -30,6 +30,7 @@ class User extends Authenticatable implements LaratrustUser, MustVerifyEmail
         'last_name',
         'first_name',
         'email',
+        'employee_id',
         'password',
         'remember_token',
         'last_login',

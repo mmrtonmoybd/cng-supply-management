@@ -5,6 +5,7 @@ return [
         'last_name'         => 'Last name',
         'first_name'        => 'First name',
         'email'             => 'E-mail',
+        'employee_id'       => 'Employee ID',
         'password'          => 'Password',
         'password_confirm'  => 'Password confirmation',
     ],

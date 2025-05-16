@@ -32,6 +32,7 @@
                             <span class="info-box-more">
                                 <p class="text-muted">
                                     <span class="far fa-fw fa-envelope"></span> {{ $user->email }}
+                                    <span class="fas fa-user-tie"></span> {{ $user->employee_id }}
                                 </p>
                                 <p class="mb-0 text-muted">
                                     {{ __('boilerplate::users.profile.subscribedsince', [

@@ -60,6 +60,7 @@
                         @endif
                         <div class="col-md-6">
                             @component('boilerplate::input', ['name' => 'email', 'label' => 'boilerplate::users.email', 'value' => $user->email])@endcomponent
+                            @component('boilerplate::input', ['name' => 'employee_id', 'label' => 'Employee Id', 'value' => $user->employee_id])@endcomponent
                         </div>
                     </div>
                     <div class="row">

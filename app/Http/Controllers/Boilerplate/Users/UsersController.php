@@ -58,6 +58,7 @@ class UsersController
             'last_name' => 'required',
             'first_name' => 'required',
             'email' => 'required|email|unique:users,email,NULL,id,deleted_at,NULL',
+            'employee_id' => 'required|unique:users,employee_id,NULL,id,deleted_at,NULL',
         ]);
 
         $input = $request->all();
@@ -110,6 +111,7 @@ class UsersController
             'last_name' => 'required',
             'first_name' => 'required',
             'email' => 'required|email|unique:users,email,'.$id,
+            'employee_id' => 'required|unique:users,employee_id,'.$id,
         ]);
 
         $user->update($request->all());
@@ -173,7 +175,7 @@ class UsersController
         $user->last_login = Carbon::now()->toDateTimeString();
         $user->save();
 
-        Auth::attempt(['email' => $user->email, 'password' => $request->input('password'), 'active' => 1]);
+        Auth::attempt(['email' => $user->employee_id, 'password' => $request->input('password'), 'active' => 1]);
 
         return redirect()->route(config('boilerplate.app.redirectTo', 'boilerplate.dashboard'))
             ->with('growl', [__('boilerplate::users.newpassword'), 'success']);

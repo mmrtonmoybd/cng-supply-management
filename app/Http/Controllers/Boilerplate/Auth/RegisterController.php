@@ -63,6 +63,7 @@ class RegisterController
             'last_name' => 'required|max:255',
             'first_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
+            'employee_id' => 'required|max:255|unique:users,employee_id,NULL,id,deleted_at,NULL',
             'password' => ['required', 'confirmed', new Password],
         ]);
     }
@@ -100,6 +101,7 @@ class RegisterController
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
+            'employee_id' => $data['employee_id'],
             'password' => bcrypt($data['password']),
             'last_login' => Carbon::now()->toDateTimeString(),
         ]);

@@ -48,6 +48,11 @@ class LoginController
         ]);
     }
 
+    public function username()
+    {
+        return 'employee_id';
+    }
+
     /**
      * Validate the user login request.
      *
