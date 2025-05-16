@@ -3,10 +3,10 @@
 namespace App\Datatables;
 
 use App\Models\Dispansar;
+use App\Models\LoadEntry;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\LoadEntry;
 
 class DispansarDatatable extends Datatable
 {
@@ -23,7 +23,7 @@ class DispansarDatatable extends Datatable
             ->buttons('filters', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
             ->permissions('pump_index')
-            ->setRowId('id');;
+            ->setRowId('id');
     }
 
     public function columns(): array
@@ -75,7 +75,7 @@ class DispansarDatatable extends Datatable
             Column::add(__('Bill Date'))
                 ->width('180px')
                 ->data('bill_date')
-                ->dateFormat(__("boilerplate::date.Ymd")),
+                ->dateFormat(__('boilerplate::date.Ymd')),
 
             Column::add(__('Opening Reading'))
                 ->data('opening_reading'),
@@ -107,7 +107,7 @@ class DispansarDatatable extends Datatable
             Column::add(__('Cash Receipt Date'))
                 ->width('180px')
                 ->data('cash_receipt_date')
-                ->dateFormat(__("boilerplate::date.Ymd")),
+                ->dateFormat(__('boilerplate::date.Ymd')),
 
             Column::add(__('Cash Receipt Amount'))
                 ->data('cash_receipt_amount'),
@@ -124,10 +124,10 @@ class DispansarDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (Dispansar $dispansar) {
-                    return join([
-                         Button::show('backend.factory.dispansar.show', $dispansar),
-                         Button::edit('backend.factory.dispansar.edit', $dispansar),
-                         Button::delete('backend.factory.dispansar.destroy', $dispansar),
+                    return implode([
+                        Button::show('backend.factory.dispansar.show', $dispansar),
+                        Button::edit('backend.factory.dispansar.edit', $dispansar),
+                        Button::delete('backend.factory.dispansar.destroy', $dispansar),
                     ]);
                 }),
         ];

@@ -58,7 +58,7 @@ class DispansarController extends Controller
         // Correctly merge $validated and $data
         $finalData = array_merge($validated, $data);
 
-        //dd($finalData);
+        // dd($finalData);
 
         Dispansar::create($finalData);
         $load->status = 1;
@@ -118,6 +118,7 @@ class DispansarController extends Controller
         $dispansar->update($finalData);
         $load->status = 1;
         $load->save();
+
         return redirect()->route('backend.factory.dispansar.index')
             ->with('growl', ['Factory Dispenser updated successfully.', 'success']);
     }
@@ -130,6 +131,7 @@ class DispansarController extends Controller
         $load = \App\Models\LoadEntry::find($dispansar->load_entry_id);
         $load->status = 0;
         $load->save();
+
         return response()->json(['success' => $dispansar->delete() ?? false]);
     }
 
@@ -141,20 +143,21 @@ class DispansarController extends Controller
         $search = $request->input('q');
         $query = \App\Models\LoadEntry::query();
         if ($search) {
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('vehicle_reg_number', 'like', "%$search%")
-                  ->orWhere('pump_name', 'like', "%$search%")
-                  ->orWhere('date', 'like', "%$search%")
-                  ->orWhere('id', $search);
+                    ->orWhere('pump_name', 'like', "%$search%")
+                    ->orWhere('date', 'like', "%$search%")
+                    ->orWhere('id', $search);
             });
         }
         $results = $query->orderByDesc('id')->limit(20)->get();
-        $data = $results->map(function($item) {
+        $data = $results->map(function ($item) {
             return [
                 'id' => $item->id,
-                'text' => 'Car no: ' . $item->vehicle_reg_number . ', Pump name: ' . $item->pump_name . ' & Date: ' . $item->date,
+                'text' => 'Car no: '.$item->vehicle_reg_number.', Pump name: '.$item->pump_name.' & Date: '.$item->date,
             ];
         });
+
         return response()->json(['results' => $data]);
     }
 
@@ -164,6 +167,7 @@ class DispansarController extends Controller
     public function filter()
     {
         $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
+
         return view('backend.factory.dispansar.filter', compact('pumpNames'));
     }
 
@@ -196,7 +200,7 @@ class DispansarController extends Controller
         }
         $results = $query->orderBy('created_at', 'desc')->paginate(10);
         $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
+
         return view('backend.factory.dispansar.filter', compact('results', 'pumpNames'));
     }
-
 }
