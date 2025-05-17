@@ -104,10 +104,10 @@ class WeightoneDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (WeightOne $weightone) {
-                    return join([
-                         Button::show('backend.factory.weightone.show', $weightone),
-                         Button::edit('backend.factory.weightone.edit', $weightone),
-                         Button::delete('backend.factory.weightone.destroy', $weightone),
+                    return implode([
+                        Button::show('backend.factory.weightone.show', $weightone),
+                        Button::edit('backend.factory.weightone.edit', $weightone),
+                        Button::delete('backend.factory.weightone.destroy', $weightone),
                     ]);
                 }),
         ];

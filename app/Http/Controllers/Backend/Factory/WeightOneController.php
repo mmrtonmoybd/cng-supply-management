@@ -22,6 +22,7 @@ class WeightOneController extends Controller
     public function create()
     {
         $loadOptions = \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
+
         return view('backend.factory.weightone.create', compact('loadOptions'));
     }
 
@@ -78,7 +79,7 @@ class WeightOneController extends Controller
         }
 
         $data['total_weight'] = $request->input('first_weight') - $request->input('second_weight');
-        //$data['bill_amount'] = $request->input('rate') * $data['total_weight'];
+        // $data['bill_amount'] = $request->input('rate') * $data['total_weight'];
         $data['difference_taka'] = $request->input('ftk') - $purchase_taka;
         $data['balance'] = $request->input('cash_receipt_amount') - $request->input('bill_amount');
 
@@ -109,6 +110,7 @@ class WeightOneController extends Controller
     public function edit(WeightOne $weightone)
     {
         $loadOptions = \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
+
         return view('backend.factory.weightone.edit', [
             'weightone' => $weightone,
             'loadOptions' => $loadOptions,
@@ -168,14 +170,14 @@ class WeightOneController extends Controller
         }
 
         $data['total_weight'] = $request->input('first_weight') - $request->input('second_weight');
-        //$data['bill_amount'] = $request->input('rate') * $data['total_weight'];
+        // $data['bill_amount'] = $request->input('rate') * $data['total_weight'];
         $data['difference_taka'] = $request->input('ftk') - $purchase_taka;
         $data['balance'] = $request->input('cash_receipt_amount') - $request->input('bill_amount');
 
         $finalData = array_merge($validated, $data);
 
         // If previous load_entry_id exists, set its status back to 0
-        if (!empty($weightone->load_entry_id)) {
+        if (! empty($weightone->load_entry_id)) {
             $oldLoad = \App\Models\LoadEntry::find($weightone->load_entry_id);
             if ($oldLoad) {
                 $oldLoad->status = 0;
@@ -212,6 +214,7 @@ class WeightOneController extends Controller
     public function filter()
     {
         $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
+
         return view('backend.factory.weightone.filter', compact('pumpNames'));
     }
 
@@ -238,6 +241,7 @@ class WeightOneController extends Controller
         }
         $results = $query->orderBy('created_at', 'desc')->get();
         $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
+
         return view('backend.factory.weightone.filter', compact('results', 'pumpNames'));
     }
 }
