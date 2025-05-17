@@ -14,7 +14,7 @@ class DispansarDatatable extends Datatable
 
     public function datasource()
     {
-        return Dispansar::with('loada')->select('*');
+        return Dispansar::query();
     }
 
     public function setUp()
@@ -33,10 +33,11 @@ class DispansarDatatable extends Datatable
                 ->data('id')
                 ->name('dispansars.id'),
 
-            Column::add('Load date')
-                ->data('loada.date')
+            Column::add('Date')
+                ->data('date')
                 ->dateFormat(__('boilerplate::date.Ymd'))
-                ->filterType('daterangepicker')
+                ->filterType('daterangepicker'),
+                /*
                 ->filter(function (Builder $query, $value) {
                     $dates = explode(' - ', $value);
                     $dateRange = $dates[0];
@@ -45,29 +46,27 @@ class DispansarDatatable extends Datatable
                     return $query->whereHas('loada', function ($query) use ($startDate, $endDate) {
                         $query->whereBetween('date', [$startDate, $endDate]);
                     });
-                }),
+                }), 
+                */
 
             Column::add('Car no')
-                ->data('loada.vehicle_reg_number'),
+                ->data('vehicle_reg_number'),
 
             Column::add('Pump Name')
-                ->data('loada.pump_name')
+                ->data('pump_name')
                 ->filterOptions(LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray())
                 ->filter(function ($query, $value) {
-                    // return $query->where('pump_name', 'LIKE', '%' . $value. '%');
-                    return $query->whereHas('loada', function ($query) use ($value) {
-                        $query->where('pump_name', 'LIKE', '%'.$value.'%');
-                    });
+                    return $query->where('pump_name', 'LIKE', '%'.$value.'%');
                 }),
 
             Column::add('M3')
-                ->data('loada.cng_purchase_m3'),
+                ->data('cng_purchase_m3'),
 
             Column::add('Rate')
-                ->data('loada.rate'),
+                ->data('rate'),
 
             Column::add('Purchase Taka')
-                ->data('loada.purchase_taka'),
+                ->data('purchase_taka'),
 
             Column::add(__('Bill No'))
                 ->data('bill_no'),

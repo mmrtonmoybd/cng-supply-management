@@ -24,6 +24,12 @@ class Dispansar extends Model
         'balance',
         'recived_by',
         'remarks',
+        'date',
+        'vehicle_reg_number',
+        'pump_name',
+        'cng_purchase_m3',
+        'lrate',
+        'purchase_taka',
     ];
 
     public function loada()

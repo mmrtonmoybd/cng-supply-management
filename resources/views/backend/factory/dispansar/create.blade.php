@@ -31,8 +31,8 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="load_entry_id">Load ID</label>
-                <select name="load_entry_id" id="load_entry_id" class="form-control select2" required>
-                    <option value="">Select Load</option>
+                <select name="load_entry_id" id="load_entry_id" class="form-control select2">
+                    <option value="">No Load select</option>
                     @foreach($loadOptions as $load)
                         <option value="{{ $load->id }}" {{ old('load_entry_id') == $load->id ? 'selected' : '' }}>
                             Car no: {{ $load->vehicle_reg_number }}, Pump name: {{ $load->pump_name }} & Date: {{ $load->date }}
@@ -74,6 +74,38 @@
         <div class="col-md-12">
             <x-boilerplate::input name="remarks" label="Remarks" :value="old('remarks')" placeholder="Remarks" />
         </div>
+        <h2 class="col-md-12 mt-4"><font color="red">Manual third party input(This input field will be use if no Load ID is selected, otherwise ignore.)</font></h2>
+        
+        <div class="col-md-4">
+            <x-boilerplate::input name="date" label="Date" type="date" :value="old('date')" placeholder="Date" />
+        </div>
+        <div class="col-md-4">
+            <x-boilerplate::input name="vehicle_reg_number" label="Car No" :value="old('vehicle_reg_number')" placeholder="Car No" />
+        </div>
+        <div class="col-md-4">
+            @php
+                $pumpOptions = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray();
+            @endphp
+            <select name="pump_name" id="pump_name" class="form-control select2-pump">
+                <option value="">Select Pump Name</option>
+                @foreach ($pumpOptions as $key => $value)
+                    <option value="{{ $key }}" @if (old('pump_name') == $key) selected @endif>{{ $value }}</option>
+                @endforeach
+                @if(old('pump_name') && !array_key_exists(old('pump_name'), $pumpOptions))
+                    <option value="{{ old('pump_name') }}" selected>{{ old('pump_name') }}</option>
+                @endif
+            </select>
+        </div>
+        <div class="col-md-4">
+            <x-boilerplate::input name="cng_purchase_m3" label="M3" type="number" step="0.01" :value="old('cng_purchase_m3')" placeholder="M3" />
+        </div>
+        <div class="col-md-4">
+            <x-boilerplate::input name="lrate" label="Rate" type="number" step="0.01" :value="old('lrate')" placeholder="Rate" />
+        </div>
+        <div class="col-md-4">
+            <x-boilerplate::input name="purchase_taka" label="Purchase Taka" type="number" step="0.01" :value="old('purchase_taka')" placeholder="Purchase Taka" />
+        </div>
+
     </div>
 </x-boilerplate::card>
         </div>

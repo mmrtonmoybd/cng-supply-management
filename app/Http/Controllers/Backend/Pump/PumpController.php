@@ -168,7 +168,7 @@ class PumpController extends Controller
             }
         }
 
-        $results = $query->orderBy('created_at', 'desc')->paginate(10);
+        $results = $query->orderBy('created_at', 'desc')->get();
 
         // Get unique pump names for the dropdown
         $pumpNames = Pump::join('load_entries', 'pumps.load_entry_id', '=', 'load_entries.id')

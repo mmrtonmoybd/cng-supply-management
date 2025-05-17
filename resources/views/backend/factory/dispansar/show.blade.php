@@ -17,12 +17,12 @@
             <h4 class="mb-4">Dispenser Information</h4>
             <table class="table table-bordered table-striped">
                 <tbody>
-                    <tr><th>Load Date</th><td>{{ optional($dispansar->loada)->date }}</td></tr>
-                    <tr><th>Car No</th><td>{{ optional($dispansar->loada)->vehicle_reg_number }}</td></tr>
-                    <tr><th>Pump Name</th><td>{{ optional($dispansar->loada)->pump_name }}</td></tr>
-                    <tr><th>M3</th><td>{{ optional($dispansar->loada)->cng_purchase_m3 }}</td></tr>
-                    <tr><th>Rate</th><td>{{ optional($dispansar->loada)->rate }}</td></tr>
-                    <tr><th>Purchase Taka</th><td>{{ optional($dispansar->loada)->purchase_taka }}</td></tr>
+                    <tr><th>Load Date</th><td>{{ $dispansar->date }}</td></tr>
+                    <tr><th>Car No</th><td>{{ $dispansar->vehicle_reg_number }}</td></tr>
+                    <tr><th>Pump Name</th><td>{{ $dispansar->pump_name }}</td></tr>
+                    <tr><th>M3</th><td>{{ $dispansar->cng_purchase_m3 }}</td></tr>
+                    <tr><th>Rate</th><td>{{ $dispansar->rate }}</td></tr>
+                    <tr><th>Purchase Taka</th><td>{{ $dispansar->purchase_taka }}</td></tr>
                     <tr><th>Bill No</th><td>{{ $dispansar->bill_no }}</td></tr>
                     <tr><th>Bill Date</th><td>{{ $dispansar->bill_date }}</td></tr>
                     <tr><th>Opening Reading</th><td>{{ $dispansar->opening_reading }}</td></tr>

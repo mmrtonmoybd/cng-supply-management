@@ -75,8 +75,8 @@
                     @endphp
                     @foreach($results as $dispansar)
                         @php
-                            $sumM3 += $dispansar->loada->cng_purchase_m3 ?? 0;
-                            $sumPurchaseTaka += $dispansar->loada->purchase_taka ?? 0;
+                            $sumM3 += $dispansar->cng_purchase_m3 ?? 0;
+                            $sumPurchaseTaka += $dispansar->purchase_taka ?? 0;
                             $sumOpening += $dispansar->opening_reading ?? 0;
                             $sumClosing += $dispansar->closing_reading ?? 0;
                             $sumTotal += $dispansar->total_reading ?? 0;
@@ -87,12 +87,12 @@
                             $sumBalance += $dispansar->balance ?? 0;
                         @endphp
                         <tr>
-                            <td>{{ optional($dispansar->loada)->date }}</td>
-                            <td>{{ optional($dispansar->loada)->vehicle_reg_number }}</td>
-                            <td>{{ optional($dispansar->loada)->pump_name }}</td>
-                            <td>{{ optional($dispansar->loada)->cng_purchase_m3 }}</td>
-                            <td>{{ optional($dispansar->loada)->rate }}</td>
-                            <td>{{ optional($dispansar->loada)->purchase_taka }}</td>
+                            <td>{{ $dispansar->date }}</td>
+                            <td>{{ $dispansar->vehicle_reg_number }}</td>
+                            <td>{{ $dispansar->pump_name }}</td>
+                            <td>{{ $dispansar->cng_purchase_m3 }}</td>
+                            <td>{{ $dispansar->rate }}</td>
+                            <td>{{ $dispansar->purchase_taka }}</td>
                             <td>{{ $dispansar->bill_no }}</td>
                             <td>{{ $dispansar->bill_date }}</td>
                             <td>{{ $dispansar->opening_reading }}</td>
@@ -139,11 +139,7 @@
                     </tr>
                 </tfoot>
             </table>
-            @if(method_exists($results, 'links'))
-                <div class="d-flex justify-content-center mt-3">
-                    {{ $results->appends(request()->query())->links() }}
-                </div>
-            @endif
+            
         </div>
     @elseif(isset($results))
         <div class="alert alert-info mt-4">

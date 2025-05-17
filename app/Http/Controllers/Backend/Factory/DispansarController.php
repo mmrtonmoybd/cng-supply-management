@@ -31,7 +31,7 @@ class DispansarController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'load_entry_id' => 'required|integer|exists:load_entries,id',
+            'load_entry_id' => 'nullable|integer|exists:load_entries,id',
             'bill_no' => 'nullable|numeric',
             'bill_date' => 'nullable|date',
             'opening_reading' => 'nullable|numeric',
@@ -43,16 +43,45 @@ class DispansarController extends Controller
             'cash_receipt_amount' => 'nullable|numeric',
             'recived_by' => 'nullable|string|max:255',
             'remarks' => 'nullable|string|max:1000',
+            'vehicle_reg_number' => 'nullable|string|max:255',
+            'pump_name' => 'nullable|string|max:255',
+            'cng_purchase_m3' => 'nullable|numeric|min:0',
+            'lrate' => 'nullable|numeric|min:0',
+            'purchase_taka' => 'nullable|numeric|min:0',
+            'date' => 'nullable|date',
         ]);
 
         $data = [];
 
+        if ($request->filled('load_entry_id')) {
+            $load = LoadEntry::find($request->input('load_entry_id'));
+            $cng_purchase_m3 = $load->cng_purchase_m3;
+            $purchase_taka = $load->purchase_taka;
+
+            $data['date'] = $load->date;
+            $data['vehicle_reg_number'] = $load->vehicle_reg_number;
+            $data['pump_name'] = $load->pump_name;
+            $data['lrate'] = $load->rate;
+            $data['cng_purchase_m3'] = $load->cng_purchase_m3;
+            $data['purchase_taka'] = $load->purchase_taka;
+        } else {
+            $cng_purchase_m3 = $request->input('cng_purchase_m3');
+            $purchase_taka = $request->input('purchase_taka');
+
+            $data['date'] = $request->input('date');
+            $data['vehicle_reg_number'] = $request->input('vehicle_reg_number');
+            $data['pump_name'] = $request->input('pump_name');
+            $data['lrate'] = $request->input('lrate');
+            $data['cng_purchase_m3'] = $request->input('cng_purchase_m3');
+            $data['purchase_taka'] = $request->input('purchase_taka');
+        }
+
+        
+
         $data['total_reading'] = $request->input('closing_reading') - $request->input('opening_reading');
         $data['bill_amount'] = $request->input('rate') * $data['total_reading'];
-
-        $load = LoadEntry::find($request->input('load_entry_id'));
-        $data['difference_m3'] = $data['total_reading'] - $load->cng_purchase_m3;
-        $data['difference_taka'] = $data['bill_amount'] - $load->purchase_taka;
+        $data['difference_m3'] = $data['total_reading'] - $cng_purchase_m3;
+        $data['difference_taka'] = $data['bill_amount'] - $purchase_taka;
         $data['balance'] = $request->input('cash_receipt_amount') - $data['bill_amount'];
 
         // Correctly merge $validated and $data
@@ -61,9 +90,12 @@ class DispansarController extends Controller
         // dd($finalData);
 
         Dispansar::create($finalData);
-        $load->status = 1;
-        $load->save();
 
+        if ($request->filled('load_entry_id')) {
+           // $load = LoadEntry::find($request->input('load_entry_id'));
+            $load->status = 1;
+            $load->save();
+        }
         return redirect()->route('backend.factory.dispansar.index')
             ->with('growl', ['Factory Dispenser created successfully.', 'success']);
     }
@@ -90,7 +122,7 @@ class DispansarController extends Controller
     public function update(Request $request, Dispansar $dispansar)
     {
         $validated = $request->validate([
-            'load_entry_id' => 'required|integer|exists:load_entries,id',
+            'load_entry_id' => 'nullable|integer|exists:load_entries,id',
             'bill_no' => 'nullable|numeric',
             'bill_date' => 'nullable|date',
             'opening_reading' => 'nullable|numeric',
@@ -102,22 +134,67 @@ class DispansarController extends Controller
             'cash_receipt_amount' => 'nullable|numeric',
             'recived_by' => 'nullable|string|max:255',
             'remarks' => 'nullable|string|max:1000',
+            'vehicle_reg_number' => 'nullable|string|max:255',
+            'pump_name' => 'nullable|string|max:255',
+            'cng_purchase_m3' => 'nullable|numeric|min:0',
+            'lrate' => 'nullable|numeric|min:0',
+            'purchase_taka' => 'nullable|numeric|min:0',
         ]);
 
         $data = [];
+
+        if ($request->filled('load_entry_id')) {
+            $load = \App\Models\LoadEntry::find($request->input('load_entry_id'));
+            $cng_purchase_m3 = $load->cng_purchase_m3;
+            $purchase_taka = $load->purchase_taka;
+
+            $data['date'] = $request->input('date');
+            $data['vehicle_reg_number'] = $request->input('vehicle_reg_number');
+            $data['pump_name'] = $request->input('pump_name');
+            $data['lrate'] = $request->input('lrate');
+            $data['cng_purchase_m3'] = $request->input('cng_purchase_m3');
+            $data['purchase_taka'] = $request->input('purchase_taka');
+        } else {
+            $cng_purchase_m3 = $request->input('cng_purchase_m3');
+            $purchase_taka = $request->input('purchase_taka');
+
+            $data['date'] = $request->input('date');
+            $data['vehicle_reg_number'] = $request->input('vehicle_reg_number');
+            $data['pump_name'] = $request->input('pump_name');
+            $data['lrate'] = $request->input('lrate');
+            $data['cng_purchase_m3'] = $request->input('cng_purchase_m3');
+            $data['purchase_taka'] = $request->input('purchase_taka');
+            $data['load_entry_id'] = null;
+        }
+
+        
         $data['total_reading'] = $request->input('closing_reading') - $request->input('opening_reading');
         $data['bill_amount'] = $request->input('rate') * $data['total_reading'];
-        $load = \App\Models\LoadEntry::find($request->input('load_entry_id'));
-        $data['difference_m3'] = $data['total_reading'] - $load->cng_purchase_m3;
-        $data['difference_taka'] = $data['bill_amount'] - $load->purchase_taka;
+        $data['difference_m3'] = $data['total_reading'] - $cng_purchase_m3;
+        $data['difference_taka'] = $data['bill_amount'] - $purchase_taka;
         $data['balance'] = $request->input('cash_receipt_amount') - $data['bill_amount'];
         $finalData = array_merge($validated, $data);
-        $load_old = \App\Models\LoadEntry::find($dispansar->load_entry_id);
-        $load_old->status = 0;
-        $load_old->save();
+
+        if (!empty($dispansar->load_entry_id)) {
+            $load = \App\Models\LoadEntry::find($dispansar->load_entry_id);
+            $load->status = 0;
+            $load->save();
+        }
+
         $dispansar->update($finalData);
+
+        
+        if ($request->filled('load_entry_id')) {
+        $load->date = $request->input('date');
+        $load->vehicle_reg_number = $request->input('vehicle_reg_number');
+        $load->pump_name = $request->input('pump_name');
+        $load->cng_purchase_m3 = $request->input('cng_purchase_m3');
+        $load->rate = $request->input('lrate');
+        $load->purchase_taka = $request->input('purchase_taka');
         $load->status = 1;
         $load->save();
+        }
+        
 
         return redirect()->route('backend.factory.dispansar.index')
             ->with('growl', ['Factory Dispenser updated successfully.', 'success']);
@@ -178,27 +255,21 @@ class DispansarController extends Controller
     {
         $query = Dispansar::with('loada');
         if ($request->filled('pump_name')) {
-            $query->whereHas('loada', function ($q) use ($request) {
-                $q->where('pump_name', $request->pump_name);
-            });
+            $query->where('pump_name', $request->pump_name);
         }
         if ($request->filled('car_no')) {
-            $query->whereHas('loada', function ($q) use ($request) {
-                $q->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
-            });
+            $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
         }
         if ($request->filled('date_range')) {
             $dates = explode(' - ', $request->date_range);
             if (count($dates) == 2) {
-                $query->whereHas('loada', function ($q) use ($dates) {
-                    $q->whereBetween('date', [
+                $query->whereBetween('date', [
                         date('Y-m-d', strtotime($dates[0])),
                         date('Y-m-d', strtotime($dates[1])),
                     ]);
-                });
             }
         }
-        $results = $query->orderBy('created_at', 'desc')->paginate(10);
+        $results = $query->orderBy('created_at', 'desc')->get();
         $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
 
         return view('backend.factory.dispansar.filter', compact('results', 'pumpNames'));
