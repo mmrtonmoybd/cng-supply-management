@@ -54,6 +54,11 @@ Route::group($default, function () {
         Route::get('dispansar/load-entry-select2', [App\Http\Controllers\Backend\Factory\DispansarController::class, 'loadEntrySelect2'])->name('dispansar.loadEntrySelect2');
         Route::get('dispansar-filter', [App\Http\Controllers\Backend\Factory\DispansarController::class, 'filter'])->name('dispansar.filter');
         Route::get('dispansar-filter/show', [App\Http\Controllers\Backend\Factory\DispansarController::class, 'showFilter'])->name('dispansar.showFilter');
+
+        // Cng Pump & Waight Scale (WeightOne)
+        Route::resource('weightone', App\Http\Controllers\Backend\Factory\WeightOneController::class)->names('weightone');
+        Route::get('weightone-filter', [App\Http\Controllers\Backend\Factory\WeightOneController::class, 'filter'])->name('weightone.filter');
+        Route::get('weightone-filter/show', [App\Http\Controllers\Backend\Factory\WeightOneController::class, 'showFilter'])->name('weightone.showFilter');
     });
 
 });

@@ -21,5 +21,11 @@ class Factory implements MenuItemInterface
             'active' => 'backend.factory.dispansar.*',
             'route' => 'backend.factory.dispansar.index',
         ]);
+
+        $item->add('Cng Pump & Weight Scale', [
+            'permission' => 'backend',
+            'active' => 'backend.factory.weightone.*',
+            'route' => 'backend.factory.weightone.index',
+        ]);
     }
 }

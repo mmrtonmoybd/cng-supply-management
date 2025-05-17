@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('dispansars', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('load_entry_id')->constrained('load_entries')->onDelete('cascade');
+            $table->foreignId('load_entry_id')->nullable();
+            $table->foreign('load_entry_id')->references('id')->on('load_entries')->onDelete('cascade');
+            $table->date('date')->nullable();
+            $table->string('vehicle_reg_number')->nullable();
+            $table->string('pump_name')->nullable();
+            $table->decimal('cng_purchase_m3', 10, 2)->nullable();
+            $table->decimal('lrate', 10, 2)->nullable();
+            $table->decimal('purchase_taka', 15, 2)->nullable();
             $table->integer('bill_no')->nullable();
             $table->date('bill_date')->nullable();
             $table->decimal('opening_reading', 15, 2)->nullable();
