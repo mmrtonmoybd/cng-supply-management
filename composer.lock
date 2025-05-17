@@ -4237,26 +4237,26 @@
         },
         {
             "name": "sebastienheyd/active",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastienheyd/active.git",
-                "reference": "70884cba6f095e21441353befa80ea7f71197c75"
+                "reference": "18d7b2800fe47e7f7938e43d44e930a60be75015"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastienheyd/active/zipball/70884cba6f095e21441353befa80ea7f71197c75",
-                "reference": "70884cba6f095e21441353befa80ea7f71197c75",
+                "url": "https://api.github.com/repos/sebastienheyd/active/zipball/18d7b2800fe47e7f7938e43d44e930a60be75015",
+                "reference": "18d7b2800fe47e7f7938e43d44e930a60be75015",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0",
                 "php": ">=7.2.5"
             },
             "require-dev": {
-                "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0",
-                "phpunit/php-code-coverage": "^7.0|^8.0|^9.2",
-                "phpunit/phpunit": "^7.0|^8.0|^9.0",
+                "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "phpunit/php-code-coverage": "^7.0|^8.0|^9.2|^10.0|^11.0|^12.0",
+                "phpunit/phpunit": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
                 "squizlabs/php_codesniffer": "^3.0"
             },
             "type": "library",
@@ -4302,9 +4302,9 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastienheyd/active/issues",
-                "source": "https://github.com/sebastienheyd/active/tree/1.1.0"
+                "source": "https://github.com/sebastienheyd/active/tree/1.2.0"
             },
-            "time": "2024-03-26T09:07:46+00:00"
+            "time": "2025-05-17T06:09:11+00:00"
         },
         {
             "name": "sebastienheyd/boilerplate",

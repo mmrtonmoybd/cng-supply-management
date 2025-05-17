@@ -37,7 +37,7 @@ class DispansarDatatable extends Datatable
                 ->data('date')
                 ->dateFormat(__('boilerplate::date.Ymd'))
                 ->filterType('daterangepicker'),
-                /*
+            /*
                 ->filter(function (Builder $query, $value) {
                     $dates = explode(' - ', $value);
                     $dateRange = $dates[0];
@@ -46,7 +46,7 @@ class DispansarDatatable extends Datatable
                     return $query->whereHas('loada', function ($query) use ($startDate, $endDate) {
                         $query->whereBetween('date', [$startDate, $endDate]);
                     });
-                }), 
+                }),
                 */
 
             Column::add('Car no')

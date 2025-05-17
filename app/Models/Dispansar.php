@@ -9,6 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Dispansar extends Model
 {
     use LogsActivity;
+
     protected $fillable = [
         'load_entry_id',
         'bill_no',
