@@ -111,9 +111,6 @@ class DispansarDatatable extends Datatable
             Column::add(__('Cash Receipt Amount'))
                 ->data('cash_receipt_amount'),
 
-            Column::add(__('Balance'))
-                ->data('balance'),
-
             Column::add(__('Recived By'))
                 ->data('recived_by'),
 

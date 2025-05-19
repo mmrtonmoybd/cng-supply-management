@@ -106,7 +106,7 @@
                             <td>{{ $dispansar->out }}</td>
                             <td>{{ $dispansar->cash_receipt_date }}</td>
                             <td>{{ $dispansar->cash_receipt_amount }}</td>
-                            <td>{{ $dispansar->balance }}</td>
+                            <td></td>
                             <td>{{ $dispansar->recived_by }}</td>
                             <td>{{ $dispansar->remarks }}</td>
                         </tr>
@@ -133,7 +133,7 @@
                         <th></th>
                         <th></th>
                         <th>{{ $sumCash }}</th>
-                        <th>{{ $sumBalance }}</th>
+                        <th>{{ $sumCash - $sumBill}}</th>
                         <th></th>
                         <th></th>
                     </tr>

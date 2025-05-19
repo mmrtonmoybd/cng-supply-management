@@ -2,7 +2,7 @@
     'title' => 'Cng Pump & Weight Scale',
     'subtitle' => 'Cng Pump & Weight Scale lists',
     'breadcrumb' => [
-        'Weight One' => 'backend.factory.weightone.index',
+        'Cng Pump & Weight Scale' => 'backend.factory.weightone.index',
     ]
 ])
 

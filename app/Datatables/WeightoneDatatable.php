@@ -52,10 +52,10 @@ class WeightoneDatatable extends Datatable
             Column::add(__('Purchase Taka'))
                 ->data('purchase_taka'),
 
-            Column::add(__('Bill No'))
+            Column::add(__('Challan No'))
                 ->data('bill_no'),
 
-            Column::add(__('Bill Date'))
+            Column::add(__('Challan Date'))
                 ->width('180px')
                 ->data('bill_date')
                 ->dateFormat(__('DD-MM-YYYY')),
@@ -91,9 +91,6 @@ class WeightoneDatatable extends Datatable
 
             Column::add(__('Cash Receipt Amount'))
                 ->data('cash_receipt_amount'),
-
-            Column::add(__('Balance'))
-                ->data('balance'),
 
             Column::add(__('Recived By'))
                 ->data('recived_by'),

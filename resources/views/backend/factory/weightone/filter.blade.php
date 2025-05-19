@@ -1,8 +1,8 @@
 @extends('boilerplate::layout.index', [
-    'title' => 'Weight One',
-    'subtitle' => 'Filter Weight One',
+    'title' => 'Cng Pump & Weight Scale',
+    'subtitle' => 'Filter Cng Pump & Weight Scale',
     'breadcrumb' => [
-        'Weight One' => 'backend.factory.weightone.index',
+        'Cng Pump & Weight Scale' => 'backend.factory.weightone.index',
         'Filter' => 'backend.factory.weightone.filter',
     ]
 ])
@@ -51,6 +51,8 @@
                         <th>M3</th>
                         <th>Load Rate</th>
                         <th>Purchase Taka</th>
+                        <th> Challan NO</th>
+                        <th>Challan Date</th>
                         <th>FM3</th>
                         <th>Rate</th>
                         <th>FTK</th>
@@ -80,6 +82,8 @@
                             <td>{{ $row->cng_purchase_m3 }}</td>
                             <td>{{ $row->lrate }}</td>
                             <td>{{ $row->purchase_taka }}</td>
+                            <td>{{ $row->bill_no }}</td>
+                            <td>{{ $row->bill_date }}</td>
                             <td>{{ $row->fm3 }}</td>
                             <td>{{ $row->rate }}</td>
                             <td>{{ $row->ftk }}</td>
@@ -87,7 +91,7 @@
                             <td>{{ $row->bill_amount }}</td>
                             <td>{{ $row->cash_receipt_amount }}</td>
                             <td>{{ $row->cash_receipt_date }}</td>
-                            <td>{{ $row->balance }}</td>
+                            <td></td>
                         </tr>
                         @php
                             $totalM3 += $row->cng_purchase_m3;
@@ -109,6 +113,8 @@
                         <th>{{ number_format($totalM3, 2) }}</th>
                         <th></th>
                         <th>{{ number_format($totalPurchaseTaka, 2) }}</th>
+                        <th></th>
+                        <th></th>
                         <th>{{ number_format($totalFM3, 2) }}</th>
                         <th></th>
                         <th>{{ number_format($totalFTK, 2) }}</th>
@@ -116,7 +122,7 @@
                         <th>{{ number_format($totalBillAmount, 2) }}</th>
                         <th>{{ number_format($totalCashReceiptAmount, 2) }}</th>
                         <th></th>
-                        <th>{{ number_format($totalBalance, 2) }}</th>
+                        <th>{{ number_format(($totalCashReceiptAmount - $totalBillAmount), 2) }}</th>
                     </tr>
                 </tfoot>
             </table>

@@ -93,15 +93,16 @@ class WeightOneController extends Controller
         }
 
         return redirect()->route('backend.factory.weightone.index')
-            ->with('growl', ['Weight One entry created successfully.', 'success']);
+            ->with('growl', ['Cng Pump & Weight Scale entry created successfully.', 'success']);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(WeightOne $weightOne)
+    public function show($id)
     {
-        //
+        $weightone = WeightOne::findOrFail($id);
+        return view('backend.factory.weightone.show', compact('weightone'));
     }
 
     /**
@@ -193,7 +194,7 @@ class WeightOneController extends Controller
         }
 
         return redirect()->route('backend.factory.weightone.index')
-            ->with('growl', ['Weight One entry updated successfully.', 'success']);
+            ->with('growl', ['Cng Pump & Weight Scale entry updated successfully.', 'success']);
     }
 
     /**

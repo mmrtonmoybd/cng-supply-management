@@ -1,8 +1,8 @@
 @extends('boilerplate::layout.index', [
-    'title' => 'Weight One',
-    'subtitle' => 'Create Weight One',
+    'title' => 'Cng Pump & Weight Scale',
+    'subtitle' => 'Create Cng Pump & Weight Scale',
     'breadcrumb' => [
-        'Weight One' => 'backend.factory.weightone.index',
+        'Cng Pump & Weight Scale' => 'backend.factory.weightone.index',
         'Create' => 'backend.factory.weightone.create',
     ]
 ])
@@ -11,7 +11,7 @@
 <x-boilerplate::form route="backend.factory.weightone.store">
     <div class="row">
         <div class="col-12 pb-3">
-            <a href="{{ route('backend.factory.weightone.index') }}" class="btn btn-default" data-toggle="tooltip" title="Weight One lists">
+            <a href="{{ route('backend.factory.weightone.index') }}" class="btn btn-default" data-toggle="tooltip" title="Cng Pump & Weight Scale lists">
                 <span class="far fa-arrow-alt-circle-left text-muted"></span>
             </a>
             <span class="btn-group float-right">
@@ -39,10 +39,10 @@
             </div>
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="bill_no" label="Bill No" type="number" :value="old('bill_no')" placeholder="Bill No" />
+            <x-boilerplate::input name="bill_no" label="Challan No" type="number" :value="old('bill_no')" placeholder="Challan No" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="bill_date" label="Bill Date" type="date" :value="old('bill_date')" placeholder="Bill Date" />
+            <x-boilerplate::input name="bill_date" label="Challan Date" type="date" :value="old('bill_date')" placeholder="Bill Date" />
         </div>
         <div class="col-md-4">
             <x-boilerplate::input name="first_weight" label="First Weight" type="number" step="0.01" :value="old('first_weight')" placeholder="First Weight" />
