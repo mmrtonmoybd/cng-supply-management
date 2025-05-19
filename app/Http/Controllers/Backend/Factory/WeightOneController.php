@@ -102,6 +102,7 @@ class WeightOneController extends Controller
     public function show($id)
     {
         $weightone = WeightOne::findOrFail($id);
+
         return view('backend.factory.weightone.show', compact('weightone'));
     }
 
