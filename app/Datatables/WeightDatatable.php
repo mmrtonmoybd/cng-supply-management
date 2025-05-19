@@ -114,10 +114,10 @@ class WeightDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (Weight $weight) {
-                    return join([
-                         Button::show('backend.factory.weight.show', $weight),
-                         Button::edit('backend.factory.weight.edit', $weight),
-                         Button::delete('backend.factory.weight.destroy', $weight),
+                    return implode([
+                        Button::show('backend.factory.weight.show', $weight),
+                        Button::edit('backend.factory.weight.edit', $weight),
+                        Button::delete('backend.factory.weight.destroy', $weight),
                     ]);
                 }),
         ];

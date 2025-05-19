@@ -22,6 +22,7 @@ class WeightController extends Controller
     public function create()
     {
         $loadOptions = \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
+
         return view('backend.factory.weight.create', compact('loadOptions'));
     }
 
@@ -56,11 +57,11 @@ class WeightController extends Controller
             'total_bill_taka' => 'nullable|numeric|min:0',
             'difference_taka' => 'nullable|numeric|min:0',
             'difference_m3' => 'nullable|numeric|min:0',
-    ]);
+        ]);
 
-    $data = [];
+        $data = [];
 
-    if ($request->filled('load_entry_id')) {
+        if ($request->filled('load_entry_id')) {
             $load = \App\Models\LoadEntry::find($request->input('load_entry_id'));
             $cng_purchase_m3 = $load->cng_purchase_m3;
             $purchase_taka = $load->purchase_taka;
@@ -149,7 +150,7 @@ class WeightController extends Controller
             'total_bill_taka' => 'nullable|numeric|min:0',
             'difference_taka' => 'nullable|numeric|min:0',
             'difference_m3' => 'nullable|numeric|min:0',
-            'bill_amount' => 'nullable|numeric|min:0',	
+            'bill_amount' => 'nullable|numeric|min:0',
         ]);
 
         $data = [];

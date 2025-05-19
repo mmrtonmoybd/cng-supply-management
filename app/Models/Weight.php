@@ -9,6 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Weight extends Model
 {
     use LogsActivity;
+
     protected $fillable = [
         'load_entry_id',
         'date',
