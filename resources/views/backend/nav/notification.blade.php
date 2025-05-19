@@ -92,11 +92,11 @@ function loadNotifications() {
             if (data.unread_count > 0) {
                 container.innerHTML += `<div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer bg-warning text-center d-flex justify-content-center" id="markAllRead">Mark all as read</a>
-                <a href="{{ route('backend.notifications.all') }}" class="dropdown-item dropdown-footer bg-danger text-center d-flex justify-content-center">See all notifications</a>`;
+                <a href="{{ route('backend.notifications.all') }}" class="dropdown-item dropdown-footer bg-primary text-center d-flex justify-content-center">See all notifications</a>`;
             } else {
                 container.innerHTML += `<div class="dropdown-divider"></div>
                 <a href="#" class="dropdown-item dropdown-footer bg-success text-center d-flex justify-content-center">All notifications read</a>
-                <a href="{{ route('backend.notifications.all') }}" class="dropdown-item dropdown-footer bg-danger text-center d-flex justify-content-center">See all notifications</a>`;
+                <a href="{{ route('backend.notifications.all') }}" class="dropdown-item dropdown-footer bg-primary text-center d-flex justify-content-center">See all notifications</a>`;
             }
         });
 }

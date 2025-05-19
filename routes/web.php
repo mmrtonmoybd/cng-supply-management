@@ -59,6 +59,11 @@ Route::group($default, function () {
         Route::resource('weightone', App\Http\Controllers\Backend\Factory\WeightOneController::class)->names('weightone');
         Route::get('weightone-filter', [App\Http\Controllers\Backend\Factory\WeightOneController::class, 'filter'])->name('weightone.filter');
         Route::get('weightone-filter/show', [App\Http\Controllers\Backend\Factory\WeightOneController::class, 'showFilter'])->name('weightone.showFilter');
+
+        // Waight Scale
+        Route::resource('weight', App\Http\Controllers\Backend\Factory\WeightController::class)->names('weight');
+        Route::get('weight-filter', [App\Http\Controllers\Backend\Factory\WeightController::class, 'filter'])->name('weight.filter');
+        Route::get('weight-filter/show', [App\Http\Controllers\Backend\Factory\WeightController::class, 'showFilter'])->name('weight.showFilter');
     });
 
 });

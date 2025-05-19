@@ -112,7 +112,7 @@
         </div>
     </div>
 </x-boilerplate::form>
-@endsection
+
 @push('js')
 <script>
 $(document).ready(function() {
@@ -161,3 +161,6 @@ $(function() {
 @php
     $loadOptions = $loadOptions ?? \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
 @endphp
+
+
+@endsection

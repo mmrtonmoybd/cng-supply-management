@@ -27,5 +27,11 @@ class Factory implements MenuItemInterface
             'active' => 'backend.factory.weightone.*',
             'route' => 'backend.factory.weightone.index',
         ]);
+
+        $item->add('Weight Scale', [
+            'permission' => 'backend',
+            'active' => 'backend.factory.weight.*',
+            'route' => 'backend.factory.weight.index',
+        ]);
     }
 }

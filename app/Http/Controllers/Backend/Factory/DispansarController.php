@@ -265,7 +265,7 @@ class DispansarController extends Controller
                 ]);
             }
         }
-        $results = $query->orderBy('created_at', 'desc')->get();
+        $results = $query->orderBy('created_at', 'ASC')->get();
         $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
 
         return view('backend.factory.dispansar.filter', compact('results', 'pumpNames'));

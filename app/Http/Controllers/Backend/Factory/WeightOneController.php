@@ -93,7 +93,7 @@ class WeightOneController extends Controller
         }
 
         return redirect()->route('backend.factory.weightone.index')
-            ->with('growl', ['Cng Pump & Weight Scale entry created successfully.', 'success']);
+            ->with('growl', ['Cng Pump & Weight Scale created successfully.', 'success']);
     }
 
     /**
@@ -194,7 +194,7 @@ class WeightOneController extends Controller
         }
 
         return redirect()->route('backend.factory.weightone.index')
-            ->with('growl', ['Cng Pump & Weight Scale entry updated successfully.', 'success']);
+            ->with('growl', ['Cng Pump & Weight Scale updated successfully.', 'success']);
     }
 
     /**
@@ -240,7 +240,7 @@ class WeightOneController extends Controller
                 ]);
             }
         }
-        $results = $query->orderBy('created_at', 'desc')->get();
+        $results = $query->orderBy('created_at', 'ASC')->get();
         $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
 
         return view('backend.factory.weightone.filter', compact('results', 'pumpNames'));

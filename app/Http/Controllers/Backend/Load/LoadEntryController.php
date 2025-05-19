@@ -144,7 +144,7 @@ class LoadEntryController extends Controller
         if ($request->filled('status') && in_array($request->status, ['0', '1'])) {
             $query->where('status', $request->status);
         }
-        $results = $query->orderBy('created_at', 'desc')->get();
+        $results = $query->orderBy('created_at', 'ASC')->get();
         $pumpNames = LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
 
         return view('backend.load.filter', compact('results', 'pumpNames'));
