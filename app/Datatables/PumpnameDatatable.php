@@ -22,7 +22,7 @@ class PumpnameDatatable extends Datatable
             ->permissions('load_index')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
-            ->setRowId('id');;
+            ->setRowId('id');
     }
 
     public function columns(): array
@@ -56,10 +56,10 @@ class PumpnameDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (PumpName $pumpname) {
-                    return join([
-                         Button::show('backend.pumpname.show', $pumpname),
-                         Button::edit('backend.pumpname.edit', $pumpname),
-                         Button::delete('backend.pumpname.destroy', $pumpname),
+                    return implode([
+                        Button::show('backend.pumpname.show', $pumpname),
+                        Button::edit('backend.pumpname.edit', $pumpname),
+                        Button::delete('backend.pumpname.destroy', $pumpname),
                     ]);
                 }),
         ];

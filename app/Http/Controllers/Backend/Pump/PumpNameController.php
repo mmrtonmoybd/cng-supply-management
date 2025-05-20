@@ -37,6 +37,7 @@ class PumpNameController extends Controller
             'phone' => 'required|string|max:255',
         ]);
         PumpName::create($request->all());
+
         return redirect()->route('backend.pumpname.index')->with('success', 'Pump Name created successfully.');
     }
 
@@ -69,6 +70,7 @@ class PumpNameController extends Controller
             'phone' => 'required|string|max:255',
         ]);
         $pumpname->update($request->all());
+
         return redirect()->route('backend.pumpname.index')->with('success', 'Pump Name updated successfully.');
     }
 
@@ -77,6 +79,6 @@ class PumpNameController extends Controller
      */
     public function destroy(PumpName $pumpname)
     {
-       return response()->json(['success' => $pumpname->delete() ?? false]);
+        return response()->json(['success' => $pumpname->delete() ?? false]);
     }
 }

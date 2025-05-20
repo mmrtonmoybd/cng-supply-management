@@ -14,7 +14,8 @@ class PumpName extends Model
         'phone',
     ];
 
-    public function loada() {
+    public function loada()
+    {
         return $this->hasMany(LoadEntry::class);
     }
 }

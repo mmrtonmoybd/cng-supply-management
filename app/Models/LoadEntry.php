@@ -67,7 +67,8 @@ class LoadEntry extends Model
             ->orderBy('select2_id', 'ASC');
     }
 
-    public function pumpname() {
+    public function pumpname()
+    {
         return $this->belongsTo(PumpName::class, 'pumpName_id', 'id');
     }
 }

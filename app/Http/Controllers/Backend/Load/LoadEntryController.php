@@ -145,7 +145,6 @@ class LoadEntryController extends Controller
         }
         $results = $query->orderBy('created_at', 'ASC')->get();
 
-
         return view('backend.load.filter', compact('results'));
     }
 }

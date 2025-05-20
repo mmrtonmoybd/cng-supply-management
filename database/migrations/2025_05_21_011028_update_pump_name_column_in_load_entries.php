@@ -16,17 +16,14 @@ return new class extends Migration
 
             $table->unsignedBigInteger('pumpName_id')->nullable()->after('vehicle_reg_number');
             $table->foreign('pumpName_id')
-                  ->references('id')
-                  ->on('pump_names')
-                  ->onDelete('cascade');
+                ->references('id')
+                ->on('pump_names')
+                ->onDelete('cascade');
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        
-    }
+    public function down(): void {}
 };

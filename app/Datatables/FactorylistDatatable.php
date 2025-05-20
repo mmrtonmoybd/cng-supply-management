@@ -22,7 +22,7 @@ class FactorylistDatatable extends Datatable
             ->permissions('load_index')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
-            ->setRowId('id');;
+            ->setRowId('id');
     }
 
     public function columns(): array
@@ -64,10 +64,10 @@ class FactorylistDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (Factory $factory) {
-                    return join([
-                         Button::show('backend.factory.factory.show', $factory),
-                         Button::edit('backend.factory.factory.edit', $factory),
-                         Button::delete('backend.factory.factory.destroy', $factory),
+                    return implode([
+                        Button::show('backend.factory.factory.show', $factory),
+                        Button::edit('backend.factory.factory.edit', $factory),
+                        Button::delete('backend.factory.factory.destroy', $factory),
                     ]);
                 }),
         ];

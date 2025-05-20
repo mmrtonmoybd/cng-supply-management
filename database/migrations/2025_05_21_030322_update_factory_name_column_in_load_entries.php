@@ -15,17 +15,14 @@ return new class extends Migration
             $table->dropColumn('factory_name');
             $table->unsignedBigInteger('factory_id')->nullable()->after('pumpName_id');
             $table->foreign('factory_id')
-                  ->references('id')
-                  ->on('factories')
-                  ->onDelete('cascade');
+                ->references('id')
+                ->on('factories')
+                ->onDelete('cascade');
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        
-    }
+    public function down(): void {}
 };

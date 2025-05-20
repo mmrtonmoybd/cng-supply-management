@@ -14,6 +14,7 @@ class FactoryController extends Controller
     public function index()
     {
         $factories = Factory::all();
+
         return view('backend.factory.index');
     }
 
@@ -38,6 +39,7 @@ class FactoryController extends Controller
             'phone' => 'required|string|max:255',
         ]);
         Factory::create($request->all());
+
         return redirect()->route('backend.factory.factory.index')->with('success', 'Factory created successfully.');
     }
 
@@ -69,8 +71,9 @@ class FactoryController extends Controller
             'email' => 'nullable|email|max:255',
             'phone' => 'required|string|max:255',
         ]);
-        
+
         $factory->update($request->all());
+
         return redirect()->route('backend.factory.factory.index')->with('success', 'Factory updated successfully.');
     }
 
