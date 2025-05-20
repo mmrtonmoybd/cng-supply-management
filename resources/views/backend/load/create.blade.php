@@ -31,20 +31,17 @@
     <div class="row">
         <div class="col-6">
             @php
-                $pumpOptions = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray();
+                $pumpOptions = \App\Models\PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
             @endphp
-            <select name="pump_name" id="pump_name" class="form-control select2-pump" required>
+            <select name="pumpName_id"  class="form-control" required>
                 <option value="">Select Pump Name</option>
                 @foreach ($pumpOptions as $key => $value)
-                    <option value="{{ $key }}" @if (old('pump_name') == $key) selected @endif>{{ $value }}</option>
+                    <option value="{{ $key }}" @if (old('pumpName_id') == $key) selected @endif>{{ $value }}</option>
                 @endforeach
-                @if(old('pump_name') && !array_key_exists(old('pump_name'), $pumpOptions))
-                    <option value="{{ old('pump_name') }}" selected>{{ old('pump_name') }}</option>
-                @endif
             </select>
         </div>
         <div class="col-6">
-            <x-boilerplate::input name='cng_purchase_m3' label='M3' type='number' step='0.01' required :value="old('cng_purchase_m3')" placeholder='M3'/>
+            <x-boilerplate::input name='cng_purchase_m3' label='M3' type='number' step='0.01' :value="old('cng_purchase_m3')" placeholder='M3'/>
         </div>
     </div>
     <div class="row">
@@ -52,7 +49,7 @@
             <x-boilerplate::input name='rate' label='Rate' type='number' step='0.01' required :value="old('rate')" placeholder='Rate'/>
         </div>
         <div class="col-6">
-            <x-boilerplate::input name='purchase_taka' label='Purchase Taka' type='number' step='0.01' required :value="old('purchase_taka')" placeholder='Purchase Taka'/>
+            <x-boilerplate::input name='purchase_taka' label='Purchase Taka' type='number' step='0.01' :value="old('purchase_taka')" placeholder='Purchase Taka'/>
         </div>
     </div>
     <div class="row">
@@ -79,18 +76,24 @@
 
 @push('js')
 <script>
-$(document).ready(function() {
-    $('#pump_name').select2({
-        tags: true,
-        placeholder: 'Select Pump Name',
-        allowClear: true,
-        width: '100%',
-        language: {
-            noResults: function() {
-                return 'No results found. Type to add new.';
-            }
+
+$('form').on('submit', function(e) {
+    var m3Input = document.querySelector('[name="cng_purchase_m3"]');
+    var rateInput = document.querySelector('[name="rate"]');
+    var takaInput = document.querySelector('[name="purchase_taka"]');
+    var m3 = parseFloat(m3Input ? m3Input.value : '');
+    var rate = parseFloat(rateInput ? rateInput.value : '');
+    var taka = parseFloat(takaInput ? takaInput.value : '');
+
+    if (!isNaN(m3) && m3 !== 0 && (isNaN(taka) || takaInput.value === '')) {
+        if (!isNaN(rate) && rate !== 0) {
+            takaInput.value = (m3 * rate).toFixed(2);
         }
-    });
+    } else if (!isNaN(taka) && taka !== 0 && (isNaN(m3) || m3Input.value === '')) {
+        if (!isNaN(rate) && rate !== 0) {
+            m3Input.value = (taka / rate).toFixed(2);
+        }
+    }
 });
 </script>
 @endpush

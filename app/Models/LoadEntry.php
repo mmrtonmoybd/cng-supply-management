@@ -17,7 +17,7 @@ class LoadEntry extends Model
         // Add your fillable attributes here, e.g.
         'date',
         'vehicle_reg_number',
-        'pump_name',
+        'pumpName_id',
         'cng_purchase_m3',
         'rate',
         'purchase_taka',
@@ -65,5 +65,9 @@ class LoadEntry extends Model
             ->orWhere('pump_name', 'like', "$q%")
             ->where('status', 0)
             ->orderBy('select2_id', 'ASC');
+    }
+
+    public function pumpname() {
+        return $this->belongsTo(PumpName::class, 'pumpName_id', 'id');
     }
 }

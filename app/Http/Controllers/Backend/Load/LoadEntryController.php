@@ -39,13 +39,13 @@ class LoadEntryController extends Controller
         $validated = $request->validate([
             'date' => 'required|date',
             'vehicle_reg_number' => 'required|string|max:255',
-            'pump_name' => 'required|string|max:255',
             'cng_purchase_m3' => 'required|numeric',
             'rate' => 'required|numeric',
             'purchase_taka' => 'required|numeric',
             'factory_name' => 'nullable|string|max:255',
             'status' => 'required|boolean',
             'remark' => 'nullable|string',
+            'pumpName_id' => 'nullable|required',
         ]);
         LoadEntry::create($validated);
 
@@ -85,13 +85,13 @@ class LoadEntryController extends Controller
         $validated = $request->validate([
             'date' => 'required|date',
             'vehicle_reg_number' => 'required|string|max:255',
-            'pump_name' => 'required|string|max:255',
             'cng_purchase_m3' => 'required|numeric',
             'rate' => 'required|numeric',
             'purchase_taka' => 'required|numeric',
             'factory_name' => 'nullable|string|max:255',
             'status' => 'required|boolean',
             'remark' => 'nullable|string',
+            'pumpName_id' => 'nullable|required',
         ]);
         $loadEntry->update($validated);
 
@@ -114,9 +114,8 @@ class LoadEntryController extends Controller
     public function filter()
     {
         Gate::authorize('viewAny', LoadEntry::class);
-        $pumpNames = LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
 
-        return view('backend.load.filter', compact('pumpNames'));
+        return view('backend.load.filter');
     }
 
     /**
@@ -126,8 +125,8 @@ class LoadEntryController extends Controller
     {
         Gate::authorize('viewAny', LoadEntry::class);
         $query = LoadEntry::query();
-        if ($request->filled('pump_name')) {
-            $query->where('pump_name', $request->pump_name);
+        if ($request->filled('pumpName_id')) {
+            $query->where('pumpName_id', $request->pumpName_id);
         }
         if ($request->filled('car_no')) {
             $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
@@ -145,8 +144,8 @@ class LoadEntryController extends Controller
             $query->where('status', $request->status);
         }
         $results = $query->orderBy('created_at', 'ASC')->get();
-        $pumpNames = LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
 
-        return view('backend.load.filter', compact('results', 'pumpNames'));
+
+        return view('backend.load.filter', compact('results'));
     }
 }

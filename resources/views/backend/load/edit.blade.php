@@ -31,21 +31,18 @@
     <div class="row">
         <div class="col-6">
             @php
-                $pumpOptions = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray();
-                $selectedPump = old('pump_name', $loadEntry->pump_name);
+                $pumpOptions = \App\Models\PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+                $selectedPump = old('pumpName_id', $loadEntry->pumpName_id);
             @endphp
-            <select name="pump_name" id="pump_name" class="form-control select2-pump" required>
+            <select name="pumpName_id" id="pumpName_id" class="form-control " required>
                 <option value="">Select Pump Name</option>
                 @foreach ($pumpOptions as $key => $value)
                     <option value="{{ $key }}" @if ($selectedPump == $key) selected @endif>{{ $value }}</option>
                 @endforeach
-                @if($selectedPump && !array_key_exists($selectedPump, $pumpOptions))
-                    <option value="{{ $selectedPump }}" selected>{{ $selectedPump }}</option>
-                @endif
             </select>
         </div>
         <div class="col-6">
-            <x-boilerplate::input name='cng_purchase_m3' label='M3' type='number' step='0.01' required :value="old('cng_purchase_m3', $loadEntry->cng_purchase_m3 ?? '')" placeholder='M3'/>
+            <x-boilerplate::input name='cng_purchase_m3' label='M3' type='number' step='0.01' :value="old('cng_purchase_m3', $loadEntry->cng_purchase_m3 ?? '')" placeholder='M3'/>
         </div>
     </div>
     <div class="row">
@@ -53,7 +50,7 @@
             <x-boilerplate::input name='rate' label='Rate' type='number' step='0.01' required :value="old('rate', $loadEntry->rate ?? '')" placeholder='Rate'/>
         </div>
         <div class="col-6">
-            <x-boilerplate::input name='purchase_taka' label='Purchase Taka' type='number' step='0.01' required :value="old('purchase_taka', $loadEntry->purchase_taka ?? '')" placeholder='Purchase Taka'/>
+            <x-boilerplate::input name='purchase_taka' label='Purchase Taka' type='number' step='0.01' :value="old('purchase_taka', $loadEntry->purchase_taka ?? '')" placeholder='Purchase Taka'/>
         </div>
     </div>
     <div class="row">
@@ -82,18 +79,26 @@
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('#pump_name').select2({
-        tags: true,
-        placeholder: 'Select Pump Name',
-        allowClear: true,
-        width: '100%',
-        language: {
-            noResults: function() {
-                return 'No results found. Type to add new.';
-            }
-        }
-    });
+
+
+$('form').on('submit', function(e) {
+    // Only apply calculation if the user has changed the value in the form (not just loaded from DB)
+    var m3Input = document.querySelector('[name="cng_purchase_m3"]');
+    var rateInput = document.querySelector('[name="rate"]');
+    var takaInput = document.querySelector('[name="purchase_taka"]');
+    var m3 = parseFloat(m3Input ? m3Input.value : '');
+    var rate = parseFloat(rateInput ? rateInput.value : '');
+    var taka = parseFloat(takaInput ? takaInput.value : '');
+
+    // Only auto-calculate if one of the fields is empty (user did not fill it)
+    if ((m3Input.value === '' || m3Input.value === null) && takaInput.value !== '' && !isNaN(rate) && rate !== 0) {
+        // If purchase_taka is filled but cng_purchase_m3 is empty, calculate cng_purchase_m3
+        m3Input.value = (parseFloat(takaInput.value) / rate).toFixed(2);
+    } else if ((takaInput.value === '' || takaInput.value === null) && m3Input.value !== '' && !isNaN(rate) && rate !== 0) {
+        // If cng_purchase_m3 is filled but purchase_taka is empty, calculate purchase_taka
+        takaInput.value = (parseFloat(m3Input.value) * rate).toFixed(2);
+    }
+    // If both are filled (from DB), do not modify
 });
 </script>
 @endpush

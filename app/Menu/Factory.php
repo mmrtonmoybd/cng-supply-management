@@ -33,5 +33,11 @@ class Factory implements MenuItemInterface
             'active' => 'backend.factory.weight.*',
             'route' => 'backend.factory.weight.index',
         ]);
+
+        $item->add('Factory', [
+            'permission' => 'backend',
+            'active' => 'backend.factory.factory.*',
+            'route' => 'backend.factory.factory.index',
+        ]);
     }
 }

@@ -43,6 +43,8 @@ Route::group($default, function () {
     Route::get('activity', App\Http\Controllers\Backend\Activity\ActivityController::class.'@index')->name('activity.index');
     Route::get('activity/{activity}', App\Http\Controllers\Backend\Activity\ActivityController::class.'@show')->name('activity.show');
 
+    Route::resource('pumpname', App\Http\Controllers\Backend\Pump\PumpNameController::class)->names('pumpname');
+
     Route::resource('pump', App\Http\Controllers\Backend\Pump\PumpController::class)->names('pump');
     Route::get('pump-filter', [App\Http\Controllers\Backend\Pump\PumpController::class, 'filter'])->name('pump.filter');
     Route::get('pump-filter/show', [App\Http\Controllers\Backend\Pump\PumpController::class, 'showFilter'])->name('pump.showFilter');
@@ -64,6 +66,8 @@ Route::group($default, function () {
         Route::resource('weight', App\Http\Controllers\Backend\Factory\WeightController::class)->names('weight');
         Route::get('weight-filter', [App\Http\Controllers\Backend\Factory\WeightController::class, 'filter'])->name('weight.filter');
         Route::get('weight-filter/show', [App\Http\Controllers\Backend\Factory\WeightController::class, 'showFilter'])->name('weight.showFilter');
+
+        Route::resource('factory', App\Http\Controllers\Backend\Factory\FactoryController::class)->names('factory');
     });
 
 });

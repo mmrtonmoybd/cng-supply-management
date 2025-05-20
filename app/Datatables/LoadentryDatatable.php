@@ -3,6 +3,7 @@
 namespace App\Datatables;
 
 use App\Models\LoadEntry;
+use App\Models\PumpName;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
@@ -13,7 +14,7 @@ class LoadentryDatatable extends Datatable
 
     public function datasource()
     {
-        return LoadEntry::query();
+        return LoadEntry::with('pumpname')->select('*');
     }
 
     public function setUp()
@@ -29,7 +30,8 @@ class LoadentryDatatable extends Datatable
     {
         return [
             Column::add(__('Id'))
-                ->data('id'),
+                ->data('id')
+                ->name('load_entries.id'),
 
             Column::add(__('Date'))
                 ->width('180px')
@@ -40,10 +42,10 @@ class LoadentryDatatable extends Datatable
                 ->data('vehicle_reg_number'),
 
             Column::add(__('Pump Name'))
-                ->data('pump_name')
-                ->filterOptions(LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray())
+                ->data('pumpname.name')
+                ->filterOptions(PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
                 ->filter(function ($query, $value) {
-                    return $query->where('pump_name', 'LIKE', '%'.$value.'%');
+                    return $query->where('pumpName_id', $value);
                 }),
 
             Column::add(__('M3'))

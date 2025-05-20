@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Datatables;
+
+use App\Models\Factory;
+use Sebastienheyd\Boilerplate\Datatables\Button;
+use Sebastienheyd\Boilerplate\Datatables\Column;
+use Sebastienheyd\Boilerplate\Datatables\Datatable;
+
+class FactorylistDatatable extends Datatable
+{
+    public $slug = 'factorylist';
+
+    public function datasource()
+    {
+        return Factory::query();
+    }
+
+    public function setUp()
+    {
+        $this->order('id', 'desc')
+            ->permissions('load_index')
+            ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
+            ->condensed()
+            ->setRowId('id');;
+    }
+
+    public function columns(): array
+    {
+        return [
+            Column::add(__('Id'))
+                ->data('id'),
+
+            Column::add(__('Name'))
+                ->data('name'),
+
+            Column::add(__('Type'))
+                ->data('type', function ($value) {
+                    return $value === 1 ? 'Fixed' : 'Unit based';
+                })
+                ->filterOptions([
+                    'Fixed' => 'Fixed',
+                    'Unit based' => 'Unit based',
+                ])
+                ->filter(function ($query, $value) {
+                    return $query->where('type', $value);
+                }),
+
+            Column::add(__('Address'))
+                ->data('address'),
+
+            Column::add(__('Email'))
+                ->data('email'),
+
+            Column::add(__('Phone'))
+                ->data('phone'),
+
+            Column::add(__('Created At'))
+                ->data('created_at'),
+
+            Column::add(__('Updated At'))
+                ->data('updated_at'),
+
+            Column::add()
+                ->width('20px')
+                ->actions(function (Factory $factory) {
+                    return join([
+                         Button::show('backend.factory.factory.show', $factory),
+                         Button::edit('backend.factory.factory.edit', $factory),
+                         Button::delete('backend.factory.factory.destroy', $factory),
+                    ]);
+                }),
+        ];
+    }
+}

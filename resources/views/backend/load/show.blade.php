@@ -19,7 +19,7 @@
                 <tbody>
                     <tr><th>Date</th><td>{{ $loadEntry->date }}</td></tr>
                     <tr><th>Car No</th><td>{{ $loadEntry->vehicle_reg_number }}</td></tr>
-                    <tr><th>Pump Name</th><td>{{ $loadEntry->pump_name }}</td></tr>
+                    <tr><th>Pump Name</th><td>{{ $loadEntry->pumpname->name }}</td></tr>
                     <tr><th>M3</th><td>{{ $loadEntry->cng_purchase_m3 }}</td></tr>
                     <tr><th>Rate</th><td>{{ $loadEntry->rate }}</td></tr>
                     <tr><th>Purchase Taka</th><td>{{ $loadEntry->purchase_taka }}</td></tr>
