@@ -2,10 +2,9 @@
 
 namespace App\Datatables;
 
-use App\Models\WeightOne;
 use App\Models\Factory;
-use App\Models\LoadEntry;
 use App\Models\PumpName;
+use App\Models\WeightOne;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;

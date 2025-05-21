@@ -58,7 +58,7 @@ class WeightController extends Controller
             'total_bill_taka' => 'nullable|numeric|min:0',
             'difference_taka' => 'nullable|numeric|min:0',
             'difference_m3' => 'nullable|numeric|min:0',
-            'bill_amount' => 'nullable|numeric|min:0',	
+            'bill_amount' => 'nullable|numeric|min:0',
         ]);
 
         $data = [];
