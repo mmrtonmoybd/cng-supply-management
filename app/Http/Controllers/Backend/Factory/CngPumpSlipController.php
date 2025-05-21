@@ -80,7 +80,7 @@ class CngPumpSlipController extends Controller
 
         $data['difference_taka'] = $request->input('ftk') - $purchase_taka;
         $data['difference_m3'] = $request->input('fm3') - $cng_purchase_m3;
-        $data['balance'] =  $request->input('cash_receipt_amount') - $request->input('ftk');
+        $data['balance'] = $request->input('cash_receipt_amount') - $request->input('ftk');
 
         $finalData = array_merge($validated, $data);
 
@@ -101,7 +101,7 @@ class CngPumpSlipController extends Controller
     public function show(CngPump $cngPump)
     {
         return view('backend.factory.cngpump.show', [
-            'cngPump' => $cngPump
+            'cngPump' => $cngPump,
         ]);
     }
 
@@ -113,7 +113,7 @@ class CngPumpSlipController extends Controller
         $loadOptions = \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
 
         return view('backend.factory.cngpump.edit', [
-            'cngPump' => $cngPump
+            'cngPump' => $cngPump,
         ]);
     }
 
@@ -173,7 +173,7 @@ class CngPumpSlipController extends Controller
 
         $data['difference_taka'] = $request->input('ftk') - $purchase_taka;
         $data['difference_m3'] = $request->input('fm3') - $cng_purchase_m3;
-        $data['balance'] =  $request->input('cash_receipt_amount') - $request->input('ftk');
+        $data['balance'] = $request->input('cash_receipt_amount') - $request->input('ftk');
 
         $finalData = array_merge($validated, $data);
 

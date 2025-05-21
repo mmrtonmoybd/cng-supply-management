@@ -108,7 +108,7 @@ class CngpumpslipDatatable extends Datatable
             Column::add(__('Cash Receipt Date'))
                 ->width('180px')
                 ->data('cash_receipt_date')
-                ->dateFormat(__("boilerplate::date.Ymd")),
+                ->dateFormat(__('boilerplate::date.Ymd')),
 
             Column::add(__('Cash Receipt Amount'))
                 ->data('cash_receipt_amount'),
@@ -122,10 +122,10 @@ class CngpumpslipDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (CngPump $cngpump) {
-                    return join([
-                         Button::show('backend.factory.cngpump.show', $cngpump),
-                         Button::edit('backend.factory.cngpump.edit', $cngpump),
-                         Button::delete('backend.factory.cngpump.destroy', $cngpump),
+                    return implode([
+                        Button::show('backend.factory.cngpump.show', $cngpump),
+                        Button::edit('backend.factory.cngpump.edit', $cngpump),
+                        Button::delete('backend.factory.cngpump.destroy', $cngpump),
                     ]);
                 }),
         ];
