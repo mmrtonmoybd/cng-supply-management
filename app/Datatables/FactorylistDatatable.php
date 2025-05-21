@@ -55,12 +55,6 @@ class FactorylistDatatable extends Datatable
             Column::add(__('Phone'))
                 ->data('phone'),
 
-            Column::add(__('Created At'))
-                ->data('created_at'),
-
-            Column::add(__('Updated At'))
-                ->data('updated_at'),
-
             Column::add()
                 ->width('20px')
                 ->actions(function (Factory $factory) {

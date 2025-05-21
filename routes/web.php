@@ -67,6 +67,11 @@ Route::group($default, function () {
         Route::get('weight-filter', [App\Http\Controllers\Backend\Factory\WeightController::class, 'filter'])->name('weight.filter');
         Route::get('weight-filter/show', [App\Http\Controllers\Backend\Factory\WeightController::class, 'showFilter'])->name('weight.showFilter');
 
+        // Cng Pump Slip
+        Route::resource('cngPump', App\Http\Controllers\Backend\Factory\CngPumpSlipController::class)->names('cngpump');
+        Route::get('cngPump-filter', [App\Http\Controllers\Backend\Factory\CngPumpSlipController::class, 'filter'])->name('cngpump.filter');
+        Route::get('cngPump-filter/show', [App\Http\Controllers\Backend\Factory\CngPumpSlipController::class, 'showFilter'])->name('cngpump.showFilter');
+
         Route::resource('factory', App\Http\Controllers\Backend\Factory\FactoryController::class)->names('factory');
     });
 

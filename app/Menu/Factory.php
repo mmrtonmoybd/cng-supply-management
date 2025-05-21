@@ -34,7 +34,13 @@ class Factory implements MenuItemInterface
             'route' => 'backend.factory.weight.index',
         ]);
 
-        $item->add('Factory', [
+        $item->add('Cng Pump Slip', [
+            'permission' => 'backend',
+            'active' => 'backend.factory.cngpump.*',
+            'route' => 'backend.factory.cngpump.index',
+        ]);
+
+        $item->add('Factory Name', [
             'permission' => 'backend',
             'active' => 'backend.factory.factory.*',
             'route' => 'backend.factory.factory.index',

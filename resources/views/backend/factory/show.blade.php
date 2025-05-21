@@ -1,6 +1,6 @@
 @extends('boilerplate::layout.index', [
-    'title' => 'Factory Details',
-    'subtitle' => 'Show Factory',
+    'title' => 'Factory name list',
+    'subtitle' => 'Show Factory name',
 ])
 
 @section('content')

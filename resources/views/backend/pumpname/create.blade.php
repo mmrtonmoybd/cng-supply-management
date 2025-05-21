@@ -1,5 +1,5 @@
 @extends('boilerplate::layout.index', [
-    'title' => 'Add Pump Name',
+    'title' => 'Pump Name list',
     'subtitle' => 'Create Pump Name',
 ])
 
