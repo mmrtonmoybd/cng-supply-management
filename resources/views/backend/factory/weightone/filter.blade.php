@@ -11,12 +11,29 @@
 <x-boilerplate::card>
     <form action="{{ route('backend.factory.weightone.showFilter') }}" method="GET">
         <div class="row">
-            <div class="col-md-4">
-                <x-boilerplate::select2 name="pump_name" label="Pump Name" :value="request('pump_name')" placeholder="Select Pump Name">
-                    @foreach($pumpNames as $name)
-                        <option value="{{ $name }}" {{ request('pump_name') == $name ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </x-boilerplate::select2>
+            <div class="col-md-3">
+                @php
+                $pumpOptions = \App\Models\PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+            @endphp
+            <lebel for="pumpName_id"><b>Pump Name</b></label>
+            <select name="pumpName_id" class="form-control">
+                <option value="">Select Pump Name</option>
+                @foreach ($pumpOptions as $key => $value)
+                    <option value="{{ $key }}" @if (request('pumpName_id') == $key) selected @endif>{{ $value }}</option>
+                @endforeach
+            </select>
+            </div>
+            <div class="col-md-3">
+                @php
+                $factoryOptions = \App\Models\Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+            @endphp
+            <lebel for="factory_id"><b>Factory Name</b></label>
+            <select name="factory_id" class="form-control">
+                <option value="">Select Factory Name</option>
+                @foreach ($factoryOptions as $key => $value)
+                    <option value="{{ $key }}" @if (request('factory_id') == $key) selected @endif>{{ $value }}</option>
+                @endforeach
+            </select>
             </div>
             <div class="col-md-4">
                 <x-boilerplate::input name="car_no" type="text" label="Car Number" :value="request('car_no')" placeholder="Enter Car Number"/>
@@ -78,7 +95,7 @@
                         <tr>
                             <td>{{ $row->date }}</td>
                             <td>{{ $row->vehicle_reg_number }}</td>
-                            <td>{{ $row->pump_name }}</td>
+                            <td>{{ $row->pumpname->name }}</td>
                             <td>{{ $row->cng_purchase_m3 }}</td>
                             <td>{{ $row->lrate }}</td>
                             <td>{{ $row->purchase_taka }}</td>

@@ -18,7 +18,7 @@
                 <tbody>
                     <tr><th>Date</th><td>{{ $weight->date }}</td></tr>
                     <tr><th>Car No</th><td>{{ $weight->vehicle_reg_number }}</td></tr>
-                    <tr><th>Pump Name</th><td>{{ $weight->pump_name }}</td></tr>
+                    <tr><th>Pump Name</th><td>{{ $weight->pumpname->name }}</td></tr>
                     <tr><th>M3</th><td>{{ $weight->cng_purchase_m3 }}</td></tr>
                     <tr><th>Rate (Load)</th><td>{{ $weight->lrate }}</td></tr>
                     <tr><th>Purchase Taka</th><td>{{ $weight->purchase_taka }}</td></tr>

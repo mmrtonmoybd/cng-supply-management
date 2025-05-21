@@ -12,11 +12,28 @@
     <form action="{{ route('backend.factory.dispansar.showFilter') }}" method="GET">
         <div class="row">
             <div class="col-md-3">
-                <x-boilerplate::select2 name="pump_name" label="Pump Name" :value="request('pump_name')" placeholder="Select Pump Name">
-                    @foreach($pumpNames as $name)
-                        <option value="{{ $name }}" {{ request('pump_name') == $name ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </x-boilerplate::select2>
+                @php
+                $pumpOptions = \App\Models\PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+            @endphp
+            <lebel for="pumpName_id"><b>Pump Name</b></label>
+            <select name="pumpName_id" class="form-control">
+                <option value="">Select Pump Name</option>
+                @foreach ($pumpOptions as $key => $value)
+                    <option value="{{ $key }}" @if (request('pumpName_id') == $key) selected @endif>{{ $value }}</option>
+                @endforeach
+            </select>
+            </div>
+            <div class="col-md-3">
+                @php
+                $factoryOptions = \App\Models\Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+            @endphp
+            <lebel for="factory_id"><b>Factory Name</b></label>
+            <select name="factory_id" class="form-control">
+                <option value="">Select Factory Name</option>
+                @foreach ($factoryOptions as $key => $value)
+                    <option value="{{ $key }}" @if (request('factory_id') == $key) selected @endif>{{ $value }}</option>
+                @endforeach
+            </select>
             </div>
             <div class="col-md-3">
                 <x-boilerplate::input name="car_no" type="text" label="Car Number" :value="request('car_no')" placeholder="Enter Car Number"/>
@@ -89,7 +106,7 @@
                         <tr>
                             <td>{{ $dispansar->date }}</td>
                             <td>{{ $dispansar->vehicle_reg_number }}</td>
-                            <td>{{ $dispansar->pump_name }}</td>
+                            <td>{{ $dispansar->pumpname->name }}</td>
                             <td>{{ $dispansar->cng_purchase_m3 }}</td>
                             <td>{{ $dispansar->rate }}</td>
                             <td>{{ $dispansar->purchase_taka }}</td>

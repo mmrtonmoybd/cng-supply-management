@@ -92,17 +92,16 @@
             <x-boilerplate::input name="vehicle_reg_number" label="Car No" :value="old('vehicle_reg_number', $weight->vehicle_reg_number)" placeholder="Car No" />
         </div>
         <div class="col-md-4">
-            @php
-                $pumpOptions = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray();
+           @php
+                $pumpOptions = \App\Models\PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+                $selectedPump = old('pumpName_id', $weight->pumpName_id);
             @endphp
-            <select name="pump_name" id="pump_name" class="form-control select2-pump">
+            <label for="pumpName_id">Pump Name</label>
+            <select name="pumpName_id" id="pumpName_id" class="form-control " required>
                 <option value="">Select Pump Name</option>
                 @foreach ($pumpOptions as $key => $value)
-                    <option value="{{ $key }}" @if (old('pump_name', $weight->pump_name) == $key) selected @endif>{{ $value }}</option>
+                    <option value="{{ $key }}" @if ($selectedPump == $key) selected @endif>{{ $value }}</option>
                 @endforeach
-                @if(old('pump_name', $weight->pump_name) && !array_key_exists(old('pump_name', $weight->pump_name), $pumpOptions))
-                    <option value="{{ old('pump_name', $weight->pump_name) }}" selected>{{ old('pump_name', $weight->pump_name) }}</option>
-                @endif
             </select>
         </div>
         <div class="col-md-4">
@@ -113,6 +112,20 @@
         </div>
         <div class="col-md-4">
             <x-boilerplate::input name="purchase_taka" label="Purchase Taka" type="number" step="0.01" :value="old('purchase_taka', $weight->purchase_taka)" placeholder="Purchase Taka" />
+        </div>
+        <div class="col-md-4">
+
+            @php
+                $factoryOptions = \App\Models\Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+                $selectedFactory = old('factory_id', $weight->factory_id);
+            @endphp
+            <label for="factory_id">Factory Name</label>
+            <select name="factory_id" id="factory_id" class="form-control " >
+                <option value="">Select Factory Name</option>
+                @foreach ($factoryOptions as $key => $value)
+                    <option value="{{ $key }}" @if ($selectedFactory == $key) selected @endif>{{ $value }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 </x-boilerplate::card>

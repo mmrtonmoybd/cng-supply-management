@@ -17,7 +17,16 @@ return new class extends Migration
             $table->foreign('load_entry_id')->references('id')->on('load_entries')->onDelete('cascade');
             $table->date('date')->nullable();
             $table->string('vehicle_reg_number')->nullable();
-            $table->string('pump_name')->nullable();
+            $table->unsignedBigInteger('pumpName_id')->nullable();
+            $table->foreign('pumpName_id')
+                ->references('id')
+                ->on('pump_names')
+                ->onDelete('cascade');
+            $table->unsignedBigInteger('factory_id')->nullable();
+            $table->foreign('factory_id')
+                ->references('id')
+                ->on('factories')
+                ->onDelete('cascade');
             $table->decimal('cng_purchase_m3', 10, 2)->nullable();
             $table->decimal('lrate', 10, 2)->nullable();
             $table->decimal('purchase_taka', 15, 2)->nullable();

@@ -44,7 +44,8 @@ class DispansarController extends Controller
             'recived_by' => 'nullable|string|max:255',
             'remarks' => 'nullable|string|max:1000',
             'vehicle_reg_number' => 'nullable|string|max:255',
-            'pump_name' => 'nullable|string|max:255',
+            'pumpName_id' => 'nullable',
+            'factory_id' => 'nullable',
             'cng_purchase_m3' => 'nullable|numeric|min:0',
             'lrate' => 'nullable|numeric|min:0',
             'purchase_taka' => 'nullable|numeric|min:0',
@@ -60,7 +61,8 @@ class DispansarController extends Controller
 
             $data['date'] = $load->date;
             $data['vehicle_reg_number'] = $load->vehicle_reg_number;
-            $data['pump_name'] = $load->pump_name;
+            $data['pumpName_id'] = $load->pumpName_id;
+            $data['factory_id'] = $load->factory_id;
             $data['lrate'] = $load->rate;
             $data['cng_purchase_m3'] = $load->cng_purchase_m3;
             $data['purchase_taka'] = $load->purchase_taka;
@@ -70,7 +72,8 @@ class DispansarController extends Controller
 
             $data['date'] = $request->input('date');
             $data['vehicle_reg_number'] = $request->input('vehicle_reg_number');
-            $data['pump_name'] = $request->input('pump_name');
+            $data['pumpName_id'] = $request->input('pumpName_id');
+            $data['factory_id'] = $request->input('factory_id');
             $data['lrate'] = $request->input('lrate');
             $data['cng_purchase_m3'] = $request->input('cng_purchase_m3');
             $data['purchase_taka'] = $request->input('purchase_taka');
@@ -134,7 +137,8 @@ class DispansarController extends Controller
             'recived_by' => 'nullable|string|max:255',
             'remarks' => 'nullable|string|max:1000',
             'vehicle_reg_number' => 'nullable|string|max:255',
-            'pump_name' => 'nullable|string|max:255',
+            'pumpName_id' => 'nullable',
+            'factory_id' => 'nullable',
             'cng_purchase_m3' => 'nullable|numeric|min:0',
             'lrate' => 'nullable|numeric|min:0',
             'purchase_taka' => 'nullable|numeric|min:0',
@@ -149,7 +153,8 @@ class DispansarController extends Controller
 
             $data['date'] = $request->input('date');
             $data['vehicle_reg_number'] = $request->input('vehicle_reg_number');
-            $data['pump_name'] = $request->input('pump_name');
+            $data['pumpName_id'] = $request->input('pumpName_id');
+            $data['factory_id'] = $request->input('factory_id');
             $data['lrate'] = $request->input('lrate');
             $data['cng_purchase_m3'] = $request->input('cng_purchase_m3');
             $data['purchase_taka'] = $request->input('purchase_taka');
@@ -159,7 +164,8 @@ class DispansarController extends Controller
 
             $data['date'] = $request->input('date');
             $data['vehicle_reg_number'] = $request->input('vehicle_reg_number');
-            $data['pump_name'] = $request->input('pump_name');
+            $data['pumpName_id'] = $request->input('pumpName_id');
+            $data['factory_id'] = $request->input('factory_id');
             $data['lrate'] = $request->input('lrate');
             $data['cng_purchase_m3'] = $request->input('cng_purchase_m3');
             $data['purchase_taka'] = $request->input('purchase_taka');
@@ -184,7 +190,8 @@ class DispansarController extends Controller
         if ($request->filled('load_entry_id')) {
             $load->date = $request->input('date');
             $load->vehicle_reg_number = $request->input('vehicle_reg_number');
-            $load->pump_name = $request->input('pump_name');
+            $load->pumpName_id = $request->input('pumpName_id');
+            $load->factory_id = $request->input('factory_id');
             $load->cng_purchase_m3 = $request->input('cng_purchase_m3');
             $load->rate = $request->input('lrate');
             $load->purchase_taka = $request->input('purchase_taka');
@@ -239,9 +246,8 @@ class DispansarController extends Controller
      */
     public function filter()
     {
-        $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
 
-        return view('backend.factory.dispansar.filter', compact('pumpNames'));
+        return view('backend.factory.dispansar.filter');
     }
 
     /**
@@ -249,9 +255,12 @@ class DispansarController extends Controller
      */
     public function showFilter(Request $request)
     {
-        $query = Dispansar::with('loada');
-        if ($request->filled('pump_name')) {
-            $query->where('pump_name', $request->pump_name);
+        $query = Dispansar::with(['loada', 'pumpname', 'factory']);
+        if ($request->filled('pumpName_id')) {
+            $query->where('pumpName_id', $request->pumpName_id);
+        }
+        if ($request->filled('factory_id')) {
+            $query->where('factory_id', $request->factory_id);
         }
         if ($request->filled('car_no')) {
             $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
@@ -266,8 +275,7 @@ class DispansarController extends Controller
             }
         }
         $results = $query->orderBy('created_at', 'ASC')->get();
-        $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
 
-        return view('backend.factory.dispansar.filter', compact('results', 'pumpNames'));
+        return view('backend.factory.dispansar.filter', compact('results'));
     }
 }

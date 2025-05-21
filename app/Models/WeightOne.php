@@ -14,7 +14,8 @@ class WeightOne extends Model
         'load_entry_id',
         'date',
         'vehicle_reg_number',
-        'pump_name',
+        'pumpName_id',
+        'factory_id',
         'cng_purchase_m3',
         'lrate',
         'purchase_taka',
@@ -44,5 +45,20 @@ class WeightOne extends Model
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
+    }
+
+    public function pumpname()
+    {
+        return $this->belongsTo(PumpName::class, 'pumpName_id', 'id');
+    }
+
+    public function factory()
+    {
+        return $this->belongsTo(Factory::class, 'factory_id', 'id');
+    }
+
+    public function loada()
+    {
+        return $this->belongsTo(LoadEntry::class, 'load_entry_id', 'id');
     }
 }

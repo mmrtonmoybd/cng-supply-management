@@ -38,7 +38,8 @@ class WeightController extends Controller
             'first_weight' => 'nullable|numeric',
             'second_weight' => 'nullable|numeric',
             'vehicle_reg_number' => 'nullable|string|max:255',
-            'pump_name' => 'nullable|string|max:255',
+            'pumpName_id' => 'nullable',
+            'factory_id' => 'nullable',
             'cng_purchase_m3' => 'nullable|numeric|min:0',
             'lrate' => 'nullable|numeric|min:0',
             'purchase_taka' => 'nullable|numeric|min:0',
@@ -57,6 +58,7 @@ class WeightController extends Controller
             'total_bill_taka' => 'nullable|numeric|min:0',
             'difference_taka' => 'nullable|numeric|min:0',
             'difference_m3' => 'nullable|numeric|min:0',
+            'bill_amount' => 'nullable|numeric|min:0',	
         ]);
 
         $data = [];
@@ -68,7 +70,8 @@ class WeightController extends Controller
 
             $data['date'] = $load->date;
             $data['vehicle_reg_number'] = $load->vehicle_reg_number;
-            $data['pump_name'] = $load->pump_name;
+            $data['pumpName_id'] = $load->pumpName_id;
+            $data['factory_id'] = $load->factory_id;
             $data['lrate'] = $load->rate;
             $data['cng_purchase_m3'] = $load->cng_purchase_m3;
             $data['purchase_taka'] = $load->purchase_taka;
@@ -78,7 +81,8 @@ class WeightController extends Controller
 
             $data['date'] = $request->input('date');
             $data['vehicle_reg_number'] = $request->input('vehicle_reg_number');
-            $data['pump_name'] = $request->input('pump_name');
+            $data['pumpName_id'] = $request->input('pumpName_id');
+            $data['factory_id'] = $request->input('factory_id');
             $data['lrate'] = $request->input('lrate');
             $data['cng_purchase_m3'] = $request->input('cng_purchase_m3');
             $data['purchase_taka'] = $request->input('purchase_taka');
@@ -131,7 +135,8 @@ class WeightController extends Controller
             'first_weight' => 'nullable|numeric',
             'second_weight' => 'nullable|numeric',
             'vehicle_reg_number' => 'nullable|string|max:255',
-            'pump_name' => 'nullable|string|max:255',
+            'pumpName_id' => 'nullable',
+            'factory_id' => 'nullable',
             'cng_purchase_m3' => 'nullable|numeric|min:0',
             'lrate' => 'nullable|numeric|min:0',
             'purchase_taka' => 'nullable|numeric|min:0',
@@ -162,7 +167,8 @@ class WeightController extends Controller
 
             $data['date'] = $request->input('date');
             $data['vehicle_reg_number'] = $request->input('vehicle_reg_number');
-            $data['pump_name'] = $request->input('pump_name');
+            $data['pumpName_id'] = $request->input('pumpName_id');
+            $data['factory_id'] = $request->input('factory_id');
             $data['lrate'] = $request->input('lrate');
             $data['cng_purchase_m3'] = $request->input('cng_purchase_m3');
             $data['purchase_taka'] = $request->input('purchase_taka');
@@ -172,7 +178,8 @@ class WeightController extends Controller
 
             $data['date'] = $request->input('date');
             $data['vehicle_reg_number'] = $request->input('vehicle_reg_number');
-            $data['pump_name'] = $request->input('pump_name');
+            $data['pumpName_id'] = $request->input('pumpName_id');
+            $data['factory_id'] = $request->input('factory_id');
             $data['lrate'] = $request->input('lrate');
             $data['cng_purchase_m3'] = $request->input('cng_purchase_m3');
             $data['purchase_taka'] = $request->input('purchase_taka');
@@ -198,6 +205,13 @@ class WeightController extends Controller
         $weight->update($finalData);
 
         if ($request->filled('load_entry_id')) {
+            $load->date = $request->input('date');
+            $load->vehicle_reg_number = $request->input('vehicle_reg_number');
+            $load->pumpName_id = $request->input('pumpName_id');
+            $load->factory_id = $request->input('factory_id');
+            $load->cng_purchase_m3 = $request->input('cng_purchase_m3');
+            $load->rate = $request->input('lrate');
+            $load->purchase_taka = $request->input('purchase_taka');
             $load->status = 1;
             $load->save();
         }
@@ -220,9 +234,8 @@ class WeightController extends Controller
 
     public function filter()
     {
-        $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
 
-        return view('backend.factory.weight.filter', compact('pumpNames'));
+        return view('backend.factory.weight.filter');
     }
 
     /**
@@ -230,9 +243,12 @@ class WeightController extends Controller
      */
     public function showFilter(Request $request)
     {
-        $query = Weight::query();
-        if ($request->filled('pump_name')) {
-            $query->where('pump_name', $request->pump_name);
+        $query = Weight::with(['loada', 'pumpname', 'factory']);
+        if ($request->filled('pumpName_id')) {
+            $query->where('pumpName_id', $request->pumpName_id);
+        }
+        if ($request->filled('factory_id')) {
+            $query->where('factory_id', $request->factory_id);
         }
         if ($request->filled('car_no')) {
             $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
@@ -247,8 +263,7 @@ class WeightController extends Controller
             }
         }
         $results = $query->orderBy('created_at', 'ASC')->get();
-        $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
 
-        return view('backend.factory.weight.filter', compact('results', 'pumpNames'));
+        return view('backend.factory.weight.filter', compact('results'));
     }
 }

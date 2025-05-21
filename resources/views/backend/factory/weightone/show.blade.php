@@ -31,7 +31,7 @@
                     <tr><th>Remarks</th><td>{{ $weightone->remarks }}</td></tr>
                     <tr><th>Date</th><td>{{ $weightone->date }}</td></tr>
                     <tr><th>Car No</th><td>{{ $weightone->vehicle_reg_number }}</td></tr>
-                    <tr><th>Pump Name</th><td>{{ $weightone->pump_name }}</td></tr>
+                    <tr><th>Pump Name</th><td>{{ $weightone->pumpname->name }}</td></tr>
                     <tr><th>M3</th><td>{{ $weightone->cng_purchase_m3 }}</td></tr>
                     <tr><th>Purchase Rate</th><td>{{ $weightone->lrate }}</td></tr>
                     <tr><th>Purchase Taka</th><td>{{ $weightone->purchase_taka }}</td></tr>

@@ -3,7 +3,9 @@
 namespace App\Datatables;
 
 use App\Models\Dispansar;
+use App\Models\Factory;
 use App\Models\LoadEntry;
+use App\Models\PumpName;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
@@ -14,7 +16,7 @@ class DispansarDatatable extends Datatable
 
     public function datasource()
     {
-        return Dispansar::query();
+        return Dispansar::with(['pumpname', 'factory'])->select('*');
     }
 
     public function setUp()
@@ -52,11 +54,11 @@ class DispansarDatatable extends Datatable
             Column::add('Car no')
                 ->data('vehicle_reg_number'),
 
-            Column::add('Pump Name')
-                ->data('pump_name')
-                ->filterOptions(LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray())
+            Column::add(__('Pump Name'))
+                ->data('pumpname.name')
+                ->filterOptions(PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
                 ->filter(function ($query, $value) {
-                    return $query->where('pump_name', 'LIKE', '%'.$value.'%');
+                    return $query->where('pumpName_id', $value);
                 }),
 
             Column::add('M3')
@@ -67,6 +69,13 @@ class DispansarDatatable extends Datatable
 
             Column::add('Purchase Taka')
                 ->data('purchase_taka'),
+
+            Column::add(__('Factory Name'))
+                ->data('factory.name')
+                ->filterOptions(Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
+                ->filter(function ($query, $value) {
+                    return $query->where('factory_id', $value);
+                }),
 
             Column::add(__('Bill No'))
                 ->data('bill_no'),

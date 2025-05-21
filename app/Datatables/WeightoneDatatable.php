@@ -3,6 +3,9 @@
 namespace App\Datatables;
 
 use App\Models\WeightOne;
+use App\Models\Factory;
+use App\Models\LoadEntry;
+use App\Models\PumpName;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
@@ -13,7 +16,7 @@ class WeightoneDatatable extends Datatable
 
     public function datasource()
     {
-        return WeightOne::query();
+        return WeightOne::with(['pumpname', 'factory'])->select('*');
     }
 
     public function setUp()
@@ -41,7 +44,18 @@ class WeightoneDatatable extends Datatable
                 ->data('vehicle_reg_number'),
 
             Column::add(__('Pump Name'))
-                ->data('pump_name'),
+                ->data('pumpname.name')
+                ->filterOptions(PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
+                ->filter(function ($query, $value) {
+                    return $query->where('pumpName_id', $value);
+                }),
+
+            Column::add(__('Factory Name'))
+                ->data('factory.name')
+                ->filterOptions(Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
+                ->filter(function ($query, $value) {
+                    return $query->where('factory_id', $value);
+                }),
 
             Column::add(__('M3'))
                 ->data('cng_purchase_m3'),
