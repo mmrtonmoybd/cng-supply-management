@@ -122,7 +122,6 @@ class PumpController extends Controller
         Gate::authorize('viewAny', Pump::class);
 
         // Get unique pump names for the dropdown
-        
 
         return view('backend.pump.filter');
     }
