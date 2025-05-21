@@ -57,18 +57,15 @@
                         <div class="row">
                             <div class="col-6">
                                 @php
-                                    $pumpOptions = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray();
-                                    $selectedPump = old('pump_name', $pump->loada->pump_name ?? '');
+                                $pumpOptions = \App\Models\PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+                                $selectedPump = old('pumpName_id', $pump->loada->pumpName_id ?? null);
                                 @endphp
-                                <select name="pump_name" id="pump_name" class="form-control select2-pump" required>
-                                    <option value="">Select Pump Name</option>
-                                    @foreach ($pumpOptions as $key => $value)
-                                        <option value="{{ $key }}" @if ($selectedPump == $key) selected @endif>{{ $value }}</option>
-                                    @endforeach
-                                    @if($selectedPump && !array_key_exists($selectedPump, $pumpOptions))
-                                        <option value="{{ $selectedPump }}" selected>{{ $selectedPump }}</option>
-                                    @endif
-                                </select>
+                            <select name="pumpName_id" id="pumpName_id" class="form-control " required>
+                                <option value="">Select Pump Name</option>
+                                @foreach ($pumpOptions as $key => $value)
+                                    <option value="{{ $key }}" @if ($selectedPump == $key) selected @endif>{{ $value }}</option>
+                                @endforeach
+                            </select>
                             </div>
                             <div class="col-6">
                                 <x-boilerplate::input name='cng_purchase_m3' label='CNG Purchase (M3)' type='number' step='0.01' required :value="old('cng_purchase_m3', $pump->loada->cng_purchase_m3 ?? '')" placeholder='CNG Purchase (M3)'/>
@@ -84,7 +81,16 @@
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <x-boilerplate::input name='factory_name' label='Factory Name' :value="old('factory_name', $pump->loada->factory_name ?? '')" placeholder='Factory Name'/>
+                                 @php
+                                    $factoryOptions = \App\Models\Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+                                    $selectedFactory = old('factory_id', $pump->loada->factory_id);
+                                @endphp
+                                <select name="factory_id" id="factory_id" class="form-control " >
+                                    <option value="">Select Factory Name</option>
+                                    @foreach ($factoryOptions as $key => $value)
+                                        <option value="{{ $key }}" @if ($selectedFactory == $key) selected @endif>{{ $value }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-6">
                                 <x-boilerplate::select2 name="status" label="Status" minimum-results-for-search="1" required>
@@ -126,7 +132,7 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 $(document).ready(function() {
-    $('#pump_name').select2({
+    $('.select2-pump-name').select2({
         tags: true,
         placeholder: 'Select Pump Name',
         allowClear: true,

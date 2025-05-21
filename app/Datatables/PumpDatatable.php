@@ -3,6 +3,7 @@
 namespace App\Datatables;
 
 use App\Models\LoadEntry;
+use App\Models\PumpName;
 use App\Models\Pump;
 use Illuminate\Database\Eloquent\Builder;
 use Sebastienheyd\Boilerplate\Datatables\Button;
@@ -15,7 +16,7 @@ class PumpDatatable extends Datatable
 
     public function datasource()
     {
-        return Pump::with('loada')->select('*');
+        return Pump::with(['loada', 'loada.pumpname'])->select('*');
     }
 
     public function setUp()
@@ -53,12 +54,11 @@ class PumpDatatable extends Datatable
                 ->data('loada.vehicle_reg_number'),
 
             Column::add('Pump Name')
-                ->data('loada.pump_name')
-                ->filterOptions(LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name', 'pump_name')->toArray())
-                ->filter(function ($query, $value) {
-                    // return $query->where('pump_name', 'LIKE', '%' . $value. '%');
+                ->data('loada.pumpname.name')
+                ->filterOptions(PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
+                ->filter(function (Builder $query, $value) {
                     return $query->whereHas('loada', function ($query) use ($value) {
-                        $query->where('pump_name', 'LIKE', '%'.$value.'%');
+                        $query->where('pumpName_id', $value);
                     });
                 }),
 

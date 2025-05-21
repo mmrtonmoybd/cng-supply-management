@@ -23,11 +23,9 @@
                     <tr><th>M3</th><td>{{ $loadEntry->cng_purchase_m3 }}</td></tr>
                     <tr><th>Rate</th><td>{{ $loadEntry->rate }}</td></tr>
                     <tr><th>Purchase Taka</th><td>{{ $loadEntry->purchase_taka }}</td></tr>
-                    <tr><th>Factory Name</th><td>{{ $loadEntry->factory_name }}</td></tr>
+                    <tr><th>Factory Name</th><td>{{ $loadEntry->factory->name }}</td></tr>
                     <tr><th>Status</th><td>{{ ucfirst($loadEntry->status) }}</td></tr>
                     <tr><th>Remark</th><td>{{ $loadEntry->remark }}</td></tr>
-                    <tr><th>Created At</th><td>{{ $loadEntry->created_at->format('d-m-Y h:i A') }}</td></tr>
-                    <tr><th>Updated At</th><td>{{ $loadEntry->updated_at->format('d-m-Y h:i A') }}</td></tr>
                 </tbody>
             </table>
         </x-boilerplate::card>

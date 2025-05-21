@@ -2,6 +2,7 @@
 
 namespace App\Datatables;
 
+use App\Models\Factory;
 use App\Models\LoadEntry;
 use App\Models\PumpName;
 use Sebastienheyd\Boilerplate\Datatables\Button;
@@ -14,7 +15,7 @@ class LoadentryDatatable extends Datatable
 
     public function datasource()
     {
-        return LoadEntry::with('pumpname')->select('*');
+        return LoadEntry::with(['pumpname', 'factory'])->select('*');
     }
 
     public function setUp()
@@ -58,7 +59,11 @@ class LoadentryDatatable extends Datatable
                 ->data('purchase_taka'),
 
             Column::add(__('Factory Name'))
-                ->data('factory_name'),
+                ->data('factory.name')
+                ->filterOptions(Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
+                ->filter(function ($query, $value) {
+                    return $query->where('factory_id', $value);
+                }),
 
             Column::add(__('Status'))
                 ->data('status', function ($user) {

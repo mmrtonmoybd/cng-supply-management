@@ -18,11 +18,11 @@
                 <tbody>
                     <tr><th>Date</th><td>{{ $pump->loada->date ?? 'N/A' }}</td></tr>
                     <tr><th>Vehicle Registration Number</th><td>{{ $pump->loada->vehicle_reg_number ?? 'N/A' }}</td></tr>
-                    <tr><th>Pump Name</th><td>{{ $pump->loada->pump_name ?? 'N/A' }}</td></tr>
+                    <tr><th>Pump Name</th><td>{{ $pump->loada->pumpname->name ?? 'N/A' }}</td></tr>
                     <tr><th>CNG Purchase (m3)</th><td>{{ $pump->loada->cng_purchase_m3 ?? 'N/A' }}</td></tr>
                     <tr><th>Rate</th><td>{{ $pump->loada->rate ?? 'N/A' }}</td></tr>
                     <tr><th>Purchase Taka</th><td>{{ $pump->loada->purchase_taka ?? 'N/A' }}</td></tr>
-                    <tr><th>Factory Name</th><td>{{ $pump->loada->factory_name ?? 'N/A' }}</td></tr>
+                    <tr><th>Factory Name</th><td>{{ $pump->loada->factory->name ?? 'N/A' }}</td></tr>
                     <tr><th>Status</th><td>{{ $pump->loada->status ?? 'N/A' }}</td></tr>
                     <tr><th>Remark</th><td>{{ $pump->loada->remark ?? 'N/A' }}</td></tr>
                 </tbody>

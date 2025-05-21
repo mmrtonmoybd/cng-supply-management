@@ -12,11 +12,16 @@
     <form action="{{ route('backend.pump.showFilter') }}" method="GET">
         <div class="row">
             <div class="col-md-4">
-                <x-boilerplate::select2 name="pump_name" label="Pump Name" :value="request('pump_name')" placeholder="Select Pump Name">
-                    @foreach($pumpNames as $name)
-                        <option value="{{ $name }}" {{ request('pump_name') == $name ? 'selected' : '' }}>{{ $name }}</option>
-                    @endforeach
-                </x-boilerplate::select2>
+                @php
+                $pumpOptions = \App\Models\PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+            @endphp
+            <lebel for="pumpName_id"><b>Pump Name</b></label>
+            <select name="pumpName_id" class="form-control">
+                <option value="">Select Pump Name</option>
+                @foreach ($pumpOptions as $key => $value)
+                    <option value="{{ $key }}" @if (request('pumpName_id') == $key) selected @endif>{{ $value }}</option>
+                @endforeach
+            </select>
             </div>
             <div class="col-md-4">
                 <x-boilerplate::input name="car_no" type="text" label="Car Number" :value="request('car_no')" placeholder="Enter Car Number"/>
@@ -72,7 +77,7 @@
                         <tr>
                             <td>{{ $pump->loada->date ?? 'N/A' }}</td>
                             <td>{{ $pump->loada->vehicle_reg_number ?? 'N/A' }}</td>
-                            <td>{{ $pump->loada->pump_name ?? 'N/A' }}</td>
+                            <td>{{ $pump->loada->pumpname->name ?? 'N/A' }}</td>
                             <td>{{ $pump->loada->cng_purchase_m3 ?? 'N/A' }}</td>
                             <td>{{ $pump->loada->rate ?? 'N/A' }}</td>
                             <td>{{ $pump->loada->purchase_taka ?? 'N/A' }}</td>

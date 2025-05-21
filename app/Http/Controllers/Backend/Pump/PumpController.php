@@ -66,11 +66,11 @@ class PumpController extends Controller
             'payment_date' => 'nullable|date',
             'payment' => 'nullable|numeric|min:0',
             'vehicle_reg_number' => 'required|string|max:255',
-            'pump_name' => 'nullable|required|string|max:255',
+            'pumpName_id' => 'nullable|required',
             'cng_purchase_m3' => 'nullable|numeric|min:0',
             'rate' => 'required|numeric|min:0',
             'purchase_taka' => 'required|numeric|min:0',
-            'factory_name' => 'nullable|string|max:255',
+            'factory_id' => 'nullable',
             'status' => 'nullable|required|boolean',
             'remark' => 'nullable|string|max:1000',
             'remarks' => 'nullable|string|max:1000',
@@ -92,11 +92,11 @@ class PumpController extends Controller
 
         $onlyreq = $request->only([
             'vehicle_reg_number',
-            'pump_name',
+            'pumpName_id',
             'cng_purchase_m3',
             'rate',
             'purchase_taka',
-            'factory_name',
+            'factory_id',
             'status',
             'remark',
         ]);
@@ -122,14 +122,9 @@ class PumpController extends Controller
         Gate::authorize('viewAny', Pump::class);
 
         // Get unique pump names for the dropdown
-        $pumpNames = Pump::join('load_entries', 'pumps.load_entry_id', '=', 'load_entries.id')
-            ->select('load_entries.pump_name')
-            ->distinct()
-            ->pluck('pump_name')
-            ->filter()
-            ->values();
+        
 
-        return view('backend.pump.filter', compact('pumpNames'));
+        return view('backend.pump.filter');
     }
 
     /**
@@ -142,9 +137,9 @@ class PumpController extends Controller
         $query = Pump::with('loada');
 
         // Filter by pump name if provided
-        if ($request->filled('pump_name')) {
+        if ($request->filled('pumpName_id')) {
             $query->whereHas('loada', function ($q) use ($request) {
-                $q->where('pump_name', $request->pump_name);
+                $q->where('pumpName_id', $request->pumpName_id);
             });
         }
 
@@ -170,14 +165,6 @@ class PumpController extends Controller
 
         $results = $query->orderBy('created_at', 'ASC')->get();
 
-        // Get unique pump names for the dropdown
-        $pumpNames = Pump::join('load_entries', 'pumps.load_entry_id', '=', 'load_entries.id')
-            ->select('load_entries.pump_name')
-            ->distinct()
-            ->pluck('pump_name')
-            ->filter()
-            ->values();
-
-        return view('backend.pump.filter', compact('results', 'pumpNames'));
+        return view('backend.pump.filter', compact('results'));
     }
 }

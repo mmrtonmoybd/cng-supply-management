@@ -54,7 +54,15 @@
     </div>
     <div class="row">
         <div class="col-6">
-            <x-boilerplate::input name='factory_name' label='Factory Name' :value="old('factory_name')" placeholder='Factory Name'/>
+            @php
+                $factoryOptions = \App\Models\Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+            @endphp
+            <select name="factory_id"  class="form-control">
+                <option value="">Select Factory Name</option>
+                @foreach ($factoryOptions as $key => $value)
+                    <option value="{{ $key }}" @if (old('factory_id') == $key) selected @endif>{{ $value }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="col-6">
             <x-boilerplate::select2 name="status" label="Status" minimum-results-for-search="1" required>

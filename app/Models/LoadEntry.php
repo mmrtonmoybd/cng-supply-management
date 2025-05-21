@@ -23,7 +23,7 @@ class LoadEntry extends Model
         'purchase_taka',
         'fuel_cost',
         'fuel_pump',
-        'factory_name',
+        'factory_id',
         'status',
         'remark',
         'diesel_litter',
@@ -70,5 +70,10 @@ class LoadEntry extends Model
     public function pumpname()
     {
         return $this->belongsTo(PumpName::class, 'pumpName_id', 'id');
+    }
+
+    public function factory()
+    {
+        return $this->belongsTo(Factory::class, 'factory_id', 'id');
     }
 }

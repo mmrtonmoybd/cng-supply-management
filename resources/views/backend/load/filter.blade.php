@@ -85,7 +85,7 @@
                             <td>{{ $load->cng_purchase_m3 ?? 'N/A' }}</td>
                             <td>{{ $load->rate ?? 'N/A' }}</td>
                             <td>{{ $load->purchase_taka ?? 'N/A' }}</td>
-                            <td>{{ $load->factory_name ?? 'N/A' }}</td>
+                            <td>{{ $load->factory->name ?? 'N/A' }}</td>
                             <td>
                                 @if($load->status == 1)
                                     <span class="badge badge-success">Use</span>
