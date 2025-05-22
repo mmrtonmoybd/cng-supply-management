@@ -9,6 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Factory extends Model
 {
     use LogsActivity;
+
     protected $fillable = [
         'name',
         'type',

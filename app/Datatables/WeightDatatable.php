@@ -24,7 +24,7 @@ class WeightDatatable extends Datatable
             ->permissions('weight_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
-            ->setRowId('id');;
+            ->setRowId('id');
     }
 
     public function columns(): array
