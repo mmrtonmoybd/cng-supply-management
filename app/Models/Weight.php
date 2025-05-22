@@ -46,7 +46,7 @@ class Weight extends Model
     {
         return LogOptions::defaults()
             ->logAll()
-            ->useLogName('Weight Scale')
+            ->useLogName('Factory Weight Scale')
             ->logExcept(['created_at', 'updated_at'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();

@@ -40,7 +40,7 @@ class WeightOne extends Model
     {
         return LogOptions::defaults()
             ->logAll()
-            ->useLogName('Cng Pump & Weight Scale')
+            ->useLogName('Factory Cng Pump & Weight Scale')
             ->logExcept(['created_at', 'updated_at'])
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();

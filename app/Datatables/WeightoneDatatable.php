@@ -21,7 +21,7 @@ class WeightoneDatatable extends Datatable
     public function setUp()
     {
         $this->order('id', 'desc')
-            ->permissions('load_crud')
+            ->permissions('weightone_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
             ->setRowId('id');

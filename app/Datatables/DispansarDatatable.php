@@ -23,7 +23,7 @@ class DispansarDatatable extends Datatable
         $this->order('id', 'desc')
             ->buttons('filters', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
-            ->permissions('pump_crud')
+            ->permissions('dispansar_crud')
             ->setRowId('id');
     }
 

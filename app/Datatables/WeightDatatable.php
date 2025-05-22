@@ -20,7 +20,11 @@ class WeightDatatable extends Datatable
 
     public function setUp()
     {
-        $this->order('id', 'desc');
+        $this->order('id', 'desc')
+            ->permissions('weight_crud')
+            ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
+            ->condensed()
+            ->setRowId('id');;
     }
 
     public function columns(): array

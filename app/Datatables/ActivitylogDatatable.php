@@ -39,7 +39,19 @@ class ActivitylogDatatable extends Datatable
                 ->dateFormat('YYYY-MM-DD hh:mm:ss A'),
 
             Column::add(__('Module'))
-                ->data('log_name'),
+                ->data('log_name')
+                ->filterOptions([
+                    'Factory CNG Pump Slip' => 'Factory CNG Pump Slip',
+                    'Factory Dispansar' => 'Factory Dispansar',
+                    'Factory names' => 'Factory names',
+                    'Factory Cng Pump & Weight Scale' => 'Factory Cng Pump & Weight Scale',
+                    'Factory Weight Scale' => 'Factory Weight Scale',
+                    'Load' => 'Load',
+                    'Pumps' => 'Pumps',
+                    'Pump names' => 'Pump names',
+                ])->filter(function ($query, $q) {
+                    $query->where('log_name', $q);
+                }),
 
             Column::add(__('Action'))
                 ->data('event', function ($event) {
