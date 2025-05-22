@@ -14,6 +14,7 @@ class PumpNameController extends Controller
     public function index()
     {
         $this->authorize('pump_name_crud');
+
         return view('backend.pumpname.index');
     }
 
@@ -23,6 +24,7 @@ class PumpNameController extends Controller
     public function create()
     {
         $this->authorize('pump_name_crud');
+
         return view('backend.pumpname.create');
     }
 
@@ -50,6 +52,7 @@ class PumpNameController extends Controller
     public function show(PumpName $pumpname)
     {
         $this->authorize('pump_name_crud');
+
         return view('backend.pumpname.show', compact('pumpname'));
     }
 
@@ -59,6 +62,7 @@ class PumpNameController extends Controller
     public function edit(PumpName $pumpname)
     {
         $this->authorize('pump_name_crud');
+
         return view('backend.pumpname.edit', compact('pumpname'));
     }
 
@@ -86,6 +90,7 @@ class PumpNameController extends Controller
     public function destroy(PumpName $pumpname)
     {
         $this->authorize('pump_name_crud');
+
         return response()->json(['success' => $pumpname->delete() ?? false]);
     }
 }

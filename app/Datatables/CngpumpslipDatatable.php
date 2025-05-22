@@ -123,9 +123,9 @@ class CngpumpslipDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (CngPump $cngpump) {
                     return implode([
-                       auth()->user()->ability(['admin'], 'cngpump_crud') ? Button::show('backend.factory.cngpump.show', $cngpump) : null,
-                       auth()->user()->ability(['admin'], 'cngpump_crud') ? Button::edit('backend.factory.cngpump.edit', $cngpump) : null,
-                       auth()->user()->ability(['admin'], 'cngpump_crud') ? Button::delete('backend.factory.cngpump.destroy', $cngpump) : null,
+                        auth()->user()->ability(['admin'], 'cngpump_crud') ? Button::show('backend.factory.cngpump.show', $cngpump) : null,
+                        auth()->user()->ability(['admin'], 'cngpump_crud') ? Button::edit('backend.factory.cngpump.edit', $cngpump) : null,
+                        auth()->user()->ability(['admin'], 'cngpump_crud') ? Button::delete('backend.factory.cngpump.destroy', $cngpump) : null,
                     ]);
                 }),
         ];

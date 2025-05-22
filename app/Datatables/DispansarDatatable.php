@@ -129,9 +129,9 @@ class DispansarDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (Dispansar $dispansar) {
                     return implode([
-                      auth()->user()->ability(['admin'], 'dispansar_crud') ?  Button::show('backend.factory.dispansar.show', $dispansar) : null,
-                      auth()->user()->ability(['admin'], 'dispansar_crud') ?  Button::edit('backend.factory.dispansar.edit', $dispansar) : null,
-                       auth()->user()->ability(['admin'], 'dispansar_crud') ? Button::delete('backend.factory.dispansar.destroy', $dispansar) : null,	
+                        auth()->user()->ability(['admin'], 'dispansar_crud') ? Button::show('backend.factory.dispansar.show', $dispansar) : null,
+                        auth()->user()->ability(['admin'], 'dispansar_crud') ? Button::edit('backend.factory.dispansar.edit', $dispansar) : null,
+                        auth()->user()->ability(['admin'], 'dispansar_crud') ? Button::delete('backend.factory.dispansar.destroy', $dispansar) : null,
                     ]);
                 }),
         ];

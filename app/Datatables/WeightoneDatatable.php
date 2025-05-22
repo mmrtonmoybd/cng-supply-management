@@ -115,9 +115,9 @@ class WeightoneDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (WeightOne $weightone) {
                     return implode([
-                       auth()->user()->ability(['admin'], 'weightone_crud') ? Button::show('backend.factory.weightone.show', $weightone) : null,
-                       auth()->user()->ability(['admin'], 'weightone_crud') ? Button::edit('backend.factory.weightone.edit', $weightone) : null,
-                       auth()->user()->ability(['admin'], 'weightone_crud') ? Button::delete('backend.factory.weightone.destroy', $weightone) : null,
+                        auth()->user()->ability(['admin'], 'weightone_crud') ? Button::show('backend.factory.weightone.show', $weightone) : null,
+                        auth()->user()->ability(['admin'], 'weightone_crud') ? Button::edit('backend.factory.weightone.edit', $weightone) : null,
+                        auth()->user()->ability(['admin'], 'weightone_crud') ? Button::delete('backend.factory.weightone.destroy', $weightone) : null,
                     ]);
                 }),
         ];

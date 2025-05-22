@@ -14,6 +14,7 @@ class WeightOneController extends Controller
     public function index()
     {
         $this->authorize('weightone_crud');
+
         return view('backend.factory.weightone.list');
     }
 
@@ -256,6 +257,7 @@ class WeightOneController extends Controller
     public function filter()
     {
         $this->authorize('weightone_crud');
+
         return view('backend.factory.weightone.filter');
     }
 

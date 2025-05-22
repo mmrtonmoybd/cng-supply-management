@@ -24,6 +24,7 @@ class FactoryController extends Controller
     public function create()
     {
         $this->authorize('factory_crud');
+
         return view('backend.factory.create');
     }
 
@@ -51,6 +52,7 @@ class FactoryController extends Controller
     public function show(Factory $factory)
     {
         $this->authorize('factory_crud');
+
         return view('backend.factory.show', compact('factory'));
     }
 
@@ -60,6 +62,7 @@ class FactoryController extends Controller
     public function edit(Factory $factory)
     {
         $this->authorize('factory_crud');
+
         return view('backend.factory.edit', compact('factory'));
     }
 
@@ -88,6 +91,7 @@ class FactoryController extends Controller
     public function destroy(Factory $factory)
     {
         $this->authorize('factory_crud');
+
         return response()->json(['success' => $factory->delete() ?? false]);
     }
 }

@@ -14,6 +14,7 @@ class CngPumpSlipController extends Controller
     public function index()
     {
         $this->authorize('cngpump_crud');
+
         return view('backend.factory.cngpump.list');
     }
 
@@ -23,6 +24,7 @@ class CngPumpSlipController extends Controller
     public function create()
     {
         $this->authorize('cngpump_crud');
+
         return view('backend.factory.cngpump.create');
     }
 
@@ -111,6 +113,7 @@ class CngPumpSlipController extends Controller
     public function show(CngPump $cngPump)
     {
         $this->authorize('cngpump_crud');
+
         return view('backend.factory.cngpump.show', [
             'cngPump' => $cngPump,
         ]);
@@ -238,6 +241,7 @@ class CngPumpSlipController extends Controller
     public function filter()
     {
         $this->authorize('cngpump_crud');
+
         return view('backend.factory.cngpump.filter');
     }
 

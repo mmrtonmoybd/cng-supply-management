@@ -14,6 +14,7 @@ class WeightController extends Controller
     public function index()
     {
         $this->authorize('weight_crud');
+
         return view('backend.factory.weight.list');
     }
 
@@ -125,6 +126,7 @@ class WeightController extends Controller
     public function show(Weight $weight)
     {
         $this->authorize('weight_crud');
+
         return view('backend.factory.weight.show', compact('weight'));
     }
 
@@ -134,6 +136,7 @@ class WeightController extends Controller
     public function edit(Weight $weight)
     {
         $this->authorize('weight_crud');
+
         return view('backend.factory.weight.edit', compact('weight'));
     }
 
@@ -260,6 +263,7 @@ class WeightController extends Controller
     public function filter()
     {
         $this->authorize('weight_crud');
+
         return view('backend.factory.weight.filter');
     }
 
