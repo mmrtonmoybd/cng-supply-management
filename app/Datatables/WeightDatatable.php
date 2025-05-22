@@ -132,9 +132,9 @@ class WeightDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (Weight $weight) {
                     return implode([
-                       auth()->user()->ability(['admin'], 'weight_crud') ? Button::show('backend.factory.weight.show', $weight) : null,
-                       auth()->user()->ability(['admin'], 'weight_crud') ? Button::edit('backend.factory.weight.edit', $weight) : null,
-                       auth()->user()->ability(['admin'], 'weight_crud') ? Button::delete('backend.factory.weight.destroy', $weight) : null,
+                        auth()->user()->ability(['admin'], 'weight_crud') ? Button::show('backend.factory.weight.show', $weight) : null,
+                        auth()->user()->ability(['admin'], 'weight_crud') ? Button::edit('backend.factory.weight.edit', $weight) : null,
+                        auth()->user()->ability(['admin'], 'weight_crud') ? Button::delete('backend.factory.weight.destroy', $weight) : null,
                     ]);
                 }),
         ];

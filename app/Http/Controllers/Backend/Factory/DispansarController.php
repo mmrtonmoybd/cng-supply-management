@@ -15,6 +15,7 @@ class DispansarController extends Controller
     public function index()
     {
         $this->authorize('dispansar_crud');
+
         return view('backend.factory.dispansar.list');
     }
 
@@ -24,6 +25,7 @@ class DispansarController extends Controller
     public function create()
     {
         $this->authorize('dispansar_crud');
+
         return view('backend.factory.dispansar.create');
     }
 
@@ -120,6 +122,7 @@ class DispansarController extends Controller
     public function show(Dispansar $dispansar)
     {
         $this->authorize('dispansar_crud');
+
         return view('backend.factory.dispansar.show', compact('dispansar'));
     }
 
@@ -129,6 +132,7 @@ class DispansarController extends Controller
     public function edit(Dispansar $dispansar)
     {
         $this->authorize('dispansar_crud');
+
         return view('backend.factory.dispansar.edit', compact('dispansar'));
     }
 
@@ -274,6 +278,7 @@ class DispansarController extends Controller
     {
 
         $this->authorize('dispansar_crud');
+
         return view('backend.factory.dispansar.filter');
     }
 

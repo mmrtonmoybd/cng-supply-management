@@ -59,9 +59,9 @@ class FactorylistDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (Factory $factory) {
                     return implode([
-                       auth()->user()->ability(['admin'], 'factory_crud') ? Button::show('backend.factory.factory.show', $factory) : null,
-                       auth()->user()->ability(['admin'], 'factory_crud') ? Button::edit('backend.factory.factory.edit', $factory) : null,
-                       auth()->user()->ability(['admin'], 'factory_crud') ? Button::delete('backend.factory.factory.destroy', $factory) : null,
+                        auth()->user()->ability(['admin'], 'factory_crud') ? Button::show('backend.factory.factory.show', $factory) : null,
+                        auth()->user()->ability(['admin'], 'factory_crud') ? Button::edit('backend.factory.factory.edit', $factory) : null,
+                        auth()->user()->ability(['admin'], 'factory_crud') ? Button::delete('backend.factory.factory.destroy', $factory) : null,
                     ]);
                 }),
         ];

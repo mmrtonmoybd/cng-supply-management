@@ -6,11 +6,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\ValidationException;
-
 
 class ForgotPasswordController
 {
@@ -24,10 +21,10 @@ class ForgotPasswordController
     public function sendResetLinkEmail(Request $request)
     {
         $request->validate([
-    'employee_id' => 'required|exists:users,employee_id|string',
-], [
-    'employee_id.exists' => 'No user was found with this employee ID.',
-]);
+            'employee_id' => 'required|exists:users,employee_id|string',
+        ], [
+            'employee_id.exists' => 'No user was found with this employee ID.',
+        ]);
 
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
