@@ -7,22 +7,18 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Activitylog\Models\Activity;
 
-class ActivityController extends Controller implements HasMiddleware
+class ActivityController extends Controller
 {
-    public static function middleware(): array
-    {
-        return [
-            new Middleware('ability:admin,activity_logs'),
-        ];
-    }
+   
 
     public function index()
-    {
+    { $this->authorize('activity_logs');
         return view('backend.activity.list');
     }
 
     public function show(Activity $activity)
     {
+        $this->authorize('activity_logs');
         return view('backend.activity.show', compact('activity'));
     }
 }

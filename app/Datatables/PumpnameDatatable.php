@@ -19,7 +19,7 @@ class PumpnameDatatable extends Datatable
     public function setUp()
     {
         $this->order('id', 'desc')
-            ->permissions('load_index')
+            ->permissions('load_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
             ->setRowId('id');
@@ -57,9 +57,9 @@ class PumpnameDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (PumpName $pumpname) {
                     return implode([
-                        Button::show('backend.pumpname.show', $pumpname),
-                        Button::edit('backend.pumpname.edit', $pumpname),
-                        Button::delete('backend.pumpname.destroy', $pumpname),
+                       auth()->user()->ability(['admin'], 'pump_name_crud') ? Button::show('backend.pumpname.show', $pumpname) : null,
+                       auth()->user()->ability(['admin'], 'pump_name_crud') ? Button::edit('backend.pumpname.edit', $pumpname) : null,
+                       auth()->user()->ability(['admin'], 'pump_name_crud') ? Button::delete('backend.pumpname.destroy', $pumpname) : null,
                     ]);
                 }),
         ];

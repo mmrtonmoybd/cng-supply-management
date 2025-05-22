@@ -12,7 +12,7 @@ class PumpPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->ability(['admin'], 'pump_index');
+        return $user->ability(['admin'], 'pump_crud');
     }
 
     /**
@@ -20,7 +20,7 @@ class PumpPolicy
      */
     public function view(User $user, Pump $pump): bool
     {
-        return $user->ability(['admin'], 'pump_index');
+        return $user->ability(['admin'], 'pump_crud');
     }
 
     /**
@@ -36,7 +36,7 @@ class PumpPolicy
      */
     public function update(User $user, Pump $pump): bool
     {
-        return $user->ability(['admin'], 'pump_update');
+        return $user->ability(['admin'], 'pump_crud');
     }
 
     /**

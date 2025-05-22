@@ -13,7 +13,7 @@ class FactoryController extends Controller
      */
     public function index()
     {
-        $factories = Factory::all();
+        $this->authorize('factory_crud');
 
         return view('backend.factory.index');
     }
@@ -23,6 +23,7 @@ class FactoryController extends Controller
      */
     public function create()
     {
+        $this->authorize('factory_crud');
         return view('backend.factory.create');
     }
 
@@ -31,6 +32,7 @@ class FactoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('factory_crud');
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255',
@@ -48,6 +50,7 @@ class FactoryController extends Controller
      */
     public function show(Factory $factory)
     {
+        $this->authorize('factory_crud');
         return view('backend.factory.show', compact('factory'));
     }
 
@@ -56,6 +59,7 @@ class FactoryController extends Controller
      */
     public function edit(Factory $factory)
     {
+        $this->authorize('factory_crud');
         return view('backend.factory.edit', compact('factory'));
     }
 
@@ -64,6 +68,7 @@ class FactoryController extends Controller
      */
     public function update(Request $request, Factory $factory)
     {
+        $this->authorize('factory_crud');
         $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|string|max:255',
@@ -82,6 +87,7 @@ class FactoryController extends Controller
      */
     public function destroy(Factory $factory)
     {
+        $this->authorize('factory_crud');
         return response()->json(['success' => $factory->delete() ?? false]);
     }
 }

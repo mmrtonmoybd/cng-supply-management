@@ -13,6 +13,7 @@ class WeightOneController extends Controller
      */
     public function index()
     {
+        $this->authorize('weightone_crud');
         return view('backend.factory.weightone.list');
     }
 
@@ -21,6 +22,7 @@ class WeightOneController extends Controller
      */
     public function create()
     {
+        $this->authorize('weightone_crud');
         $loadOptions = \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
 
         return view('backend.factory.weightone.create', compact('loadOptions'));
@@ -31,6 +33,7 @@ class WeightOneController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('weightone_crud');
         $validated = $request->validate([
             'load_entry_id' => 'nullable|integer|exists:load_entries,id',
             'bill_no' => 'nullable|numeric',
@@ -114,6 +117,7 @@ class WeightOneController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('weightone_crud');
         $weightone = WeightOne::findOrFail($id);
 
         return view('backend.factory.weightone.show', compact('weightone'));
@@ -124,6 +128,7 @@ class WeightOneController extends Controller
      */
     public function edit(WeightOne $weightone)
     {
+        $this->authorize('weightone_crud');
         $loadOptions = \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
 
         return view('backend.factory.weightone.edit', [
@@ -137,6 +142,7 @@ class WeightOneController extends Controller
      */
     public function update(Request $request, WeightOne $weightone)
     {
+        $this->authorize('weightone_crud');
         $validated = $request->validate([
             'load_entry_id' => 'nullable|integer|exists:load_entries,id',
             'bill_no' => 'nullable|numeric',
@@ -236,6 +242,7 @@ class WeightOneController extends Controller
      */
     public function destroy(WeightOne $weightOne)
     {
+        $this->authorize('weightone_crud');
         $load = \App\Models\LoadEntry::find($weightOne->load_entry_id);
         $load->status = 0;
         $load->save();
@@ -248,7 +255,7 @@ class WeightOneController extends Controller
      */
     public function filter()
     {
-
+        $this->authorize('weightone_crud');
         return view('backend.factory.weightone.filter');
     }
 
@@ -257,6 +264,7 @@ class WeightOneController extends Controller
      */
     public function showFilter(Request $request)
     {
+        $this->authorize('weightone_crud');
         $query = WeightOne::with(['loada', 'pumpname', 'factory']);
         if ($request->filled('pumpName_id')) {
             $query->where('pumpName_id', $request->pumpName_id);

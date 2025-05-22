@@ -88,7 +88,7 @@ class ActivitylogDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (Activity $activity) {
                     return implode([
-                        Button::show('backend.activity.show', $activity),
+                      auth()->user()->ability(['admin'], 'activity_logs') ?  Button::show('backend.activity.show', $activity) : null,
                     ]);
                 }),
         ];

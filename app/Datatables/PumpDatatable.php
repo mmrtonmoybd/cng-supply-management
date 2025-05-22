@@ -23,7 +23,7 @@ class PumpDatatable extends Datatable
         $this->order('id', 'desc')
             ->buttons('filters', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
-            ->permissions('pump_index')
+            ->permissions('pump_crud')
             ->setRowId('id');
     }
 
@@ -112,8 +112,8 @@ class PumpDatatable extends Datatable
                 ->width('20px')
                 ->actions(function ($pump) {
                     return implode([
-                        auth()->user()->ability(['admin'], 'pump_index') ? Button::show('backend.pump.show', $pump->id) : null,
-                        auth()->user()->ability(['admin'], 'pump_update') ? Button::edit('backend.pump.edit', $pump->id) : null,
+                        auth()->user()->ability(['admin'], 'pump_crud') ? Button::show('backend.pump.show', $pump->id) : null,
+                        auth()->user()->ability(['admin'], 'pump_crud') ? Button::edit('backend.pump.edit', $pump->id) : null,
                         // Button::delete('pump.destroy', $pump),
                     ]);
                 }),

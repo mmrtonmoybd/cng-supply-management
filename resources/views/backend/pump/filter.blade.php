@@ -100,12 +100,12 @@
                             </td>
                             <!--
                             <td>
-                                @if(auth()->user()->ability(['admin'], 'pump_index'))
+                                @if(auth()->user()->ability(['admin'], 'pump_crud'))
                                     <a href="{{ route('backend.pump.show', $pump->id) }}" class="btn btn-sm btn-info" title="View">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                 @endif
-                                @if(auth()->user()->ability(['admin'], 'pump_update'))
+                                @if(auth()->user()->ability(['admin'], 'pump_crud'))
                                     <a href="{{ route('backend.pump.edit', $pump->id) }}" class="btn btn-sm btn-primary" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>

@@ -26,5 +26,33 @@ class AppServiceProvider extends ServiceProvider
     {
         Gate::policy(LoadEntry::class, LoadPolicy::class);
         Gate::policy(Pump::class, PumpPolicy::class);
+
+        Gate::define('pump_name_crud', function ($user) {
+            return $user->ability(['admin'], 'pump_name_crud');
+        });
+
+        Gate::define('dispansar_crud', function ($user) {
+            return $user->ability(['admin'], 'dispansar_crud');
+        });
+
+        Gate::define('weightone_crud', function ($user) {
+            return $user->ability(['admin'], 'weightone_crud');
+        });
+
+        Gate::define('weight_crud', function ($user) {
+            return $user->ability(['admin'], 'weight_crud');
+        });
+
+        Gate::define('cngpump_crud', function ($user) {
+            return $user->ability(['admin'], 'cngpump_crud');
+        });
+
+        Gate::define('factory_crud', function ($user) {
+            return $user->ability(['admin'], 'factory_crud');
+        });
+
+        Gate::define('activity_logs', function ($user) {
+            return $user->ability(['admin'], 'activity_logs');
+        });
     }
 }

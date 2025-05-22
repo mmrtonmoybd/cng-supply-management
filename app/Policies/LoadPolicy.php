@@ -12,7 +12,7 @@ class LoadPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->ability(['admin'], 'load_index');
+        return $user->ability(['admin'], 'load_crud');
     }
 
     /**
@@ -20,7 +20,7 @@ class LoadPolicy
      */
     public function view(User $user, LoadEntry $loadEntry): bool
     {
-        return $user->ability(['admin'], 'load_index');
+        return $user->ability(['admin'], 'load_crud');
     }
 
     /**
@@ -28,7 +28,7 @@ class LoadPolicy
      */
     public function create(User $user): bool
     {
-        return $user->ability(['admin'], 'load_create');
+        return $user->ability(['admin'], 'load_crud');
     }
 
     /**
@@ -36,7 +36,7 @@ class LoadPolicy
      */
     public function update(User $user, LoadEntry $loadEntry): bool
     {
-        return $user->ability(['admin'], 'load_update');
+        return $user->ability(['admin'], 'load_crud');
     }
 
     /**
@@ -44,7 +44,7 @@ class LoadPolicy
      */
     public function delete(User $user, LoadEntry $loadEntry): bool
     {
-        return $user->ability(['admin'], 'load_delete');
+        return $user->ability(['admin'], 'load_crud');
     }
 
     /**

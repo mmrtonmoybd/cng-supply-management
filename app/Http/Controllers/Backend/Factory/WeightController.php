@@ -13,6 +13,7 @@ class WeightController extends Controller
      */
     public function index()
     {
+        $this->authorize('weight_crud');
         return view('backend.factory.weight.list');
     }
 
@@ -21,6 +22,7 @@ class WeightController extends Controller
      */
     public function create()
     {
+        $this->authorize('weight_crud');
         $loadOptions = \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
 
         return view('backend.factory.weight.create', compact('loadOptions'));
@@ -31,6 +33,7 @@ class WeightController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('weight_crud');
         $validated = $request->validate([
             'load_entry_id' => 'nullable|integer|exists:load_entries,id',
             'bill_no' => 'nullable|numeric',
@@ -121,6 +124,7 @@ class WeightController extends Controller
      */
     public function show(Weight $weight)
     {
+        $this->authorize('weight_crud');
         return view('backend.factory.weight.show', compact('weight'));
     }
 
@@ -129,6 +133,7 @@ class WeightController extends Controller
      */
     public function edit(Weight $weight)
     {
+        $this->authorize('weight_crud');
         return view('backend.factory.weight.edit', compact('weight'));
     }
 
@@ -137,6 +142,7 @@ class WeightController extends Controller
      */
     public function update(Request $request, Weight $weight)
     {
+        $this->authorize('weight_crud');
         $validated = $request->validate([
             'load_entry_id' => 'nullable|integer|exists:load_entries,id',
             'bill_no' => 'nullable|numeric',
@@ -243,6 +249,7 @@ class WeightController extends Controller
      */
     public function destroy(Weight $weight)
     {
+        $this->authorize('weight_crud');
         $load = \App\Models\LoadEntry::find($weight->load_entry_id);
         $load->status = 0;
         $load->save();
@@ -252,7 +259,7 @@ class WeightController extends Controller
 
     public function filter()
     {
-
+        $this->authorize('weight_crud');
         return view('backend.factory.weight.filter');
     }
 
@@ -261,6 +268,7 @@ class WeightController extends Controller
      */
     public function showFilter(Request $request)
     {
+        $this->authorize('weight_crud');
         $query = Weight::with(['loada', 'pumpname', 'factory']);
         if ($request->filled('pumpName_id')) {
             $query->where('pumpName_id', $request->pumpName_id);

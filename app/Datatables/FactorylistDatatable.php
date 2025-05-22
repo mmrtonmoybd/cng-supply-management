@@ -19,7 +19,7 @@ class FactorylistDatatable extends Datatable
     public function setUp()
     {
         $this->order('id', 'desc')
-            ->permissions('load_index')
+            ->permissions('load_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
             ->setRowId('id');
@@ -59,9 +59,9 @@ class FactorylistDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (Factory $factory) {
                     return implode([
-                        Button::show('backend.factory.factory.show', $factory),
-                        Button::edit('backend.factory.factory.edit', $factory),
-                        Button::delete('backend.factory.factory.destroy', $factory),
+                       auth()->user()->ability(['admin'], 'factory_crud') ? Button::show('backend.factory.factory.show', $factory) : null,
+                       auth()->user()->ability(['admin'], 'factory_crud') ? Button::edit('backend.factory.factory.edit', $factory) : null,
+                       auth()->user()->ability(['admin'], 'factory_crud') ? Button::delete('backend.factory.factory.destroy', $factory) : null,
                     ]);
                 }),
         ];

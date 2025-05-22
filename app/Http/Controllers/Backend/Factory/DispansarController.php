@@ -14,6 +14,7 @@ class DispansarController extends Controller
      */
     public function index()
     {
+        $this->authorize('dispansar_crud');
         return view('backend.factory.dispansar.list');
     }
 
@@ -22,6 +23,7 @@ class DispansarController extends Controller
      */
     public function create()
     {
+        $this->authorize('dispansar_crud');
         return view('backend.factory.dispansar.create');
     }
 
@@ -30,6 +32,7 @@ class DispansarController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('dispansar_crud');
         $validated = $request->validate([
             'load_entry_id' => 'nullable|integer|exists:load_entries,id',
             'bill_no' => 'nullable|numeric',
@@ -116,6 +119,7 @@ class DispansarController extends Controller
      */
     public function show(Dispansar $dispansar)
     {
+        $this->authorize('dispansar_crud');
         return view('backend.factory.dispansar.show', compact('dispansar'));
     }
 
@@ -124,6 +128,7 @@ class DispansarController extends Controller
      */
     public function edit(Dispansar $dispansar)
     {
+        $this->authorize('dispansar_crud');
         return view('backend.factory.dispansar.edit', compact('dispansar'));
     }
 
@@ -132,6 +137,7 @@ class DispansarController extends Controller
      */
     public function update(Request $request, Dispansar $dispansar)
     {
+        $this->authorize('dispansar_crud');
         $validated = $request->validate([
             'load_entry_id' => 'nullable|integer|exists:load_entries,id',
             'bill_no' => 'nullable|numeric',
@@ -226,6 +232,7 @@ class DispansarController extends Controller
      */
     public function destroy(Dispansar $dispansar)
     {
+        $this->authorize('dispansar_crud');
         $load = \App\Models\LoadEntry::find($dispansar->load_entry_id);
         $load->status = 0;
         $load->save();
@@ -238,6 +245,7 @@ class DispansarController extends Controller
      */
     public function loadEntrySelect2(Request $request)
     {
+        $this->authorize('dispansar_crud');
         $search = $request->input('q');
         $query = \App\Models\LoadEntry::query();
         if ($search) {
@@ -265,6 +273,7 @@ class DispansarController extends Controller
     public function filter()
     {
 
+        $this->authorize('dispansar_crud');
         return view('backend.factory.dispansar.filter');
     }
 
@@ -273,6 +282,7 @@ class DispansarController extends Controller
      */
     public function showFilter(Request $request)
     {
+        $this->authorize('dispansar_crud');
         $query = Dispansar::with(['loada', 'pumpname', 'factory']);
         if ($request->filled('pumpName_id')) {
             $query->where('pumpName_id', $request->pumpName_id);

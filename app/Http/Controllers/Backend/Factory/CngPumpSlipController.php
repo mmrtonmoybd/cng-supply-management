@@ -13,6 +13,7 @@ class CngPumpSlipController extends Controller
      */
     public function index()
     {
+        $this->authorize('cngpump_crud');
         return view('backend.factory.cngpump.list');
     }
 
@@ -21,6 +22,7 @@ class CngPumpSlipController extends Controller
      */
     public function create()
     {
+        $this->authorize('cngpump_crud');
         return view('backend.factory.cngpump.create');
     }
 
@@ -29,6 +31,7 @@ class CngPumpSlipController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('cngpump_crud');
         $validated = $request->validate([
             'load_entry_id' => 'nullable|integer|exists:load_entries,id',
             'bill_no' => 'nullable|numeric',
@@ -107,6 +110,7 @@ class CngPumpSlipController extends Controller
      */
     public function show(CngPump $cngPump)
     {
+        $this->authorize('cngpump_crud');
         return view('backend.factory.cngpump.show', [
             'cngPump' => $cngPump,
         ]);
@@ -117,7 +121,7 @@ class CngPumpSlipController extends Controller
      */
     public function edit(CngPump $cngPump)
     {
-        $loadOptions = \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
+        $this->authorize('cngpump_crud');
 
         return view('backend.factory.cngpump.edit', [
             'cngPump' => $cngPump,
@@ -129,6 +133,7 @@ class CngPumpSlipController extends Controller
      */
     public function update(Request $request, CngPump $cngPump)
     {
+        $this->authorize('cngpump_crud');
         $validated = $request->validate([
             'load_entry_id' => 'nullable|integer|exists:load_entries,id',
             'bill_no' => 'nullable|numeric',
@@ -222,6 +227,7 @@ class CngPumpSlipController extends Controller
      */
     public function destroy(CngPump $cngPump)
     {
+        $this->authorize('cngpump_crud');
         $load = \App\Models\LoadEntry::find($cngPump->load_entry_id);
         $load->status = 0;
         $load->save();
@@ -231,7 +237,7 @@ class CngPumpSlipController extends Controller
 
     public function filter()
     {
-
+        $this->authorize('cngpump_crud');
         return view('backend.factory.cngpump.filter');
     }
 
@@ -240,6 +246,7 @@ class CngPumpSlipController extends Controller
      */
     public function showFilter(Request $request)
     {
+        $this->authorize('cngpump_crud');
         $query = CngPump::with(['loada', 'pumpname', 'factory']);
         if ($request->filled('pumpName_id')) {
             $query->where('pumpName_id', $request->pumpName_id);

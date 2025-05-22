@@ -21,7 +21,7 @@ class WeightoneDatatable extends Datatable
     public function setUp()
     {
         $this->order('id', 'desc')
-            ->permissions('load_index')
+            ->permissions('load_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
             ->setRowId('id');
@@ -115,9 +115,9 @@ class WeightoneDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (WeightOne $weightone) {
                     return implode([
-                        Button::show('backend.factory.weightone.show', $weightone),
-                        Button::edit('backend.factory.weightone.edit', $weightone),
-                        Button::delete('backend.factory.weightone.destroy', $weightone),
+                       auth()->user()->ability(['admin'], 'weightone_crud') ? Button::show('backend.factory.weightone.show', $weightone) : null,
+                       auth()->user()->ability(['admin'], 'weightone_crud') ? Button::edit('backend.factory.weightone.edit', $weightone) : null,
+                       auth()->user()->ability(['admin'], 'weightone_crud') ? Button::delete('backend.factory.weightone.destroy', $weightone) : null,
                     ]);
                 }),
         ];

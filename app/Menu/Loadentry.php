@@ -12,7 +12,7 @@ class Loadentry implements MenuItemInterface
         $menu->add('Load', [
             'route' => 'backend.load.index',
             'active' => 'backend.load.*',
-            'permission' => 'load_index',
+            'permission' => 'load_crud',
             'icon' => 'fas fa-truck-loading',
             'order' => 100,
         ]);

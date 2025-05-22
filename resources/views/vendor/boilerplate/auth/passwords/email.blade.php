@@ -10,7 +10,7 @@
             </div>
         @else
             @component('boilerplate::form', ['route' => 'boilerplate.password.email'])
-                @component('boilerplate::input', ['name' => 'email', 'placeholder' => 'boilerplate::auth.fields.email', 'append-text' => 'fas fa-envelope', 'type' => 'email', 'autofocus' => true])@endcomponent
+                @component('boilerplate::input', ['name' => 'employee_id', 'placeholder' => 'Employee Id', 'append-text' => 'fas fa-user-tie', 'type' => 'text', 'autofocus' => true])@endcomponent
                 <div class="form-group">
                     <div class="row">
                         <div class="col-12 text-right">

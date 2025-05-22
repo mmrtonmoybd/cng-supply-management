@@ -21,7 +21,7 @@ class LoadentryDatatable extends Datatable
     public function setUp()
     {
         $this->order('id', 'desc')
-            ->permissions('load_index')
+            ->permissions('load_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
             ->setRowId('id');
@@ -80,9 +80,9 @@ class LoadentryDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (LoadEntry $loadentry) {
                     return implode([
-                        auth()->user()->ability(['admin'], 'load_index') ? Button::show('backend.load.show', $loadentry) : null,
-                        auth()->user()->ability(['admin'], 'load_update') ? Button::edit('backend.load.edit', $loadentry) : null,
-                        auth()->user()->ability(['admin'], 'load_delete') ? Button::delete('backend.load.destroy', $loadentry) : null,
+                        auth()->user()->ability(['admin'], 'load_crud') ? Button::show('backend.load.show', $loadentry) : null,
+                        auth()->user()->ability(['admin'], 'load_crud') ? Button::edit('backend.load.edit', $loadentry) : null,
+                        auth()->user()->ability(['admin'], 'load_crud') ? Button::delete('backend.load.destroy', $loadentry) : null,
                     ]);
                 }),
         ];

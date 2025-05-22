@@ -9,7 +9,7 @@ class Test extends Controller
     public function index()
     {
         $aduser = User::whereHasRole('admin')->get('id')->pluck('id')->toArray();
-        $permissionuser = User::whereHasPermission('load_index')->get('id')->pluck('id')->toArray();
+        $permissionuser = User::whereHasPermission('load_crud')->get('id')->pluck('id')->toArray();
 
         $maketogether = array_unique(array_merge($aduser, $permissionuser));
 

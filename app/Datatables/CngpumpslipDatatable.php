@@ -23,7 +23,7 @@ class CngpumpslipDatatable extends Datatable
         $this->order('id', 'desc')
             ->buttons('filters', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
-            ->permissions('pump_index')
+            ->permissions('pump_crud')
             ->setRowId('id');
     }
 
@@ -123,9 +123,9 @@ class CngpumpslipDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (CngPump $cngpump) {
                     return implode([
-                        Button::show('backend.factory.cngpump.show', $cngpump),
-                        Button::edit('backend.factory.cngpump.edit', $cngpump),
-                        Button::delete('backend.factory.cngpump.destroy', $cngpump),
+                       auth()->user()->ability(['admin'], 'cngpump_crud') ? Button::show('backend.factory.cngpump.show', $cngpump) : null,
+                       auth()->user()->ability(['admin'], 'cngpump_crud') ? Button::edit('backend.factory.cngpump.edit', $cngpump) : null,
+                       auth()->user()->ability(['admin'], 'cngpump_crud') ? Button::delete('backend.factory.cngpump.destroy', $cngpump) : null,
                     ]);
                 }),
         ];
