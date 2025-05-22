@@ -88,9 +88,18 @@ class WeightController extends Controller
             $data['purchase_taka'] = $request->input('purchase_taka');
         }
 
-        $data['total_weight'] = $request->input('first_weight') - $request->input('second_weight');
-        $data['receive_m3'] = $data['total_weight'] * $request->input('fact');
-        $data['ftk'] = $data['receive_m3'] * $request->input('rate');
+        // Safe numeric defaults for calculations
+        $first_weight = is_numeric($request->input('first_weight')) ? $request->input('first_weight') : 0;
+        $second_weight = is_numeric($request->input('second_weight')) ? $request->input('second_weight') : 0;
+        $fact = is_numeric($request->input('fact')) ? $request->input('fact') : 0;
+        $rate = is_numeric($request->input('rate')) ? $request->input('rate') : 0;
+        $cng_purchase_m3 = is_numeric($cng_purchase_m3) ? $cng_purchase_m3 : 0;
+        $purchase_taka = is_numeric($purchase_taka) ? $purchase_taka : 0;
+
+        $total_weight = $first_weight - $second_weight;
+        $data['total_weight'] = $total_weight;
+        $data['receive_m3'] = $total_weight * $fact;
+        $data['ftk'] = $data['receive_m3'] * $rate;
         $data['difference_m3'] = $data['receive_m3'] - $cng_purchase_m3;
         $data['difference_taka'] = $data['ftk'] - $purchase_taka;
 
@@ -185,9 +194,18 @@ class WeightController extends Controller
             $data['purchase_taka'] = $request->input('purchase_taka');
         }
 
-        $data['total_weight'] = $request->input('first_weight') - $request->input('second_weight');
-        $data['receive_m3'] = $data['total_weight'] * $request->input('fact');
-        $data['ftk'] = $data['receive_m3'] * $request->input('rate');
+        // Safe numeric defaults for calculations
+        $first_weight = is_numeric($request->input('first_weight')) ? $request->input('first_weight') : 0;
+        $second_weight = is_numeric($request->input('second_weight')) ? $request->input('second_weight') : 0;
+        $fact = is_numeric($request->input('fact')) ? $request->input('fact') : 0;
+        $rate = is_numeric($request->input('rate')) ? $request->input('rate') : 0;
+        $cng_purchase_m3 = is_numeric($cng_purchase_m3) ? $cng_purchase_m3 : 0;
+        $purchase_taka = is_numeric($purchase_taka) ? $purchase_taka : 0;
+
+        $total_weight = $first_weight - $second_weight;
+        $data['total_weight'] = $total_weight;
+        $data['receive_m3'] = $total_weight * $fact;
+        $data['ftk'] = $data['receive_m3'] * $rate;
         $data['difference_m3'] = $data['receive_m3'] - $cng_purchase_m3;
         $data['difference_taka'] = $data['ftk'] - $purchase_taka;
 

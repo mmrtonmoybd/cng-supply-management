@@ -78,9 +78,16 @@ class CngPumpSlipController extends Controller
             $data['purchase_taka'] = $request->input('purchase_taka');
         }
 
-        $data['difference_taka'] = $request->input('ftk') - $purchase_taka;
-        $data['difference_m3'] = $request->input('fm3') - $cng_purchase_m3;
-        $data['balance'] = $request->input('cash_receipt_amount') - $request->input('ftk');
+        // Use 0 as default if input is null or not numeric for calculations
+        $cng_purchase_m3 = is_numeric($cng_purchase_m3) ? $cng_purchase_m3 : 0;
+        $purchase_taka = is_numeric($purchase_taka) ? $purchase_taka : 0;
+        $ftk = is_numeric($request->input('ftk')) ? $request->input('ftk') : 0;
+        $fm3 = is_numeric($request->input('fm3')) ? $request->input('fm3') : 0;
+        $cash_receipt_amount = is_numeric($request->input('cash_receipt_amount')) ? $request->input('cash_receipt_amount') : 0;
+
+        $data['difference_taka'] = $ftk - $purchase_taka;
+        $data['difference_m3'] = $fm3 - $cng_purchase_m3;
+        $data['balance'] = $cash_receipt_amount - $ftk;
 
         $finalData = array_merge($validated, $data);
 
@@ -171,9 +178,16 @@ class CngPumpSlipController extends Controller
             $data['purchase_taka'] = $request->input('purchase_taka');
         }
 
-        $data['difference_taka'] = $request->input('ftk') - $purchase_taka;
-        $data['difference_m3'] = $request->input('fm3') - $cng_purchase_m3;
-        $data['balance'] = $request->input('cash_receipt_amount') - $request->input('ftk');
+        // Use 0 as default if input is null or not numeric for calculations
+        $cng_purchase_m3 = is_numeric($cng_purchase_m3) ? $cng_purchase_m3 : 0;
+        $purchase_taka = is_numeric($purchase_taka) ? $purchase_taka : 0;
+        $ftk = is_numeric($request->input('ftk')) ? $request->input('ftk') : 0;
+        $fm3 = is_numeric($request->input('fm3')) ? $request->input('fm3') : 0;
+        $cash_receipt_amount = is_numeric($request->input('cash_receipt_amount')) ? $request->input('cash_receipt_amount') : 0;
+
+        $data['difference_taka'] = $ftk - $purchase_taka;
+        $data['difference_m3'] = $fm3 - $cng_purchase_m3;
+        $data['balance'] = $cash_receipt_amount - $ftk;
 
         $finalData = array_merge($validated, $data);
 

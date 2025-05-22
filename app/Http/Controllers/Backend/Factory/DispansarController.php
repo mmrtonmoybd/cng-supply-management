@@ -79,11 +79,20 @@ class DispansarController extends Controller
             $data['purchase_taka'] = $request->input('purchase_taka');
         }
 
-        $data['total_reading'] = $request->input('closing_reading') - $request->input('opening_reading');
-        $data['bill_amount'] = $request->input('rate') * $data['total_reading'];
-        $data['difference_m3'] = $data['total_reading'] - $cng_purchase_m3;
+        // Safe numeric defaults for calculations
+        $opening_reading = is_numeric($request->input('opening_reading')) ? $request->input('opening_reading') : 0;
+        $closing_reading = is_numeric($request->input('closing_reading')) ? $request->input('closing_reading') : 0;
+        $rate = is_numeric($request->input('rate')) ? $request->input('rate') : 0;
+        $cng_purchase_m3 = is_numeric($cng_purchase_m3) ? $cng_purchase_m3 : 0;
+        $purchase_taka = is_numeric($purchase_taka) ? $purchase_taka : 0;
+        $cash_receipt_amount = is_numeric($request->input('cash_receipt_amount')) ? $request->input('cash_receipt_amount') : 0;
+
+        $total_reading = $closing_reading - $opening_reading;
+        $data['total_reading'] = $total_reading;
+        $data['bill_amount'] = $rate * $total_reading;
+        $data['difference_m3'] = $total_reading - $cng_purchase_m3;
         $data['difference_taka'] = $data['bill_amount'] - $purchase_taka;
-        $data['balance'] = $request->input('cash_receipt_amount') - $data['bill_amount'];
+        $data['balance'] = $cash_receipt_amount - $data['bill_amount'];
 
         // Correctly merge $validated and $data
         $finalData = array_merge($validated, $data);
@@ -172,11 +181,20 @@ class DispansarController extends Controller
             $data['load_entry_id'] = null;
         }
 
-        $data['total_reading'] = $request->input('closing_reading') - $request->input('opening_reading');
-        $data['bill_amount'] = $request->input('rate') * $data['total_reading'];
-        $data['difference_m3'] = $data['total_reading'] - $cng_purchase_m3;
+        // Safe numeric defaults for calculations
+        $opening_reading = is_numeric($request->input('opening_reading')) ? $request->input('opening_reading') : 0;
+        $closing_reading = is_numeric($request->input('closing_reading')) ? $request->input('closing_reading') : 0;
+        $rate = is_numeric($request->input('rate')) ? $request->input('rate') : 0;
+        $cng_purchase_m3 = is_numeric($cng_purchase_m3) ? $cng_purchase_m3 : 0;
+        $purchase_taka = is_numeric($purchase_taka) ? $purchase_taka : 0;
+        $cash_receipt_amount = is_numeric($request->input('cash_receipt_amount')) ? $request->input('cash_receipt_amount') : 0;
+
+        $total_reading = $closing_reading - $opening_reading;
+        $data['total_reading'] = $total_reading;
+        $data['bill_amount'] = $rate * $total_reading;
+        $data['difference_m3'] = $total_reading - $cng_purchase_m3;
         $data['difference_taka'] = $data['bill_amount'] - $purchase_taka;
-        $data['balance'] = $request->input('cash_receipt_amount') - $data['bill_amount'];
+        $data['balance'] = $cash_receipt_amount - $data['bill_amount'];
         $finalData = array_merge($validated, $data);
 
         if (! empty($dispansar->load_entry_id)) {

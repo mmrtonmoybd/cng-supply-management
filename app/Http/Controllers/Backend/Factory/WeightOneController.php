@@ -81,10 +81,20 @@ class WeightOneController extends Controller
             $data['purchase_taka'] = $request->input('purchase_taka');
         }
 
-        $data['total_weight'] = $request->input('first_weight') - $request->input('second_weight');
+        // Safe numeric defaults for calculations
+        $first_weight = is_numeric($request->input('first_weight')) ? $request->input('first_weight') : 0;
+        $second_weight = is_numeric($request->input('second_weight')) ? $request->input('second_weight') : 0;
+        $ftk = is_numeric($request->input('ftk')) ? $request->input('ftk') : 0;
+        $bill_amount = is_numeric($request->input('bill_amount')) ? $request->input('bill_amount') : 0;
+        $cash_receipt_amount = is_numeric($request->input('cash_receipt_amount')) ? $request->input('cash_receipt_amount') : 0;
+        $cng_purchase_m3 = is_numeric($cng_purchase_m3) ? $cng_purchase_m3 : 0;
+        $purchase_taka = is_numeric($purchase_taka) ? $purchase_taka : 0;
+
+        $total_weight = $first_weight - $second_weight;
+        $data['total_weight'] = $total_weight;
         // $data['bill_amount'] = $request->input('rate') * $data['total_weight'];
-        $data['difference_taka'] = $request->input('ftk') - $purchase_taka;
-        $data['balance'] = $request->input('cash_receipt_amount') - $request->input('bill_amount');
+        $data['difference_taka'] = $ftk - $purchase_taka;
+        $data['balance'] = $cash_receipt_amount - $bill_amount;
 
         $finalData = array_merge($validated, $data);
 
@@ -177,10 +187,20 @@ class WeightOneController extends Controller
             $data['purchase_taka'] = $request->input('purchase_taka');
         }
 
-        $data['total_weight'] = $request->input('first_weight') - $request->input('second_weight');
+        // Safe numeric defaults for calculations
+        $first_weight = is_numeric($request->input('first_weight')) ? $request->input('first_weight') : 0;
+        $second_weight = is_numeric($request->input('second_weight')) ? $request->input('second_weight') : 0;
+        $ftk = is_numeric($request->input('ftk')) ? $request->input('ftk') : 0;
+        $bill_amount = is_numeric($request->input('bill_amount')) ? $request->input('bill_amount') : 0;
+        $cash_receipt_amount = is_numeric($request->input('cash_receipt_amount')) ? $request->input('cash_receipt_amount') : 0;
+        $cng_purchase_m3 = is_numeric($cng_purchase_m3) ? $cng_purchase_m3 : 0;
+        $purchase_taka = is_numeric($purchase_taka) ? $purchase_taka : 0;
+
+        $total_weight = $first_weight - $second_weight;
+        $data['total_weight'] = $total_weight;
         // $data['bill_amount'] = $request->input('rate') * $data['total_weight'];
-        $data['difference_taka'] = $request->input('ftk') - $purchase_taka;
-        $data['balance'] = $request->input('cash_receipt_amount') - $request->input('bill_amount');
+        $data['difference_taka'] = $ftk - $purchase_taka;
+        $data['balance'] = $cash_receipt_amount - $bill_amount;
 
         $finalData = array_merge($validated, $data);
 
