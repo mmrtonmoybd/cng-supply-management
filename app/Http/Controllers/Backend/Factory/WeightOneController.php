@@ -13,6 +13,8 @@ class WeightOneController extends Controller
      */
     public function index()
     {
+        $this->authorize('weightone_crud');
+
         return view('backend.factory.weightone.list');
     }
 
@@ -21,6 +23,7 @@ class WeightOneController extends Controller
      */
     public function create()
     {
+        $this->authorize('weightone_crud');
         $loadOptions = \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
 
         return view('backend.factory.weightone.create', compact('loadOptions'));
@@ -31,6 +34,7 @@ class WeightOneController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('weightone_crud');
         $validated = $request->validate([
             'load_entry_id' => 'nullable|integer|exists:load_entries,id',
             'bill_no' => 'nullable|numeric',
@@ -43,7 +47,8 @@ class WeightOneController extends Controller
             'recived_by' => 'nullable|string|max:255',
             'remarks' => 'nullable|string|max:1000',
             'vehicle_reg_number' => 'nullable|string|max:255',
-            'pump_name' => 'nullable|string|max:255',
+            'pumpName_id' => 'nullable',
+            'factory_id' => 'nullable',
             'cng_purchase_m3' => 'nullable|numeric|min:0',
             'lrate' => 'nullable|numeric|min:0',
             'purchase_taka' => 'nullable|numeric|min:0',
@@ -62,7 +67,8 @@ class WeightOneController extends Controller
 
             $data['date'] = $load->date;
             $data['vehicle_reg_number'] = $load->vehicle_reg_number;
-            $data['pump_name'] = $load->pump_name;
+            $data['pumpName_id'] = $load->pumpName_id;
+            $data['factory_id'] = $load->factory_id;
             $data['lrate'] = $load->rate;
             $data['cng_purchase_m3'] = $load->cng_purchase_m3;
             $data['purchase_taka'] = $load->purchase_taka;
@@ -72,16 +78,27 @@ class WeightOneController extends Controller
 
             $data['date'] = $request->input('date');
             $data['vehicle_reg_number'] = $request->input('vehicle_reg_number');
-            $data['pump_name'] = $request->input('pump_name');
+            $data['pumpName_id'] = $request->input('pumpName_id');
+            $data['factory_id'] = $request->input('factory_id');
             $data['lrate'] = $request->input('lrate');
             $data['cng_purchase_m3'] = $request->input('cng_purchase_m3');
             $data['purchase_taka'] = $request->input('purchase_taka');
         }
 
-        $data['total_weight'] = $request->input('first_weight') - $request->input('second_weight');
+        // Safe numeric defaults for calculations
+        $first_weight = is_numeric($request->input('first_weight')) ? $request->input('first_weight') : 0;
+        $second_weight = is_numeric($request->input('second_weight')) ? $request->input('second_weight') : 0;
+        $ftk = is_numeric($request->input('ftk')) ? $request->input('ftk') : 0;
+        $bill_amount = is_numeric($request->input('bill_amount')) ? $request->input('bill_amount') : 0;
+        $cash_receipt_amount = is_numeric($request->input('cash_receipt_amount')) ? $request->input('cash_receipt_amount') : 0;
+        $cng_purchase_m3 = is_numeric($cng_purchase_m3) ? $cng_purchase_m3 : 0;
+        $purchase_taka = is_numeric($purchase_taka) ? $purchase_taka : 0;
+
+        $total_weight = $first_weight - $second_weight;
+        $data['total_weight'] = $total_weight;
         // $data['bill_amount'] = $request->input('rate') * $data['total_weight'];
-        $data['difference_taka'] = $request->input('ftk') - $purchase_taka;
-        $data['balance'] = $request->input('cash_receipt_amount') - $request->input('bill_amount');
+        $data['difference_taka'] = $ftk - $purchase_taka;
+        $data['balance'] = $cash_receipt_amount - $bill_amount;
 
         $finalData = array_merge($validated, $data);
 
@@ -101,6 +118,7 @@ class WeightOneController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('weightone_crud');
         $weightone = WeightOne::findOrFail($id);
 
         return view('backend.factory.weightone.show', compact('weightone'));
@@ -111,6 +129,7 @@ class WeightOneController extends Controller
      */
     public function edit(WeightOne $weightone)
     {
+        $this->authorize('weightone_crud');
         $loadOptions = \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
 
         return view('backend.factory.weightone.edit', [
@@ -124,6 +143,7 @@ class WeightOneController extends Controller
      */
     public function update(Request $request, WeightOne $weightone)
     {
+        $this->authorize('weightone_crud');
         $validated = $request->validate([
             'load_entry_id' => 'nullable|integer|exists:load_entries,id',
             'bill_no' => 'nullable|numeric',
@@ -136,7 +156,8 @@ class WeightOneController extends Controller
             'recived_by' => 'nullable|string|max:255',
             'remarks' => 'nullable|string|max:1000',
             'vehicle_reg_number' => 'nullable|string|max:255',
-            'pump_name' => 'nullable|string|max:255',
+            'pumpName_id' => 'nullable',
+            'factory_id' => 'nullable',
             'cng_purchase_m3' => 'nullable|numeric|min:0',
             'lrate' => 'nullable|numeric|min:0',
             'purchase_taka' => 'nullable|numeric|min:0',
@@ -155,7 +176,8 @@ class WeightOneController extends Controller
 
             $data['date'] = $request->input('date');
             $data['vehicle_reg_number'] = $request->input('vehicle_reg_number');
-            $data['pump_name'] = $request->input('pump_name');
+            $data['pumpName_id'] = $request->input('pumpName_id');
+            $data['factory_id'] = $request->input('factory_id');
             $data['lrate'] = $request->input('lrate');
             $data['cng_purchase_m3'] = $request->input('cng_purchase_m3');
             $data['purchase_taka'] = $request->input('purchase_taka');
@@ -165,16 +187,27 @@ class WeightOneController extends Controller
 
             $data['date'] = $request->input('date');
             $data['vehicle_reg_number'] = $request->input('vehicle_reg_number');
-            $data['pump_name'] = $request->input('pump_name');
+            $data['pumpName_id'] = $request->input('pumpName_id');
+            $data['factory_id'] = $request->input('factory_id');
             $data['lrate'] = $request->input('lrate');
             $data['cng_purchase_m3'] = $request->input('cng_purchase_m3');
             $data['purchase_taka'] = $request->input('purchase_taka');
         }
 
-        $data['total_weight'] = $request->input('first_weight') - $request->input('second_weight');
+        // Safe numeric defaults for calculations
+        $first_weight = is_numeric($request->input('first_weight')) ? $request->input('first_weight') : 0;
+        $second_weight = is_numeric($request->input('second_weight')) ? $request->input('second_weight') : 0;
+        $ftk = is_numeric($request->input('ftk')) ? $request->input('ftk') : 0;
+        $bill_amount = is_numeric($request->input('bill_amount')) ? $request->input('bill_amount') : 0;
+        $cash_receipt_amount = is_numeric($request->input('cash_receipt_amount')) ? $request->input('cash_receipt_amount') : 0;
+        $cng_purchase_m3 = is_numeric($cng_purchase_m3) ? $cng_purchase_m3 : 0;
+        $purchase_taka = is_numeric($purchase_taka) ? $purchase_taka : 0;
+
+        $total_weight = $first_weight - $second_weight;
+        $data['total_weight'] = $total_weight;
         // $data['bill_amount'] = $request->input('rate') * $data['total_weight'];
-        $data['difference_taka'] = $request->input('ftk') - $purchase_taka;
-        $data['balance'] = $request->input('cash_receipt_amount') - $request->input('bill_amount');
+        $data['difference_taka'] = $ftk - $purchase_taka;
+        $data['balance'] = $cash_receipt_amount - $bill_amount;
 
         $finalData = array_merge($validated, $data);
 
@@ -190,6 +223,13 @@ class WeightOneController extends Controller
         $weightone->update($finalData);
 
         if ($request->filled('load_entry_id')) {
+            $load->date = $request->input('date');
+            $load->vehicle_reg_number = $request->input('vehicle_reg_number');
+            $load->pumpName_id = $request->input('pumpName_id');
+            $load->factory_id = $request->input('factory_id');
+            $load->cng_purchase_m3 = $request->input('cng_purchase_m3');
+            $load->rate = $request->input('lrate');
+            $load->purchase_taka = $request->input('purchase_taka');
             $load->status = 1;
             $load->save();
         }
@@ -203,6 +243,7 @@ class WeightOneController extends Controller
      */
     public function destroy(WeightOne $weightOne)
     {
+        $this->authorize('weightone_crud');
         $load = \App\Models\LoadEntry::find($weightOne->load_entry_id);
         $load->status = 0;
         $load->save();
@@ -215,9 +256,9 @@ class WeightOneController extends Controller
      */
     public function filter()
     {
-        $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
+        $this->authorize('weightone_crud');
 
-        return view('backend.factory.weightone.filter', compact('pumpNames'));
+        return view('backend.factory.weightone.filter');
     }
 
     /**
@@ -225,9 +266,13 @@ class WeightOneController extends Controller
      */
     public function showFilter(Request $request)
     {
-        $query = WeightOne::query();
-        if ($request->filled('pump_name')) {
-            $query->where('pump_name', $request->pump_name);
+        $this->authorize('weightone_crud');
+        $query = WeightOne::with(['loada', 'pumpname', 'factory']);
+        if ($request->filled('pumpName_id')) {
+            $query->where('pumpName_id', $request->pumpName_id);
+        }
+        if ($request->filled('factory_id')) {
+            $query->where('factory_id', $request->factory_id);
         }
         if ($request->filled('car_no')) {
             $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
@@ -242,8 +287,7 @@ class WeightOneController extends Controller
             }
         }
         $results = $query->orderBy('created_at', 'ASC')->get();
-        $pumpNames = \App\Models\LoadEntry::distinct()->orderBy('pump_name', 'ASC')->pluck('pump_name')->filter()->values();
 
-        return view('backend.factory.weightone.filter', compact('results', 'pumpNames'));
+        return view('backend.factory.weightone.filter', compact('results'));
     }
 }
