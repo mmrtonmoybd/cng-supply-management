@@ -59,7 +59,6 @@
                         <th>Payment Date</th>
                         <th>Payment</th>
                         <th>Balance</th>
-                        <th>Balance Type</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,6 +66,7 @@
                         $totalPayment = 0;
                         $totalBalance = 0;
                         $totalM3 = 0;
+                        $totalPurchaseTaka = 0;
                     @endphp
                     @foreach($results as $pump)
                         @php
@@ -85,20 +85,7 @@
                             <td>{{ $pump->payment_date ?? 'N/A' }}</td>
                             <td>{{ $pump->payment ?? 'N/A' }}</td>
                             <td></td>
-                            <td>
-                                @php
-                                    $balance = $pump->balance;
-                                @endphp
-                                @if(is_null($balance))
-                                    {{-- No badge --}}
-                                @elseif($balance == 0)
-                                    <span class="badge badge-success">Paid</span>
-                                @elseif($balance < 0)
-                                    <span class="badge badge-warning">Advance</span>
-                                @else
-                                    <span class="badge badge-danger">Due</span>
-                                @endif
-                            </td>
+                            
                             <!--
                             <td>
                                 @if(auth()->user()->ability(['admin'], 'pump_crud'))
@@ -123,11 +110,11 @@
                         <th class="text-right">Total</th>
                         <th>{{ $totalM3 }}</th>
                         <th></th>
-                        <th></th>
+                        <th>{{ $totalPurchaseTaka }}</th>
                         <th></th>
                         <th>{{ $totalPayment }}</th>
-                        <th>{{ $totalPayment - $totalPurchaseTaka }} (
-                            @php 
+                        <th>{{ $totalPayment - $totalPurchaseTaka }} 
+                            (@php 
                             if (($totalPayment - $totalPurchaseTaka) < 0) {
                                 echo 'Advance';
                             } elseif ($totalPayment - $totalPurchaseTaka == 0) {
@@ -135,9 +122,7 @@
                             } else {
                                 echo 'Due';
                             }
-                            @endphp
-                            )</th>
-                        <th></th>
+                            @endphp)</th>
                     </tr>
                 </tfoot>
             </table>

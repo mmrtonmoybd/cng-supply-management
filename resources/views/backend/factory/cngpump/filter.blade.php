@@ -93,7 +93,7 @@
                         <tr>
                             <td>{{ $row->date }}</td>
                             <td>{{ $row->vehicle_reg_number }}</td>
-                            <td>{{ $row->pumpname->name }}</td>
+                            <td>{{ $row->pumpname ? $row->pumpname->name : '' }}</td>
                             <td>{{ $row->cng_purchase_m3 }}</td>
                             <td>{{ $row->lrate }}</td>
                             <td>{{ $row->purchase_taka }}</td>
