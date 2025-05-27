@@ -245,7 +245,7 @@ class WeightOneController extends Controller
     {
         $this->authorize('weightone_crud');
 
-        if (!$weightOne->load_entry_id) {
+        if (! $weightOne->load_entry_id) {
             return response()->json(['success' => $weightOne->delete() ?? false]);
         }
         $load = \App\Models\LoadEntry::find($weightOne->load_entry_id);
