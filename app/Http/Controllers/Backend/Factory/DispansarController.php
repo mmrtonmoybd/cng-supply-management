@@ -237,6 +237,10 @@ class DispansarController extends Controller
     public function destroy(Dispansar $dispansar)
     {
         $this->authorize('dispansar_crud');
+
+        if (! $dispansar->load_entry_id) {
+            return response()->json(['success' => $dispansar->delete() ?? false]);
+        }
         $load = \App\Models\LoadEntry::find($dispansar->load_entry_id);
         $load->status = 0;
         $load->save();

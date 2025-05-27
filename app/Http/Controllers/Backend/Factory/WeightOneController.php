@@ -244,6 +244,10 @@ class WeightOneController extends Controller
     public function destroy(WeightOne $weightOne)
     {
         $this->authorize('weightone_crud');
+
+        if (!$weightOne->load_entry_id) {
+            return response()->json(['success' => $weightOne->delete() ?? false]);
+        }
         $load = \App\Models\LoadEntry::find($weightOne->load_entry_id);
         $load->status = 0;
         $load->save();

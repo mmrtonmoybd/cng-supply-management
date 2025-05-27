@@ -253,6 +253,11 @@ class WeightController extends Controller
     public function destroy(Weight $weight)
     {
         $this->authorize('weight_crud');
+
+        if (! $weight) {
+            return response()->json(['success' => $weight->delete() ?? false]);
+        }
+
         $load = \App\Models\LoadEntry::find($weight->load_entry_id);
         $load->status = 0;
         $load->save();

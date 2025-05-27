@@ -231,6 +231,9 @@ class CngPumpSlipController extends Controller
     public function destroy(CngPump $cngPump)
     {
         $this->authorize('cngpump_crud');
+        if (! $cngPump->load_entry_id) {
+            return response()->json(['success' => $cngPump->delete() ?? false]);
+        }
         $load = \App\Models\LoadEntry::find($cngPump->load_entry_id);
         $load->status = 0;
         $load->save();

@@ -134,10 +134,16 @@ function calculatePurchaseTakaOnSubmit(e) {
     var m3 = parseFloat(document.querySelector('[name="cng_purchase_m3"]').value);
     var lrate = parseFloat(document.querySelector('[name="lrate"]').value);
     var purchaseTakaInput = document.querySelector('[name="purchase_taka"]');
+    var purchaseTaka = parseFloat(purchaseTakaInput.value);
+    var m3Input = document.querySelector('[name="cng_purchase_m3"]');
 
-    // M3 * lrate = purchase_taka logic
+    // If m3 and lrate are filled, calculate purchase_taka
     if (!isNaN(m3) && !isNaN(lrate) && purchaseTakaInput) {
         purchaseTakaInput.value = (m3 * lrate).toFixed(2);
+    }
+    // If m3 is empty, but lrate and purchase_taka are filled, calculate m3
+    else if ((isNaN(m3) || m3Input.value === "") && !isNaN(lrate) && !isNaN(purchaseTaka) && lrate !== 0 && m3Input) {
+        m3Input.value = (purchaseTaka / lrate).toFixed(2);
     }
 }
 
