@@ -123,4 +123,31 @@
         </div>
     </div>
 </x-boilerplate::form>
+<script>
+$(document).ready(function() {
+    $('#load_entry_id').select2({
+        placeholder: 'Select Load',
+        allowClear: true,
+        width: '100%'
+    });
+});
+
+function calculatePurchaseTakaOnSubmit(e) {
+    var m3 = parseFloat(document.querySelector('[name="cng_purchase_m3"]').value);
+    var lrate = parseFloat(document.querySelector('[name="lrate"]').value);
+    var purchaseTakaInput = document.querySelector('[name="purchase_taka"]');
+
+    // M3 * lrate = purchase_taka logic
+    if (!isNaN(m3) && !isNaN(lrate) && purchaseTakaInput) {
+        purchaseTakaInput.value = (m3 * lrate).toFixed(2);
+    }
+}
+
+// Attach to form submit
+$(function() {
+    $('form').on('submit', function(e) {
+        calculatePurchaseTakaOnSubmit(e);
+    });
+});
+</script>
 @endsection

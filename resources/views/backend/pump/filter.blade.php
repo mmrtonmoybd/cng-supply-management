@@ -73,6 +73,7 @@
                             $totalPayment += $pump->payment ?? 0;
                             $totalBalance += $pump->balance ?? 0;
                             $totalM3 += $pump->loada->cng_purchase_m3 ?? 0;
+                            $totalPurchaseTaka += $pump->loada->purchase_taka ?? 0;
                         @endphp
                         <tr>
                             <td>{{ $pump->loada->date ?? 'N/A' }}</td>
@@ -83,7 +84,7 @@
                             <td>{{ $pump->loada->purchase_taka ?? 'N/A' }}</td>
                             <td>{{ $pump->payment_date ?? 'N/A' }}</td>
                             <td>{{ $pump->payment ?? 'N/A' }}</td>
-                            <td>{{ $pump->balance ?? 'N/A' }}</td>
+                            <td></td>
                             <td>
                                 @php
                                     $balance = $pump->balance;
@@ -125,7 +126,17 @@
                         <th></th>
                         <th></th>
                         <th>{{ $totalPayment }}</th>
-                        <th>{{ $totalBalance }}</th>
+                        <th>{{ $totalPayment - $totalPurchaseTaka }} (
+                            @php 
+                            if (($totalPayment - $totalPurchaseTaka) < 0) {
+                                echo 'Advance';
+                            } elseif ($totalPayment - $totalPurchaseTaka == 0) {
+                                echo 'Paid';
+                            } else {
+                                echo 'Due';
+                            }
+                            @endphp
+                            )</th>
                         <th></th>
                     </tr>
                 </tfoot>

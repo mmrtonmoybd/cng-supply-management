@@ -77,34 +77,6 @@ class PumpDatatable extends Datatable
             Column::add(__('Payment'))
                 ->data('payment'),
 
-            Column::add(__('Balance'))
-                ->data('balance'),
-
-            Column::add('Banlance type')
-                ->data('balance_type', function ($balance) {
-                    if (is_null($balance->balance)) {
-                        return '<span class="badge badge-secondary">N/A</span>';
-                    } elseif ($balance->balance == 0) {
-                        return '<span class="badge badge-success">Paid</span>';
-                    } elseif ($balance->balance < 0) {
-                        return '<span class="badge badge-warning">Advance</span>';
-                    } else {
-                        return '<span class="badge badge-danger">Due</span>';
-                    }
-                })->filterOptions([
-                    'paid' => 'Paid',
-                    'advance' => 'Advance',
-                    'due' => 'Due',
-                ])->filter(function ($query, $value) {
-                    if ($value == 'paid') {
-                        return $query->where('balance', 0);
-                    } elseif ($value == 'advance') {
-                        return $query->where('balance', '<', 0);
-                    } elseif ($value == 'due') {
-                        return $query->where('balance', '>', 0);
-                    }
-                }),
-
             Column::add(__('Remarks'))
                 ->data('remarks'),
 
