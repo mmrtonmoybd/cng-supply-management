@@ -2,10 +2,9 @@
 
 namespace App\Datatables;
 
+use App\Models\Factory;
 use App\Models\Pump;
 use App\Models\PumpName;
-use App\Models\Factory;
-use Illuminate\Database\Eloquent\Builder;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
@@ -51,8 +50,8 @@ class PumpDatatable extends Datatable
                 }),
 
             Column::add('Pump type')
-                ->data('type', function($pump) {
-                 return (!$pump->load_entry_id) ? '<span class="badge badge-pill badge-primary">Third party</span>' : '<span class="badge badge-pill badge-warning">Main</span>';
+                ->data('type', function ($pump) {
+                    return (! $pump->load_entry_id) ? '<span class="badge badge-pill badge-primary">Third party</span>' : '<span class="badge badge-pill badge-warning">Main</span>';
                 })
                 ->filterOptions([
                     '1' => 'Main',
@@ -65,9 +64,8 @@ class PumpDatatable extends Datatable
                         $query->where('load_entry_id', '=', null);
                     }
                 }),
-                
 
-             Column::add(__('M3'))
+            Column::add(__('M3'))
                 ->data('cng_purchase_m3'),
 
             Column::add(__('Rate'))

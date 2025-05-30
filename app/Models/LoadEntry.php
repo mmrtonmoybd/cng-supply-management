@@ -57,7 +57,7 @@ class LoadEntry extends Model
                 'vehicle_reg_number' => $model->vehicle_reg_number,
                 'pumpName_id' => $model->pumpName_id,
                 'cng_purchase_m3' => $model->cng_purchase_m3,
-                'factory_id' => $model->factory_id
+                'factory_id' => $model->factory_id,
             ]);
         });
     }
