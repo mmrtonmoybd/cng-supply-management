@@ -28,9 +28,9 @@ return [
         'brand' => [
             'bg' => 'gray-dark',
             'logo' => [
-                'bg' => 'blue',
-                'icon' => '<i class="fa fa-cubes"></i>',
-                'text' => '<strong>Mars Bangla</strong> Fuel Solution Ltd.',
+                'bg' => 'white',
+                'icon' => '<img src="/logo/new-logo.png" width="50" height="40">',
+                'text' => '<strong>Mars Bangla</strong>',
                 'shadow' => 2,
             ],
         ],

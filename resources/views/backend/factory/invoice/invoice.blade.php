@@ -4,116 +4,228 @@
   <meta charset="UTF-8">
   <title>Invoice</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
-    * {
-      box-sizing: border-box;
+    :root {
+      --primary: #222;
+      --secondary: #444;
+      --bg: #fff;
+      --card-bg: #fff;
+      --border: #e5e5e5;
+      --text: #222;
+      --muted: #888;
     }
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f7f7f7;
+      color: var(--text);
       margin: 0;
-      padding: 20px;
-      background: #f4f4f4;
+      padding: 0;
+      font-size: 18px;
     }
     .invoice {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border: 1px solid #ccc;
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(34,34,34,0.04);
+      padding: 16px 24px 16px 24px;
+      border: 1px solid var(--border);
       position: relative;
+      font-size: 1.15rem;
     }
     .invoice-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      margin-top: 0;
+      padding-top: 0;
+      font-size: 1.25rem;
     }
     .logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: #0078D7;
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 1px;
+    }
+    .logo img {
+      height: 40px;
+      margin-right: 10px;
     }
     .invoice-info {
       text-align: right;
+      font-size: 1.1rem;
     }
     .invoice-info h2 {
-      margin: 0;
+      margin: 0 0 4px 0;
+      color: var(--primary);
+      font-size: 1.7rem;
+      letter-spacing: 0.5px;
     }
     .address-section {
       display: flex;
       justify-content: space-between;
-      margin: 20px 0;
+      margin: 16px 0 10px 0;
+      gap: 16px;
+      font-size: 1.08rem;
     }
     .address {
       width: 48%;
-      line-height: 1.5;
+      line-height: 1.6;
+      background: #fafbfc;
+      border-radius: 4px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      font-size: 1.08rem;
     }
     .table-title {
-      background-color: #2c3e50;
-      color: white;
+      background: #f2f2f2;
+      color: var(--primary);
       padding: 10px;
-      font-weight: bold;
+      font-weight: 600;
       text-align: center;
+      border-radius: 4px 4px 0 0;
+      font-size: 1.15rem;
+      letter-spacing: 0.5px;
+      margin-bottom: 0;
+      border: 1px solid var(--border);
+      border-bottom: none;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
+      background: #fff;
+      border-radius: 0 0 4px 4px;
+      overflow: hidden;
+      box-shadow: none;
+      border: 1px solid var(--border);
+      font-size: 1.08rem;
     }
     th, td {
-      border: 1px solid #ddd;
-      padding: 8px;
+      border: 1px solid var(--border);
+      padding: 10px 6px;
       text-align: center;
+      font-size: 1.08rem;
     }
     th {
-      background-color: #ecf0f1;
+      background: #f7f7f7;
+      color: var(--primary);
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      font-size: 1.12rem;
+    }
+    tfoot td {
+      font-weight: 700;
+      background: #f2f2f2;
+      color: var(--primary);
+      font-size: 1.15rem;
     }
     .totals {
       text-align: right;
-      margin-top: 10px;
+      margin-top: 8px;
+      font-size: 1.13rem;
+      color: var(--primary);
+      font-weight: 600;
     }
     .signature {
-      margin-top: 40px;
+      margin-top: 24px;
       text-align: left;
+      font-size: 1.08rem;
     }
     .signature span {
       display: inline-block;
-      margin-top: 60px;
-      border-top: 1px solid #333;
+      margin-top: 30px;
+      border-top: 1.5px solid var(--border);
       padding-top: 5px;
+      color: var(--muted);
+      font-size: 1.08rem;
+      letter-spacing: 0.5px;
     }
     .no-print {
       text-align: center;
-      margin: 20px 0;
+      margin: 16px 0 0 0;
+      font-size: 1.08rem;
     }
     .no-print button {
-      padding: 10px 20px;
+      padding: 10px 22px;
       margin: 5px;
-      font-size: 16px;
+      font-size: 1.08rem;
       cursor: pointer;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      transition: background 0.2s;
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(34,34,34,0.06);
+    }
+    .no-print button:hover {
+      background: var(--secondary);
     }
     .footer {
-      background: #2c3e50;
-      color: white;
-      padding: 15px;
+      background: #f2f2f2;
+      color: var(--muted);
+      padding: 12px;
       text-align: center;
-      font-size: 14px;
+      font-size: 1.08rem;
+      border-radius: 0 0 6px 6px;
+      margin-top: 16px;
+      letter-spacing: 0.5px;
+      border: 1px solid var(--border);
+      border-top: none;
     }
     .verify-section {
       display: flex;
       justify-content: flex-end;
-      margin-top: 20px;
+      margin-top: 12px;
+      font-size: 1.08rem;
     }
-
+    #qrcode {
+      background: #fff;
+      padding: 4px;
+      border-radius: 4px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      border: 1px solid var(--border);
+    }
     @media print {
-      .no-print {
-        display: none;
-      }
-      body {
-        background: white;
-        margin: 0;
+      html, body {
+        background: #fff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
       }
       .invoice {
         border: none;
+        box-shadow: none;
+        margin: 0 !important;
+        padding: 8px 8px 8px 8px !important;
+        page-break-inside: avoid;
+      }
+      .invoice-header {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        margin-bottom: 8px !important;
+        padding-bottom: 4px !important;
+      }
+      .address-section {
+        margin: 8px 0 6px 0 !important;
+        gap: 8px !important;
+      }
+      .footer {
+        border-radius: 0;
+        border: none;
+        margin-top: 8px !important;
+        padding: 6px !important;
+      }
+      .no-print {
+        display: none !important;
       }
     }
   </style>
@@ -122,11 +234,13 @@
 
 <div class="invoice">
   <div class="invoice-header">
-    <div class="logo">MARS BANGLA</div>
+    <div class="logo">
+        <img src="{{ asset('logo/new-logo.png') }}">MARS BANGLA</div>
     <div class="invoice-info">
       <h2>INVOICE</h2>
-      <p>Invoice No: {{ $invoice->id }}</p>
+      <strong><p>Invoice No: #{{ $invoice->id }}</p>
       <p>Invoice Date: {{ $invoice->date ? (\Carbon\Carbon::parse($invoice->date)->format('d-m-Y')) : 'N/A' }}</p>
+    </strong>
     </div>
   </div>
 
@@ -282,13 +396,14 @@
 
   @if (request()->route()->getName() === 'backend.factory.invoice.export')
   <div class="signature">
-    <span>Prepared By</span>
+    <span><strong>Prepared By</strong></span>
   </div>
   @endif
 </div>
 
 <div class="no-print">
   <button onclick="window.print()">Print</button>
+  <button onclick="downloadPDF()" style="margin-left:10px;background:var(--accent);color:#fff;">Download PDF</button>
 </div>
 
 <div class="footer">
@@ -308,6 +423,21 @@
     });
   }
   generateQRCode();
+
+  function downloadPDF() {
+  const invoice = document.querySelector('.invoice');
+  html2canvas(invoice, { scale: 2, useCORS: true }).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new window.jspdf.jsPDF('p', 'pt', 'a4');
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const imgWidth = pageWidth - 40;
+    const imgHeight = canvas.height * imgWidth / canvas.width;
+    let position = 20;
+    pdf.addImage(imgData, 'PNG', 20, position, imgWidth, imgHeight);
+    pdf.save('invoice-{{ $invoice->id }}.pdf');
+  });
+}
 </script>
 
 </body>
