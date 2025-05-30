@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Cashbook\CalculationController;
 use App\Http\Controllers\Cashbook\CategoryController;
+use Illuminate\Support\Facades\Route;
 
 $default = [
     'prefix' => config('boilerplate.app.prefix', ''),
@@ -53,7 +53,7 @@ Route::group($default, function () {
     Route::get('load-filter', [App\Http\Controllers\Backend\Load\LoadEntryController::class, 'filter'])->name('load.filter');
     Route::get('load-filter/show', [App\Http\Controllers\Backend\Load\LoadEntryController::class, 'showFilter'])->name('load.showFilter');
 
-     Route::group(['prefix' => 'cashbook'], function () {
+    Route::group(['prefix' => 'cashbook'], function () {
         Route::resource('calculations', CalculationController::class)->middleware('ability:admin,cashbook')->names('calculations');
         Route::get('calculations/export/{calculation}', [CalculationController::class, 'export'])->name('export');
         Route::resource('categories', CategoryController::class)->names('categories');

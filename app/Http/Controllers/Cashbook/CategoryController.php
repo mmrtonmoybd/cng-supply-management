@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Cashbook;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -38,7 +37,6 @@ class CategoryController extends Controller
     // Show form to edit an existing category
     public function edit(Category $category)
     {
-        
 
         return view('backend.cashbook.categories.edit', compact('category'));
     }
@@ -46,7 +44,7 @@ class CategoryController extends Controller
     // Update an existing category
     public function update(Request $request, Category $category)
     {
-        
+
         $request->validate([
             'name' => 'required|unique:categories,name,'.$category->id.'|max:255',
         ]);
@@ -59,7 +57,7 @@ class CategoryController extends Controller
     // Delete a category
     public function destroy(Category $category)
     {
-        
+
         $category->delete();
 
         return redirect()->route('backend.categories.index')->with('success', 'Entries heading deleted successfully');

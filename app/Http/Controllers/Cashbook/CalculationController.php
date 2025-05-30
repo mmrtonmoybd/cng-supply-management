@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\ExpenseEntry;
 use App\Models\IncomeEntry;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
 
 class CalculationController extends Controller
 {
@@ -97,7 +96,7 @@ class CalculationController extends Controller
 
     public function edit(Calculation $calculation)
     {
-        
+
         $categories = Category::all();
 
         return view('backend.cashbook.edit', compact('calculation', 'categories'));
@@ -105,14 +104,13 @@ class CalculationController extends Controller
 
     public function update(Request $request, Calculation $calculation)
     {
-        
 
         $request->validate([
             'date' => 'required|date|unique:calculations,date,'.$calculation->id,
         ], [
             'date.required' => 'The date field is required.',
             'date.date' => 'The date must be a valid date.',
-            'date.unique' => 'A Cashbook for this date already exists update those or make another date cashbook.',]);
+            'date.unique' => 'A Cashbook for this date already exists update those or make another date cashbook.', ]);
 
         $calculation->name = $request->name;
         $calculation->date = $request->date;
