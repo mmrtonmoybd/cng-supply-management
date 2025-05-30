@@ -35,6 +35,40 @@ class CngPump extends Model
         'remarks',
     ];
 
+    protected static function booted(): void
+    {
+        static::created(function (CngPump $model) {
+            if (!$model->load_entry_id) {
+                Pump::create([
+                'cng_pump_id' => $model->id,
+                'purchase_taka' => $model->purchase_taka,
+                'rate' => $model->rate,
+                'date' => $model->date,
+                'vehicle_reg_number' => $model->vehicle_reg_number,
+                'pumpName_id' => $model->pumpName_id,
+                'cng_purchase_m3' => $model->cng_purchase_m3,
+                'factory_id' => $model->factory_id
+            ]);
+            }
+            
+        });
+
+        static::updated(function(CngPump $model) {
+            if (!$model->load_entry_id) {
+            Pump::updateOrCreate(['cng_pump_id' => $model->id], [
+                'cng_pump_id' => $model->id,
+                'purchase_taka' => $model->purchase_taka,
+                'rate' => $model->rate,
+                'date' => $model->date,
+                'vehicle_reg_number' => $model->vehicle_reg_number,
+                'pumpName_id' => $model->pumpName_id,
+                'cng_purchase_m3' => $model->cng_purchase_m3,
+                'factory_id' => $model->factory_id 
+            ]);
+            }
+        });
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

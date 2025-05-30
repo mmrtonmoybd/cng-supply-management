@@ -64,12 +64,6 @@
                 @endforeach
             </select>
         </div>
-        <div class="col-6">
-            <x-boilerplate::select2 name="status" label="Status" minimum-results-for-search="1" required>
-                <option value="1" @if (old('status', 1) == '1') selected="selected" @endif>Use</option>
-                <option value="0" @if (old('status') == '0') selected="selected" @endif>Not use</option>
-           </x-boilerplate::select2>
-        </div>
     </div>
     <div class="row">
         <div class="col-12">

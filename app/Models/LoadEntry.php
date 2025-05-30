@@ -49,7 +49,16 @@ class LoadEntry extends Model
             Notification::send($user, new LoadAddNotification($model));
 
             // Automatically create a Pump entry
-            Pump::create(['load_entry_id' => $model->id]);
+            Pump::create([
+                'load_entry_id' => $model->id,
+                'purchase_taka' => $model->purchase_taka,
+                'rate' => $model->rate,
+                'date' => $model->date,
+                'vehicle_reg_number' => $model->vehicle_reg_number,
+                'pumpName_id' => $model->pumpName_id,
+                'cng_purchase_m3' => $model->cng_purchase_m3,
+                'factory_id' => $model->factory_id
+            ]);
         });
     }
 

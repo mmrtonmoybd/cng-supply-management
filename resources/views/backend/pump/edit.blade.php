@@ -14,7 +14,7 @@
                 <button type="submit" class="btn btn-primary">
                     Update
                 </button>
-            </span>
+         </span>
         </div>
     </div>
     <div class="row">
@@ -38,111 +38,9 @@
                         <x-boilerplate::input name='premarks' label='Remarks' :value="old('premarks', $pump->remarks ?? '')" placeholder='Remarks'/>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <h5>Load Entry</h5>
-                        <button type="button" class="btn btn-secondary btn-sm" id="toggle-button" onclick="toggleLoadEntry()">Unhide</button>
-                    </div>
-                </div>
-                <div id="load-entry-section" style="display: none;">
-                    @if ($pump->loada)
-                        <div class="row">
-                            <div class="col-6">
-                                <x-boilerplate::input name='date' label='Load Date' type='date' required :value="old('date', $pump->loada->date ?? '')" placeholder='Load Date'/>
-                            </div>
-                            <div class="col-6">
-                                <x-boilerplate::input name='vehicle_reg_number' label='Vehicle Reg Number' required :value="old('vehicle_reg_number', $pump->loada->vehicle_reg_number ?? '')" placeholder='Vehicle Reg Number'/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                @php
-                                $pumpOptions = \App\Models\PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
-                                $selectedPump = old('pumpName_id', $pump->loada->pumpName_id ?? null);
-                                @endphp
-                            <select name="pumpName_id" id="pumpName_id" class="form-control " required>
-                                <option value="">Select Pump Name</option>
-                                @foreach ($pumpOptions as $key => $value)
-                                    <option value="{{ $key }}" @if ($selectedPump == $key) selected @endif>{{ $value }}</option>
-                                @endforeach
-                            </select>
-                            </div>
-                            <div class="col-6">
-                                <x-boilerplate::input name='cng_purchase_m3' label='CNG Purchase (M3)' type='number' step='0.01' required :value="old('cng_purchase_m3', $pump->loada->cng_purchase_m3 ?? '')" placeholder='CNG Purchase (M3)'/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <x-boilerplate::input name='rate' label='Rate' type='number' step='0.01' required :value="old('rate', $pump->loada->rate ?? '')" placeholder='Rate'/>
-                            </div>
-                            <div class="col-6">
-                                <x-boilerplate::input name='purchase_taka' label='Purchase Taka' type='number' step='0.01' required :value="old('purchase_taka', $pump->loada->purchase_taka ?? '')" placeholder='Purchase Taka'/>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                 @php
-                                    $factoryOptions = \App\Models\Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
-                                    $selectedFactory = old('factory_id', $pump->loada->factory_id);
-                                @endphp
-                                <select name="factory_id" id="factory_id" class="form-control " >
-                                    <option value="">Select Factory Name</option>
-                                    @foreach ($factoryOptions as $key => $value)
-                                        <option value="{{ $key }}" @if ($selectedFactory == $key) selected @endif>{{ $value }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-6">
-                                <x-boilerplate::select2 name="status" label="Status" minimum-results-for-search="1" required>
-                                    <option value="1" @if (old('status', $pump->loada->status) == '1') selected="selected" @endif>Use</option>
-                                    <option value="0" @if (old('status', $pump->loada->status) == '0') selected="selected" @endif>Not use</option>
-                                </x-boilerplate::select2>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <x-boilerplate::input name='remark' label='Remark' :value="old('remark', $pump->loada->remark ?? '')" placeholder='Remark'/>
-                            </div>
-                        </div>
-                    @else
-                        <p class="text-danger">No associated Load Entry found.</p>
-                    @endif
-                </div>
-
-                <script>
-                    function toggleLoadEntry() {
-                        const section = document.getElementById('load-entry-section');
-                        const button = document.getElementById('toggle-button');
-                        if (section.style.display === 'none') {
-                            section.style.display = 'block';
-                            button.textContent = 'Hide';
-                        } else {
-                            section.style.display = 'none';
-                            button.textContent = 'Unhide';
-                        }
-                    }
-                </script>
+                
             </x-boilerplate::card>
         </div>
     </div>
 </x-boilerplate::form>
 @endsection
-
-@push('js')
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('.select2-pump-name').select2({
-        tags: true,
-        placeholder: 'Select Pump Name',
-        allowClear: true,
-        width: '100%',
-        language: {
-            noResults: function() {
-                return 'No results found. Type to add new.';
-            }
-        }
-    });
-});
-</script>
-@endpush

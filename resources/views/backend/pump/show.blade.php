@@ -16,20 +16,14 @@
         <x-boilerplate::card>
             <table class="table table-bordered table-striped">
                 <tbody>
-                    <tr><th>Date</th><td>{{ $pump->loada->date ?? 'N/A' }}</td></tr>
-                    <tr><th>Vehicle Registration Number</th><td>{{ $pump->loada->vehicle_reg_number ?? 'N/A' }}</td></tr>
-                    <tr><th>Pump Name</th><td>{{ $pump->loada->pumpname->name ?? 'N/A' }}</td></tr>
-                    <tr><th>CNG Purchase (m3)</th><td>{{ $pump->loada->cng_purchase_m3 ?? 'N/A' }}</td></tr>
-                    <tr><th>Rate</th><td>{{ $pump->loada->rate ?? 'N/A' }}</td></tr>
-                    <tr><th>Purchase Taka</th><td>{{ $pump->loada->purchase_taka ?? 'N/A' }}</td></tr>
-                    <tr><th>Factory Name</th><td>{{ $pump->loada->factory->name ?? 'N/A' }}</td></tr>
-                    <tr><th>Status</th><td>{{ $pump->loada->status ?? 'N/A' }}</td></tr>
-                    <tr><th>Remark</th><td>{{ $pump->loada->remark ?? 'N/A' }}</td></tr>
-                </tbody>
-            </table>
-            <h4 class="mb-4">Payment Information</h4>
-            <table class="table table-bordered table-striped">
-                <tbody>
+                    <tr><th>Date</th><td>{{ $pump->date ?? 'N/A' }}</td></tr>
+                    <tr><th>Vehicle Registration Number</th><td>{{ $pump->vehicle_reg_number ?? 'N/A' }}</td></tr>
+                    <tr><th>Pump Name</th><td>{{ $pump->pumpname->name ?? 'N/A' }}</td></tr>
+                    <tr><th>Pump type</th><td>{!! (!$pump->load_entry_id) ? '<span class="badge badge-pill badge-primary">Third party</span>' : '<span class="badge badge-pill badge-warning">Main</span>' !!}</td></tr>
+                    <tr><th>CNG Purchase (m3)</th><td>{{ $pump->cng_purchase_m3 ?? 'N/A' }}</td></tr>
+                    <tr><th>Rate</th><td>{{ $pump->rate ?? 'N/A' }}</td></tr>
+                    <tr><th>Purchase Taka</th><td>{{ $pump->purchase_taka ?? 'N/A' }}</td></tr>
+                    <tr><th>Factory Name</th><td>{{ $pump->factory->name ?? 'N/A' }}</td></tr>
                     <tr><th>Payment Date</th><td>{{ $pump->payment_date }}</td></tr>
                     <tr><th>Payment</th><td>{{ $pump->payment }}</td></tr>
                     <tr><th>Balance</th><td>{{ $pump->balance }}</td></tr>

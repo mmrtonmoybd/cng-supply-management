@@ -62,6 +62,7 @@
             <table class="table table-bordered table-striped" id="dispansarTable">
                 <thead>
                     <tr>
+                        <th>SL</th>
                         <th>Load Date</th>
                         <th>Car No</th>
                         <th>Pump Name</th>
@@ -90,7 +91,7 @@
                     @php
                         $sumM3 = $sumPurchaseTaka = $sumOpening = $sumClosing = $sumTotal = $sumBill = $sumDiffM3 = $sumDiffTaka = $sumCash = $sumBalance = 0;
                     @endphp
-                    @foreach($results as $dispansar)
+                    @foreach($results as $key => $dispansar)
                         @php
                             $sumM3 += $dispansar->cng_purchase_m3 ?? 0;
                             $sumPurchaseTaka += $dispansar->purchase_taka ?? 0;
@@ -104,6 +105,7 @@
                             $sumBalance += $dispansar->balance ?? 0;
                         @endphp
                         <tr>
+                            <td>{{ $key + 1}}</td>
                             <td>{{ $dispansar->date }}</td>
                             <td>{{ $dispansar->vehicle_reg_number }}</td>
                             <td>{{ $dispansar->pumpname ? $dispansar->pumpname->name : '' }}</td>
@@ -131,6 +133,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
+                        <th></th>
                         <th class="text-right">Total</th>
                         <th></th>
                         <th></th>
@@ -150,7 +153,15 @@
                         <th></th>
                         <th></th>
                         <th>{{ $sumCash }}</th>
-                        <th>{{ $sumCash - $sumBill}}</th>
+                        <th>{{ $sumCash - $sumBill}}(@php 
+                            if (($sumCash - $sumBill) > 0) {
+                                echo 'Advance';
+                            } elseif ($sumCash - $sumBill == 0) {
+                                echo 'Paid';
+                            } else {
+                                echo 'Due';
+                            }
+                            @endphp)</th>
                         <th></th>
                         <th></th>
                     </tr>

@@ -43,11 +43,15 @@ class LoadEntryController extends Controller
             'rate' => 'required|numeric',
             'purchase_taka' => 'required|numeric',
             'factory_id' => 'nullable',
-            'status' => 'required|boolean',
             'remark' => 'nullable|string',
             'pumpName_id' => 'nullable|required',
         ]);
-        LoadEntry::create($validated);
+
+        $data = [];
+
+        $data['status'] = 0;
+        $finalData = array_merge($validated, $data);
+        LoadEntry::create($finalData);
 
         return redirect()->route('backend.load.index')->with('growl', [
             'The data has been correctly added.',

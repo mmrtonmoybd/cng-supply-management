@@ -57,6 +57,7 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th>SL</th>
                         <th>Date</th>
                         <th>Car No</th>
                         <th>Pump Name</th>
@@ -73,12 +74,13 @@
                         $totalM3 = 0;
                         $totalPurchaseTaka = 0;
                     @endphp
-                    @foreach($results as $load)
+                    @foreach($results as $key => $load)
                         @php
                             $totalM3 += $load->cng_purchase_m3 ?? 0;
                             $totalPurchaseTaka += $load->purchase_taka ?? 0;
                         @endphp
                         <tr>
+                            <td>{{ $key + 1}}</td>
                             <td>{{ $load->date ?? 'N/A' }}</td>
                             <td>{{ $load->vehicle_reg_number ?? 'N/A' }}</td>
                             <td>{{ $load->pumpname->name ?? 'N/A' }}</td>
@@ -99,6 +101,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th class="text-right">Total</th>

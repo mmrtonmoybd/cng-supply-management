@@ -62,6 +62,7 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th>SL</th>
                         <th>Date</th>
                         <th>Car No</th>
                         <th>Pump Name</th>
@@ -74,7 +75,6 @@
                         <th>Rate</th>
                         <th>FTK</th>
                         <th>Difference Taka</th>
-                        <th>Bill Amount</th>
                         <th>Cash Receipt Amount</th>
                         <th>Cash Receipt Date</th>
                         <th>Balance</th>
@@ -91,8 +91,9 @@
                         $totalCashReceiptAmount = 0;
                         $totalBalance = 0;
                     @endphp
-                    @foreach($results as $row)
+                    @foreach($results as $key => $row)
                         <tr>
+                            <td>{{ $key + 1}}</td>
                             <td>{{ $row->date }}</td>
                             <td>{{ $row->vehicle_reg_number }}</td>
                             <td>{{ $row->pumpname ? $row->pumpname->name : '' }}</td>
@@ -105,7 +106,6 @@
                             <td>{{ $row->rate }}</td>
                             <td>{{ $row->ftk }}</td>
                             <td>{{ $row->difference_taka }}</td>
-                            <td>{{ $row->bill_amount }}</td>
                             <td>{{ $row->cash_receipt_amount }}</td>
                             <td>{{ $row->cash_receipt_date }}</td>
                             <td></td>
@@ -124,6 +124,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
+                        <th></th>
                         <th class="text-right">Total</th>
                         <th></th>
                         <th></th>
@@ -136,10 +137,17 @@
                         <th></th>
                         <th>{{ number_format($totalFTK, 2) }}</th>
                         <th>{{ number_format($totalDifferenceTaka, 2) }}</th>
-                        <th>{{ number_format($totalBillAmount, 2) }}</th>
                         <th>{{ number_format($totalCashReceiptAmount, 2) }}</th>
                         <th></th>
-                        <th>{{ number_format(($totalCashReceiptAmount - $totalFTK), 2) }}</th>
+                        <th>{{ number_format(($totalCashReceiptAmount - $totalFTK), 2) }}(@php 
+                            if (($totalCashReceiptAmount - $totalFTK) > 0) {
+                                echo 'Advance';
+                            } elseif ($totalCashReceiptAmount - $totalFTK == 0) {
+                                echo 'Paid';
+                            } else {
+                                echo 'Due';
+                            }
+                            @endphp)</th>
                     </tr>
                 </tfoot>
             </table>

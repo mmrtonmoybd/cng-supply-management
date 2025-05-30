@@ -32,6 +32,13 @@
                     <input type="text" class="form-control" id="date_range" name="date_range" value="{{ request('date_range') }}" placeholder="Select Date Range">
                 </div>
             </div>
+            <div class="col-md-4">
+                <x-boilerplate::select2 name="type" label="Pump type" :value="request('type')" placeholder="Select Pump type">
+                    <option value="">All</option>
+                    <option value="1" {{ request('type') === '1' ? 'selected' : '' }}>Main</option>
+                    <option value="0" {{ request('type') === '0' ? 'selected' : '' }}>Third party</option>
+                </x-boilerplate::select2>
+            </div>
         </div>
         <div class="row mt-3">
             <div class="col-12">
@@ -50,6 +57,7 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
+                        <th>SL</th>
                         <th>Date</th>
                         <th>Car No</th>
                         <th>Pump Name</th>
@@ -68,20 +76,21 @@
                         $totalM3 = 0;
                         $totalPurchaseTaka = 0;
                     @endphp
-                    @foreach($results as $pump)
+                    @foreach($results as $key => $pump)
                         @php
                             $totalPayment += $pump->payment ?? 0;
                             $totalBalance += $pump->balance ?? 0;
-                            $totalM3 += $pump->loada->cng_purchase_m3 ?? 0;
-                            $totalPurchaseTaka += $pump->loada->purchase_taka ?? 0;
+                            $totalM3 += $pump->cng_purchase_m3 ?? 0;
+                            $totalPurchaseTaka += $pump->purchase_taka ?? 0;
                         @endphp
                         <tr>
-                            <td>{{ $pump->loada->date ?? 'N/A' }}</td>
-                            <td>{{ $pump->loada->vehicle_reg_number ?? 'N/A' }}</td>
-                            <td>{{ $pump->loada->pumpname->name ?? 'N/A' }}</td>
-                            <td>{{ $pump->loada->cng_purchase_m3 ?? 'N/A' }}</td>
-                            <td>{{ $pump->loada->rate ?? 'N/A' }}</td>
-                            <td>{{ $pump->loada->purchase_taka ?? 'N/A' }}</td>
+                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $pump->date ?? 'N/A' }}</td>
+                            <td>{{ $pump->vehicle_reg_number ?? 'N/A' }}</td>
+                            <td>{{ $pump->pumpname->name ?? 'N/A' }}</td>
+                            <td>{{ $pump->cng_purchase_m3 ?? 'N/A' }}</td>
+                            <td>{{ $pump->rate ?? 'N/A' }}</td>
+                            <td>{{ $pump->purchase_taka ?? 'N/A' }}</td>
                             <td>{{ $pump->payment_date ?? 'N/A' }}</td>
                             <td>{{ $pump->payment ?? 'N/A' }}</td>
                             <td></td>
@@ -107,6 +116,7 @@
                     <tr>
                         <th></th>
                         <th></th>
+                        <th></th>
                         <th class="text-right">Total</th>
                         <th>{{ $totalM3 }}</th>
                         <th></th>
@@ -115,7 +125,7 @@
                         <th>{{ $totalPayment }}</th>
                         <th>{{ $totalPayment - $totalPurchaseTaka }} 
                             (@php 
-                            if (($totalPayment - $totalPurchaseTaka) < 0) {
+                            if (($totalPayment - $totalPurchaseTaka) > 0) {
                                 echo 'Advance';
                             } elseif ($totalPayment - $totalPurchaseTaka == 0) {
                                 echo 'Paid';

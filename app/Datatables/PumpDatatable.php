@@ -4,6 +4,7 @@ namespace App\Datatables;
 
 use App\Models\Pump;
 use App\Models\PumpName;
+use App\Models\Factory;
 use Illuminate\Database\Eloquent\Builder;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
@@ -15,7 +16,7 @@ class PumpDatatable extends Datatable
 
     public function datasource()
     {
-        return Pump::with(['loada', 'loada.pumpname'])->select('*');
+        return Pump::with(['pumpname', 'factory'])->select('*');
     }
 
     public function setUp()
@@ -32,43 +33,55 @@ class PumpDatatable extends Datatable
         return [
 
             Column::add(__('Id'))
-                ->data('id')
-                ->name('pumps.id'),
+                ->data('id'),
 
-            Column::add('Load date')
-                ->data('loada.date')
+            Column::add('Date')
+                ->data('date')
                 ->dateFormat(__('boilerplate::date.Ymd'))
-                ->filterType('daterangepicker')
-                ->filter(function (Builder $query, $value) {
-                    $dates = explode(' - ', $value);
-                    $dateRange = $dates[0];
-                    [$startDate, $endDate] = explode('|', $dateRange);
-
-                    return $query->whereHas('loada', function ($query) use ($startDate, $endDate) {
-                        $query->whereBetween('date', [$startDate, $endDate]);
-                    });
-                }),
+                ->filterType('daterangepicker'),
 
             Column::add('Car no')
-                ->data('loada.vehicle_reg_number'),
+                ->data('vehicle_reg_number'),
 
-            Column::add('Pump Name')
-                ->data('loada.pumpname.name')
+            Column::add(__('Pump Name'))
+                ->data('pumpname.name')
                 ->filterOptions(PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
-                ->filter(function (Builder $query, $value) {
-                    return $query->whereHas('loada', function ($query) use ($value) {
-                        $query->where('pumpName_id', $value);
-                    });
+                ->filter(function ($query, $value) {
+                    return $query->where('pumpName_id', $value);
                 }),
 
-            Column::add('M3')
-                ->data('loada.cng_purchase_m3'),
+            Column::add('Pump type')
+                ->data('type', function($pump) {
+                 return (!$pump->load_entry_id) ? '<span class="badge badge-pill badge-primary">Third party</span>' : '<span class="badge badge-pill badge-warning">Main</span>';
+                })
+                ->filterOptions([
+                    '1' => 'Main',
+                    '0' => 'Third Party',
+                ])
+                ->filter(function ($query, $value) {
+                    if ($value === 1) {
+                        $query->where('load_entry_id', '!=', null);
+                    } else {
+                        $query->where('load_entry_id', '=', null);
+                    }
+                }),
+                
 
-            Column::add('Rate')
-                ->data('loada.rate'),
+             Column::add(__('M3'))
+                ->data('cng_purchase_m3'),
 
-            Column::add('Purchase Taka')
-                ->data('loada.purchase_taka'),
+            Column::add(__('Rate'))
+                ->data('rate'),
+
+            Column::add(__('Purchase Taka'))
+                ->data('purchase_taka'),
+
+            Column::add(__('Factory Name'))
+                ->data('factory.name')
+                ->filterOptions(Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
+                ->filter(function ($query, $value) {
+                    return $query->where('factory_id', $value);
+                }),
 
             Column::add(__('Payment Date'))
                 ->data('payment_date')
