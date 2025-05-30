@@ -26,6 +26,8 @@ jobs:
       run: composer update -q --no-ansi --no-interaction --no-scripts --no-progress
     - name: Generate key
       run: php artisan key:generate
+    - name: Boilerplate publish
+      run: php artisan vendor:publish --tag=boilerplate-public --force
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: PHP CS Fixer
