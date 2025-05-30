@@ -81,7 +81,7 @@
                         @endphp
                         <tr>
                             <td>{{ $key + 1}}</td>
-                            <td>{{ $load->date ?? 'N/A' }}</td>
+                            <td>{{ $load->date ? (\Carbon\Carbon::parse($load->date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $load->vehicle_reg_number ?? 'N/A' }}</td>
                             <td>{{ $load->pumpname->name ?? 'N/A' }}</td>
                             <td>{{ $load->cng_purchase_m3 ?? 'N/A' }}</td>

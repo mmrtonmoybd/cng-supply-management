@@ -73,9 +73,15 @@ Route::group($default, function () {
         Route::get('cngPump-filter/show', [App\Http\Controllers\Backend\Factory\CngPumpSlipController::class, 'showFilter'])->name('cngpump.showFilter');
 
         Route::resource('factory', App\Http\Controllers\Backend\Factory\FactoryController::class)->names('factory');
+
+        Route::resource('invoice', App\Http\Controllers\Backend\Invoice\InvoiceController::class)->names('invoice');
+
+        Route::get('invoice/export/{invoice}', App\Http\Controllers\Backend\Invoice\InvoiceController::class.'@export')->name('invoice.export');
     });
 
 });
+
+Route::get('factory/invoice/verify/{hash}', [App\Http\Controllers\Backend\Invoice\InvoiceController::class, 'verify'])->name('factory.invoice.verify');
 
 Route::get('test', App\Http\Controllers\Test::class.'@index')->name('test.index');
 

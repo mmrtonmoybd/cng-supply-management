@@ -17,7 +17,7 @@
             <h4 class="mb-4">Cng Pump Slip Information</h4>
             <table class="table table-bordered table-striped">
                 <tbody>
-                    <tr><th>Date</th><td>{{ $cngPump->date }}</td></tr>
+                    <tr><th>Date</th><td>{{ $cngPump->date ? (\Carbon\Carbon::parse($cngPump->date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Car No</th><td>{{ $cngPump->vehicle_reg_number }}</td></tr>
                     <tr><th>Pump Name</th><td>{{ $cngPump->pumpname->name }}</td></tr>
                     <tr><th>Factory</th><td>{{ $cngPump->factory->name }}</td></tr>
@@ -33,7 +33,7 @@
                     <tr><th>FM3</th><td>{{ $cngPump->fm3 }}</td></tr>
                     <tr><th>Rate</th><td>{{ $cngPump->rate }}</td></tr>
                     <tr><th>FTK</th><td>{{ $cngPump->ftk }}</td></tr>
-                    <tr><th>Cash Receipt Date</th><td>{{ $cngPump->cash_receipt_date }}</td></tr>
+                    <tr><th>Cash Receipt Date</th><td>{{ $cngPump->cash_receipt_date ? (\Carbon\Carbon::parse($cngPump->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Cash Receipt Amount</th><td>{{ $cngPump->cash_receipt_amount }}</td></tr>
                     <tr><th>Received By</th><td>{{ $cngPump->recived_by }}</td></tr>
                     <tr><th>Remarks</th><td>{{ $cngPump->remarks }}</td></tr>

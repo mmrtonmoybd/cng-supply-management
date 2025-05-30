@@ -36,7 +36,7 @@ class ActivitylogDatatable extends Datatable
                 ->width('180px')
                 ->data('created_at')
                 ->filterType('daterangepicker')
-                ->dateFormat('YYYY-MM-DD hh:mm:ss A'),
+                ->dateFormat('DD-MM-YYYY hh:mm:ss A'),
 
             Column::add(__('Module'))
                 ->data('log_name')
@@ -49,6 +49,7 @@ class ActivitylogDatatable extends Datatable
                     'Load' => 'Load',
                     'Pumps' => 'Pumps',
                     'Pump names' => 'Pump names',
+                    'Invoice' => 'Invoice',
                 ])->filter(function ($query, $q) {
                     $query->where('log_name', $q);
                 }),

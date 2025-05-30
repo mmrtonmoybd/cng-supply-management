@@ -17,7 +17,7 @@
             <h4 class="mb-4">Cng Pump & Weight Scale Information</h4>
             <table class="table table-bordered table-striped">
                 <tbody>
-                    <tr><th>Date</th><td>{{ $weightone->date }}</td></tr>
+                    <tr><th>Date</th><td>{{ $weightone->date ? (\Carbon\Carbon::parse($weightone->date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Car No</th><td>{{ $weightone->vehicle_reg_number }}</td></tr>
                     <tr><th>Pump Name</th><td>{{ $weightone->pumpname->name }}</td></tr>
                     <tr><th>Factory</th><td>{{ $weightone->factory->name }}</td></tr>
@@ -32,7 +32,7 @@
                     <tr><th>Rate</th><td>{{ $weightone->rate }}</td></tr>
                     <tr><th>FTK</th><td>{{ $weightone->ftk }}</td></tr>
                     <tr><th>Bill Amount</th><td>{{ $weightone->bill_amount }}</td></tr>
-                    <tr><th>Cash Receipt Date</th><td>{{ $weightone->cash_receipt_date }}</td></tr>
+                    <tr><th>Cash Receipt Date</th><td>{{ $weightone->cash_receipt_date ? (\Carbon\Carbon::parse($weightone->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Cash Receipt Amount</th><td>{{ $weightone->cash_receipt_amount }}</td></tr>
                     <tr><th>Received By</th><td>{{ $weightone->recived_by }}</td></tr>
                     <tr><th>Remarks</th><td>{{ $weightone->remarks }}</td></tr>

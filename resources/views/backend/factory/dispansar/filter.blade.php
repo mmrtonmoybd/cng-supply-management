@@ -106,7 +106,7 @@
                         @endphp
                         <tr>
                             <td>{{ $key + 1}}</td>
-                            <td>{{ $dispansar->date }}</td>
+                            <td>{{ $dispansar->date ? (\Carbon\Carbon::parse($dispansar->date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $dispansar->vehicle_reg_number }}</td>
                             <td>{{ $dispansar->pumpname ? $dispansar->pumpname->name : '' }}</td>
                             <td>{{ $dispansar->cng_purchase_m3 }}</td>
@@ -123,7 +123,7 @@
                             <td>{{ $dispansar->difference_taka }}</td>
                             <td>{{ $dispansar->in }}</td>
                             <td>{{ $dispansar->out }}</td>
-                            <td>{{ $dispansar->cash_receipt_date }}</td>
+                            <td>{{ $dispansar->cash_receipt_date ? (\Carbon\Carbon::parse($dispansar->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $dispansar->cash_receipt_amount }}</td>
                             <td></td>
                             <td>{{ $dispansar->recived_by }}</td>

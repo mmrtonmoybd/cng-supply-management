@@ -16,7 +16,7 @@
         <x-boilerplate::card>
             <table class="table table-bordered table-striped">
                 <tbody>
-                    <tr><th>Date</th><td>{{ $pump->date ?? 'N/A' }}</td></tr>
+                    <tr><th>Date</th><td>{{ $pump->date ? (\Carbon\Carbon::parse($pump->date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Vehicle Registration Number</th><td>{{ $pump->vehicle_reg_number ?? 'N/A' }}</td></tr>
                     <tr><th>Pump Name</th><td>{{ $pump->pumpname->name ?? 'N/A' }}</td></tr>
                     <tr><th>Pump type</th><td>{!! (!$pump->load_entry_id) ? '<span class="badge badge-pill badge-primary">Third party</span>' : '<span class="badge badge-pill badge-warning">Main</span>' !!}</td></tr>
@@ -24,7 +24,7 @@
                     <tr><th>Rate</th><td>{{ $pump->rate ?? 'N/A' }}</td></tr>
                     <tr><th>Purchase Taka</th><td>{{ $pump->purchase_taka ?? 'N/A' }}</td></tr>
                     <tr><th>Factory Name</th><td>{{ $pump->factory->name ?? 'N/A' }}</td></tr>
-                    <tr><th>Payment Date</th><td>{{ $pump->payment_date }}</td></tr>
+                    <tr><th>Payment Date</th><td>{{ $pump->payment_date ? (\Carbon\Carbon::parse($pump->payment_date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Payment</th><td>{{ $pump->payment }}</td></tr>
                     <tr><th>Balance</th><td>{{ $pump->balance }}</td></tr>
                     <tr><th>Remarks</th><td>{{ $pump->remarks }}</td></tr>

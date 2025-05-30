@@ -36,7 +36,7 @@ class DispansarDatatable extends Datatable
 
             Column::add('Date')
                 ->data('date')
-                ->dateFormat(__('boilerplate::date.Ymd'))
+                ->dateFormat('DD-MM-YYYY')
                 ->filterType('daterangepicker'),
             /*
                 ->filter(function (Builder $query, $value) {
@@ -82,7 +82,7 @@ class DispansarDatatable extends Datatable
             Column::add(__('Bill Date'))
                 ->width('180px')
                 ->data('bill_date')
-                ->dateFormat(__('boilerplate::date.Ymd')),
+                ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Opening Reading'))
                 ->data('opening_reading'),
@@ -114,7 +114,7 @@ class DispansarDatatable extends Datatable
             Column::add(__('Cash Receipt Date'))
                 ->width('180px')
                 ->data('cash_receipt_date')
-                ->dateFormat(__('boilerplate::date.Ymd')),
+                ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Cash Receipt Amount'))
                 ->data('cash_receipt_amount'),

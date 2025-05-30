@@ -37,7 +37,7 @@ class WeightoneDatatable extends Datatable
             Column::add(__('Date'))
                 ->width('180px')
                 ->data('date')
-                ->dateFormat(__('DD-MM-YYYY')),
+                ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Car No'))
                 ->data('vehicle_reg_number'),
@@ -71,7 +71,7 @@ class WeightoneDatatable extends Datatable
             Column::add(__('Challan Date'))
                 ->width('180px')
                 ->data('bill_date')
-                ->dateFormat(__('DD-MM-YYYY')),
+                ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('F m3'))
                 ->data('fm3'),
@@ -100,7 +100,7 @@ class WeightoneDatatable extends Datatable
             Column::add(__('Cash Receipt Date'))
                 ->width('180px')
                 ->data('cash_receipt_date')
-                ->dateFormat(__('DD-MM-YYYY')),
+                ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Cash Receipt Amount'))
                 ->data('cash_receipt_amount'),

@@ -14,7 +14,15 @@
                     <i class="fas fa-filter"></i> Advanced Filter
                 </a>
             </span>
-            <span class="float-right pb-3">
+
+            @can('invoice_crud')
+            <span class="float-right pb-3 mr-2">
+                <a href="{{ route('backend.factory.invoice.create') }}?factory=weightone" class="btn btn-success">
+                    <i class="fas fa-file-invoice-dollar"></i> Invoice
+                </a>
+            </span>
+            @endcan
+            <span class="float-right pb-3 mr-2">
                 <a href="{{route('backend.factory.weightone.create')}}" class="btn btn-primary">
                     <i class="fas fa-plus"></i> Cng Pump & Weight Scale
                 </a>

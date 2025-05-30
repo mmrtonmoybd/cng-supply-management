@@ -17,7 +17,7 @@
             <h4 class="mb-4">Load Information</h4>
             <table class="table table-bordered table-striped">
                 <tbody>
-                    <tr><th>Date</th><td>{{ $loadEntry->date }}</td></tr>
+                    <tr><th>Date</th><td>{{ $loadEntry->date ? (\Carbon\Carbon::parse($loadEntry->date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Car No</th><td>{{ $loadEntry->vehicle_reg_number }}</td></tr>
                     <tr><th>Pump Name</th><td>{{ $loadEntry->pumpname->name }}</td></tr>
                     <tr><th>M3</th><td>{{ $loadEntry->cng_purchase_m3 }}</td></tr>

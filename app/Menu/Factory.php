@@ -45,5 +45,11 @@ class Factory implements MenuItemInterface
             'active' => 'backend.factory.factory.*',
             'route' => 'backend.factory.factory.index',
         ]);
+
+        $item->add('Invoice', [
+            'permission' => 'invoice_crud',
+            'active' => 'backend.factory.invoice.*',
+            'route' => 'backend.factory.invoice.index',
+        ]);
     }
 }

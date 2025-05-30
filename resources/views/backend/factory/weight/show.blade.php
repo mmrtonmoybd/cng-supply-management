@@ -17,7 +17,7 @@
             <h4 class="mb-4">Weight Scale Information</h4>
             <table class="table table-bordered table-striped">
                 <tbody>
-                    <tr><th>Date</th><td>{{ $weight->date }}</td></tr>
+                    <tr><th>Date</th><td>{{ $weight->date ? (\Carbon\Carbon::parse($weight->date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Car No</th><td>{{ $weight->vehicle_reg_number }}</td></tr>
                     <tr><th>Pump Name</th><td>{{ $weight->pumpname->name }}</td></tr>
                     <tr><th>Factory</th><td>{{ $weight->factory->name }}</td></tr>
@@ -40,7 +40,7 @@
                     <tr><th>In</th><td>{{ $weight->in }}</td></tr>
                     <tr><th>Out</th><td>{{ $weight->out }}</td></tr>
                     <tr><th>Bill Amount</th><td>{{ $weight->bill_amount }}</td></tr>
-                    <tr><th>Cash Receipt Date</th><td>{{ $weight->cash_receipt_date }}</td></tr>
+                    <tr><th>Cash Receipt Date</th><td>{{ $weight->cash_receipt_date ? (\Carbon\Carbon::parse($weight->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Cash Receipt Amount</th><td>{{ $weight->cash_receipt_amount }}</td></tr>
                     <tr><th>Received By</th><td>{{ $weight->recived_by }}</td></tr>
                     <tr><th>Remarks</th><td>{{ $weight->remarks }}</td></tr>

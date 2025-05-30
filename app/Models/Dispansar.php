@@ -35,6 +35,8 @@ class Dispansar extends Model
         'cng_purchase_m3',
         'lrate',
         'purchase_taka',
+        'invoice_id',
+        'invoice_date',
     ];
 
     protected static function booted(): void
@@ -67,6 +69,14 @@ class Dispansar extends Model
                     'cng_purchase_m3' => $model->cng_purchase_m3,
                     'factory_id' => $model->factory_id,
                 ]);
+            }
+
+            if ($model->invoice_id) {
+                $sum = Dispansar::where('invoice_id', $model->invoice_id)->sum('bill_amount');
+                $invoice = Invoice::find($model->invoice_id);
+                if ($invoice) {
+                    $invoice->update(['total' => $sum]);
+                }
             }
         });
     }

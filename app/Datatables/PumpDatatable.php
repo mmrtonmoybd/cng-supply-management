@@ -36,7 +36,7 @@ class PumpDatatable extends Datatable
 
             Column::add('Date')
                 ->data('date')
-                ->dateFormat(__('boilerplate::date.Ymd'))
+                ->dateFormat('DD-MM-YYYY')
                 ->filterType('daterangepicker'),
 
             Column::add('Car no')
@@ -83,7 +83,7 @@ class PumpDatatable extends Datatable
 
             Column::add(__('Payment Date'))
                 ->data('payment_date')
-                ->dateFormat(__('boilerplate::date.Ymd')),
+                ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Payment'))
                 ->data('payment'),

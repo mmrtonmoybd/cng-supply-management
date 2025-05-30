@@ -93,7 +93,7 @@
                     @foreach($results as $key => $row)
                         <tr>
                             <td>{{ $key + 1}}</td>
-                            <td>{{ $row->date }}</td>
+                            <td>{{ $row->date ? (\Carbon\Carbon::parse($row->date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $row->vehicle_reg_number }}</td>
                             <td>{{ $row->pumpname ? $row->pumpname->name : '' }}</td>
                             <td>{{ $row->cng_purchase_m3 }}</td>
@@ -109,7 +109,7 @@
                             <td>{{ $row->in }}</td>
                             <td>{{ $row->out }}</td>
                             <td>{{ $row->cash_receipt_amount }}</td>
-                            <td>{{ $row->cash_receipt_date }}</td>
+                            <td>{{ $row->cash_receipt_date ? (\Carbon\Carbon::parse($row->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td></td>
                         </tr>
                         @php

@@ -17,7 +17,7 @@
             <h4 class="mb-4">Dispenser Information</h4>
             <table class="table table-bordered table-striped">
                 <tbody>
-                    <tr><th>Load Date</th><td>{{ $dispansar->date }}</td></tr>
+                    <tr><th>Load Date</th><td>{{ $dispansar->date ? (\Carbon\Carbon::parse($dispansar->date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Car No</th><td>{{ $dispansar->vehicle_reg_number }}</td></tr>
                     <tr><th>Pump Name</th><td>{{ $dispansar->pumpname->name }}</td></tr>
                     <tr><th>Factory</th><td>{{ $dispansar->factory->name }}</td></tr>
@@ -35,7 +35,7 @@
                     <tr><th>Difference Taka</th><td>{{ $dispansar->difference_taka }}</td></tr>
                     <tr><th>In</th><td>{{ $dispansar->in }}</td></tr>
                     <tr><th>Out</th><td>{{ $dispansar->out }}</td></tr>
-                    <tr><th>Cash Receipt Date</th><td>{{ $dispansar->cash_receipt_date }}</td></tr>
+                    <tr><th>Cash Receipt Date</th><td>{{ $dispansar->cash_receipt_date ? (\Carbon\Carbon::parse($dispansar->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Cash Receipt Amount</th><td>{{ $dispansar->cash_receipt_amount }}</td></tr>
                     <tr><th>Balance</th><td>{{ $dispansar->balance }}</td></tr>
                     <tr><th>Received By</th><td>{{ $dispansar->recived_by }}</td></tr>

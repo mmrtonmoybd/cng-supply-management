@@ -40,6 +40,8 @@ class Weight extends Model
         'recived_by',
         'remarks',
         'bill_amount',
+        'invoice_id',
+        'invoice_date',
     ];
 
     protected static function booted(): void
@@ -72,6 +74,14 @@ class Weight extends Model
                     'cng_purchase_m3' => $model->cng_purchase_m3,
                     'factory_id' => $model->factory_id,
                 ]);
+            }
+
+            if ($model->invoice_id) {
+                $sum = Weight::where('invoice_id', $model->invoice_id)->sum('ftk');
+                $invoice = Invoice::find($model->invoice_id);
+                if ($invoice) {
+                    $invoice->update(['total' => $sum]);
+                }
             }
         });
     }
