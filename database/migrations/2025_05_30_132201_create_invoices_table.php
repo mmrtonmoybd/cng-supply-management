@@ -20,7 +20,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('factories')
                 ->onDelete('cascade');
-            
+
             $table->date('date')->nullable();
             $table->decimal('total', 15, 2)->nullable();
             $table->string('hash')->unique()->nullable();

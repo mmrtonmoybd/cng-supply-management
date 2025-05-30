@@ -9,12 +9,13 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Invoice extends Model
 {
     use LogsActivity;
+
     protected $fillable = [
         'factory_type',
         'factory_id',
         'date',
         'total',
-        'hash'
+        'hash',
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -60,5 +61,4 @@ class Invoice extends Model
     {
         return $this->hasMany(WeightOne::class, 'invoice_id', 'id');
     }
-
 }

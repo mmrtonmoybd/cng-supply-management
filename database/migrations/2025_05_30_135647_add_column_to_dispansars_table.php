@@ -17,7 +17,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('invoices')
                 ->onDelete('set null');
-            
+
             $table->date('invoice_date')->nullable()->after('invoice_id');
         });
     }
@@ -25,8 +25,5 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        
-    }
+    public function down(): void {}
 };

@@ -2,8 +2,8 @@
 
 namespace App\Datatables;
 
-use App\Models\Invoice;
 use App\Models\Factory;
+use App\Models\Invoice;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
@@ -23,8 +23,8 @@ class InvoiceDatatable extends Datatable
             ->permissions('invoice_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
-            ->lengthMenu([[10, 28, 29, 30, 31, 50, 100, -1] , [10, 28, 29, 30, 31, 50, 100, 'All']])
-            ->setRowId('id');;
+            ->lengthMenu([[10, 28, 29, 30, 31, 50, 100, -1], [10, 28, 29, 30, 31, 50, 100, 'All']])
+            ->setRowId('id');
     }
 
     public function columns(): array
@@ -39,7 +39,7 @@ class InvoiceDatatable extends Datatable
                 ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Factory Type'))
-                ->data('factory_type', function($invoice) {
+                ->data('factory_type', function ($invoice) {
                     if ($invoice->factory_type === 'dispansar') {
                         return '<span class="badge badge-pill badge-success">Dispansar</span';
                     } elseif ($invoice->factory_type === 'cngpump') {
@@ -70,15 +70,15 @@ class InvoiceDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (Invoice $invoice) {
-                    return join([
-                         Button::show('backend.factory.invoice.show', $invoice),
-                         Button::add()
+                    return implode([
+                        Button::show('backend.factory.invoice.show', $invoice),
+                        Button::add()
                             ->attributes(['data-action' => 'dt-edit-element'])
-                            ->link(route('backend.factory.invoice.edit', $invoice->id). '?factory=' . $invoice->factory_type)
+                            ->link(route('backend.factory.invoice.edit', $invoice->id).'?factory='.$invoice->factory_type)
                             ->color('primary')
                             ->icon('pencil-alt')
                             ->make(),
-                         Button::delete('backend.factory.invoice.destroy', $invoice),
+                        Button::delete('backend.factory.invoice.destroy', $invoice),
                     ]);
                 }),
         ];
