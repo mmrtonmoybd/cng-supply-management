@@ -15,6 +15,7 @@ class CalculationController extends Controller
     {
         // Check if the user has permission to view calculations
         $this->authorize('cashbook_crud');
+
         return view('backend.cashbook.list');
         /*
         // Get all calculations in DESC order with pagination (e.g., 10 per page)

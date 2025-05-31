@@ -12,6 +12,7 @@ class CategoryController extends Controller
     public function index()
     {
         $this->authorize('cashbook_crud');
+
         return view('backend.cashbook.categories.index');
     }
 
@@ -19,6 +20,7 @@ class CategoryController extends Controller
     public function create()
     {
         $this->authorize('cashbook_crud');
+
         return view('backend.cashbook.categories.create');
     }
 
@@ -38,7 +40,8 @@ class CategoryController extends Controller
     // Show form to edit an existing category
     public function edit(Category $category)
     {
-$this->authorize('cashbook_crud');
+        $this->authorize('cashbook_crud');
+
         return view('backend.cashbook.categories.edit', compact('category'));
     }
 
@@ -97,6 +100,7 @@ $this->authorize('cashbook_crud');
     public function show(Category $category)
     {
         $this->authorize('cashbook_crud');
+
         return view('backend.cashbook.categories.show', compact('category'));
     }
 
