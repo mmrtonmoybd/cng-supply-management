@@ -123,6 +123,15 @@
         <p>House #37, Road #07, Sector #03, Uttra, Dhaka-1230</p>
         <div class="date">Date: {{ ($range != '' ) ? $range :  ( (!empty($calculation->date)) ? \Illuminate\Support\Carbon::parse($calculation->date)->format('d/m/Y') : '' )}}</div>
     </div>
+    @if(isset($dateRange) && $dateRange)
+        <div class="alert alert-info">
+            <strong>Date Range:</strong> {{ $dateRange }}
+        </div>
+    @elseif(isset($range) && $range)
+        <div class="alert alert-info">
+            <strong>Date Range:</strong> {{ $range }}
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-6">
             <div class="section-title">Income</div>

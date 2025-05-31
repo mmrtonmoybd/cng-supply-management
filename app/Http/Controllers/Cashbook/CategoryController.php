@@ -11,9 +11,7 @@ class CategoryController extends Controller
     // Show the list of categories
     public function index()
     {
-        $categories = Category::all();
-
-        return view('backend.cashbook.categories.index', compact('categories'));
+        return view('backend.cashbook.categories.index');
     }
 
     // Show form to create a new category
@@ -58,8 +56,50 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
 
-        $category->delete();
+        return response()->json(['success' => $category->delete() ?? false]);
+    }
 
-        return redirect()->route('backend.categories.index')->with('success', 'Entries heading deleted successfully');
+    // Show filter form and results for Income/Expense by category and date
+    public function filter(Request $request)
+    {
+        $categories = Category::orderBy('name')->get();
+        $categoryId = $request->input('category_id');
+        $dateRange = $request->input('date_range');
+        $startDate = null;
+        $endDate = null;
+        if ($dateRange) {
+            [$startDate, $endDate] = explode(' - ', $dateRange);
+        }
+
+        $incomeQuery = \App\Models\IncomeEntry::query();
+        $expenseQuery = \App\Models\ExpenseEntry::query();
+        if ($categoryId) {
+            $incomeQuery->where('category_id', $categoryId);
+            $expenseQuery->where('category_id', $categoryId);
+        }
+        if ($startDate && $endDate) {
+            $incomeQuery->whereBetween('date', [$startDate, $endDate]);
+            $expenseQuery->whereBetween('date', [$startDate, $endDate]);
+        }
+        $incomeEntries = $incomeQuery->orderByDesc('date')->get();
+        $expenseEntries = $expenseQuery->orderByDesc('date')->get();
+
+        return view('backend.cashbook.categories.filter', compact('categories', 'incomeEntries', 'expenseEntries', 'categoryId', 'dateRange'));
+    }
+
+    // Show a single category (for route compatibility)
+    public function show(Category $category)
+    {
+        return view('backend.cashbook.categories.show', compact('category'));
+    }
+
+    public function filterShow(Request $request)
+    {
+        $categories = Category::orderBy('name')->get();
+        $categoryId = $request->input('category_id');
+        $dateRange = $request->input('date_range');
+        $startDate = null;
+        $endDate = null;
+        return view('backend.cashbook.categories.filtershow', compact('categories', 'categoryId', 'dateRange'));
     }
 }

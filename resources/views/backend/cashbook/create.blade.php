@@ -7,50 +7,51 @@
 ])
 
 @section('content')
-
-<div class="container">
-    <div class="card shadow-lg mb-4">
-        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-            <h3>Create Cashbook</h3>
-            <a href="{{ route('backend.calculations.index') }}" class="btn btn-success">Back to List</a>
-        </div>
-        <div class="card-body">
-            <form action="{{ route('backend.calculations.store') }}" method="POST">
-                @csrf
-                
-                <div class="form-group mb-4">
-                    <label for="name" class="h5">Cashbook date</label>
-                    <x-boilerplate::datetimepicker name="date" clearable=true placeholder='Date' required label="Date" value="{{\Illuminate\Support\Carbon::now()}}" format="D/M/Y"/>
-                    <small class="form-text text-muted">Select date otherwise current date will be apply</small>
-                </div>
-
-                <!-- Grid system to divide the income and expense entries -->
-                <div class="row">
-                    <!-- Left Side: Income Entries -->
-                    <div class="col-md-6">
-                        <h4 class="text-success">Income Entries</h4>
-                        <div id="income-entries"></div>
-                        <button type="button" class="btn btn-outline-success mt-3" id="add-income">
-                            <i class="fas fa-plus-circle"></i> Add Income
-                        </button>
-                    </div>
-
-                    <!-- Right Side: Expense Entries -->
-                    <div class="col-md-6">
-                        <h4 class="text-danger">Expense Entries</h4>
-                        <div id="expense-entries"></div>
-                        <button type="button" class="btn btn-outline-danger mt-3" id="add-expense">
-                            <i class="fas fa-plus-circle"></i> Add Expense
-                        </button>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary mt-4 float-right shadow">Save Cashbook</button>
-            </form>
+<x-boilerplate::form route='backend.calculations.store'>
+    <div class="row">
+        <div class="col-12 pb-3">
+            <a href="{{ route('backend.calculations.index') }}" class="btn btn-default" data-toggle="tooltip" title="Cashbook lists">
+                <span class="far fa-arrow-alt-circle-left text-muted"></span>
+            </a>
+            <span class="btn-group float-right">
+                <button type="submit" class="btn btn-primary">
+                    Save Cashbook
+                </button>
+            </span>
         </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-12">
+<x-boilerplate::card>
+    <div class="row">
+        <div class="col-6">
+            <label for="name" class="h5">Cashbook date</label>
+            <x-boilerplate::datetimepicker name="date" clearable=true placeholder='Date' required label="Date" value="{{\Illuminate\Support\Carbon::now()}}" format="D/M/Y"/>
+            <small class="form-text text-muted">Select date otherwise current date will be apply</small>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h4 class="text-success">Income Entries</h4>
+            <div id="income-entries"></div>
+            <button type="button" class="btn btn-outline-success mt-3" id="add-income">
+                <i class="fas fa-plus-circle"></i> Add Income
+            </button>
+        </div>
+        <div class="col-md-6">
+            <h4 class="text-danger">Expense Entries</h4>
+            <div id="expense-entries"></div>
+            <button type="button" class="btn btn-outline-danger mt-3" id="add-expense">
+                <i class="fas fa-plus-circle"></i> Add Expense
+            </button>
+        </div>
+    </div>
+</x-boilerplate::card>
+        </div>
+    </div>
+</x-boilerplate::form>
 
+@push('js')
 <script>
     let incomeCount = 0;
     let expenseCount = 0;
@@ -116,5 +117,5 @@
         }
     });
 </script>
-
+@endpush
 @endsection
