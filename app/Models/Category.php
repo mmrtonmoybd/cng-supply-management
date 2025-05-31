@@ -8,11 +8,13 @@ class Category extends Model
 {
     protected $fillable = ['name'];
 
-    public function income() {
+    public function income()
+    {
         return $this->hasMany(IncomeEntry::class);
     }
 
-    public function expense() {
+    public function expense()
+    {
         return $this->hasMany(ExpenseEntry::class);
     }
 }

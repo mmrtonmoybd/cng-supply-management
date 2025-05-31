@@ -100,6 +100,7 @@ class CategoryController extends Controller
         $dateRange = $request->input('date_range');
         $startDate = null;
         $endDate = null;
+
         return view('backend.cashbook.categories.filtershow', compact('categories', 'categoryId', 'dateRange'));
     }
 }

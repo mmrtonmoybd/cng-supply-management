@@ -28,7 +28,7 @@ class CashbookDatatable extends Datatable
     public function columns(): array
     {
         return [
-            
+
             Column::add(__('Date'))
                 ->width('180px')
                 ->data('date')
@@ -55,16 +55,16 @@ class CashbookDatatable extends Datatable
             Column::add(__('Net Balance'))
                 ->data('balance', function ($calculation) {
                     return $calculation->previous_balance + ($calculation->incomeEntries->sum('amount') - $calculation->expenseEntries->sum('amount'));
-                    
+
                 })->notSortable()->notSearchable()->notOrderable(),
 
             Column::add()
                 ->width('20px')
                 ->actions(function (Calculation $calculation) {
-                    return join([
-                         Button::show('backend.calculations.show', $calculation),
-                         Button::edit('backend.calculations.edit', $calculation),
-                         Button::delete('backend.calculations.destroy', $calculation),
+                    return implode([
+                        Button::show('backend.calculations.show', $calculation),
+                        Button::edit('backend.calculations.edit', $calculation),
+                        Button::delete('backend.calculations.destroy', $calculation),
                     ]);
                 }),
         ];
