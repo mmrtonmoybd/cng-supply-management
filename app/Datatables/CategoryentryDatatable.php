@@ -37,10 +37,10 @@ class CategoryentryDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (Category $category) {
-                    return join([
+                    return implode([
                         // Button::show('category.show', $category),
-                         Button::edit('backend.categories.edit', $category),
-                         Button::delete('backend.categories.destroy', $category),
+                        Button::edit('backend.categories.edit', $category),
+                        Button::delete('backend.categories.destroy', $category),
                     ]);
                 }),
         ];

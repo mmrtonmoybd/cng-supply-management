@@ -77,7 +77,9 @@ class CalculationController extends Controller
         // Save income entries if any
         if (is_array($request->income)) {
             foreach ($request->income as $income) {
-                if (empty($income['amount'])) continue; // skip empty
+                if (empty($income['amount'])) {
+                    continue;
+                } // skip empty
                 IncomeEntry::create([
                     'calculation_id' => $calculation->id,
                     'description' => $income['description'] ?? '',
@@ -92,7 +94,9 @@ class CalculationController extends Controller
         // Save expense entries if any
         if (is_array($request->expense)) {
             foreach ($request->expense as $expense) {
-                if (empty($expense['amount'])) continue; // skip empty
+                if (empty($expense['amount'])) {
+                    continue;
+                } // skip empty
                 ExpenseEntry::create([
                     'calculation_id' => $calculation->id,
                     'description' => $expense['description'] ?? '',
@@ -138,7 +142,9 @@ class CalculationController extends Controller
         $calculation->incomeEntries()->delete();
         if (is_array($request->income)) {
             foreach ($request->income as $income) {
-                if (empty($income['amount'])) continue; // skip empty
+                if (empty($income['amount'])) {
+                    continue;
+                } // skip empty
                 IncomeEntry::create([
                     'calculation_id' => $calculation->id,
                     'description' => $income['description'] ?? '',
@@ -154,7 +160,9 @@ class CalculationController extends Controller
         $calculation->expenseEntries()->delete();
         if (is_array($request->expense)) {
             foreach ($request->expense as $expense) {
-                if (empty($expense['amount'])) continue; // skip empty
+                if (empty($expense['amount'])) {
+                    continue;
+                } // skip empty
                 ExpenseEntry::create([
                     'calculation_id' => $calculation->id,
                     'description' => $expense['description'] ?? '',
@@ -374,6 +382,7 @@ class CalculationController extends Controller
         // Redirect back with a success message
         return response()->json(['success' => $calculationToDelete->delete() ?? true]);
     }
+
     public function filter(Request $request)
     {
         $dateRange = $request->input('date_range');
@@ -408,6 +417,7 @@ class CalculationController extends Controller
 
         return view('backend.cashbook.show', compact('calculation', 'incomeEntries', 'expenseEntries', 'totalIncome', 'totalExpense', 'netBalance', 'previousBalance', 'startDate', 'endDate', 'netChange', 'dateRange'));
     }
+
     public function filterExport(Request $request)
     {
         $dateRange = $request->input('date_range');
