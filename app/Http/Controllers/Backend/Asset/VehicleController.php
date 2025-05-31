@@ -29,7 +29,7 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'vehicle_number' => 'required|string|max:255',
             'vehicle_type' => 'nullable|string|max:255',
@@ -41,7 +41,7 @@ class VehicleController extends Controller
 
         Vehicle::create($request->all());
 
-        return redirect()->route('backend.asset.vehicle.index')->with('growl', ['Vehicle created successfully.', 'success']);;
+        return redirect()->route('backend.asset.vehicle.index')->with('growl', ['Vehicle created successfully.', 'success']);
     }
 
     /**

@@ -59,10 +59,10 @@ class VehicleDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (Vehicle $vehicle) {
-                    return join([
-                         Button::show('backend.asset.vehicle.show', $vehicle),
-                         Button::edit('backend.asset.vehicle.edit', $vehicle),
-                         Button::delete('backend.asset.vehicle.destroy', $vehicle),
+                    return implode([
+                        Button::show('backend.asset.vehicle.show', $vehicle),
+                        Button::edit('backend.asset.vehicle.edit', $vehicle),
+                        Button::delete('backend.asset.vehicle.destroy', $vehicle),
                     ]);
                 }),
         ];
