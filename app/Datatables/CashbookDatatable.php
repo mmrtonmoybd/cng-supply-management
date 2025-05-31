@@ -21,7 +21,7 @@ class CashbookDatatable extends Datatable
         $this->order('id', 'desc')
             ->buttons('filters', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
-            ->permissions('cngpump_crud')
+            ->permissions('cashbook_crud')
             ->setRowId('id');
     }
 

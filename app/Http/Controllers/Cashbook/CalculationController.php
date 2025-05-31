@@ -13,7 +13,8 @@ class CalculationController extends Controller
 {
     public function index()
     {
-
+        // Check if the user has permission to view calculations
+        $this->authorize('cashbook_crud');
         return view('backend.cashbook.list');
         /*
         // Get all calculations in DESC order with pagination (e.g., 10 per page)
@@ -46,6 +47,7 @@ class CalculationController extends Controller
 
     public function create()
     {
+        $this->authorize('cashbook_crud');
         $categories = Category::all();
 
         return view('backend.cashbook.create', compact('categories'));
@@ -53,6 +55,7 @@ class CalculationController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('cashbook_crud');
         // Normalize date to Y-m-d for unique validation
         $date = $request->date ? date('Y-m-d', strtotime($request->date)) : null;
         $request->merge(['date' => $date]);
@@ -116,6 +119,7 @@ class CalculationController extends Controller
     public function edit(Calculation $calculation)
     {
 
+        $this->authorize('cashbook_crud');
         $categories = Category::all();
 
         return view('backend.cashbook.edit', compact('calculation', 'categories'));
@@ -123,6 +127,7 @@ class CalculationController extends Controller
 
     public function update(Request $request, Calculation $calculation)
     {
+        $this->authorize('cashbook_crud');
         // Normalize date to Y-m-d for unique validation
         $date = $request->date ? date('Y-m-d', strtotime($request->date)) : null;
         $request->merge(['date' => $date]);
@@ -225,6 +230,7 @@ class CalculationController extends Controller
 
     public function show(Calculation $calculation, Request $request)
     {
+        $this->authorize('cashbook_crud');
         // Get the start and end dates from the request
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
@@ -280,6 +286,7 @@ class CalculationController extends Controller
 
     public function export(Calculation $calculation, Request $request)
     {
+        $this->authorize('cashbook_crud');
         // Get the start and end dates from the request
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
@@ -342,6 +349,7 @@ class CalculationController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('cashbook_crud');
         // Find the calculation to delete
         $calculationToDelete = Calculation::findOrFail($id);
 
@@ -385,6 +393,7 @@ class CalculationController extends Controller
 
     public function filter(Request $request)
     {
+        $this->authorize('cashbook_crud');
         $dateRange = $request->input('date_range');
         $startDate = null;
         $endDate = null;
@@ -420,6 +429,7 @@ class CalculationController extends Controller
 
     public function filterExport(Request $request)
     {
+        $this->authorize('cashbook_crud');
         $dateRange = $request->input('date_range');
         $startDate = null;
         $endDate = null;

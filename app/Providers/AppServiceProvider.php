@@ -58,5 +58,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('invoice_crud', function ($user) {
             return $user->ability(['admin'], 'invoice_crud');
         });
+
+        Gate::define('cashbook_crud', function ($user) {
+            return $user->ability(['admin'], 'cashbook_crud');
+        });
     }
 }

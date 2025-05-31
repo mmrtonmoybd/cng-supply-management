@@ -11,18 +11,21 @@ class CategoryController extends Controller
     // Show the list of categories
     public function index()
     {
+        $this->authorize('cashbook_crud');
         return view('backend.cashbook.categories.index');
     }
 
     // Show form to create a new category
     public function create()
     {
+        $this->authorize('cashbook_crud');
         return view('backend.cashbook.categories.create');
     }
 
     // Store the newly created category in the database
     public function store(Request $request)
     {
+        $this->authorize('cashbook_crud');
         $request->validate([
             'name' => 'required|unique:categories,name|max:255',
         ]);
@@ -35,13 +38,14 @@ class CategoryController extends Controller
     // Show form to edit an existing category
     public function edit(Category $category)
     {
-
+$this->authorize('cashbook_crud');
         return view('backend.cashbook.categories.edit', compact('category'));
     }
 
     // Update an existing category
     public function update(Request $request, Category $category)
     {
+        $this->authorize('cashbook_crud');
 
         $request->validate([
             'name' => 'required|unique:categories,name,'.$category->id.'|max:255',
@@ -55,6 +59,7 @@ class CategoryController extends Controller
     // Delete a category
     public function destroy(Category $category)
     {
+        $this->authorize('cashbook_crud');
 
         return response()->json(['success' => $category->delete() ?? false]);
     }
@@ -62,6 +67,7 @@ class CategoryController extends Controller
     // Show filter form and results for Income/Expense by category and date
     public function filter(Request $request)
     {
+        $this->authorize('cashbook_crud');
         $categories = Category::orderBy('name')->get();
         $categoryId = $request->input('category_id');
         $dateRange = $request->input('date_range');
@@ -90,11 +96,13 @@ class CategoryController extends Controller
     // Show a single category (for route compatibility)
     public function show(Category $category)
     {
+        $this->authorize('cashbook_crud');
         return view('backend.cashbook.categories.show', compact('category'));
     }
 
     public function filterShow(Request $request)
     {
+        $this->authorize('cashbook_crud');
         $categories = Category::orderBy('name')->get();
         $categoryId = $request->input('category_id');
         $dateRange = $request->input('date_range');
