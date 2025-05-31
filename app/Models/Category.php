@@ -9,6 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Category extends Model
 {
     use LogsActivity;
+
     protected $fillable = ['name'];
 
     public function income()

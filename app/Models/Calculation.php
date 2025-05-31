@@ -11,6 +11,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Calculation extends Model
 {
     use LogsActivity;
+
     protected $fillable = ['name', 'date', 'previous_balance', 'balance'];
 
     public function incomeEntries()
