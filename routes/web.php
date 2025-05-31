@@ -93,6 +93,10 @@ Route::group($default, function () {
         Route::get('invoice/export/{invoice}', App\Http\Controllers\Backend\Invoice\InvoiceController::class.'@export')->name('invoice.export');
     });
 
+    Route::group(['prefix' => 'assets', 'as' => 'asset.'], function () {
+        Route::resource('vehicle', App\Http\Controllers\Backend\Asset\VehicleController::class)->names('vehicle');
+    });
+
 });
 
 Route::get('factory/invoice/verify/{hash}', [App\Http\Controllers\Backend\Invoice\InvoiceController::class, 'verify'])->name('factory.invoice.verify');

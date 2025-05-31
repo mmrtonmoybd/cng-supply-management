@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Menu;
+
+use Sebastienheyd\Boilerplate\Menu\Builder;
+use Sebastienheyd\Boilerplate\Menu\MenuItemInterface;
+
+class Asset implements MenuItemInterface
+{
+    public function make(Builder $menu)
+    {
+        $item = $menu->add('Assets', [
+            'permission' => 'backend',
+            'active' => 'backend.asset.*',
+            'icon' => 'fa-balance-scale',
+            'order' => 130,
+        ]);
+
+        $item->add('Vehicle', [
+            'permission' => 'backend',
+            'active' => 'backend.asset.vehicle.*',
+            'route' => 'backend.asset.vehicle.index',
+        ]);
+    }
+}
