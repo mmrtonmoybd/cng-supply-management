@@ -16,6 +16,12 @@ class Asset implements MenuItemInterface
             'order' => 130,
         ]);
 
+        $item->add('Asset', [
+            'permission' => 'backend',
+            'active' => 'backend.asset.asset.*',
+            'route' => 'backend.asset.asset.index',
+        ]);
+
         $item->add('Vehicle', [
             'permission' => 'backend',
             'active' => 'backend.asset.vehicle.*',
