@@ -21,7 +21,7 @@ class Transport extends Model
         'police_cost',
         'parking_cost',
         'other_cost',
-        'total_cost'
+        'total_cost',
     ];
 
     public function vehicle()
@@ -29,13 +29,14 @@ class Transport extends Model
         return $this->belongsTo(Vehicle::class);
     }
 
-    protected static function booted() {
+    protected static function booted()
+    {
         static::saving(function (Transport $model) {
             // Additional logic can be added here if needed after a Transport is created
 
-            $model->total_cost = $model->maintenance_cost + $model->diesel_cost + 
-                $model->toll_cost + $model->labour_cost + $model->chada_cost + 
-                $model->fooding_cost + $model->police_cost + $model->parking_cost + 
+            $model->total_cost = $model->maintenance_cost + $model->diesel_cost +
+                $model->toll_cost + $model->labour_cost + $model->chada_cost +
+                $model->fooding_cost + $model->police_cost + $model->parking_cost +
                 $model->other_cost;
             $model->total_cost = round($model->total_cost, 2);
         });

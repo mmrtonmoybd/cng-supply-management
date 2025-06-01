@@ -3,10 +3,10 @@
 namespace App\Datatables;
 
 use App\Models\Transport;
+use App\Models\Vehicle;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Vehicle;
 
 class TransportDatatable extends Datatable
 {
@@ -91,10 +91,10 @@ class TransportDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (Transport $transport) {
-                    return join([
-                         Button::show('backend.transport.show', $transport),
-                         Button::edit('backend.transport.edit', $transport),
-                         Button::delete('backend.transport.destroy', $transport),
+                    return implode([
+                        Button::show('backend.transport.show', $transport),
+                        Button::edit('backend.transport.edit', $transport),
+                        Button::delete('backend.transport.destroy', $transport),
                     ]);
                 }),
         ];
