@@ -103,6 +103,9 @@ Route::group($default, function () {
         Route::resource('vehicle-document', App\Http\Controllers\Backend\Asset\VehicleDocumentController::class)->names('vehicledocument');
     });
 
+    Route::resource('transport', App\Http\Controllers\Backend\Transport\TransportController::class)->names('transport');
+    Route::get('transport/{transport}/export', [App\Http\Controllers\Backend\Transport\TransportController::class, 'export'])->name('transport.export');
+
 });
 
 Route::get('factory/invoice/verify/{hash}', [App\Http\Controllers\Backend\Invoice\InvoiceController::class, 'verify'])->name('factory.invoice.verify');

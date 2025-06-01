@@ -43,7 +43,7 @@ class PumpNameController extends Controller
         ]);
         PumpName::create($request->all());
 
-        return redirect()->route('backend.pumpname.index')->with('success', 'Pump Name created successfully.');
+        return redirect()->route('backend.pumpname.index')->with('growl', ['The data has been correctly created.', 'success']);
     }
 
     /**
@@ -81,7 +81,7 @@ class PumpNameController extends Controller
         ]);
         $pumpname->update($request->all());
 
-        return redirect()->route('backend.pumpname.index')->with('success', 'Pump Name updated successfully.');
+        return redirect()->route('backend.pumpname.index')->with('growl', ['The data has been correctly updated.', 'success']);
     }
 
     /**
