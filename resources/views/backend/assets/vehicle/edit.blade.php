@@ -48,6 +48,12 @@
             </select>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <x-boilerplate::input name='maintenance_date' label='Maintenance Date' type='date' :value="old('maintenance_date', $vehicle->maintenance_date)" placeholder='Maintenance Date'/>
+        </div>
+    </div>
 </x-boilerplate::card>
         </div>
     </div>

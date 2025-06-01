@@ -94,7 +94,10 @@ Route::group($default, function () {
     });
 
     Route::group(['prefix' => 'assets', 'as' => 'asset.'], function () {
+
+
         Route::resource('vehicle', App\Http\Controllers\Backend\Asset\VehicleController::class)->names('vehicle');
+        Route::resource('vehicle-document', App\Http\Controllers\Backend\Asset\VehicleDocumentController::class)->names('vehicledocument');
     });
 
 });

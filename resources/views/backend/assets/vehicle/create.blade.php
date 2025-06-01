@@ -14,7 +14,7 @@
                 <button type="submit" class="btn btn-primary">
                     Save
                 </button>
-            </span>
+     iv  </span>
         </div>
     </div>
     <div class="row">
@@ -46,6 +46,11 @@
                 <option value="0" @if(old('status', '0') == '0') selected @endif>Inactive</option>
                 <option value="1" @if(old('status') == '1') selected @endif>Active</option>
             </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <x-boilerplate::input name='maintenance_date' label='Maintenance Date' type='date' :value="old('maintenance_date')" placeholder='Maintenance Date'/>
         </div>
     </div>
 </x-boilerplate::card>

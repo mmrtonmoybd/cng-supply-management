@@ -13,5 +13,6 @@ class Vehicle extends Model
         'driver_phone',
         'registration_date',
         'status',
+        'maintenance_date',
     ];
 }

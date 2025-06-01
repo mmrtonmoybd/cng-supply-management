@@ -68,7 +68,6 @@ class WeightDatatable extends Datatable
                 ->data('bill_no'),
 
             Column::add(__('Bill Date'))
-                ->width('180px')
                 ->data('bill_date')
                 ->dateFormat('DD-MM-YYYY'),
 
@@ -115,7 +114,6 @@ class WeightDatatable extends Datatable
                 ->data('bill_amount'),
 
             Column::add(__('Cash Receipt Date'))
-                ->width('180px')
                 ->data('cash_receipt_date')
                 ->dateFormat('DD-MM-YYYY'),
 
