@@ -8,6 +8,7 @@
         "php": "^8.2",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "rawilk/laravel-settings": "^3.4",
         "sebastienheyd/boilerplate": "^8.2",
         "spatie/laravel-activitylog": "^4.10"
     },
