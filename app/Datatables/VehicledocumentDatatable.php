@@ -2,11 +2,11 @@
 
 namespace App\Datatables;
 
+use App\Models\Vehicle;
 use App\Models\VehicleDocument;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Vehicle;
 
 class VehicledocumentDatatable extends Datatable
 {
@@ -56,16 +56,16 @@ class VehicledocumentDatatable extends Datatable
                         $diffInDays = $now->diffInDays($expiry, false);
                         if ($expiry < $now) {
                             // Expired
-                            return '<span class="text-danger">' . $expiry->format('d-m-Y') . '</span>';
+                            return '<span class="text-danger">'.$expiry->format('d-m-Y').'</span>';
                         } elseif ($diffInDays <= 10) {
                             // Less than or equal to 10 days left
-                            return '<span class="text-danger">' . $expiry->format('d-m-Y') . '</span>';
+                            return '<span class="text-danger">'.$expiry->format('d-m-Y').'</span>';
                         } elseif ($diffInDays <= 30) {
                             // Less than or equal to 30 days left
-                            return '<span class="text-warning">' . $expiry->format('d-m-Y') . '</span>';
+                            return '<span class="text-warning">'.$expiry->format('d-m-Y').'</span>';
                         } else {
                             // More than 30 days left
-                            return '<span class="text-success">' . $expiry->format('d-m-Y') . '</span>';
+                            return '<span class="text-success">'.$expiry->format('d-m-Y').'</span>';
                         }
                     } else {
                         return __('Not Applicable');
@@ -74,15 +74,15 @@ class VehicledocumentDatatable extends Datatable
 
             Column::add(__('Document url'))
                 ->data('path', function (VehicleDocument $vehicledocument) {
-                    return '<a href="' . asset($vehicledocument->document_url) . '" target="_blank" style="color:#007bff;font-weight:bold;">' . __('View') . '</a>';
+                    return '<a href="'.asset($vehicledocument->document_url).'" target="_blank" style="color:#007bff;font-weight:bold;">'.__('View').'</a>';
                 }),
 
             Column::add()
                 ->width('20px')
                 ->actions(function (VehicleDocument $vehicledocument) {
-                    return join([
-                         Button::edit('backend.asset.vehicledocument.edit', $vehicledocument),
-                         Button::delete('backend.asset.vehicledocument.destroy', $vehicledocument),
+                    return implode([
+                        Button::edit('backend.asset.vehicledocument.edit', $vehicledocument),
+                        Button::delete('backend.asset.vehicledocument.destroy', $vehicledocument),
                     ]);
                 }),
         ];

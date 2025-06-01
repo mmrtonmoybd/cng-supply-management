@@ -3,10 +3,10 @@
 namespace App\Datatables;
 
 use App\Models\Vehicle;
+use App\Models\VehicleDocument;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\VehicleDocument;
 
 class VehicleDatatable extends Datatable
 {
@@ -58,16 +58,16 @@ class VehicleDatatable extends Datatable
                         $diffInDays = $now->diffInDays($expiry, false);
                         if ($expiry < $now) {
                             // Expired
-                            return '<span class="text-danger">' . $expiry->format('d-m-Y') . '</span>';
+                            return '<span class="text-danger">'.$expiry->format('d-m-Y').'</span>';
                         } elseif ($diffInDays <= 7) {
                             // Less than or equal to 10 days left
-                            return '<span class="text-danger">' . $expiry->format('d-m-Y') . '</span>';
+                            return '<span class="text-danger">'.$expiry->format('d-m-Y').'</span>';
                         } elseif ($diffInDays <= 20) {
                             // Less than or equal to 30 days left
-                            return '<span class="text-warning">' . $expiry->format('d-m-Y') . '</span>';
+                            return '<span class="text-warning">'.$expiry->format('d-m-Y').'</span>';
                         } else {
                             // More than 30 days left
-                            return '<span class="text-success">' . $expiry->format('d-m-Y') . '</span>';
+                            return '<span class="text-success">'.$expiry->format('d-m-Y').'</span>';
                         }
                     } else {
                         return null;
@@ -95,10 +95,11 @@ class VehicleDatatable extends Datatable
                                 $statusClass = 'text-success';
                             }
                             $url = asset($document->document_url);
-                            $output .= '<span style="color: #222;">' . e($document->name) . '</span> '
-                                . '<span class="' . $statusClass . '">' . $expiryDate->format('d-m-Y') . '</span> '
-                                . '<a href="' . $url . '" target="_blank" style="color:#007bff;font-weight:bold;">' . __('View') . '</a><br>';
+                            $output .= '<span style="color: #222;">'.e($document->name).'</span> '
+                                .'<span class="'.$statusClass.'">'.$expiryDate->format('d-m-Y').'</span> '
+                                .'<a href="'.$url.'" target="_blank" style="color:#007bff;font-weight:bold;">'.__('View').'</a><br>';
                         }
+
                         return $output;
                     }
                 })->notOrderable()->notSearchable()->notSortable(),

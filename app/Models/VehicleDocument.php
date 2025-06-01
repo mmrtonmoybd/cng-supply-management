@@ -18,8 +18,9 @@ class VehicleDocument extends Model
     {
         return $this->belongsTo(Vehicle::class);
     }
+
     public function getDocumentUrlAttribute()
     {
-        return asset('storage/' . $this->path);
+        return asset('storage/'.$this->path);
     }
 }

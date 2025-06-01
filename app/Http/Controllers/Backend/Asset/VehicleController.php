@@ -73,7 +73,7 @@ class VehicleController extends Controller
             'driver_phone' => 'nullable|string|max:15',
             'registration_date' => 'nullable|date',
             'status' => 'required|in:0,1',
-            'maintenance_date' => 'nullable|date',	
+            'maintenance_date' => 'nullable|date',
         ]);
 
         $vehicle->update($request->all());
