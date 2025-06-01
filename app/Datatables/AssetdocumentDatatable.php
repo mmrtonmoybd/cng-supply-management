@@ -2,11 +2,11 @@
 
 namespace App\Datatables;
 
+use App\Models\Asset;
 use App\Models\AssetDocument;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Asset;
 
 class AssetdocumentDatatable extends Datatable
 {
@@ -34,7 +34,7 @@ class AssetdocumentDatatable extends Datatable
 
             Column::add(__('Asset'))
                 ->data('asset_id', function (AssetDocument $assetdocument) {
-                    return $assetdocument->asset_id ? $assetdocument->asset->name . ' - ' . $assetdocument->asset->type : null;
+                    return $assetdocument->asset_id ? $assetdocument->asset->name.' - '.$assetdocument->asset->type : null;
                 })
                 ->filterOptions(Asset::selectRaw('id, CONCAT(name, " - ", type) as label')->distinct()->pluck('label', 'id')->toArray())
                 ->filter(function ($query, $value) {
@@ -52,9 +52,9 @@ class AssetdocumentDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (AssetDocument $assetdocument) {
-                    return join([
-                         Button::edit('backend.asset.assetdocument.edit', $assetdocument),
-                         Button::delete('backend.asset.assetdocument.destroy', $assetdocument),
+                    return implode([
+                        Button::edit('backend.asset.assetdocument.edit', $assetdocument),
+                        Button::delete('backend.asset.assetdocument.destroy', $assetdocument),
                     ]);
                 }),
         ];

@@ -16,8 +16,9 @@ class AssetDocument extends Model
     {
         return $this->belongsTo(Asset::class);
     }
+
     public function getDocumentUrlAttribute()
     {
-        return asset('storage/' . $this->path);
+        return asset('storage/'.$this->path);
     }
 }
