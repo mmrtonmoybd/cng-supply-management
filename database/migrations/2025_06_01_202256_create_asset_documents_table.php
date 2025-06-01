@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('asset_documents', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('asset_id');
+            $table->foreign('asset_id')->references('id')->on('assets')->onDelete('cascade');
+            $table->string('name');
+            $table->string('path');
             $table->timestamps();
         });
     }

@@ -13,7 +13,7 @@ class AssetDocumentController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.assets.document.list');
     }
 
     /**
@@ -21,7 +21,7 @@ class AssetDocumentController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.assets.document.create');
     }
 
     /**
@@ -29,13 +29,28 @@ class AssetDocumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'asset_id' => 'required|exists:assets,id',
+            'name' => 'required|string|max:255',
+            'path' => 'required|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10000', // 10MB max
+        ]);
+
+        if ($request->hasFile('path')) {
+            $file = $request->file('path');
+            $filePath = $file->store('asset_documents', 'public');
+            $validated['path'] = $filePath;
+        }
+
+        AssetDocument::create($validated);
+
+        return redirect()->route('backend.asset.assetdocument.index')
+            ->with('growl', ['Asset document created successfully.', 'success']);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(AssetDocument $assetDocument)
+    public function show(AssetDocument $asset_document)
     {
         //
     }
@@ -43,23 +58,42 @@ class AssetDocumentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AssetDocument $assetDocument)
+    public function edit(AssetDocument $asset_document)
     {
-        //
+        return view('backend.assets.document.edit', ['assetdocument' => $asset_document]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, AssetDocument $assetDocument)
+    public function update(Request $request, AssetDocument $asset_document)
     {
-        //
+        $validated = $request->validate([
+            'asset_id' => 'required|exists:assets,id',
+            'name' => 'required|string|max:255',
+            'path' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10000', // 10MB max
+        ]);
+
+        // Handle file upload if new file is provided
+        if ($request->hasFile('path')) {
+            $file = $request->file('path');
+            $filePath = $file->store('asset_documents', 'public');
+            $validated['path'] = $filePath;
+        } else {
+            // If no new file, keep the old path
+            unset($validated['path']);
+        }
+
+        $asset_document->update($validated);
+
+        return redirect()->route('backend.asset.assetdocument.index')
+            ->with('growl', ['Asset document updated successfully.', 'success']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(AssetDocument $assetDocument)
+    public function destroy(AssetDocument $asset_document)
     {
         //
     }

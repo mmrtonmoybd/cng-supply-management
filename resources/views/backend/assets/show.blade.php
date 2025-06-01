@@ -21,7 +21,34 @@
                     <tr><th>Asset Name</th><td>{{ $asset->name }}</td></tr>
                     <tr><th>Type</th><td>{{ $asset->type }}</td></tr>
                     <tr><th>Vehicle</th><td>{{ $asset->vehicle ? $asset->vehicle->vehicle_number : '-' }}</td></tr>
-
+                    <tr>
+                        <th colspan="2">
+                            <h4 class="mb-3 mt-4">Asset Documents</h4>
+                            <table class="table table-bordered table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Document</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $documents = \App\Models\AssetDocument::where('asset_id', $asset->id)->get();
+                                    @endphp
+                                    @forelse($documents as $document)
+                                        <tr>
+                                            <td>{{ $document->name }}</td>
+                                            <td>
+                                                <a href="{{ asset($document->document_url) }}" target="_blank" style="color:#007bff;font-weight:bold;">View Document</a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr><td colspan="2">No documents available</td></tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </th>
+                    </tr>
                 </tbody>
             </table>
         </x-boilerplate::card>
