@@ -3,11 +3,11 @@
 namespace App\Datatables;
 
 use App\Models\Diesel;
+use App\Models\PumpName;
+use App\Models\Vehicle;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\PumpName;
-use App\Models\Vehicle;
 
 class DieselDatatable extends Datatable
 {
@@ -82,10 +82,10 @@ class DieselDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (Diesel $diesel) {
-                    return join([
-                         Button::show('backend.diesel.show', $diesel),
-                         Button::edit('backend.diesel.edit', $diesel),
-                         Button::delete('backend.diesel.destroy', $diesel),
+                    return implode([
+                        Button::show('backend.diesel.show', $diesel),
+                        Button::edit('backend.diesel.edit', $diesel),
+                        Button::delete('backend.diesel.destroy', $diesel),
                     ]);
                 }),
         ];

@@ -40,7 +40,7 @@ class DieselController extends Controller
             'date' => 'nullable|date',
             'time' => 'nullable',
             'distance' => 'nullable|numeric',
-            'remark' => 'nullable|string'
+            'remark' => 'nullable|string',
         ]);
 
         Diesel::create($validated);

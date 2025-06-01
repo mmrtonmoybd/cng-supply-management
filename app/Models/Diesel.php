@@ -19,7 +19,7 @@ class Diesel extends Model
         'distance',
         'use_litre',
         'use_balance',
-        'remark'
+        'remark',
     ];
 
     public function pumpname()
