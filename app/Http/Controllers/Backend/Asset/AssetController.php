@@ -38,6 +38,7 @@ class AssetController extends Controller
         ]);
         $validated['type'] = strtolower($finalType);
         Asset::create($validated);
+
         return redirect()->route('backend.asset.asset.index')->with('success', 'Asset created successfully.');
     }
 
@@ -47,6 +48,7 @@ class AssetController extends Controller
     public function show(Asset $asset)
     {
         $asset->load('vehicle');
+
         return view('backend.assets.show', compact('asset'));
     }
 
@@ -57,6 +59,7 @@ class AssetController extends Controller
     {
         // Get all unique types for the select
         $typeOptions = Asset::distinct()->pluck('type')->filter()->unique()->values()->toArray();
+
         return view('backend.assets.edit', compact('asset', 'typeOptions'));
     }
 
@@ -74,6 +77,7 @@ class AssetController extends Controller
         ]);
         $validated['type'] = strtolower($finalType);
         $asset->update($validated);
+
         return redirect()->route('backend.asset.asset.index')->with('success', 'Asset updated successfully.');
     }
 

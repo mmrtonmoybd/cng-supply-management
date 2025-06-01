@@ -3,10 +3,10 @@
 namespace App\Datatables;
 
 use App\Models\Asset;
+use App\Models\Vehicle;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Vehicle;
 
 class AssetDatatable extends Datatable
 {
@@ -49,10 +49,10 @@ class AssetDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (Asset $asset) {
-                    return join([
-                         Button::show('backend.asset.asset.show', $asset),
-                         Button::edit('backend.asset.asset.edit', $asset),
-                         Button::delete('backend.asset.asset.destroy', $asset),
+                    return implode([
+                        Button::show('backend.asset.asset.show', $asset),
+                        Button::edit('backend.asset.asset.edit', $asset),
+                        Button::delete('backend.asset.asset.destroy', $asset),
                     ]);
                 }),
         ];
