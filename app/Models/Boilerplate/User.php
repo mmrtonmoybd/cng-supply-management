@@ -91,7 +91,7 @@ class User extends Authenticatable implements LaratrustUser, MustVerifyEmail
      */
     public function getLastNameAttribute($value)
     {
-        return mb_convert_case($value,  MB_CASE_TITLE);
+        return mb_convert_case($value, MB_CASE_TITLE);
     }
 
     /**
