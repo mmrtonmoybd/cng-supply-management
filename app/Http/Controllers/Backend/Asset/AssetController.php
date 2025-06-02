@@ -14,6 +14,7 @@ class AssetController extends Controller
     public function index()
     {
         $this->authorize('asset_crud');
+
         return view('backend.assets.list');
     }
 
@@ -23,6 +24,7 @@ class AssetController extends Controller
     public function create()
     {
         $this->authorize('asset_crud');
+
         return view('backend.assets.create');
     }
 
@@ -93,6 +95,7 @@ class AssetController extends Controller
     public function destroy(Asset $asset)
     {
         $this->authorize('asset_crud');
+
         return response()->json(['success' => $asset->delete() ?? false]);
     }
 }

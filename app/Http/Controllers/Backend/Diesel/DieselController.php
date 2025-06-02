@@ -39,6 +39,7 @@ class DieselController extends Controller
     public function create()
     {
         $this->authorize('diesel_crud');
+
         return view('backend.diesel.create');
     }
 
@@ -73,6 +74,7 @@ class DieselController extends Controller
     public function show(Diesel $diesel)
     {
         $this->authorize('diesel_crud');
+
         return view('backend.diesel.show', compact('diesel'));
     }
 
@@ -82,6 +84,7 @@ class DieselController extends Controller
     public function edit(Diesel $diesel)
     {
         $this->authorize('diesel_crud');
+
         return view('backend.diesel.edit', compact('diesel'));
     }
 
@@ -117,6 +120,7 @@ class DieselController extends Controller
     public function destroy(Diesel $diesel)
     {
         $this->authorize('diesel_crud');
+
         return response()->json(['success' => $diesel->delete() ?? false]);
     }
 
