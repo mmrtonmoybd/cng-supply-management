@@ -297,6 +297,11 @@
     <div class="sign-col">GM</div>
     <div class="sign-col">Approved By</div>
 </div>
+
+<div style="text-align: center; margin-top: 30px; color: var(--secondary-color); font-size: 0.9rem;">
+    Developed by Engineer BD Network
+</div>
+
 <div class="no-print" style="text-align:center; margin-top: 30px;">
     <button onclick="window.print()" style="
         padding: 10px 25px;

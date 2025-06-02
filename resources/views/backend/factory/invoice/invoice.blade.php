@@ -454,6 +454,10 @@
   @endif
 </div>
 
+<div class="footer">
+  Developed by Engineer BD Network
+</div>
+
 <div class="no-print">
   <button onclick="window.print()"><i class="fas fa-print"></i>Print</button>
   <button onclick="downloadPDF()"><i class="fas fa-file-pdf"></i>Download PDF</button>

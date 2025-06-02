@@ -41,8 +41,8 @@ return [
     ],
     'footer' => [
         'visible' => true,
-        'vendorname' => 'Boilerplate',
-        'vendorlink' => '',
+        'vendorname' => 'Mars Bangla',
+        'vendorlink' => 'https://marsbangla.com',
     ],
     'card' => [
         'outline' => true,

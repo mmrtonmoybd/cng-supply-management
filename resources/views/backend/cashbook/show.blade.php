@@ -76,9 +76,11 @@ $(document).ready(function() {
                 @endif
             </h4>
             @if ($previousBalance > 0)
-            <div class="alert alert-secondary">
+            <!---
+            <div class="alert border rounded alert-light">
                 <h5>Previous Balance: <strong>{{ number_format($previousBalance, 2) }}</strong></h5>
             </div>
+            --->
             @endif
             <div class="row">
                 <div class="col-md-6">
@@ -190,8 +192,8 @@ $(document).ready(function() {
                     </div>
                 </div>
             </div>
-            <div class="alert alert-info mt-4">
-                <h4>Net Balance</h4>
+            <div class="border rounded bg-light mt-4">
+                
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
