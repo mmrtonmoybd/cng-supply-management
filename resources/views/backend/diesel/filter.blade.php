@@ -74,13 +74,16 @@
             <div class="table-responsive">
                 <table id="dieselTable" class="table table-striped table-hover">
                     <thead>
-                        <tr>
-                            <th>S/L</th>
+                        <tr>                            <th>S/L</th>
                             <th>Load Date</th>
+                            <th>Load Time</th>
+                            <th>Slip No</th>
                             <th>Pump Name</th>
                             <th>Vehicle</th>
                             <th class="text-right">Diesel Purchase (Litre)</th>
                             <th class="text-right">Taka</th>
+                            <th>Date</th>
+                            <th>Time</th>
                             <th class="text-right">Distance</th>
                             <th class="text-right">Use Litre</th>
                             <th class="text-right">Use Balance</th>
@@ -91,12 +94,15 @@
                     <tbody>
                         @forelse($diesels as $key => $diesel)
                         <tr>
-                            <td>{{ $key + 1 }}</td>
-                            <td>{{ $diesel->d_date ? date('d-m-Y', strtotime($diesel->d_date)) : '-' }}</td>
+                            <td>{{ $key + 1 }}</td>                            <td>{{ $diesel->d_date ? date('d-m-Y', strtotime($diesel->d_date)) : '-' }}</td>
+                            <td>{{ $diesel->d_time ? date('h:i A', strtotime($diesel->d_time)) : '-' }}</td>
+                            <td>{{ $diesel->slip_no ?? '-' }}</td>
                             <td>{{ $diesel->pumpname->name ?? '-' }}</td>
                             <td>{{ $diesel->vehicle->vehicle_number ?? '-' }}</td>
                             <td class="text-right">{{ number_format($diesel->diesel_purchase_litre, 2) }}</td>
                             <td class="text-right">{{ number_format($diesel->taka, 2) }}</td>
+                            <td>{{ $diesel->date ? date('d-m-Y', strtotime($diesel->date)) : '-' }}</td>
+                            <td>{{ $diesel->time ? date('h:i A', strtotime($diesel->time)) : '-' }}</td>
                             <td class="text-right">{{ number_format($diesel->distance ?? 0, 2) }}</td>
                             <td class="text-right">{{ number_format($diesel->use_litre ?? 0, 2) }}</td>
                             <td class="text-right">{{ number_format($diesel->use_balance ?? 0, 2) }}</td>
@@ -108,14 +114,17 @@
                             <td colspan="11" class="text-center">No records found</td>
                         </tr>
                         @endforelse
-                    </tbody>                    <tfoot>
-                        <tr>
+                    </tbody>                    <tfoot>                        <tr>
                             <th>#</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th class="text-right">Total:</th>
-                            <th></th>
-                            <th></th>
                             <th class="text-right">{{ number_format($diesels->sum('diesel_purchase_litre'), 2) }}</th>
                             <th class="text-right">{{ number_format($diesels->sum('taka'), 2) }}</th>
+                            <th></th>
+                            <th></th>
                             <th class="text-right">{{ number_format($diesels->sum('distance'), 2) }}</th>
                             <th class="text-right">{{ number_format($diesels->sum('use_litre'), 2) }}</th>
                             <th class="text-right">{{ number_format($diesels->sum('use_balance'), 2) }}</th>
