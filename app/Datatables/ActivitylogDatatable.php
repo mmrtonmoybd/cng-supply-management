@@ -41,15 +41,21 @@ class ActivitylogDatatable extends Datatable
             Column::add(__('Module'))
                 ->data('log_name')
                 ->filterOptions([
+                    'Asset' => 'Asset',
+                    'Asset Document' => 'Asset Document',
+                    'Diesel' => 'Diesel',
                     'Factory CNG Pump Slip' => 'Factory CNG Pump Slip',
+                    'Factory Cng Pump & Weight Scale' => 'Factory Cng Pump & Weight Scale',
                     'Factory Dispansar' => 'Factory Dispansar',
                     'Factory names' => 'Factory names',
-                    'Factory Cng Pump & Weight Scale' => 'Factory Cng Pump & Weight Scale',
                     'Factory Weight Scale' => 'Factory Weight Scale',
-                    'Load' => 'Load',
-                    'Pumps' => 'Pumps',
-                    'Pump names' => 'Pump names',
                     'Invoice' => 'Invoice',
+                    'Load' => 'Load',
+                    'Pump names' => 'Pump names',
+                    'Pumps' => 'Pumps',
+                    'Transport' => 'Transport',
+                    'Vehicle' => 'Vehicle',
+                    'Vehicle Document' => 'Vehicle Document',
                 ])->filter(function ($query, $q) {
                     $query->where('log_name', $q);
                 }),

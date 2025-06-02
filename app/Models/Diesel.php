@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Rawilk\Settings\Facades\Settings;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Diesel extends Model
 {
+    use LogsActivity;
     protected $fillable = [
         'd_date',
         'd_time',
@@ -49,5 +52,16 @@ class Diesel extends Model
             }
 
         });
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->useLogName('Diesel')
+            ->logExcept(['created_at', 'updated_at'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+        // Chain fluent methods for configuration options
     }
 }

@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Transport extends Model
 {
+    use LogsActivity;
     public $fillable = [
         'vehicle_id',
         'date',
@@ -40,5 +43,16 @@ class Transport extends Model
                 $model->other_cost;
             $model->total_cost = round($model->total_cost, 2);
         });
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->useLogName('Transport')
+            ->logExcept(['created_at', 'updated_at'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+        // Chain fluent methods for configuration options
     }
 }
