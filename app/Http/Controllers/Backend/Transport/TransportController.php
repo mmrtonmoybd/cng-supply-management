@@ -139,7 +139,7 @@ class TransportController extends Controller
             if (count($dates) == 2) {
                 $query->whereBetween('date', [
                     $dates[0],
-                    $dates[1]
+                    $dates[1],
                 ]);
             }
         }
@@ -157,13 +157,13 @@ class TransportController extends Controller
             'fooding_cost' => $transports->sum('fooding_cost'),
             'police_cost' => $transports->sum('police_cost'),
             'parking_cost' => $transports->sum('parking_cost'),
-            'other_cost' => $transports->sum('other_cost')
+            'other_cost' => $transports->sum('other_cost'),
         ];
 
-        $totals['total_cost'] = $totals['maintenance_cost'] + $totals['diesel_cost'] + $totals['toll_cost'] + 
+        $totals['total_cost'] = $totals['maintenance_cost'] + $totals['diesel_cost'] + $totals['toll_cost'] +
                               $totals['labour_cost'] + $totals['chada_cost'] + $totals['fooding_cost'] +
                               $totals['police_cost'] + $totals['parking_cost'] + $totals['other_cost'];
-        
+
         $totals['net_income'] = $totals['rent'] - $totals['total_cost'];
 
         return view('backend.transport.filter', compact('transports', 'totals'));
