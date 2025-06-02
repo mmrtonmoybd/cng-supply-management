@@ -20,7 +20,11 @@ class DieselDatatable extends Datatable
 
     public function setUp()
     {
-        $this->order('id', 'desc');
+        $this->order('id', 'desc')
+            ->buttons('filters', 'csv', 'excel', 'print', 'copy', 'refresh')
+            ->condensed()
+            ->permissions('cngpump_crud')
+            ->setRowId('id');
     }
 
     public function columns(): array
@@ -29,12 +33,14 @@ class DieselDatatable extends Datatable
             Column::add(__('Id'))
                 ->data('id'),
 
-            Column::add(__('D Date'))
+            Column::add(__('Load Date'))
                 ->data('d_date')
                 ->dateFormat('DD-MM-YYYY'),
 
-            Column::add(__('D Time'))
-                ->data('d_time')->dateFormat('HH:mm A')->notOrderable()->notSearchable(),
+            Column::add(__('Load Time'))
+                ->data('d_time', function ($diesel) {
+                    return date('h:i A', strtotime($diesel->d_time));
+                })->notOrderable()->notSearchable(),
 
             Column::add(__('Slip No'))
                 ->data('slip_no'),
@@ -54,7 +60,7 @@ class DieselDatatable extends Datatable
                     return $query->where('vehicle_id', $value);
                 }),
 
-            Column::add(__('Purchase Litre'))
+            Column::add(__('Litre'))
                 ->data('diesel_purchase_litre'),
 
             Column::add(__('Taka'))
@@ -65,7 +71,10 @@ class DieselDatatable extends Datatable
                 ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Time'))
-                ->data('time')->dateFormat('HH:mm A')->notOrderable()->notSearchable(),
+                ->data('time', function ($diesel) {
+                    return $diesel->time ? date('h:i A', strtotime($diesel->time)) : '';    
+                    
+                })->notOrderable()->notSearchable(),
 
             Column::add(__('Distance'))
                 ->data('distance'),

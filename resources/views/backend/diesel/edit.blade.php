@@ -1,0 +1,107 @@
+@extends('boilerplate::layout.index', [
+    'title' => 'Diesel',
+    'subtitle' => 'Edit Diesel',
+])
+
+@section('content')
+<x-boilerplate::form :route="['backend.diesel.update', $diesel->id]" method="put">
+    <div class="row">
+        <div class="col-12 pb-3">
+            <a href="{{ route('backend.diesel.index') }}" class="btn btn-default" data-toggle="tooltip" title="Diesel lists">
+                <span class="far fa-arrow-alt-circle-left text-muted"></span>
+            </a>
+            <span class="btn-group float-right">
+                <button type="submit" class="btn btn-primary">
+                    Update
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <x-boilerplate::card>
+                <div class="row">
+                    <div class="col-md-4">
+                        <x-boilerplate::input name='d_date' label='Load Date' type='date' required :value="old('d_date', $diesel->d_date)" placeholder='Diesel Date'/>
+                    </div>
+                    <div class="col-md-4">
+                        <x-boilerplate::input name='d_time' label='Load Time' type='time' required :value="old('d_time', $diesel->d_time)" placeholder='Diesel Time'/>
+                    </div>
+                    <div class="col-md-4">
+                        <x-boilerplate::input name='slip_no' label='Slip No' :value="old('slip_no', $diesel->slip_no)" placeholder='Slip No'/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        @php
+                            $pumpOptions = \App\Models\PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+                            $selectedPump = old('pumpName_id', $diesel->pumpName_id);
+                        @endphp
+                        <label for="pumpName_id">Pump Name</label>
+                        <select name="pumpName_id" class="form-control" required>
+                            <option value="">Select Pump Name</option>
+                            @foreach ($pumpOptions as $key => $value)
+                                <option value="{{ $key }}" @if ($selectedPump == $key) selected @endif>{{ $value }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        @php
+                            $vehicleOptions = \App\Models\Vehicle::orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray();
+                            $selectedVehicle = old('vehicle_id', $diesel->vehicle_id);
+                        @endphp
+                        <label for="vehicle_id">Vehicle</label>
+                        <select name="vehicle_id" class="form-control" required>
+                            <option value="">Select Vehicle</option>
+                            @foreach ($vehicleOptions as $key => $value)
+                                <option value="{{ $key }}" @if ($selectedVehicle == $key) selected @endif>{{ $value }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <x-boilerplate::input name='diesel_purchase_litre' label='Diesel Purchase (Litre)' type='number' step='0.01' required :value="old('diesel_purchase_litre', $diesel->diesel_purchase_litre)" placeholder='Diesel Purchase (Litre)'/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <x-boilerplate::input name='taka' label='Taka' type='number' step='0.01' required :value="old('taka', $diesel->taka)" placeholder='Taka'/>
+                    </div>
+                    <div class="col-md-4">
+                        <x-boilerplate::input name='date' label='Usage Date' type='date' :value="old('date', $diesel->date)" placeholder='Usage Date'/>
+                    </div>
+                    <div class="col-md-4">
+                        <x-boilerplate::input name='time' label='Usage Time' type='time' :value="old('time', $diesel->time)" placeholder='Usage Time'/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <x-boilerplate::input name='distance' label='Distance (km)' type='number' step='0.01' :value="old('distance', $diesel->distance)" placeholder='Distance'/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <x-boilerplate::input name='remark' label='Remark' :value="old('remark', $diesel->remark)" placeholder='Remark'/>
+                    </div>
+                </div>
+            </x-boilerplate::card>
+        </div>
+    </div>
+</x-boilerplate::form>
+@endsection
+
+@push('js')
+<script>
+$(document).ready(function() {
+    // Auto calculate taka based on diesel purchase litre and rate (if needed)
+    $('form').on('submit', function(e) {
+        var litre = parseFloat($('[name="diesel_purchase_litre"]').val() || 0);
+        var rate = parseFloat($('[name="rate"]').val() || 0);
+        var taka = parseFloat($('[name="taka"]').val() || 0);
+
+        if (!isNaN(litre) && !isNaN(rate) && (isNaN(taka) || taka === 0)) {
+            $('[name="taka"]').val((litre * rate).toFixed(2));
+        }
+    });
+});
+</script>
+@endpush
