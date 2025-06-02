@@ -113,6 +113,15 @@ class WeightDatatable extends Datatable
             Column::add(__('Bill Amount'))
                 ->data('bill_amount'),
 
+            Column::add('Invoice')
+                ->data('invoice_id', function ($invoiceId) {
+                    return $invoiceId->invoice_id ? '<a href="'.route('backend.factory.invoice.show', $invoiceId->invoice_id).'" target="_blank" style="color:#007bff;font-weight:bold;">Invoice('. $invoiceId->invoice_id .')</a>' : null;
+                })->notOrderable(),
+
+            Column::add(__('Invoice Date'))
+                ->data('invoice_date')
+                ->dateFormat('DD-MM-YYYY'),
+
             Column::add(__('Cash Receipt Date'))
                 ->data('cash_receipt_date')
                 ->dateFormat('DD-MM-YYYY'),

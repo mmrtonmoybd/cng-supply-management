@@ -64,6 +64,7 @@
                         <th>M3</th>
                         <th>Rate</th>
                         <th>Purchase Taka</th>
+                        <th>Diesel</th>
                         <th>Payment Date</th>
                         <th>Payment</th>
                         <th>Balance</th>
@@ -91,6 +92,7 @@
                             <td>{{ $pump->cng_purchase_m3 ?? 'N/A' }}</td>
                             <td>{{ $pump->rate ?? 'N/A' }}</td>
                             <td>{{ $pump->purchase_taka ?? 'N/A' }}</td>
+                            <td></td>
                             <td>{{ $pump->payment_date ? (\Carbon\Carbon::parse($pump->payment_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $pump->payment ?? 'N/A' }}</td>
                             <td></td>
@@ -121,13 +123,14 @@
                         <th>{{ $totalM3 }}</th>
                         <th></th>
                         <th>{{ $totalPurchaseTaka }}</th>
+                        <th>{{ $dieselsum }}</th>
                         <th></th>
                         <th>{{ $totalPayment }}</th>
-                        <th>{{ $totalPayment - $totalPurchaseTaka }} 
+                        <th>{{ $totalPayment - ($totalPurchaseTaka + $dieselsum) }} 
                             (@php 
-                            if (($totalPayment - $totalPurchaseTaka) > 0) {
+                            if (($totalPayment - ($totalPurchaseTaka + $dieselsum)) > 0) {
                                 echo 'Advance';
-                            } elseif ($totalPayment - $totalPurchaseTaka == 0) {
+                            } elseif ($totalPayment - ($totalPurchaseTaka + $dieselsum) == 0) {
                                 echo 'Paid';
                             } else {
                                 echo 'Due';

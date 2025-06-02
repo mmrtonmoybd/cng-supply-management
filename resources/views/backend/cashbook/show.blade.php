@@ -231,13 +231,11 @@ $(document).ready(function() {
             </div>
         </x-boilerplate::card>
         <div class="d-flex justify-content-end mt-3 gap-2">
-            <button class="btn btn-secondary" onclick="printCard()">
-                <i class="fa fa-print"></i> Print
-            </button>
+            
             @if(isset($dateRange) && $dateRange)
-                <a href="{{ route('backend.calculations.filterExport', ['date_range'=> $dateRange]) }}" class="btn btn-primary">Export</a>
+                <a href="{{ route('backend.calculations.filterExport', ['date_range'=> $dateRange]) }}" target="_blank" class="btn btn-primary">Export</a>
             @elseif(isset($calculation) && $calculation)
-                <a href="{{ route('backend.export', $calculation->id) }}?start_date={{$startDate}}&end_date={{$endDate}}" class="btn btn-primary">Export</a>
+                <a href="{{ route('backend.export', $calculation->id) }}?start_date={{$startDate}}&end_date={{$endDate}}" target="_blank" class="btn btn-primary">Export</a>
             @endif
         </div>
        

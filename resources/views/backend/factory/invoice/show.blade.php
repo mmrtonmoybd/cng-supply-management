@@ -9,7 +9,7 @@
         <a href="{{ route('backend.factory.invoice.index') }}" class="btn btn-default" data-toggle="tooltip" title="Back to list">
             <span class="far fa-arrow-alt-circle-left text-muted"></span> Back
         </a>
-        <a href="{{ route('backend.factory.invoice.export', $invoice->id) }}" class="btn btn-primary">
+        <a href="{{ route('backend.factory.invoice.export', $invoice->id) }}" target="_blank" class="btn btn-primary">
             <i class="fas fa-file-invoice-dollar"></i> Export Invoice
         </a>
     </div>
@@ -68,6 +68,7 @@
                     </th>
                     <th>Rate</th>
                     <th>Taka</th>
+                    <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,10 +93,8 @@
                         @php
                            $m3 = 0;
                            $total = 0;
-                           @endphp
-
-                    @foreach ($items as $index => $item)
-                           
+                           @endphp                    @foreach ($items as $index => $item)
+                        <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->date ? (\Carbon\Carbon::parse($item->date)->format('d-m-Y')) : 'N/A'  }}</td>
                             <td>{{ $item->bill_no }}</td>
@@ -126,7 +125,6 @@
                             <td>{{ $item->rate }}</td>
                             
                         @if ($invoice->factory_type == 'dispansar')
-
                            @php
                            $total += $item->bill_amount;
                            @endphp
@@ -148,6 +146,37 @@
                             <td>{{ $item->ftk }}</td>
                         @endif
 
+                            <td>
+                        @if ($invoice->factory_type == 'dispansar')
+                            <a href="{{ route('backend.factory.dispansar.edit', $item->id) }}" target="_blank" class="btn btn-info btn-sm">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                            <a href="{{ route('backend.factory.dispansar.edit', $item->id) }}" target="_blank" class="btn btn-info btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                            </a>
+                        @elseif($invoice->factory_type == 'weightone')
+                            <a href="{{ route('backend.factory.weightone.show', $item->id) }}" target="_blank" class="btn btn-info btn-sm">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                            <a href="{{ route('backend.factory.weightone.edit', $item->id) }}" target="_blank" class="btn btn-info btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                            </a>
+                        @elseif($invoice->factory_type == 'cngpump')
+                            <a href="{{ route('backend.factory.cngpump.show', $item->id) }}" target="_blank" class="btn btn-info btn-sm">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                            <a href="{{ route('backend.factory.cngpump.edit', $item->id) }}" target="_blank" class="btn btn-info btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                            </a>
+                        @elseif($invoice->factory_type == 'weight')
+                            <a href="{{ route('backend.factory.weight.show', $item->id) }}" target="_blank" class="btn btn-info btn-sm">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                            <a href="{{ route('backend.factory.weight.edit', $item->id) }}" target="_blank" class="btn btn-info btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Edit
+                            </a>
+                        @endif
+                            </td>
                         </tr>
                     @endforeach
                     <tr>

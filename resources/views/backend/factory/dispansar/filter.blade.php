@@ -80,6 +80,8 @@
                         <th>Difference Taka</th>
                         <th>In</th>
                         <th>Out</th>
+                        <th>Invoice no</th>
+                        <th>Invoice date</th>
                         <th>Cash Receipt Date</th>
                         <th>Cash Receipt Amount</th>
                         <th>Balance</th>
@@ -123,6 +125,8 @@
                             <td>{{ $dispansar->difference_taka }}</td>
                             <td>{{ $dispansar->in }}</td>
                             <td>{{ $dispansar->out }}</td>
+                            <td>{{ $dispansar->invoice_id }}</td>
+                            <td>{{ $dispansar->invoice_date ? (\Carbon\Carbon::parse($dispansar->invoice_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $dispansar->cash_receipt_date ? (\Carbon\Carbon::parse($dispansar->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $dispansar->cash_receipt_amount }}</td>
                             <td></td>
@@ -149,6 +153,8 @@
                         <th>{{ $sumBill }}</th>
                         <th>{{ $sumDiffM3 }}</th>
                         <th>{{ $sumDiffTaka }}</th>
+                        <th></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>

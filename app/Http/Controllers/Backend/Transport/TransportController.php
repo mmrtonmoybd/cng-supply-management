@@ -111,4 +111,61 @@ class TransportController extends Controller
     {
         return view('backend.transport.export', compact('transport'));
     }
+
+    /**
+     * Show the filter form and results.
+     */
+    public function filter()
+    {
+        return view('backend.transport.filter');
+    }
+
+    /**
+     * Display the filtered results.
+     */
+    public function showFilter(Request $request)
+    {
+        $query = Transport::with(['vehicle'])
+            ->select('*');
+
+        // Apply vehicle filter
+        if ($request->filled('vehicle_id')) {
+            $query->where('vehicle_id', $request->vehicle_id);
+        }
+
+        // Apply date range filter
+        if ($request->filled('date_range')) {
+            $dates = explode(' - ', $request->date_range);
+            if (count($dates) == 2) {
+                $query->whereBetween('date', [
+                    $dates[0],
+                    $dates[1]
+                ]);
+            }
+        }
+
+        $transports = $query->orderBy('date', 'ASC')->get();
+
+        // Calculate totals
+        $totals = [
+            'rent' => $transports->sum('rent'),
+            'maintenance_cost' => $transports->sum('maintenance_cost'),
+            'diesel_cost' => $transports->sum('diesel_cost'),
+            'toll_cost' => $transports->sum('toll_cost'),
+            'labour_cost' => $transports->sum('labour_cost'),
+            'chada_cost' => $transports->sum('chada_cost'),
+            'fooding_cost' => $transports->sum('fooding_cost'),
+            'police_cost' => $transports->sum('police_cost'),
+            'parking_cost' => $transports->sum('parking_cost'),
+            'other_cost' => $transports->sum('other_cost')
+        ];
+
+        $totals['total_cost'] = $totals['maintenance_cost'] + $totals['diesel_cost'] + $totals['toll_cost'] + 
+                              $totals['labour_cost'] + $totals['chada_cost'] + $totals['fooding_cost'] +
+                              $totals['police_cost'] + $totals['parking_cost'] + $totals['other_cost'];
+        
+        $totals['net_income'] = $totals['rent'] - $totals['total_cost'];
+
+        return view('backend.transport.filter', compact('transports', 'totals'));
+    }
 }

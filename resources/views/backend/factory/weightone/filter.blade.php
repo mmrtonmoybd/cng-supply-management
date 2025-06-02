@@ -75,6 +75,8 @@
                         <th>Rate</th>
                         <th>FTK</th>
                         <th>Difference Taka</th>
+                        <th>Invoice</th>
+                        <th>Invoice Date</th>
                         <th>Cash Receipt Amount</th>
                         <th>Cash Receipt Date</th>
                         <th>Balance</th>
@@ -106,6 +108,8 @@
                             <td>{{ $row->rate }}</td>
                             <td>{{ $row->ftk }}</td>
                             <td>{{ $row->difference_taka }}</td>
+                            <td>{{ $row->invoice_id }}</td>
+                            <td>{{ $row->invoice_date ? (\Carbon\Carbon::parse($row->invoice_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $row->cash_receipt_amount }}</td>
                             <td>{{ $row->cash_receipt_date ? (\Carbon\Carbon::parse($row->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td></td>
@@ -137,6 +141,8 @@
                         <th></th>
                         <th>{{ number_format($totalFTK, 2) }}</th>
                         <th>{{ number_format($totalDifferenceTaka, 2) }}</th>
+                        <th></th>
+                        <th></th>
                         <th>{{ number_format($totalCashReceiptAmount, 2) }}</th>
                         <th></th>
                         <th>{{ number_format(($totalCashReceiptAmount - $totalFTK), 2) }}(@php 

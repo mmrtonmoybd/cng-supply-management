@@ -3,48 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transport Trip Export</title>
-    <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f8f9fa; margin: 0; padding: 32px; }
-        .header { text-align: center; margin-bottom: 32px; }
-        .header h1 { font-size: 2rem; margin: 0 0 4px 0; font-weight: 700; color: #222; }
-        .header p { margin: 0; color: #555; font-size: 1rem; }
-        .header .date { font-size: 1rem; color: #888; margin-top: 8px; text-align: right; }
-        .table-responsive { width: 100%; overflow-x: auto; }
-        .trip-table, .cost-table { width: 100%; border-collapse: collapse; margin-bottom: 18px; min-width: 500px; }
-        .trip-table th, .trip-table td, .cost-table th, .cost-table td { border: 1px solid #e0e0e0; padding: 8px 10px; text-align: left; }
-        .trip-table th, .cost-table th { background: #f1f3f6; font-weight: 600; color: #333; }
-        .cost-table th, .cost-table td { text-align: center; }
-        .section-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; color: #007bff; }
-        .sign-row { margin-top: 40px; display: flex; justify-content: space-between; flex-wrap: nowrap; }
-        .sign-col { width: 24%; min-width: 120px; text-align: center; font-size: 0.95rem; color: #555; margin-bottom: 10px; }
-        @media (max-width: 900px) {
-            body { padding: 8px; }
-            .sign-row { flex-wrap: wrap; }
-            .sign-col { width: 48%; min-width: 120px; margin-bottom: 8px; }
-            .header h1 { font-size: 1.3rem; }
-            .section-title { font-size: 1.1rem; }
+    <title>Transport Trip Export</title>    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #2c3e50;
+            --border-color: #ddd;
+            --background-color: #fff;
+        }
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background: var(--background-color); 
+            margin: 0; 
+            padding: 40px;
+            color: var(--text-color);
+        }
+        .header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            padding: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .header h1 { 
+            font-size: 2.2rem; 
+            margin: 0 0 8px 0; 
+            font-weight: 700; 
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .header p { 
+            margin: 0; 
+            color: var(--secondary-color); 
+            font-size: 1.1rem; 
+        }
+        .header .date { 
+            font-size: 1rem; 
+            color: var(--secondary-color); 
+            margin-top: 12px; 
+            text-align: right;
+            font-weight: 500;
+        }
+        .table-responsive { 
+            width: 100%; 
+            overflow-x: auto;
+            margin-bottom: 25px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        .trip-table, .cost-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            min-width: 500px;
+            background: var(--background-color);
+        }
+        .trip-table th, .trip-table td, .cost-table th, .cost-table td { 
+            border: 1px solid var(--border-color); 
+            padding: 12px 15px; 
+            text-align: left; 
+        }
+        .trip-table th, .cost-table th { 
+            background: var(--primary-color); 
+            font-weight: 600; 
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        .cost-table th, .cost-table td { 
+            text-align: center; 
+        }
+        .cost-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .section-title { 
+            font-size: 1.4rem; 
+            font-weight: 600; 
+            margin-bottom: 20px; 
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        .sign-row { 
+            margin-top: 50px; 
+            display: flex; 
+            justify-content: space-between; 
+            flex-wrap: nowrap;
+            padding-top: 30px;
+            border-top: 2px solid var(--border-color);
+        }
+        .sign-col { 
+            width: 24%; 
+            min-width: 120px; 
+            text-align: center; 
+            font-size: 1rem; 
+            color: var(--text-color); 
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .sign-col:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 25%;
+            width: 50%;
+            height: 1px;
+            background: var(--border-color);
+        }
+        .balance-highlight {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }        @media (max-width: 900px) {
+            body { padding: 20px; }
+            .sign-row { flex-wrap: wrap; gap: 20px; }
+            .sign-col { 
+                width: 45%; 
+                min-width: 120px; 
+                margin-bottom: 20px;
+            }
+            .header h1 { font-size: 1.8rem; }
+            .section-title { font-size: 1.2rem; }
             .trip-table, .cost-table { font-size: 0.95rem; }
         }
         @media (max-width: 600px) {
-            .trip-table th, .trip-table td, .cost-table th, .cost-table td { padding: 4px 4px; font-size: 0.85rem; }
-            .header, .section-title { margin-bottom: 10px; }
+            body { padding: 15px; }
+            .trip-table th, .trip-table td, .cost-table th, .cost-table td { 
+                padding: 8px 10px; 
+                font-size: 0.9rem; 
+            }
+            .header { 
+                margin-bottom: 25px;
+                padding: 15px;
+            }
+            .section-title { margin-bottom: 15px; }
             .trip-table, .cost-table { min-width: 400px; }
-            .sign-row { flex-wrap: wrap; }
-            .sign-col { width: 100%; min-width: 120px; margin-bottom: 8px; }
+            .sign-row { 
+                flex-wrap: wrap; 
+                gap: 15px;
+                margin-top: 30px;
+            }
+            .sign-col { 
+                width: 100%; 
+                min-width: 120px; 
+                margin-bottom: 15px;
+            }
+            .header h1 { font-size: 1.5rem; }
         }
         @media (max-width: 480px) {
+            body { padding: 10px; }
             .trip-table, .cost-table { min-width: 320px; }
-            .header h1 { font-size: 1rem; }
+            .header h1 { font-size: 1.3rem; }
+            .header p { font-size: 0.9rem; }
         }
-        @media print {
-            body { background: #fff; margin: 0; padding: 0; }
-            .no-print { display: none; }
-            .header { margin-bottom: 12px; }
-            .section-title { margin-bottom: 8px; }
-            .sign-row { margin-top: 20px; display: flex !important; flex-direction: row !important; justify-content: space-between !important; flex-wrap: nowrap !important; }
-            .sign-col { width: 24% !important; min-width: 80px; font-size: 0.85rem; margin-bottom: 0 !important; }
-            .trip-table, .cost-table { font-size: 0.85rem; }
+        @media print {            body { 
+                background: #fff !important; 
+                margin: 0 !important; 
+                padding: 25px !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .no-print { display: none !important; }
+            .header { 
+                margin-bottom: 25px !important;
+                padding: 15px !important;
+            }
+            .section-title { 
+                margin-bottom: 15px !important;
+                color: var(--primary-color) !important;
+            }
+            .sign-row { 
+                margin-top: 40px !important; 
+                display: flex !important; 
+                flex-direction: row !important; 
+                justify-content: space-between !important; 
+                flex-wrap: nowrap !important;
+                page-break-inside: avoid !important;
+            }
+            .sign-col { 
+                width: 24% !important; 
+                min-width: 80px !important; 
+                font-size: 0.9rem !important; 
+                margin-bottom: 0 !important;
+            }
+            .trip-table, .cost-table { 
+                font-size: 0.9rem !important;
+                page-break-inside: avoid !important;
+            }
+            .trip-table th, .cost-table th {
+                background-color: var(--primary-color) !important;
+                color: white !important;
+            }
+            .table-responsive {
+                box-shadow: none !important;
+            }
         }
     </style>
 </head>
@@ -133,18 +287,27 @@
 </table>
 </div>
 <div class="table-responsive">
-<table class="trip-table" style="margin-top: 24px;">
-    <tr><th>Balance</th><td>{{ $transport->rent - $transport->total_cost }}</td></tr>
+<table class="trip-table" style="margin-top: 24px;">    <tr><th>Balance</th><td style="font-weight: bold; font-size: 1.1em;">{{ $transport->rent - $transport->total_cost }}</td></tr>
 </table>
 </div>
-<div class="sign-row">
+
+<div class="sign-row" style="margin-top: 80px;">
     <div class="sign-col">Prepared By</div>
     <div class="sign-col">Check By</div>
     <div class="sign-col">GM</div>
     <div class="sign-col">Approved By</div>
 </div>
-<div class="no-print" style="text-align:center; margin-top: 20px;">
-    <button onclick="window.print()">Print</button>
+<div class="no-print" style="text-align:center; margin-top: 30px;">
+    <button onclick="window.print()" style="
+        padding: 10px 25px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    ">Print Document</button>
 </div>
 </body>
 </html>

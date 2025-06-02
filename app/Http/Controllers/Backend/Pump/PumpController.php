@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Pump;
 
 use App\Http\Controllers\Controller;
+use App\Models\Diesel;
 use App\Models\Pump;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -113,10 +114,12 @@ class PumpController extends Controller
         Gate::authorize('viewAny', Pump::class);
 
         $query = Pump::query();
+        $diesel = Diesel::query();
 
         // Filter by pump name if provided
         if ($request->filled('pumpName_id')) {
             $query->where('pumpName_id', $request->pumpName_id);
+            $diesel->where('pumpName_id', $request->pumpName_id);
         }
         if ($request->filled('car_no')) {
             $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
@@ -132,6 +135,10 @@ class PumpController extends Controller
         if ($request->filled('date_range')) {
             $dates = explode(' - ', $request->date_range);
             if (count($dates) == 2) {
+                $diesel->whereBetween('d_date', [
+                    date('Y-m-d', strtotime($dates[0])),
+                    date('Y-m-d', strtotime($dates[1])),
+                ]);
                 $query->whereBetween('date', [
                     date('Y-m-d', strtotime($dates[0])),
                     date('Y-m-d', strtotime($dates[1])),
@@ -139,8 +146,10 @@ class PumpController extends Controller
             }
         }
 
+        $dieselsum = $diesel->sum('taka');
+
         $results = $query->orderBy('created_at', 'ASC')->get();
 
-        return view('backend.pump.filter', compact('results'));
+        return view('backend.pump.filter', compact('results', 'dieselsum'));
     }
 }

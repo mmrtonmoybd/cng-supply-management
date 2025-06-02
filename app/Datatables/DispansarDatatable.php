@@ -80,7 +80,6 @@ class DispansarDatatable extends Datatable
                 ->data('bill_no'),
 
             Column::add(__('Bill Date'))
-                ->width('180px')
                 ->data('bill_date')
                 ->dateFormat('DD-MM-YYYY'),
 
@@ -110,6 +109,15 @@ class DispansarDatatable extends Datatable
 
             Column::add(__('Out'))
                 ->data('out'),
+
+            Column::add('Invoice')
+                ->data('invoice_id', function ($invoiceId) {
+                    return $invoiceId->invoice_id ? '<a href="'.route('backend.factory.invoice.show', $invoiceId->invoice_id).'" target="_blank" style="color:#007bff;font-weight:bold;">Invoice('. $invoiceId->invoice_id .')</a>' : null;
+                })->notOrderable(),
+
+            Column::add(__('Invoice Date'))
+                ->data('invoice_date')
+                ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Cash Receipt Date'))
                 ->width('180px')

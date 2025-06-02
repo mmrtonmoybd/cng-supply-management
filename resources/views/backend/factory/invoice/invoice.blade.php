@@ -3,21 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Invoice</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     :root {
-      --primary: #222;
-      --secondary: #444;
+      --primary: #1a237e;
+      --secondary: #283593;
       --bg: #fff;
       --card-bg: #fff;
-      --border: #e5e5e5;
-      --text: #222;
-      --muted: #888;
+      --border: #e0e0e0;
+      --text: #2c3e50;
+      --muted: #707070;
+      --accent: #f44336;
     }
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
       background: #f7f7f7;
       color: var(--text);
       margin: 0;
@@ -26,11 +29,11 @@
     }
     .invoice {
       max-width: 900px;
-      margin: 0 auto;
+      margin: 2rem auto;
       background: var(--card-bg);
-      border-radius: 6px;
-      box-shadow: 0 2px 8px rgba(34,34,34,0.04);
-      padding: 16px 24px 16px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 32px 40px;
       border: 1px solid var(--border);
       position: relative;
       font-size: 1.15rem;
@@ -38,25 +41,26 @@
     .invoice-header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      border-bottom: 1.5px solid var(--border);
-      padding-bottom: 8px;
-      margin-bottom: 16px;
+      align-items: flex-start;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 24px;
       margin-top: 0;
       padding-top: 0;
       font-size: 1.25rem;
     }
     .logo {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       font-size: 1.5rem;
       font-weight: 700;
       color: var(--primary);
       letter-spacing: 1px;
     }
     .logo img {
-      height: 40px;
-      margin-right: 10px;
+      height: 50px;
+      margin-right: 15px;
+      object-fit: contain;
     }
     .invoice-info {
       text-align: right;
@@ -71,103 +75,132 @@
     .address-section {
       display: flex;
       justify-content: space-between;
-      margin: 16px 0 10px 0;
-      gap: 16px;
+      margin: 28px 0 32px 0;
+      gap: 40px;
       font-size: 1.08rem;
     }
     .address {
       width: 48%;
-      line-height: 1.6;
-      background: #fafbfc;
-      border-radius: 4px;
-      padding: 10px 14px;
+      line-height: 1.8;
+      background: #f8fafc;
+      border-radius: 6px;
+      padding: 20px 24px;
       border: 1px solid var(--border);
       font-size: 1.08rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
     .table-title {
-      background: #f2f2f2;
-      color: var(--primary);
-      padding: 10px;
+      background: var(--primary);
+      color: white;
+      padding: 12px 16px;
       font-weight: 600;
       text-align: center;
-      border-radius: 4px 4px 0 0;
-      font-size: 1.15rem;
+      border-radius: 6px 6px 0 0;
+      font-size: 1.2rem;
       letter-spacing: 0.5px;
       margin-bottom: 0;
-      border: 1px solid var(--border);
-      border-bottom: none;
     }
     table {
       width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 12px;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-bottom: 24px;
       background: #fff;
-      border-radius: 0 0 4px 4px;
+      border-radius: 0 0 6px 6px;
       overflow: hidden;
-      box-shadow: none;
-      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       font-size: 1.08rem;
     }
     th, td {
       border: 1px solid var(--border);
-      padding: 10px 6px;
+      padding: 12px 16px;
       text-align: center;
       font-size: 1.08rem;
     }
     th {
-      background: #f7f7f7;
-      color: var(--primary);
+      background: var(--secondary);
+      color: white;
       font-weight: 600;
-      letter-spacing: 0.2px;
+      letter-spacing: 0.5px;
       font-size: 1.12rem;
+      border-color: rgba(255,255,255,0.1);
     }
     tfoot td {
       font-weight: 700;
-      background: #f2f2f2;
+      background: #f8fafc;
       color: var(--primary);
-      font-size: 1.15rem;
+      font-size: 1.2rem;
+      border-top: 2px solid var(--border);
     }
     .totals {
       text-align: right;
-      margin-top: 8px;
-      font-size: 1.13rem;
+      margin: 24px 0;
+      padding: 20px;
+      font-size: 1.2rem;
       color: var(--primary);
       font-weight: 600;
+      background: #f8fafc;
+      border-radius: 6px;
+      border: 1px solid var(--border);
     }
     .signature {
-      margin-top: 24px;
+      margin-top: 40px;
+      margin-bottom: 60px;
       text-align: left;
-      font-size: 1.08rem;
+      font-size: 1.1rem;
+      position: relative;
     }
     .signature span {
       display: inline-block;
-      margin-top: 30px;
-      border-top: 1.5px solid var(--border);
-      padding-top: 5px;
-      color: var(--muted);
-      font-size: 1.08rem;
+      min-width: 200px;
+      margin-top: 40px;
+      border-top: 2px solid var(--border);
+      padding-top: 8px;
+      color: var(--primary);
+      font-size: 1.1rem;
       letter-spacing: 0.5px;
+      position: relative;
+    }
+    .signature span::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--primary);
     }
     .no-print {
       text-align: center;
-      margin: 16px 0 0 0;
-      font-size: 1.08rem;
+      margin: 32px 0;
+      font-size: 1.1rem;
     }
     .no-print button {
-      padding: 10px 22px;
-      margin: 5px;
-      font-size: 1.08rem;
+      padding: 12px 28px;
+      margin: 8px;
+      font-size: 1.1rem;
       cursor: pointer;
       background: var(--primary);
       color: #fff;
       border: none;
-      border-radius: 4px;
-      transition: background 0.2s;
+      border-radius: 6px;
+      transition: all 0.3s ease;
       font-weight: 600;
-      box-shadow: 0 1px 4px rgba(34,34,34,0.06);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
     .no-print button:hover {
       background: var(--secondary);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .no-print button:nth-child(2) {
+      background: var(--accent);
+    }
+    .no-print button:nth-child(2):hover {
+      background: #d32f2f;
+    }
+    .no-print button i {
+      margin-right: 8px;
     }
     .footer {
       background: #f2f2f2;
@@ -184,15 +217,24 @@
     .verify-section {
       display: flex;
       justify-content: flex-end;
-      margin-top: 12px;
+      margin: 32px 0;
       font-size: 1.08rem;
+      position: relative;
     }
     #qrcode {
       background: #fff;
-      padding: 4px;
-      border-radius: 4px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+      padding: 8px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
       border: 1px solid var(--border);
+    }
+    #qrcode::before {
+      content: 'Scan to Verify';
+      position: absolute;
+      bottom: -25px;
+      right: 0;
+      font-size: 0.9rem;
+      color: var(--muted);
     }
     @media print {
       html, body {
@@ -235,7 +277,18 @@
 <div class="invoice">
   <div class="invoice-header">
     <div class="logo">
-        <img src="{{ asset('logo/new-logo.png') }}">MARS BANGLA</div>
+        <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; align-items: center;">
+                <img src="{{ asset('logo/new-logo.png') }}">
+                <font color='red' style="font-size: 1.8rem; margin-left: 10px;">MARS BANGLA</font>
+            </div>
+            <div style="font-size: 0.85rem; color: #555; margin-top: 8px; line-height: 1.4;">
+                <div><i class="fas fa-envelope"></i> Email: marsbangla840@gmail.com</div>
+                <div><i class="fas fa-phone"></i> Mobile: 01923-660517, 01904-394972</div>
+                <div><i class="fas fa-map-marker-alt"></i> Address: House #43, Road #03, Sector #03, Uttra, Dhaka-1230</div>
+            </div>
+        </div>
+    </div>
     <div class="invoice-info">
       <h2>INVOICE</h2>
       <strong><p>Invoice No: #{{ $invoice->id }}</p>
@@ -248,15 +301,15 @@
     <div class="address" style="text-align: left">
       <strong>Invoice To:</strong><br>
       {{ $invoice->factory->name }}<br>
-      {{ $invoice->factory->email ?? '' }}<br>
-      {{ $invoice->factory->phone ?? '' }}<br>
       {{ $invoice->factory->address ?? '' }}<br>
+      {{ $invoice->factory->email ?? '' }}<br>
     </div>
     <div class="address" style="text-align: right">
       <strong>Invoice From:</strong><br>
       Mars Bangla<br>
-      House #37, Road #07, Sector #03, Uttra<br>
-      Dhaka, 1230
+      House #43, Road #03, Sector #03, Uttra<br>
+      Dhaka, 1230<br>
+      Hotline: 01904-394972, 01923-660517<br>
     </div>
   </div>
 
@@ -387,7 +440,7 @@
 
   <div class="totals">
   
-    <strong>In Words:</strong> <span id="taka-words">{{ ucwords(Illuminate\Support\Number::spell($total)) }} Only</span>
+    <strong>In Words:</strong> <span id="taka-words">{{ Illuminate\Support\Number::spell($total) }} only</span>
   </div>
 
   <div class="verify-section">
@@ -402,13 +455,10 @@
 </div>
 
 <div class="no-print">
-  <button onclick="window.print()">Print</button>
-  <button onclick="downloadPDF()" style="margin-left:10px;background:var(--accent);color:#fff;">Download PDF</button>
+  <button onclick="window.print()"><i class="fas fa-print"></i>Print</button>
+  <button onclick="downloadPDF()"><i class="fas fa-file-pdf"></i>Download PDF</button>
 </div>
 
-<div class="footer">
-  Email: marsbangla840@gmail.com | Mobile: 01923-660517, 01904-394972 | Address: House #37, Road #07, Sector #03, Uttra, Dhaka-1230
-</div>
 
 <script>
 
