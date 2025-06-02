@@ -12,7 +12,7 @@ class Diesel implements MenuItemInterface
         $menu->add('Diesel', [
             'route' => 'backend.diesel.index',
             'active' => 'backend.diesel.*',
-            'permission' => 'backend',
+            'permission' => 'diesel_crud',
             'icon' => 'fas fa-oil-can',
             'order' => 112,
         ]);

@@ -12,7 +12,7 @@ class Transport implements MenuItemInterface
         $menu->add('Transport', [
             'route' => 'backend.transport.index',
             'active' => 'backend.transport.*',
-            'permission' => 'backend',
+            'permission' => 'transport_crud',
             'icon' => 'fas fa-shuttle-van',
             'order' => 128,
         ]);

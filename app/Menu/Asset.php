@@ -10,32 +10,32 @@ class Asset implements MenuItemInterface
     public function make(Builder $menu)
     {
         $item = $menu->add('Assets', [
-            'permission' => 'backend',
+            'permission' => 'asset_crud,vehicle_crud',
             'active' => 'backend.asset.*',
             'icon' => 'fa-balance-scale',
             'order' => 130,
         ]);
 
         $item->add('Asset', [
-            'permission' => 'backend',
+            'permission' => 'asset_crud',
             'active' => 'backend.asset.asset.*',
             'route' => 'backend.asset.asset.index',
         ]);
 
         $item->add('Asset document', [
-            'permission' => 'backend',
+            'permission' => 'asset_crud',
             'active' => 'backend.asset.assetdocument.*',
             'route' => 'backend.asset.assetdocument.index',
         ]);
 
         $item->add('Vehicle', [
-            'permission' => 'backend',
+            'permission' => 'vehicle_crud',
             'active' => 'backend.asset.vehicle.*',
             'route' => 'backend.asset.vehicle.index',
         ]);
 
         $item->add('Vehicle document', [
-            'permission' => 'backend',
+            'permission' => 'vehicle_crud',
             'active' => 'backend.asset.vehicledocument.*',
             'route' => 'backend.asset.vehicledocument.index',
         ]);
