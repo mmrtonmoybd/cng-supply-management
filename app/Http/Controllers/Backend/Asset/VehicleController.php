@@ -14,6 +14,7 @@ class VehicleController extends Controller
     public function index()
     {
         $this->authorize('vehicle_crud');
+
         return view('backend.assets.vehicle.list');
     }
 
@@ -23,6 +24,7 @@ class VehicleController extends Controller
     public function create()
     {
         $this->authorize('vehicle_crud');
+
         return view('backend.assets.vehicle.create');
     }
 
@@ -54,6 +56,7 @@ class VehicleController extends Controller
     public function show(Vehicle $vehicle)
     {
         $this->authorize('vehicle_crud');
+
         return view('backend.assets.vehicle.show', compact('vehicle'));
     }
 
@@ -63,6 +66,7 @@ class VehicleController extends Controller
     public function edit(Vehicle $vehicle)
     {
         $this->authorize('vehicle_crud');
+
         return view('backend.assets.vehicle.edit', compact('vehicle'));
     }
 
@@ -93,6 +97,7 @@ class VehicleController extends Controller
     public function destroy(Vehicle $vehicle)
     {
         $this->authorize('vehicle_crud');
+
         return response()->json(['success' => $vehicle->delete() ?? false]);
     }
 }

@@ -14,6 +14,7 @@ class VehicleDocumentController extends Controller
     public function index()
     {
         $this->authorize('vehicle_crud');
+
         return view('backend.assets.vehicle.document.list');
     }
 
@@ -23,6 +24,7 @@ class VehicleDocumentController extends Controller
     public function create()
     {
         $this->authorize('vehicle_crud');
+
         return view('backend.assets.vehicle.document.create');
     }
 
@@ -67,6 +69,7 @@ class VehicleDocumentController extends Controller
     public function edit(VehicleDocument $vehicle_document)
     {
         $this->authorize('vehicle_crud');
+
         return view('backend.assets.vehicle.document.edit', ['vehicledocument' => $vehicle_document]);
     }
 
@@ -106,6 +109,7 @@ class VehicleDocumentController extends Controller
     public function destroy(VehicleDocument $vehicle_document)
     {
         $this->authorize('vehicle_crud');
+
         return response()->json(['success' => $vehicle_document->delete() ?? false]);
     }
 }
