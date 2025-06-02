@@ -107,6 +107,7 @@ Route::group($default, function () {
     Route::get('transport/{transport}/export', [App\Http\Controllers\Backend\Transport\TransportController::class, 'export'])->name('transport.export');
 
     Route::resource('diesel', App\Http\Controllers\Backend\Diesel\DieselController::class)->names('diesel');
+    Route::get('diesel-filter', [App\Http\Controllers\Backend\Diesel\DieselController::class, 'filter'])->name('diesel.filter');
 
 });
 

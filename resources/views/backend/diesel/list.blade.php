@@ -8,11 +8,13 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12 mbl">
-            <span class="float-left pb-3">
+        <div class="col-12 mbl">            <span class="float-left pb-3">
                 <button class="btn btn-primary ml-2" id="toggleFilterBtn" type="button">
                     <i class="fas fa-calculator"></i> Use factor
                 </button>
+                <a href="{{ route('backend.diesel.filter') }}" class="btn btn-primary ml-2">
+                    <i class="fas fa-filter"></i> Advanced Filter
+                </a>
             </span>
             <span class="float-right pb-3">
                 <a href="{{ route('backend.diesel.create') }}" class="btn btn-primary">

@@ -112,4 +112,45 @@ class DieselController extends Controller
     {
         return response()->json(['success' => $diesel->delete() ?? false]);
     }
+
+    /**
+     * Show the filter form and results.
+     */
+    public function filter(Request $request)
+    {
+        $diesels = collect([]); // Empty collection by default
+
+        // Only query if filter button was clicked
+        if ($request->has('filter')) {
+            $query = Diesel::query()
+                ->with(['pumpname', 'vehicle'])
+                ->select('*');
+
+            // Apply date range filter
+            if ($request->filled(['from_date', 'to_date'])) {
+                $query->whereBetween('d_date', [
+                    $request->input('from_date'),
+                    $request->input('to_date')
+                ]);
+            } else {
+                // Default to current month if no date range selected
+                $query->whereMonth('d_date', now()->month)
+                    ->whereYear('d_date', now()->year);
+            }
+
+            // Apply pump filter
+            if ($request->filled('pumpName_id')) {
+                $query->where('pumpName_id', $request->input('pumpName_id'));
+            }
+
+            // Apply vehicle filter
+            if ($request->filled('vehicle_id')) {
+                $query->where('vehicle_id', $request->input('vehicle_id'));
+            }
+
+            $diesels = $query->orderBy('d_date', 'ASC')->get();
+        }
+
+        return view('backend.diesel.filter', compact('diesels'));
+    }
 }

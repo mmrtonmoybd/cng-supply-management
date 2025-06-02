@@ -111,6 +111,21 @@
                 </div>
 
                 <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Due/Advance Litre</label>
+                            <p class="form-control-static">{{ $diesel->use_litre && $diesel->diesel_purchase_litre ? number_format($diesel->diesel_purchase_litre - $diesel->use_litre, 2) : '-' }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Due/Advance</label>
+                            <p class="form-control-static">{{ $diesel->use_balance && $diesel->taka ? number_format($diesel->taka - $diesel->use_balance, 2) : '-' }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-12">
                         <div class="form-group">
                             <label>Remark</label>
