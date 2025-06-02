@@ -72,8 +72,8 @@ class DieselDatatable extends Datatable
 
             Column::add(__('Time'))
                 ->data('time', function ($diesel) {
-                    return $diesel->time ? date('h:i A', strtotime($diesel->time)) : '';    
-                    
+                    return $diesel->time ? date('h:i A', strtotime($diesel->time)) : '';
+
                 })->notOrderable()->notSearchable(),
 
             Column::add(__('Distance'))

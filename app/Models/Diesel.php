@@ -33,21 +33,21 @@ class Diesel extends Model
         return $this->belongsTo(Vehicle::class, 'vehicle_id');
     }
 
-    protected static function booted() {
+    protected static function booted()
+    {
         static::saving(function ($model) {
             // Calculate use_litre and use_balance before saving
             $factor_liter = Settings::get('factor_liter');
             $factor_balance = Settings::get('factor_balance');
 
-            if (!is_null($model->distance)) {
-            $devide = $model->distance / $factor_liter;
+            if (! is_null($model->distance)) {
+                $devide = $model->distance / $factor_liter;
 
-            $model->use_litre = $devide;
+                $model->use_litre = $devide;
 
-            $model->use_balance = $devide * $factor_balance;
+                $model->use_balance = $devide * $factor_balance;
             }
 
-            
         });
     }
 }

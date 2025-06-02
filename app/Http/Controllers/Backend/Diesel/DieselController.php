@@ -25,8 +25,10 @@ class DieselController extends Controller
             Settings::set('factor_liter', $factor_liter);
             $factor_balance = $request->input('factor_balance');
             Settings::set('factor_balance', $factor_balance);
+
             return redirect()->route('backend.diesel.index')->with('growl', ['Settings updated successfully.', 'success']);
         }
+
         return view('backend.diesel.list');
     }
 
