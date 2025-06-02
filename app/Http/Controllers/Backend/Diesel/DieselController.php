@@ -130,7 +130,7 @@ class DieselController extends Controller
             if ($request->filled(['from_date', 'to_date'])) {
                 $query->whereBetween('d_date', [
                     $request->input('from_date'),
-                    $request->input('to_date')
+                    $request->input('to_date'),
                 ]);
             } else {
                 // Default to current month if no date range selected
