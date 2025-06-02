@@ -13,6 +13,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
+        $this->authorize('vehicle_crud');
         return view('backend.assets.vehicle.list');
     }
 
@@ -21,6 +22,7 @@ class VehicleController extends Controller
      */
     public function create()
     {
+        $this->authorize('vehicle_crud');
         return view('backend.assets.vehicle.create');
     }
 
@@ -29,6 +31,7 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('vehicle_crud');
 
         $request->validate([
             'vehicle_number' => 'required|string|max:255',
@@ -50,6 +53,7 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
+        $this->authorize('vehicle_crud');
         return view('backend.assets.vehicle.show', compact('vehicle'));
     }
 
@@ -58,6 +62,7 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
+        $this->authorize('vehicle_crud');
         return view('backend.assets.vehicle.edit', compact('vehicle'));
     }
 
@@ -66,6 +71,7 @@ class VehicleController extends Controller
      */
     public function update(Request $request, Vehicle $vehicle)
     {
+        $this->authorize('vehicle_crud');
         $request->validate([
             'vehicle_number' => 'required|string|max:255',
             'vehicle_type' => 'nullable|string|max:255',
@@ -86,6 +92,7 @@ class VehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle)
     {
+        $this->authorize('vehicle_crud');
         return response()->json(['success' => $vehicle->delete() ?? false]);
     }
 }

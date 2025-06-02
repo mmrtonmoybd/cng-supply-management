@@ -13,6 +13,7 @@ class VehicleDocumentController extends Controller
      */
     public function index()
     {
+        $this->authorize('vehicle_crud');
         return view('backend.assets.vehicle.document.list');
     }
 
@@ -21,6 +22,7 @@ class VehicleDocumentController extends Controller
      */
     public function create()
     {
+        $this->authorize('vehicle_crud');
         return view('backend.assets.vehicle.document.create');
     }
 
@@ -29,6 +31,7 @@ class VehicleDocumentController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('vehicle_crud');
         $validated = $request->validate([
             'vehicle_id' => 'required|exists:vehicles,id',
             'name' => 'required|string|max:255',
@@ -55,7 +58,7 @@ class VehicleDocumentController extends Controller
      */
     public function show(VehicleDocument $vehicle_document)
     {
-        //
+        $this->authorize('vehicle_crud');
     }
 
     /**
@@ -63,6 +66,7 @@ class VehicleDocumentController extends Controller
      */
     public function edit(VehicleDocument $vehicle_document)
     {
+        $this->authorize('vehicle_crud');
         return view('backend.assets.vehicle.document.edit', ['vehicledocument' => $vehicle_document]);
     }
 
@@ -71,6 +75,7 @@ class VehicleDocumentController extends Controller
      */
     public function update(Request $request, VehicleDocument $vehicle_document)
     {
+        $this->authorize('vehicle_crud');
         $validated = $request->validate([
             'vehicle_id' => 'required|exists:vehicles,id',
             'name' => 'required|string|max:255',
@@ -100,6 +105,7 @@ class VehicleDocumentController extends Controller
      */
     public function destroy(VehicleDocument $vehicle_document)
     {
+        $this->authorize('vehicle_crud');
         return response()->json(['success' => $vehicle_document->delete() ?? false]);
     }
 }

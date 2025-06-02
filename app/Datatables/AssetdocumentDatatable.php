@@ -22,7 +22,7 @@ class AssetdocumentDatatable extends Datatable
         $this->order('id', 'desc')
             ->buttons('filters', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
-            ->permissions('cngpump_crud')
+            ->permissions('asset_crud')
             ->setRowId('id');
     }
 

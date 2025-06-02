@@ -13,6 +13,7 @@ class AssetDocumentController extends Controller
      */
     public function index()
     {
+        $this->authorize('asset_crud');
         return view('backend.assets.document.list');
     }
 
@@ -21,6 +22,7 @@ class AssetDocumentController extends Controller
      */
     public function create()
     {
+        $this->authorize('asset_crud');
         return view('backend.assets.document.create');
     }
 
@@ -29,6 +31,7 @@ class AssetDocumentController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('asset_crud');
         $validated = $request->validate([
             'asset_id' => 'required|exists:assets,id',
             'name' => 'required|string|max:255',
@@ -52,7 +55,7 @@ class AssetDocumentController extends Controller
      */
     public function show(AssetDocument $asset_document)
     {
-        //
+        $this->authorize('asset_crud');
     }
 
     /**
@@ -60,6 +63,7 @@ class AssetDocumentController extends Controller
      */
     public function edit(AssetDocument $asset_document)
     {
+        $this->authorize('asset_crud');
         return view('backend.assets.document.edit', ['assetdocument' => $asset_document]);
     }
 
@@ -68,6 +72,7 @@ class AssetDocumentController extends Controller
      */
     public function update(Request $request, AssetDocument $asset_document)
     {
+        $this->authorize('asset_crud');
         $validated = $request->validate([
             'asset_id' => 'required|exists:assets,id',
             'name' => 'required|string|max:255',
@@ -95,6 +100,7 @@ class AssetDocumentController extends Controller
      */
     public function destroy(AssetDocument $asset_document)
     {
-        //
+        $this->authorize('asset_crud');
+        return response()->json(['success' => $asset_document->delete() ?? false]);
     }
 }

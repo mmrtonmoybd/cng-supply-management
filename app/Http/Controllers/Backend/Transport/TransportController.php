@@ -13,6 +13,7 @@ class TransportController extends Controller
      */
     public function index()
     {
+        $this->authorize('transport_crud');
         return view('backend.transport.list');
     }
 
@@ -21,6 +22,7 @@ class TransportController extends Controller
      */
     public function create()
     {
+        $this->authorize('transport_crud');
         return view('backend.transport.create');
     }
 
@@ -29,6 +31,7 @@ class TransportController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('transport_crud');
         $validated = $request->validate([
             'date' => 'required|date',
             'vehicle_id' => 'required|exists:vehicles,id',
@@ -57,6 +60,7 @@ class TransportController extends Controller
      */
     public function show(Transport $transport)
     {
+        $this->authorize('transport_crud');
         return view('backend.transport.show', compact('transport'));
     }
 
@@ -65,6 +69,7 @@ class TransportController extends Controller
      */
     public function edit(Transport $transport)
     {
+        $this->authorize('transport_crud');
         return view('backend.transport.edit', compact('transport'));
     }
 
@@ -73,6 +78,7 @@ class TransportController extends Controller
      */
     public function update(Request $request, Transport $transport)
     {
+        $this->authorize('transport_crud');
         $validated = $request->validate([
             'date' => 'required|date',
             'vehicle_id' => 'required|exists:vehicles,id',
@@ -101,6 +107,7 @@ class TransportController extends Controller
      */
     public function destroy(Transport $transport)
     {
+        $this->authorize('transport_crud');
         return response()->json(['success' => $transport->delete() ?? false]);
     }
 
@@ -109,6 +116,7 @@ class TransportController extends Controller
      */
     public function export(Transport $transport)
     {
+        $this->authorize('transport_crud');
         return view('backend.transport.export', compact('transport'));
     }
 
@@ -117,6 +125,7 @@ class TransportController extends Controller
      */
     public function filter()
     {
+        $this->authorize('transport_crud');
         return view('backend.transport.filter');
     }
 
@@ -125,6 +134,7 @@ class TransportController extends Controller
      */
     public function showFilter(Request $request)
     {
+        $this->authorize('transport_crud');
         $query = Transport::with(['vehicle'])
             ->select('*');
 

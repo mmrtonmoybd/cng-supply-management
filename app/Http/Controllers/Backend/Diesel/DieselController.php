@@ -14,6 +14,7 @@ class DieselController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('diesel_crud');
         if ($request->filled('factor_liter') || $request->filled('factor_balance')) {
             $request->validate([
                 'factor_liter' => 'required|numeric',
@@ -37,6 +38,7 @@ class DieselController extends Controller
      */
     public function create()
     {
+        $this->authorize('diesel_crud');
         return view('backend.diesel.create');
     }
 
@@ -45,6 +47,7 @@ class DieselController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('diesel_crud');
         $validated = $request->validate([
             'd_date' => 'required|date',
             'd_time' => 'required',
@@ -69,6 +72,7 @@ class DieselController extends Controller
      */
     public function show(Diesel $diesel)
     {
+        $this->authorize('diesel_crud');
         return view('backend.diesel.show', compact('diesel'));
     }
 
@@ -77,6 +81,7 @@ class DieselController extends Controller
      */
     public function edit(Diesel $diesel)
     {
+        $this->authorize('diesel_crud');
         return view('backend.diesel.edit', compact('diesel'));
     }
 
@@ -85,6 +90,7 @@ class DieselController extends Controller
      */
     public function update(Request $request, Diesel $diesel)
     {
+        $this->authorize('diesel_crud');
         $validated = $request->validate([
             'd_date' => 'required|date',
             'd_time' => 'required',
@@ -110,6 +116,7 @@ class DieselController extends Controller
      */
     public function destroy(Diesel $diesel)
     {
+        $this->authorize('diesel_crud');
         return response()->json(['success' => $diesel->delete() ?? false]);
     }
 
@@ -118,6 +125,7 @@ class DieselController extends Controller
      */
     public function filter(Request $request)
     {
+        $this->authorize('diesel_crud');
         $diesels = collect([]); // Empty collection by default
 
         // Only query if filter button was clicked

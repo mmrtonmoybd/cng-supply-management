@@ -62,5 +62,21 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('cashbook_crud', function ($user) {
             return $user->ability(['admin'], 'cashbook_crud');
         });
+
+        Gate::define('asset_crud', function ($user) {
+            return $user->ability(['admin'], 'asset_crud');
+        });
+
+        Gate::define('vehicle_crud', function ($user) {
+            return $user->ability(['admin'], 'vehicle_crud');
+        });
+
+        Gate::define('diesel_crud', function ($user) {
+            return $user->ability(['admin'], 'diesel_crud');
+        });
+        
+        Gate::define('transport_crud', function ($user) {
+            return $user->ability(['admin'], 'transport_crud');
+        });
     }
 }

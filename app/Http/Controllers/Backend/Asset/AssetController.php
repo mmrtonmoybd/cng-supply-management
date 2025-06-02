@@ -13,6 +13,7 @@ class AssetController extends Controller
      */
     public function index()
     {
+        $this->authorize('asset_crud');
         return view('backend.assets.list');
     }
 
@@ -21,6 +22,7 @@ class AssetController extends Controller
      */
     public function create()
     {
+        $this->authorize('asset_crud');
         return view('backend.assets.create');
     }
 
@@ -29,6 +31,7 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('asset_crud');
         $type = $request->input('type');
         $typeText = $request->input('type_text');
         $finalType = $typeText ?: $type;
@@ -47,6 +50,7 @@ class AssetController extends Controller
      */
     public function show(Asset $asset)
     {
+        $this->authorize('asset_crud');
         $asset->load('vehicle');
 
         return view('backend.assets.show', compact('asset'));
@@ -57,6 +61,7 @@ class AssetController extends Controller
      */
     public function edit(Asset $asset)
     {
+        $this->authorize('asset_crud');
         // Get all unique types for the select
         $typeOptions = Asset::distinct()->pluck('type')->filter()->unique()->values()->toArray();
 
@@ -68,6 +73,7 @@ class AssetController extends Controller
      */
     public function update(Request $request, Asset $asset)
     {
+        $this->authorize('asset_crud');
         $type = $request->input('type');
         $typeText = $request->input('type_text');
         $finalType = $typeText ?: $type;
@@ -86,6 +92,7 @@ class AssetController extends Controller
      */
     public function destroy(Asset $asset)
     {
+        $this->authorize('asset_crud');
         return response()->json(['success' => $asset->delete() ?? false]);
     }
 }

@@ -21,7 +21,7 @@ class TransportDatatable extends Datatable
     public function setUp()
     {
         $this->order('id', 'desc')
-            ->permissions('pump_name_crud')
+            ->permissions('transport_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()
             ->setRowId('id');
