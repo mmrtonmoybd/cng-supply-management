@@ -107,7 +107,7 @@ class CngpumpslipDatatable extends Datatable
 
             Column::add('Invoice')
                 ->data('invoice_id', function ($invoiceId) {
-                    return $invoiceId->invoice_id ? '<a href="'.route('backend.factory.invoice.show', $invoiceId->invoice_id).'" target="_blank" style="color:#007bff;font-weight:bold;">Invoice('. $invoiceId->invoice_id .')</a>' : null;
+                    return $invoiceId->invoice_id ? '<a href="'.route('backend.factory.invoice.show', $invoiceId->invoice_id).'" target="_blank" style="color:#007bff;font-weight:bold;">Invoice('.$invoiceId->invoice_id.')</a>' : null;
                 })->notOrderable(),
 
             Column::add(__('Invoice Date'))
