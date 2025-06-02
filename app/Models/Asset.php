@@ -9,6 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Asset extends Model
 {
     use LogsActivity;
+
     protected $fillable = [
         'name',
         'type', // e.g., 'vehicle', 'equipment', etc.
