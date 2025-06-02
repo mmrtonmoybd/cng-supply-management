@@ -9,6 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Transport extends Model
 {
     use LogsActivity;
+
     public $fillable = [
         'vehicle_id',
         'date',

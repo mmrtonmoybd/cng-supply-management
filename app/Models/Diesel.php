@@ -10,6 +10,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class Diesel extends Model
 {
     use LogsActivity;
+
     protected $fillable = [
         'd_date',
         'd_time',
