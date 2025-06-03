@@ -82,7 +82,6 @@
                         <th>Difference M3</th>
                         <th>In</th>
                         <th>Out</th>
-                        <th>Bill Amount</th>
                         <th>Invoice</th>
                         <th>Invoice Date</th>
                         <th>Cash Receipt Amount</th>
@@ -130,7 +129,6 @@
                             <td>{{ $row->difference_m3 }}</td>
                             <td>{{ $row->in }}</td>
                             <td>{{ $row->out }}</td>
-                            <td>{{ $row->bill_amount }}</td>
                             <td>{{ $row->invoice_id }}</td>
                             <td>{{ $row->invoice_date ? (\Carbon\Carbon::parse($row->invoice_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $row->cash_receipt_amount }}</td>
@@ -178,7 +176,6 @@
                         <th>{{ number_format($totalDifferenceM3, 2) }}</th>
                         <th></th>
                         <th></th>
-                        <th>{{ number_format($totalBillAmount, 2) }}</th>
                         <th></th>
                         <th></th>
                         <th>{{ number_format($totalCashReceiptAmount, 2) }}</th>

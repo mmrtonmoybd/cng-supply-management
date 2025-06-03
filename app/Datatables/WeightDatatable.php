@@ -33,7 +33,7 @@ class WeightDatatable extends Datatable
             Column::add(__('Id'))
                 ->data('id'),
 
-            Column::add(__('Date'))
+            Column::add(__('______Date'))
                 ->width('180px')
                 ->data('date')
                 ->dateFormat('DD-MM-YYYY'),
@@ -67,7 +67,7 @@ class WeightDatatable extends Datatable
             Column::add(__('Bill No'))
                 ->data('bill_no'),
 
-            Column::add(__('Bill Date'))
+            Column::add(__('____Bill Date'))
                 ->data('bill_date')
                 ->dateFormat('DD-MM-YYYY'),
 
@@ -92,12 +92,6 @@ class WeightDatatable extends Datatable
             Column::add(__('Factory taka'))
                 ->data('ftk'),
 
-            Column::add(__('Total Bill No'))
-                ->data('total_bill_no'),
-
-            Column::add(__('Total Bill Taka'))
-                ->data('total_bill_taka'),
-
             Column::add(__('Difference Taka'))
                 ->data('difference_taka'),
 
@@ -110,15 +104,12 @@ class WeightDatatable extends Datatable
             Column::add(__('Out'))
                 ->data('out'),
 
-            Column::add(__('Bill Amount'))
-                ->data('bill_amount'),
-
             Column::add('Invoice')
                 ->data('invoice_id', function ($invoiceId) {
                     return $invoiceId->invoice_id ? '<a href="'.route('backend.factory.invoice.show', $invoiceId->invoice_id).'" target="_blank" style="color:#007bff;font-weight:bold;">Invoice('.$invoiceId->invoice_id.')</a>' : null;
                 })->notOrderable(),
 
-            Column::add(__('Invoice Date'))
+            Column::add(__('___Invoice Date'))
                 ->data('invoice_date')
                 ->dateFormat('DD-MM-YYYY'),
 

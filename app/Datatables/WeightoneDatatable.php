@@ -34,7 +34,7 @@ class WeightoneDatatable extends Datatable
                 ->data('id')
                 ->name('weight_ones.id'),
 
-            Column::add(__('Date'))
+            Column::add(__('______Date'))
                 ->width('180px')
                 ->data('date')
                 ->dateFormat('DD-MM-YYYY'),
@@ -68,7 +68,7 @@ class WeightoneDatatable extends Datatable
             Column::add(__('Challan No'))
                 ->data('bill_no'),
 
-            Column::add(__('Challan Date'))
+            Column::add(__('__Challan Date'))
                 ->width('180px')
                 ->data('bill_date')
                 ->dateFormat('DD-MM-YYYY'),
@@ -94,15 +94,12 @@ class WeightoneDatatable extends Datatable
             Column::add(__('Total Weight'))
                 ->data('total_weight'),
 
-            Column::add(__('Bill Amount'))
-                ->data('bill_amount'),
-
             Column::add('Invoice')
                 ->data('invoice_id', function ($invoiceId) {
                     return $invoiceId->invoice_id ? '<a href="'.route('backend.factory.invoice.show', $invoiceId->invoice_id).'" target="_blank" style="color:#007bff;font-weight:bold;">Invoice('.$invoiceId->invoice_id.')</a>' : null;
                 })->notOrderable(),
 
-            Column::add(__('Invoice Date'))
+            Column::add(__('___Invoice Date'))
                 ->data('invoice_date')
                 ->dateFormat('DD-MM-YYYY'),
 

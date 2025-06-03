@@ -29,7 +29,7 @@ class CashbookDatatable extends Datatable
     {
         return [
 
-            Column::add(__('Date'))
+            Column::add(__('______Date'))
                 ->width('180px')
                 ->data('date')
                 ->dateFormat('DD-MM-YYYY'),

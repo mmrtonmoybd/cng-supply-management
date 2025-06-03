@@ -57,10 +57,10 @@
         <div class="col-md-4">
             <x-boilerplate::input name="rate" label="Rate" type="number" step="0.01" :value="old('rate', $weight->rate)" placeholder="Rate" />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" hidden>
             <x-boilerplate::input name="total_bill_no" label="Total Bill No" type="text" :value="old('total_bill_no', $weight->total_bill_no)" placeholder="Total Bill No" />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" hidden>
             <x-boilerplate::input name="total_bill_taka" label="Total Bill Taka" type="text" :value="old('total_bill_taka', $weight->total_bill_taka)" placeholder="Total Bill Taka" />
         </div>
         <div class="col-md-4">
@@ -69,7 +69,7 @@
         <div class="col-md-4">
             <x-boilerplate::input name="out" label="Out" type="number" step="0.01" :value="old('out', $weight->out)" placeholder="Out" />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" hidden>
             <x-boilerplate::input name="bill_amount" label="Bill Amount" type="number" step="0.01" :value="old('bill_amount', $weight->bill_amount)" placeholder="Bill Amount" />
         </div>
         <div class="col-md-4">

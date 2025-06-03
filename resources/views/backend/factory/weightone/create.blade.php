@@ -61,8 +61,8 @@
         <div class="col-md-4">
             <x-boilerplate::input name="ftk" label="FTK" type="number" step="0.01" :value="old('ftk')" placeholder="FTK" />
         </div>
-        <div class="col-md-4">
-            <x-boilerplate::input name="bill_amount" label="Bill Amount" type="number" step="0.01" :value="old('bill_amount')" placeholder="Bill Amount" />
+        <div class="col-md-4" hidden>
+            <x-boilerplate::input name="bill_amount" label="Bill Amount" type="number" step="0.01" :value="old('bill_amount')" placeholder="Bill Amount" hidden />
         </div>
         <div class="col-md-4">
             <x-boilerplate::input name="cash_receipt_date" label="Cash Receipt Date" type="date" :value="old('cash_receipt_date')" placeholder="Cash Receipt Date" />

@@ -40,7 +40,7 @@ class TransportDatatable extends Datatable
                     return $query->where('vehicle_id', $value);
                 }),
 
-            Column::add(__('Date'))
+            Column::add(__('______Date'))
                 ->data('date')
                 ->dateFormat('DD-MM-YYYY'),
 

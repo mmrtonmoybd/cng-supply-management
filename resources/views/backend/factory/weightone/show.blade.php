@@ -31,7 +31,7 @@
                     <tr><th>FM3</th><td>{{ $weightone->fm3 }}</td></tr>
                     <tr><th>Rate</th><td>{{ $weightone->rate }}</td></tr>
                     <tr><th>FTK</th><td>{{ $weightone->ftk }}</td></tr>
-                    <tr><th>Bill Amount</th><td>{{ $weightone->bill_amount }}</td></tr>
+                    <tr hidden><th>Bill Amount</th><td>{{ $weightone->bill_amount }}</td></tr>
                     <tr><th>Cash Receipt Date</th><td>{{ $weightone->cash_receipt_date ? (\Carbon\Carbon::parse($weightone->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Cash Receipt Amount</th><td>{{ $weightone->cash_receipt_amount }}</td></tr>
                     <tr><th>Received By</th><td>{{ $weightone->recived_by }}</td></tr>

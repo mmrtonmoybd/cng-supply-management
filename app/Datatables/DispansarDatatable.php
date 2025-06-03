@@ -34,7 +34,7 @@ class DispansarDatatable extends Datatable
                 ->data('id')
                 ->name('dispansars.id'),
 
-            Column::add('Date')
+            Column::add('______Date')
                 ->data('date')
                 ->dateFormat('DD-MM-YYYY')
                 ->filterType('daterangepicker'),
@@ -79,7 +79,7 @@ class DispansarDatatable extends Datatable
             Column::add(__('Bill No'))
                 ->data('bill_no'),
 
-            Column::add(__('Bill Date'))
+            Column::add(__('______Bill Date'))
                 ->data('bill_date')
                 ->dateFormat('DD-MM-YYYY'),
 
@@ -115,7 +115,7 @@ class DispansarDatatable extends Datatable
                     return $invoiceId->invoice_id ? '<a href="'.route('backend.factory.invoice.show', $invoiceId->invoice_id).'" target="_blank" style="color:#007bff;font-weight:bold;">Invoice('.$invoiceId->invoice_id.')</a>' : null;
                 })->notOrderable(),
 
-            Column::add(__('Invoice Date'))
+            Column::add(__('___Invoice Date'))
                 ->data('invoice_date')
                 ->dateFormat('DD-MM-YYYY'),
 

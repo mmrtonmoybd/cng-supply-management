@@ -33,7 +33,7 @@ class DieselDatatable extends Datatable
             Column::add(__('Id'))
                 ->data('id'),
 
-            Column::add(__('Load Date'))
+            Column::add(__('___Load Date'))
                 ->data('d_date')
                 ->dateFormat('DD-MM-YYYY'),
 
@@ -66,11 +66,11 @@ class DieselDatatable extends Datatable
             Column::add(__('Taka'))
                 ->data('taka'),
 
-            Column::add(__('Date'))
+            Column::add(__('___Use Date'))
                 ->data('date')
                 ->dateFormat('DD-MM-YYYY'),
 
-            Column::add(__('Time'))
+            Column::add(__('____Time'))
                 ->data('time', function ($diesel) {
                     return $diesel->time ? date('h:i A', strtotime($diesel->time)) : '';
 

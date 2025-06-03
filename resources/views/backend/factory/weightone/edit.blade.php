@@ -60,7 +60,7 @@
         <div class="col-md-4">
             <x-boilerplate::input name="ftk" label="FTK" type="number" step="0.01" :value="old('ftk', $weightone->ftk)" placeholder="FTK" />
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" hidden>
             <x-boilerplate::input name="bill_amount" label="Bill Amount" type="number" step="0.01" :value="old('bill_amount', $weightone->bill_amount)" placeholder="Bill Amount" />
         </div>
         <div class="col-md-4">

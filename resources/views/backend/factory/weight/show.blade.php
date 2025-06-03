@@ -33,13 +33,13 @@
                     <tr><th>Receive M3</th><td>{{ $weight->receive_m3 }}</td></tr>
                     <tr><th>Rate</th><td>{{ $weight->rate }}</td></tr>
                     <tr><th>Factory TK</th><td>{{ $weight->ftk }}</td></tr>
-                    <tr><th>Total Bill No</th><td>{{ $weight->total_bill_no }}</td></tr>
-                    <tr><th>Total Bill Taka</th><td>{{ $weight->total_bill_taka }}</td></tr>
+                    <tr hidden><th>Total Bill No</th><td>{{ $weight->total_bill_no }}</td></tr>
+                    <tr hidden><th>Total Bill Taka</th><td>{{ $weight->total_bill_taka }}</td></tr>
                     <tr><th>Difference Taka</th><td>{{ $weight->difference_taka }}</td></tr>
                     <tr><th>Difference M3</th><td>{{ $weight->difference_m3 }}</td></tr>
                     <tr><th>In</th><td>{{ $weight->in }}</td></tr>
                     <tr><th>Out</th><td>{{ $weight->out }}</td></tr>
-                    <tr><th>Bill Amount</th><td>{{ $weight->bill_amount }}</td></tr>
+                    <tr hidden><th>Bill Amount</th><td>{{ $weight->bill_amount }}</td></tr>
                     <tr><th>Cash Receipt Date</th><td>{{ $weight->cash_receipt_date ? (\Carbon\Carbon::parse($weight->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Cash Receipt Amount</th><td>{{ $weight->cash_receipt_amount }}</td></tr>
                     <tr><th>Received By</th><td>{{ $weight->recived_by }}</td></tr>
