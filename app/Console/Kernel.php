@@ -13,21 +13,20 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\CheckVehicleDocumentExpiry::class
+        Commands\CheckVehicleDocumentExpiry::class,
     ];
 
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
         // Run daily at 9:00 AM
         $schedule->command('vehicle:check-documents')
-                ->dailyAt('09:00')
-                ->appendOutputTo(storage_path('logs/vehicle-documents-check.log'));
+            ->dailyAt('09:00')
+            ->appendOutputTo(storage_path('logs/vehicle-documents-check.log'));
     }
 
     /**

@@ -2,16 +2,18 @@
 
 namespace App\Notifications;
 
+use App\Models\VehicleDocument;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use App\Models\VehicleDocument;
 
 class VehicleDocumentExpiryNotification extends Notification
 {
     use Queueable;
 
     protected $document;
+
     protected $daysRemaining;
+
     protected $isExpired;
 
     public function __construct(VehicleDocument $document, int $daysRemaining, bool $isExpired = false)
@@ -28,10 +30,10 @@ class VehicleDocumentExpiryNotification extends Notification
 
     public function toDatabase(object $notifiable): array
     {
-        $message = $this->isExpired 
+        $message = $this->isExpired
             ? "Vehicle document '{$this->document->name}' for vehicle {$this->document->vehicle->vehicle_number} has EXPIRED ({$this->daysRemaining} days ago)"
             : "Vehicle document '{$this->document->name}' for vehicle {$this->document->vehicle->vehicle_number} will expire in {$this->daysRemaining} days";
-            
+
         return [
             'message' => $message,
             'url' => route('backend.asset.vehicle.show', $this->document->vehicle_id),
