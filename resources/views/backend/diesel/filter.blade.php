@@ -138,9 +138,14 @@
                             <th></th>
                             <th class="text-right">{{ number_format($diesels->sum('distance'), 2) }}</th>
                             <th class="text-right">{{ number_format($diesels->sum('use_litre'), 2) }}</th>
-                            <th class="text-right">{{ number_format($diesels->sum('use_balance'), 2) }}</th>
-                            <th class="text-right">{{ number_format($diesels->sum('diesel_purchase_litre') - $diesels->sum('use_litre'), 2) }}</th>
-                            <th class="text-right">{{ number_format($diesels->sum('taka') - $diesels->sum('use_balance'), 2) }}</th>
+                            <th class="text-right">{{ number_format($diesels->sum('use_balance'), 2) }}</th>                            <th class="text-right">
+                                {{ number_format($diesels->sum('diesel_purchase_litre') - $diesels->sum('use_litre'), 2) }}
+                                {{ ($diesels->sum('diesel_purchase_litre') - $diesels->sum('use_litre')) < 0 ? '(Due)' : '(Advance)' }}
+                            </th>
+                            <th class="text-right">
+                                {{ number_format($diesels->sum('taka') - $diesels->sum('use_balance'), 2) }}
+                                {{ ($diesels->sum('taka') - $diesels->sum('use_balance')) < 0 ? '(Due)' : '(Advance)' }}
+                            </th>
                         </tr>
                     </tfoot>
                 </table>

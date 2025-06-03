@@ -133,7 +133,7 @@
       border-top: 2px solid var(--border);
     }
     .totals {
-      text-align: right;
+      text-align: left;
       margin: 24px 0;
       padding: 20px;
       font-size: 1.2rem;
@@ -304,13 +304,6 @@
       {{ $invoice->factory->address ?? '' }}<br>
       {{ $invoice->factory->email ?? '' }}<br>
     </div>
-    <div class="address" style="text-align: right">
-      <strong>Invoice From:</strong><br>
-      Mars Bangla<br>
-      House #43, Road #03, Sector #03, Uttra<br>
-      Dhaka, 1230<br>
-      Hotline: 01904-394972, 01923-660517<br>
-    </div>
   </div>
 
   <div class="table-title">Bill for CNG Supply</div>
@@ -443,19 +436,12 @@
     <strong>In Words:</strong> <span id="taka-words">{{ Illuminate\Support\Number::spell($total) }} only</span>
   </div>
 
-  <div class="verify-section">
-    <div id="qrcode"></div>
-  </div>
 
   @if (request()->route()->getName() === 'backend.factory.invoice.export')
   <div class="signature">
     <span><strong>Prepared By</strong></span>
   </div>
   @endif
-</div>
-
-<div class="footer">
-  Developed by Engineer BD Network
 </div>
 
 <div class="no-print">
@@ -465,18 +451,6 @@
 
 
 <script>
-
-  function generateQRCode() {
-    const invoiceId = "chjcnjdjncncjjd"; // Dynamically replace with real ID in production
-    const verifyUrl = "{{ route('factory.invoice.verify', $invoice->hash) }}"; // Replace with actual route
-
-    new QRCode(document.getElementById("qrcode"), {
-      text: verifyUrl,
-      width: 100,
-      height: 100
-    });
-  }
-  generateQRCode();
 
   function downloadPDF() {
   const invoice = document.querySelector('.invoice');
