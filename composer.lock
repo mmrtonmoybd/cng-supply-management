@@ -4237,16 +4237,16 @@
         },
         {
             "name": "sebastienheyd/boilerplate",
-            "version": "8.3.5",
+            "version": "8.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastienheyd/boilerplate.git",
-                "reference": "5050106af0a07cb2ff87dc99245acddeb7776cb5"
+                "reference": "a43781d82a273d6378f6f82fd3a32885f179f1b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastienheyd/boilerplate/zipball/5050106af0a07cb2ff87dc99245acddeb7776cb5",
-                "reference": "5050106af0a07cb2ff87dc99245acddeb7776cb5",
+                "url": "https://api.github.com/repos/sebastienheyd/boilerplate/zipball/a43781d82a273d6378f6f82fd3a32885f179f1b5",
+                "reference": "a43781d82a273d6378f6f82fd3a32885f179f1b5",
                 "shasum": ""
             },
             "require": {
@@ -4317,9 +4317,9 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastienheyd/boilerplate/issues",
-                "source": "https://github.com/sebastienheyd/boilerplate/tree/8.3.5"
+                "source": "https://github.com/sebastienheyd/boilerplate/tree/8.4.0"
             },
-            "time": "2025-06-01T07:47:08+00:00"
+            "time": "2025-06-02T19:27:07+00:00"
         },
         {
             "name": "spatie/laravel-activitylog",
