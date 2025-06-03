@@ -39,7 +39,6 @@
     <script>window.matchMedia("(prefers-color-scheme: dark)") ? $('body').addClass('dark-mode accent-light') : $('body').removeClass('dark-mode accent-light')</script>
 @endif
 @stack('js')
-
 @RegisterServiceWorkerScript
 </body>
 </html>

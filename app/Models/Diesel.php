@@ -52,6 +52,10 @@ class Diesel extends Model
                 $model->use_balance = $devide * $factor_balance;
             }
 
+            if (is_null($model->d_date)) {
+                $model->d_date = $model->date;
+            }
+
         });
     }
 

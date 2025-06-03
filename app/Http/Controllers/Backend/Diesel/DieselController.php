@@ -50,13 +50,13 @@ class DieselController extends Controller
     {
         $this->authorize('diesel_crud');
         $validated = $request->validate([
-            'd_date' => 'required|date',
-            'd_time' => 'required',
+            'd_date' => 'nullable|date',
+            'd_time' => 'nullable',
             'slip_no' => 'nullable|string',
-            'pumpName_id' => 'required|exists:pump_names,id',
+            'pumpName_id' => 'nullable|exists:pump_names,id',
             'vehicle_id' => 'required|exists:vehicles,id',
-            'diesel_purchase_litre' => 'required|numeric',
-            'taka' => 'required|numeric',
+            'diesel_purchase_litre' => 'nullable|numeric',
+            'taka' => 'nullable|numeric',
             'date' => 'nullable|date',
             'time' => 'nullable',
             'distance' => 'nullable|numeric',
@@ -95,13 +95,13 @@ class DieselController extends Controller
     {
         $this->authorize('diesel_crud');
         $validated = $request->validate([
-            'd_date' => 'required|date',
-            'd_time' => 'required',
+            'd_date' => 'nullable|date',
+            'd_time' => 'nullable',
             'slip_no' => 'nullable|string',
-            'pumpName_id' => 'required|exists:pump_names,id',
+            'pumpName_id' => 'nullable|exists:pump_names,id',
             'vehicle_id' => 'required|exists:vehicles,id',
-            'diesel_purchase_litre' => 'required|numeric',
-            'taka' => 'required|numeric',
+            'diesel_purchase_litre' => 'nullable|numeric',
+            'taka' => 'nullable|numeric',
             'date' => 'nullable|date',
             'time' => 'nullable',
             'distance' => 'nullable|numeric',

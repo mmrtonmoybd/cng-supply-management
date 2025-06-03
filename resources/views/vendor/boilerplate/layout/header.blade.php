@@ -7,6 +7,13 @@
                 </a>
             </li>
             @foreach(app('boilerplate.navbar.items')->getItems('left') as $view){!! $view !!}@endforeach
+
+            <!-- Install PWA Button -->
+            <li class="nav-item">
+                <button id="installPwaBtn" class="btn btn-sm btn-success" style="display: none; margin-top: 5px;">
+                <i class="fas fa-download"></i> Install App
+                </button>
+            </li>
         </ul>
     </div>
     <div class="navbar-right ml-auto d-flex">

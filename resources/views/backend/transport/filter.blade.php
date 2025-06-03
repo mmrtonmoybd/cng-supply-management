@@ -11,6 +11,17 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
+<style>
+    #transportTable th, #transportTable td {
+        white-space: nowrap;
+    }
+    .table-responsive {
+        overflow-x: auto;
+    }
+    .table {
+        width: auto !important;
+    }
+</style>
 @endpush
 
 @section('content')
@@ -56,7 +67,7 @@
     <div class="col-12">
         <x-boilerplate::card>
             <div class="table-responsive">
-                <table id="transportTable" class="table table-striped table-hover">
+                <table id="transportTable" class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>S/L</th>
