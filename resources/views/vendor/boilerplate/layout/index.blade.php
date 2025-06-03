@@ -21,6 +21,8 @@
     <script src="{{ mix('/boilerplate.min.js', '/assets/vendor/boilerplate') }}" data-csrf="{{ csrf_token() }}" data-locale="{{ App::getLocale() }}" data-settings="{{ route('boilerplate.user.settings',null,false) }}"></script>
     @include('boilerplate::layout.session')
 @stack('plugin-js')
+
+@PwaHead
 </head>
 <body class="layout-fixed layout-navbar-fixed sidebar-mini{{ $darkmode ? ' dark-mode' : '' }}{{ setting('sidebar-collapsed', false) ? ' sidebar-collapse' : '' }}" data-darkmode="{{ setting('darkmode', '2') }}">
     <div class="wrapper">
@@ -49,5 +51,6 @@
 @if(session('growl'))
     <script>growl("{!! session('growl')[0] ?? session('growl') !!}", "{{ session('growl')[1] ?? 'info' }}")</script>
 @endif
+@RegisterServiceWorkerScript
 </body>
 </html>

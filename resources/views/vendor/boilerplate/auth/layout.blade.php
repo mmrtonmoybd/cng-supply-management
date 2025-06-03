@@ -15,6 +15,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
     @stack('css')
+
+@PwaHead
 </head>
 <body class="hold-transition login-page">
     @yield('content')
@@ -26,5 +28,7 @@
     <script>window.matchMedia("(prefers-color-scheme: dark)") ? $('body').addClass('dark-mode accent-light') : $('body').removeClass('dark-mode accent-light')</script>
 @endif
 @stack('js')
+
+@RegisterServiceWorkerScript
 </body>
 </html>
