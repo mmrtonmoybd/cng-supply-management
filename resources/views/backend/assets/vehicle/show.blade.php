@@ -89,7 +89,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="{{ asset($document->path ?? $document->document_url) }}" target="_blank" style="color:#007bff;font-weight:bold;">View Document</a>
+                                                <a href="{{ asset($document->document_url) }}" target="_blank" style="color:#007bff;font-weight:bold;">View Document</a>
                                             </td>
                                         </tr>
                                     @empty
