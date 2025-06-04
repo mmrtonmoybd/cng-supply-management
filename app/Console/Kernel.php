@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\CheckVehicleDocumentExpiry::class,
+        Commands\NotifyInactiveLoads::class,
     ];
 
     /**
@@ -27,6 +28,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('vehicle:check-documents')
             ->dailyAt('09:00')
             ->appendOutputTo(storage_path('logs/vehicle-documents-check.log'));
+
+        // Check for inactive loads every hour
+        $schedule->command('loads:check-inactive')
+            ->hourly()
+            ->appendOutputTo(storage_path('logs/inactive-loads-check.log'));
     }
 
     /**

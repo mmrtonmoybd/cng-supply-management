@@ -19,12 +19,12 @@ return [
     */
 
     'manifest' => [
-        'name' => 'Mars Bangla',
-        'short_name' => 'MarsBangla',
-        'background_color' => '#f8f9fa',
+        'name' => 'Mars Bangla Fuel Solution',
+        'short_name' => 'Mars Bangla',
+        'background_color' => '#ffffff',
         'display' => 'standalone',
-        'description' => 'Mars Bangla Fuel Solution Ltd is a leading fuel solution provider in Bangladesh, offering a wide range of services including fuel delivery, storage, and management. Our mission is to provide reliable and efficient fuel solutions to our customers while ensuring safety and sustainability.',
-        'theme_color' => '#f8f9fa',
+        'description' => 'Reliable and efficient fuel delivery, storage, and management services across Bangladesh.',
+        'theme_color' => '#004e92',
         'icons' => [
             [
                 'src' => 'logo/logo512.png',
