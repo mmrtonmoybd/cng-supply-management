@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
     {
         // Run daily at 9:00 AM
         $schedule->command('vehicle:check-documents')
-            ->dailyAt('09:00')
+            ->everyMinute()
             ->appendOutputTo(storage_path('logs/vehicle-documents-check.log'));
     }
 
