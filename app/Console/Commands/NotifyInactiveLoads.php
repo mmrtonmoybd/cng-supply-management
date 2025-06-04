@@ -46,6 +46,7 @@ class NotifyInactiveLoads extends Command
 
         if ($inactiveLoads->isEmpty()) {
             $this->info('No inactive loads found that require notification.');
+
             return;
         }
 
