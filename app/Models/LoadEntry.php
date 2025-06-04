@@ -44,10 +44,6 @@ class LoadEntry extends Model
     protected static function booted(): void
     {
         static::created(function (LoadEntry $model) {
-            $user = User::whereIn('id', getRolePermissionUsersId('admin', 'load_crud'))->get();
-            // Use Notification facade to notify all users at once
-            Notification::send($user, new LoadAddNotification($model));
-
             // Automatically create a Pump entry
             Pump::create([
                 'load_entry_id' => $model->id,
