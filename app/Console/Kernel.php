@@ -39,6 +39,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('loads:notify-new')
             ->everyTwoMinutes()
             ->appendOutputTo(storage_path('logs/new-loads-notification.log'));
+
+        // Optimize the application daily at 8:00 AM
+        $schedule->command('optimize')
+            ->dailyAt('08:00')
+            ->appendOutputTo(storage_path('logs/optimize.log'));
     }
 
     /**
