@@ -27,7 +27,8 @@ class NotifyNewLoad extends Command
 
     /**
      * Execute the console command.
-     */    public function handle()
+     */
+    public function handle()
     {        // Get loads created in the last 2 minutes that haven't been notified yet
         $newLoads = LoadEntry::where('created_at', '>=', now()->subMinutes(2))
             ->whereNotExists(function ($query) {
@@ -37,9 +38,10 @@ class NotifyNewLoad extends Command
                     ->where('type', LoadAddNotification::class);
             })
             ->get();
-        
+
         if ($newLoads->isEmpty()) {
             $this->info('No new loads found to notify about.');
+
             return;
         }
 

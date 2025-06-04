@@ -34,7 +34,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('loads:check-inactive')
             ->hourly()
             ->appendOutputTo(storage_path('logs/inactive-loads-check.log'));
-            
+
         // Check for new loads every 2 minutes
         $schedule->command('loads:notify-new')
             ->everyTwoMinutes()

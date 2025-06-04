@@ -2,10 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Boilerplate\User;
-use App\Notifications\LoadAddNotification;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Notification;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
