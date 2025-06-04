@@ -72,7 +72,7 @@ class ActivitylogDatatable extends Datatable
             Column::add(__('User'))
                 ->data('causer_id', function ($causer_id) {
                     $find = User::find($causer_id->causer_id);
-                    
+
                     return $find ? $find->first_name.' '.$find->last_name : 'Deleted User';
                 })->filterOptions(function () {
                     return User::all()->pluck('name', 'id')->toArray();
