@@ -20,16 +20,10 @@ jobs:
       with:
         php-version: '8.2'
 
-    - name: Use Node.js 16
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'
-
     - name: 🧩 Update dependencies
       run: |
         composer update --no-dev --no-interaction --optimize-autoloader
-        npm update
-        npm run build
+        php artisan vendor:publish --tag=boilerplate-public --force
     
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
