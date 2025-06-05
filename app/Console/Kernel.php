@@ -24,20 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // Run daily at 9:00 AM
-        $schedule->command('vehicle:check-documents')
-            ->dailyAt('09:00')
-            ->appendOutputTo(storage_path('logs/vehicle-documents-check.log'));
-
-        // Check for inactive loads every hour
-        $schedule->command('loads:check-inactive')
-            ->hourly()
-            ->appendOutputTo(storage_path('logs/inactive-loads-check.log'));
-
-        // Optimize the application daily at 8:00 AM
-        $schedule->command('optimize')
-            ->dailyAt('08:00')
-            ->appendOutputTo(storage_path('logs/optimize.log'));
+        
     }
 
     /**
