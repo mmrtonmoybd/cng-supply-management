@@ -35,7 +35,6 @@ class LoadentryDatatable extends Datatable
                 ->name('load_entries.id'),
 
             Column::add(__('Date'))
-                ->width('180px')
                 ->data('date')
                 ->dateFormat('DD-MM-YYYY'),
 
