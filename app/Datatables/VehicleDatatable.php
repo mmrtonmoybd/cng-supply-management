@@ -87,9 +87,9 @@ class VehicleDatatable extends Datatable
                             $diffInDays = $now->diffInDays($expiryDate, false);
                             if ($expiryDate < $now) {
                                 $statusClass = 'text-danger';
-                            } elseif ($diffInDays <= 10) {
-                                $statusClass = 'text-danger';
                             } elseif ($diffInDays <= 30) {
+                                $statusClass = 'text-danger';
+                            } elseif ($diffInDays <= 40) {
                                 $statusClass = 'text-warning';
                             } else {
                                 $statusClass = 'text-success';

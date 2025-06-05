@@ -57,10 +57,10 @@ class VehicledocumentDatatable extends Datatable
                         if ($expiry < $now) {
                             // Expired
                             return '<span class="text-danger">'.$expiry->format('d-m-Y').'</span>';
-                        } elseif ($diffInDays <= 10) {
+                        } elseif ($diffInDays <= 30) {
                             // Less than or equal to 10 days left
                             return '<span class="text-danger">'.$expiry->format('d-m-Y').'</span>';
-                        } elseif ($diffInDays <= 30) {
+                        } elseif ($diffInDays <= 40) {
                             // Less than or equal to 30 days left
                             return '<span class="text-warning">'.$expiry->format('d-m-Y').'</span>';
                         } else {

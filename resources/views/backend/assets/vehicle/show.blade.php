@@ -70,9 +70,9 @@
                                                 $expiry = \Carbon\Carbon::parse($document->expiry_date);
                                                 $now = \Carbon\Carbon::now();
                                                 $diffInDays = $now->diffInDays($expiry, false);
-                                                if ($expiry < $now || $diffInDays <= 10) {
+                                                if ($expiry < $now || $diffInDays <= 30) {
                                                     $expiryClass = 'text-danger';
-                                                } elseif ($diffInDays <= 30) {
+                                                } elseif ($diffInDays <= 40) {
                                                     $expiryClass = 'text-warning';
                                                 } else {
                                                     $expiryClass = 'text-success';
