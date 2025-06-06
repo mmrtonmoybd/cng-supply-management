@@ -33,21 +33,14 @@
       background: var(--card-bg);
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      padding: 32px 40px;
+      padding: 1.5in 40px 32px 40px;
       border: 1px solid var(--border);
       position: relative;
       font-size: 1.15rem;
+      page-break-inside: avoid;
     }
     .invoice-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 20px;
-      margin-bottom: 24px;
-      margin-top: 0;
-      padding-top: 0;
-      font-size: 1.25rem;
+      display: none; /* Removed header */
     }
     .logo {
       display: flex;
@@ -149,6 +142,7 @@
       text-align: left;
       font-size: 1.1rem;
       position: relative;
+      page-break-inside: avoid;
     }
     .signature span {
       display: inline-block;
@@ -247,8 +241,9 @@
         border: none;
         box-shadow: none;
         margin: 0 !important;
-        padding: 8px 8px 8px 8px !important;
-        page-break-inside: avoid;
+        padding: 1.5in 20px 20px 20px !important;
+        border: none;
+        box-shadow: none;
       }
       .invoice-header {
         margin-top: 0 !important;
@@ -269,41 +264,45 @@
       .no-print {
         display: none !important;
       }
+
+      
+    .signature {
+    display: block !important;
+    margin-top: 50px;
+  }
+    @page {
+    margin-top: 1.5in;
+    margin-right: 0.5in;
+    margin-bottom: 0.8in;
+    margin-left: 0.5in;
+    }
+
+    .print-only {
+    display: block !important;
+  }
     }
   </style>
 </head>
 <body>
 
 <div class="invoice">
-  <div class="invoice-header">
-    <div class="logo">
-        <div style="display: flex; flex-direction: column;">
-            <div style="display: flex; align-items: center;">
-                <img src="{{ asset('logo/new-logo.png') }}">
-                <font color='red' style="font-size: 1.8rem; margin-left: 10px;">MARS BANGLA</font>
-            </div>
-            <div style="font-size: 0.85rem; color: #555; margin-top: 8px; line-height: 1.4;">
-                <div><i class="fas fa-envelope"></i> Email: marsbangla840@gmail.com</div>
-                <div><i class="fas fa-phone"></i> Mobile: 01923-660517, 01904-394972</div>
-                <div><i class="fas fa-map-marker-alt"></i> Address: House #43, Road #03, Sector #03, Uttra, Dhaka-1230</div>
-            </div>
-        </div>
-    </div>
-    <div class="invoice-info">
-      <h2>INVOICE</h2>
-      <strong><p>Invoice No: #{{ $invoice->id }}</p>
-      <p>Invoice Date: {{ $invoice->date ? (\Carbon\Carbon::parse($invoice->date)->format('d-m-Y')) : 'N/A' }}</p>
-    </strong>
-    </div>
-  </div>
+  
 
   <div class="address-section">
     <div class="address" style="text-align: left">
       <strong>Invoice To:</strong><br>
       {{ $invoice->factory->name }}<br>
       {{ $invoice->factory->address ?? '' }}<br>
-      {{ $invoice->factory->email ?? '' }}<br>
+      {{ $invoice->factory->email ?? '' }}
     </div>
+
+    <div class="address" style="text-align: left">
+      <strong>INVOICE <br>
+      Invoice No: #{{ $invoice->id }}<br>
+      Invoice Date: {{ $invoice->date ? (\Carbon\Carbon::parse($invoice->date)->format('d-m-Y')) : 'N/A' }}
+    </strong>
+    </div>
+
   </div>
 
   <div class="table-title">Bill for CNG Supply</div>
@@ -438,7 +437,7 @@
 
 
   @if (request()->route()->getName() === 'backend.factory.invoice.export')
-  <div class="signature">
+  <div class="signature print-only">
     <span><strong>Prepared By</strong></span>
   </div>
   @endif
@@ -452,6 +451,13 @@
 
 <script>
 
+window.addEventListener('beforeprint', () => {
+  const signature = document.querySelector('.signature');
+  document.querySelectorAll('.invoice-page').forEach((page, index) => {
+    const cloned = signature.cloneNode(true);
+    page.appendChild(cloned);
+  });
+});
   function downloadPDF() {
   const invoice = document.querySelector('.invoice');
   html2canvas(invoice, { scale: 2, useCORS: true }).then(canvas => {
