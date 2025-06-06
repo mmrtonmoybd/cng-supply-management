@@ -2,311 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Invoice</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <title>Invoice Print</title>
   <style>
-    :root {
-      --primary: #1a237e;
-      --secondary: #283593;
-      --bg: #fff;
-      --card-bg: #fff;
-      --border: #e0e0e0;
-      --text: #2c3e50;
-      --muted: #707070;
-      --accent: #f44336;
-    }
     body {
-      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
-      background: #f7f7f7;
-      color: var(--text);
       margin: 0;
-      padding: 0;
-      font-size: 18px;
+      padding: 20px;
+      font-family: Arial, sans-serif;
     }
-    .invoice {
-      max-width: 900px;
-      margin: 2rem auto;
-      background: var(--card-bg);
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      padding: 1.5in 40px 32px 40px;
-      border: 1px solid var(--border);
-      position: relative;
-      font-size: 1.15rem;
-      page-break-inside: avoid;
-    }
-    .invoice-header {
-      display: none; /* Removed header */
-    }
-    .logo {
-      display: flex;
-      align-items: flex-start;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary);
-      letter-spacing: 1px;
-    }
-    .logo img {
-      height: 50px;
-      margin-right: 15px;
-      object-fit: contain;
-    }
+
     .invoice-info {
-      text-align: right;
-      font-size: 1.1rem;
+      font-size: 14px;
+      margin-bottom: 10px;
     }
-    .invoice-info h2 {
-      margin: 0 0 4px 0;
-      color: var(--primary);
-      font-size: 1.7rem;
-      letter-spacing: 0.5px;
-    }
-    .address-section {
-      display: flex;
-      justify-content: space-between;
-      margin: 28px 0 32px 0;
-      gap: 40px;
-      font-size: 1.08rem;
-    }
-    .address {
+
+    .invoice-info .left,
+    .invoice-info .right {
+      display: inline-block;
+      vertical-align: top;
       width: 48%;
-      line-height: 1.8;
-      background: #f8fafc;
-      border-radius: 6px;
-      padding: 20px 24px;
-      border: 1px solid var(--border);
-      font-size: 1.08rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
-    .table-title {
-      background: var(--primary);
-      color: white;
-      padding: 12px 16px;
-      font-weight: 600;
-      text-align: center;
-      border-radius: 6px 6px 0 0;
-      font-size: 1.2rem;
-      letter-spacing: 0.5px;
-      margin-bottom: 0;
+
+    .invoice-info .right {
+      text-align: right;
     }
+
     table {
       width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
-      margin-bottom: 24px;
-      background: #fff;
-      border-radius: 0 0 6px 6px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      font-size: 1.08rem;
+      border-collapse: collapse;
+      page-break-inside: auto;
     }
+
+    thead {
+      display: table-header-group;
+    }
+
+    tbody tr {
+      page-break-inside: avoid !important;
+	  break-inside: avoid-row !important;
+    }
+
+    table, th, td {
+      border: 1px solid #000;
+    }
+
     th, td {
-      border: 1px solid var(--border);
-      padding: 12px 16px;
-      text-align: center;
-      font-size: 1.08rem;
-    }
-    th {
-      background: var(--secondary);
-      color: white;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      font-size: 1.12rem;
-      border-color: rgba(255,255,255,0.1);
-    }
-    tfoot td {
-      font-weight: 700;
-      background: #f8fafc;
-      color: var(--primary);
-      font-size: 1.2rem;
-      border-top: 2px solid var(--border);
-    }
-    .totals {
-      text-align: left;
-      margin: 24px 0;
-      padding: 20px;
-      font-size: 1.2rem;
-      color: var(--primary);
-      font-weight: 600;
-      background: #f8fafc;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-    }
-    .signature {
-      margin-top: 40px;
-      margin-bottom: 60px;
-      text-align: left;
-      font-size: 1.1rem;
-      position: relative;
-      page-break-inside: avoid;
-    }
-    .signature span {
-      display: inline-block;
-      min-width: 200px;
-      margin-top: 40px;
-      border-top: 2px solid var(--border);
-      padding-top: 8px;
-      color: var(--primary);
-      font-size: 1.1rem;
-      letter-spacing: 0.5px;
-      position: relative;
-    }
-    .signature span::after {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: 0;
-      width: 50px;
-      height: 2px;
-      background: var(--primary);
-    }
-    .no-print {
-      text-align: center;
-      margin: 32px 0;
-      font-size: 1.1rem;
-    }
-    .no-print button {
-      padding: 12px 28px;
-      margin: 8px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      transition: all 0.3s ease;
-      font-weight: 600;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
-    .no-print button:hover {
-      background: var(--secondary);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    .no-print button:nth-child(2) {
-      background: var(--accent);
-    }
-    .no-print button:nth-child(2):hover {
-      background: #d32f2f;
-    }
-    .no-print button i {
-      margin-right: 8px;
-    }
-    .footer {
-      background: #f2f2f2;
-      color: var(--muted);
-      padding: 12px;
-      text-align: center;
-      font-size: 1.08rem;
-      border-radius: 0 0 6px 6px;
-      margin-top: 16px;
-      letter-spacing: 0.5px;
-      border: 1px solid var(--border);
-      border-top: none;
-    }
-    .verify-section {
-      display: flex;
-      justify-content: flex-end;
-      margin: 32px 0;
-      font-size: 1.08rem;
-      position: relative;
-    }
-    #qrcode {
-      background: #fff;
       padding: 8px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      border: 1px solid var(--border);
+      text-align: center;
+      font-size: 14px;
     }
-    #qrcode::before {
-      content: 'Scan to Verify';
-      position: absolute;
-      bottom: -25px;
+
+    .spacer {
+      height: 100px;
+    }
+
+    .print-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
       right: 0;
-      font-size: 0.9rem;
-      color: var(--muted);
+      padding: 96px 0px 0px 0px;
+      text-align: left;
+      border-top: 1px solid #000;
+      font-size: 14px;
+      background: #fff;
     }
+
+    .print-button {
+      margin: 20px;
+      text-align: center;
+    }
+
+    .print-button button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
     @media print {
-      html, body {
-        background: #fff !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        height: auto !important;
-      }
-      .invoice {
-        border: none;
-        box-shadow: none;
-        margin: 0 !important;
-        padding: 1.5in 20px 20px 20px !important;
-        border: none;
-        box-shadow: none;
-      }
-      .invoice-header {
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-        margin-bottom: 8px !important;
-        padding-bottom: 4px !important;
-      }
-      .address-section {
-        margin: 8px 0 6px 0 !important;
-        gap: 8px !important;
-      }
-      .footer {
-        border-radius: 0;
-        border: none;
-        margin-top: 8px !important;
-        padding: 6px !important;
-      }
-      .no-print {
-        display: none !important;
+      .print-button {
+        display: none;
       }
 
-      
-    .signature {
-    display: block !important;
-    margin-top: 50px;
-  }
-    @page {
-    margin-top: 1.5in;
-    margin-right: 0.5in;
-    margin-bottom: 0.8in;
-    margin-left: 0.5in;
-    }
+      @page {
+        margin: 1.5in 0.1in 0.5in 0.5in;
+      }
 
-    .print-only {
-    display: block !important;
+      .spacer {
+        height: 100px;
+      }
+	  
+	    thead {
+    display: table-header-group; /* Ensures table headers repeat */
   }
+
+  tfoot {
+    display: table-footer-group; /* Optional: adds footer if needed */
+  }
+
+  tr, td, th {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
     }
   </style>
 </head>
 <body>
 
-<div class="invoice">
-  
+  <!-- Print Button -->
+  <div class="print-button">
+    <button onclick="window.print()">🖨️ Print</button>
+  </div>
 
-  <div class="address-section">
-    <div class="address" style="text-align: left">
+  <!-- Invoice Info -->
+  <div class="invoice-info">
+    <div class="left">
       <strong>Invoice To:</strong><br>
       {{ $invoice->factory->name }}<br>
       {{ $invoice->factory->address ?? '' }}<br>
       {{ $invoice->factory->email ?? '' }}
     </div>
-
-    <div class="address" style="text-align: left">
-      <strong>INVOICE <br>
-      Invoice No: #{{ $invoice->id }}<br>
-      Invoice Date: {{ $invoice->date ? (\Carbon\Carbon::parse($invoice->date)->format('d-m-Y')) : 'N/A' }}
-    </strong>
+    <div class="right">
+      <strong>Invoice ID:</strong> #{{ $invoice->id }}<br>
+      <strong>Invoice Date:</strong> {{ $invoice->date ? (\Carbon\Carbon::parse($invoice->date)->format('d-m-Y')) : 'N/A' }}
     </div>
-
   </div>
 
-  <div class="table-title">Bill for CNG Supply</div>
-  <table id="invoice-table">
+  <!-- Table -->
+  <div style="text-align: center; font-family: sans-serif; font-size: 16pt; margin-bottom: 20px;">
+  <u>Bill for CNG Supply</u>
+</div>
+  <table>
     <thead>
       <tr>
         <th>SL</th>
@@ -338,9 +164,9 @@
         <th>Taka</th>
       </tr>
     </thead>
-    <tbody id="invoice-body">
-
-                        @if ($invoice->factory_type == 'dispansar')
+    <tbody>
+	
+	@if ($invoice->factory_type == 'dispansar')
                             @php
                             $items = $invoice->dispansar;
                             @endphp
@@ -365,8 +191,8 @@
 
 
         @foreach ($items as $index => $item)
-        
-        
+		
+		
       <tr>
         <td>{{ $index + 1 }}</td>
         <td>{{ $item->date ? (\Carbon\Carbon::parse($item->date)->format('d-m-Y')) : 'N/A' }}</td>
@@ -418,61 +244,28 @@
                         @endif
       </tr>
       @endforeach
-      
-    </tbody>
-    <tfoot>
-      <tr>
+	  
+	  <tr>
         <td colspan="4"><strong>Total</strong></td>
         <td id="total-gas">{{ $m3 }}</td>
         <td></td>
         <td id="total-taka">{{ $total }}</td>
       </tr>
-    </tfoot>
+	  
+    </tbody>
   </table>
-
-  <div class="totals">
+  <div >
   
-    <strong>In Words:</strong> <span id="taka-words">{{ Illuminate\Support\Number::spell($total) }} only</span>
+    <strong>In Words: <span>{{ Illuminate\Support\Number::spell($total) }} only</span></strong>
   </div>
 
+  <!-- Spacer before footer -->
+  <div class="spacer"></div>
 
-  @if (request()->route()->getName() === 'backend.factory.invoice.export')
-  <div class="signature print-only">
-    <span><strong>Prepared By</strong></span>
+  <!-- Footer Signature -->
+  <div class="print-footer">
+    <p><strong>Prepared By:</strong> ____________________________</p>
   </div>
-  @endif
-</div>
-
-<div class="no-print">
-  <button onclick="window.print()"><i class="fas fa-print"></i>Print</button>
-  <button onclick="downloadPDF()"><i class="fas fa-file-pdf"></i>Download PDF</button>
-</div>
-
-
-<script>
-
-window.addEventListener('beforeprint', () => {
-  const signature = document.querySelector('.signature');
-  document.querySelectorAll('.invoice-page').forEach((page, index) => {
-    const cloned = signature.cloneNode(true);
-    page.appendChild(cloned);
-  });
-});
-  function downloadPDF() {
-  const invoice = document.querySelector('.invoice');
-  html2canvas(invoice, { scale: 2, useCORS: true }).then(canvas => {
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new window.jspdf.jsPDF('p', 'pt', 'a4');
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    const imgWidth = pageWidth - 40;
-    const imgHeight = canvas.height * imgWidth / canvas.width;
-    let position = 20;
-    pdf.addImage(imgData, 'PNG', 20, position, imgWidth, imgHeight);
-    pdf.save('invoice-{{ $invoice->id }}.pdf');
-  });
-}
-</script>
 
 </body>
 </html>
