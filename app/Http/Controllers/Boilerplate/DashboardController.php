@@ -2,13 +2,26 @@
 
 namespace App\Http\Controllers\Boilerplate;
 
+use App\Models\Calculation;
+use App\Models\CngPump;
+use App\Models\Diesel;
+use App\Models\Dispansar;
+use App\Models\IncomeEntry;
+use App\Models\Invoice;
+use App\Models\LoadEntry;
+use App\Models\Transport;
+use App\Models\Weight;
+use App\Models\WeightOne;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Sebastienheyd\Boilerplate\Dashboard\DashboardWidgetsRepository;
+use App\Http\Controllers\Controller;
+use App\Models\Pump;
+use Illuminate\Support\Carbon;
 
-class DashboardController
+class DashboardController extends Controller
 {
     private $registry;
 
@@ -17,217 +30,251 @@ class DashboardController
      *
      * @return Application|Factory|View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $JSparams = json_encode([
-            'modal_route' => route('boilerplate.dashboard.add-widget'),
-            'load_widget' => route('boilerplate.dashboard.load-widget'),
-            'save_widgets' => route('boilerplate.dashboard.save-widgets'),
-            'edit_widget' => route('boilerplate.dashboard.edit-widget'),
-            'update_widget' => route('boilerplate.dashboard.update-widget'),
-        ]);
+        $start_date = $request->input('daterange.start') ? $request->input('daterange.start') : Carbon::now();
+        $end_date = $request->input('daterange.end') ? $request->input('daterange.end') : Carbon::now();
 
-        $widgets = [];
+        $con_start = Carbon::parse($start_date)->format('Y-m-d');
+        $con_end = Carbon::parse($end_date)->format('Y-m-d');
 
-        foreach (auth()->user()->setting('dashboard', config('boilerplate.dashboard.widgets')) as $widget) {
-            [$widgetSlug, $params] = [array_key_first($widget), $widget[array_key_first($widget)]];
+        // profit 
+        $profit_pump = Pump::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('purchase_taka');
+        $profit_diesel = Diesel::whereBetween('d_date', [
+            $con_start,
+            $con_end
+        ])->sum('taka');
+        $profit_transport = Transport::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('total_cost');
 
-            if ($widgetSlug === 'line-break') {
-                $widgets[] = '<div class="d-line-break"></div>';
+        $profit_transport_rent = Transport::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('rent');
 
-                continue;
-            }
+        $profit_dispansar = Dispansar::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('bill_amount');
+        $profit_weightone = WeightOne::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('ftk');
+        $profit_weight = Weight::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('ftk');
+        $profit_cngpump = CngPump::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('ftk');
 
-            $widget = $this->getWidgetsRegistry()->getWidget($widgetSlug);
+        $profit = ($profit_dispansar + $profit_weightone + $profit_weight + $profit_cngpump  + $profit_transport_rent) - ($profit_pump + $profit_diesel + $profit_transport);
 
-            if (! $widget || ! $widget->isAuthorized()) {
-                continue;
-            }
+        // Load
+          $load = Pump::whereBetween('date', [
+            $con_start,
+            $con_end
+          ]);
+          $load_count = $load->count('id');
+          $load_m3 = $load->sum('cng_purchase_m3');
 
-            $widget->set($params)->make();
+          // Diesel cost
+          $diesel_cost = Diesel::whereBetween('date', [
+            $con_start,
+            $con_end
+          ])->sum('taka');
 
-            $widgets[] = view('boilerplate::dashboard.widget', [
-                'widget' => $widget,
-                'content' => $widget->render(),
-            ])->render();
+          // Total pay 
+           $pay_pump = Pump::whereBetween('payment_date', [
+            $con_start,
+            $con_end
+        ])->sum('payment');
+
+        // due / advance
+        $due_pump = Pump::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('payment');
+           $due_pump = Pump::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('purchase_taka');
+           $due_diesel = Diesel::whereBetween('d_date', [
+            $con_start,
+            $con_end
+        ])->sum('taka');
+
+        $total_due = $due_pump - ($due_pump + $due_diesel);
+        if ($total_due > 0) {
+            $total_due_type = 'Advance';
+        } elseif ($total_due > 0) {
+            $total_due_type = 'Paid';
+        } else {
+            $total_due_type = 'Due';
         }
 
-        return view('boilerplate::dashboard', compact('JSparams', 'widgets'));
-    }
+        // Use Diesel 
+        $use_liter_diesel = Diesel::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('diesel_purchase_litre');
+        $use_liter_diesel_2 = Diesel::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('use_litre');
 
-    /**
-     * Show modal to add / remove a widget to the dashboard.
-     *
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
-     */
-    public function addWidget(Request $request)
-    {
-        $widgets = $this->getWidgetsRegistry()->getWidgets();
-        $installed = $request->post('widgets');
-
-        return view('boilerplate::dashboard.widgets', compact('widgets', 'installed'));
-    }
-
-    /**
-     * Add a widget to the dashboard with a wrapper to allow editing.
-     *
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
-     */
-    public function loadWidget(Request $request)
-    {
-        $widget = $this->getWidgetOrFail($request->post('slug'));
-
-        $widget->make();
-
-        return view('boilerplate::dashboard.widget', [
-            'widget' => $widget,
-        ]);
-    }
-
-    /**
-     * Show modal to edit widget settings.
-     *
-     * @return Application|Factory|View|\Illuminate\Foundation\Application
-     */
-    public function editWidget(Request $request)
-    {
-        $widget = $this->getWidgetOrFail($request->post('slug'));
-
-        $request->session()->forget('_old_input');
-
-        $params = $this->getWidgetUserSettings($request->post('slug'));
-        $params = array_merge($widget->getParameters(), $params);
-
-        return view('boilerplate::dashboard.widgetEdit', [
-            'widget' => $widget,
-            'params' => $params,
-        ]);
-    }
-
-    /**
-     * Updates widget settings and saves them for the current user.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function updateWidget(Request $request)
-    {
-        $widget = $this->getWidgetOrFail($request->post('widget-slug'));
-
-        if (method_exists($widget, 'validator')) {
-            $validator = $widget->validator($request);
-
-            if ($validator->fails()) {
-                $request->flash();
-                $view = view($widget->getEditView())->withErrors($validator->errors());
-                view()->share('errors', $view->errors);
-
-                return response()->json(['success' => false, 'view' => $view->render()]);
-            }
+        $use_liter = $use_liter_diesel - $use_liter_diesel_2; 
+        if ($use_liter < 0) {
+            $use_liter_type = 'Due';
+        } else {
+            $use_liter_type = 'Advance';
         }
 
-        $input = $request->except('widget-slug', '_token');
+        $use_bal_diesel = Diesel::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('use_balance');
 
-        $settings = [];
+        $use_balance = $diesel_cost - $use_bal_diesel;
 
-        foreach ($widget->getParameters() as $k => $v) {
-            if (! ($input[$k] ?? false) || $input[$k] === $v) {
-                continue;
-            }
-
-            $settings[$k] = $input[$k];
+        if ($use_balance < 0) {
+            $use_balance_type = 'Due';
+        } else {
+            $use_balance_type = 'Advance';
         }
 
-        $this->setWidgetUserSettings($request->post('widget-slug'), $settings);
-        $widget->set($settings)->make();
 
-        return response()->json([
-            'success' => true,
-            'slug' => $request->post('widget-slug'),
-            'settings' => json_encode($settings),
-            'widget' => $widget->render(),
-        ]);
+        // Dispansar
+
+        $dispansar_cashrec = Dispansar::whereBetween('cash_receipt_date', [
+            $con_start,
+            $con_end
+        ])->sum('cash_receipt_amount');
+
+        $dispansar_balance = Dispansar::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('cash_receipt_amount');
+
+        $dispansar_balance_t = $dispansar_balance - $profit_dispansar;
+
+        if ($dispansar_balance_t > 0) {
+                                $dispansar_balance_t_type = 'Advance';
+                            } elseif ($dispansar_balance_t == 0) {
+                                $dispansar_balance_t_type = 'Paid';
+                            } else {
+                                $dispansar_balance_t_type = 'Due';
+                            }
+
+
+        // Weightone 
+
+        $weightone_cashrec = WeightOne::whereBetween('cash_receipt_date', [
+            $con_start,
+            $con_end
+        ])->sum('cash_receipt_amount');
+
+        $weightone_balance = WeightOne::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('cash_receipt_amount');
+
+        $weightone_balance_t = $weightone_balance - $profit_weightone;
+
+        if ($weightone_balance_t > 0) {
+                                $weightone_balance_t_type = 'Advance';
+                            } elseif ($weightone_balance_t == 0) {
+                                $weightone_balance_t_type = 'Paid';
+                            } else {
+                                $weightone_balance_t_type = 'Due';
+                            }
+
+
+        // Weight 
+
+        $weight_cashrec = Weight::whereBetween('cash_receipt_date', [
+            $con_start,
+            $con_end
+        ])->sum('cash_receipt_amount');
+
+        //dd($weight_cashrec);
+
+        $weight_balance = Weight::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('cash_receipt_amount');
+
+        $weight_balance_t = $weight_balance - $profit_weight;
+
+        if ($weight_balance_t > 0) {
+                                $weight_balance_t_type = 'Advance';
+                            } elseif ($weight_balance_t == 0) {
+                                $weight_balance_t_type = 'Paid';
+                            } else {
+                                $weight_balance_t_type = 'Due';
+                            }
+
+        // Cng pump slip 
+
+        $cngpump_cashrec = CngPump::whereBetween('cash_receipt_date', [
+            $con_start,
+            $con_end
+        ])->sum('cash_receipt_amount');
+
+        //dd($cngpump_cashrec);
+
+        $cngpump_balance = CngPump::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('cash_receipt_amount');
+
+        $cngpump_balance_t = $cngpump_balance - $profit_cngpump;
+
+        if ($cngpump_balance_t > 0) {
+                                $cngpump_balance_t_type = 'Advance';
+                            } elseif ($cngpump_balance_t == 0) {
+                                $cngpump_balance_t_type = 'Paid';
+                            } else {
+                                $cngpump_balance_t_type = 'Due';
+                            }
+
+        // Invoice 
+        $invoice = Invoice::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->sum('total');
+
+        // cashbook
+        $cashbook = Calculation::whereBetween('date', [
+            $con_start,
+            $con_end
+        ])->latest('id')->first();
+
+        $cashbook2 = Calculation::whereDate('date', '<=', $con_end)->latest('id')->first();
+
+        $handcash = $cashbook ? $cashbook : $cashbook2;
+
+        // Income 
+        $income = $handcash->incomeEntries->sum('amount');
+
+        // Expense
+        $expense = $handcash->expenseEntries->sum('amount');
+
+        // Transport
+        $transport_income = $profit_transport_rent - $profit_transport;
+        
+        return view('backend.dashboard', compact(['profit', 'load_count', 'load_m3', 'diesel_cost',
+            'pay_pump', 'total_due', 'total_due_type', 'use_liter', 'use_liter_type', 'use_balance', 'use_balance_type',
+        'profit_dispansar', 'dispansar_cashrec', 'dispansar_balance_t', 'dispansar_balance_t_type',
+        'profit_weightone', 'weightone_cashrec', 'weightone_balance_t', 'weightone_balance_t_type',
+        'profit_weight', 'weight_cashrec', 'weight_balance_t', 'weight_balance_t_type',
+        'profit_cngpump', 'cngpump_cashrec', 'cngpump_balance_t', 'cngpump_balance_t_type', 'invoice', 'handcash', 'income', 'expense', 'transport_income']));
     }
 
-    /**
-     * Saves all dashboard widgets, will be used when moved, deleted, etc...
-     *
-     * @return void
-     */
-    public function saveWidgets(Request $request)
-    {
-        $widgets = json_decode($request->post('widgets')) ?? [];
-
-        auth()->user()->setting(['dashboard' => $widgets]);
-    }
-
-    /**
-     * Get widget from repository or show a 404 error page.
-     *
-     * @return mixed
-     */
-    private function getWidgetOrFail($slug)
-    {
-        $widget = $this->getWidgetsRegistry()->getWidget($slug);
-
-        if (! $widget || ! $widget->isAuthorized()) {
-            abort(404);
-        }
-
-        return $widget;
-    }
-
-    /**
-     * Load widgets from app path and return instance of registry.
-     *
-     * @return DashboardWidgetsRepository
-     */
-    private function getWidgetsRegistry()
-    {
-        if (! isset($this->registry)) {
-            $this->registry = app('boilerplate.dashboard.widgets')->load(app_path('Dashboard'));
-        }
-
-        return $this->registry;
-    }
-
-    /**
-     * Get widget settings for the current user.
-     *
-     * @return array|mixed
-     */
-    private function getWidgetUserSettings($slug)
-    {
-        foreach (auth()->user()->setting('dashboard', config('boilerplate.dashboard.widgets')) as $widgetParameters) {
-            [$widgetSlug, $settings] = [array_key_first($widgetParameters), $widgetParameters[array_key_first($widgetParameters)]];
-            if ($widgetSlug === $slug) {
-                return $settings;
-            }
-        }
-
-        return [];
-    }
-
-    /**
-     * Set widget settings for the current user.
-     *
-     * @return true
-     */
-    private function setWidgetUserSettings($slug, $settings)
-    {
-        $widgets = auth()->user()->setting('dashboard', config('boilerplate.dashboard.widgets'));
-
-        foreach ($widgets as $k => $widgetParameters) {
-            if (array_key_first($widgetParameters) === $slug) {
-                $widgets[$k] = [$slug => $settings];
-                auth()->user()->setting(['dashboard' => $widgets]);
-
-                return true;
-            }
-        }
-
-        $widgets[] = [$slug => $settings];
-        auth()->user()->setting(['dashboard' => $widgets]);
-
-        return true;
-    }
 }
