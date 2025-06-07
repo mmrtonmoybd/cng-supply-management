@@ -15,11 +15,16 @@ class NotificationController extends Controller
         $unread = $user->unreadNotifications()->orderBy('created_at', 'DESC')->paginate($perPage, ['*'], 'unread_page');
         $read = $user->readNotifications()->orderBy('created_at', 'DESC')->paginate($perPage, ['*'], 'read_page');
 
+        if ($request->ajax() || $request->expectsJson()) {
         return response()->json([
             'unread' => $unread,
             'read' => $read,
             'unread_count' => $user->unreadNotifications()->count(),
         ]);
+    }
+
+    return redirect()->back()
+           ?: redirect()->route('boilerplate.dashboard');
     }
 
     public function markRead(Request $request)

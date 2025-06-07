@@ -46,7 +46,11 @@ function humanTime(timestamp) {
 }
 
 function loadNotifications() {
-    fetch('/notifications')
+    fetch('/notifications', {
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
         .then(res => res.json())
         .then(data => {
             const container = document.getElementById('notifDropdown');
