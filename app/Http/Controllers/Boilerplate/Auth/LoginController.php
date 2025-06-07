@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController
 {
@@ -99,6 +100,7 @@ class LoginController
     protected function authenticated(Request $request, $user)
     {
         if (! empty($user->name)) {
+            Auth::logoutOtherDevices($request->password);
             Log::info('User logged in : '.$user->name);
 
             return true;
