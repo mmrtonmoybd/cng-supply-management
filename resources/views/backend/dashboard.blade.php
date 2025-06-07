@@ -397,7 +397,7 @@
 @ability('admin', 'cashbook_crud')
 
            <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Cash in hand - {{ \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') }}">
+            <div class="info-box" data-toggle="tooltip" title="Cash in hand - {{ $handcash->date ?  \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') : '' }}">
               <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-hand-holding-usd"></i></span>
 
               <div class="info-box-content">
@@ -414,7 +414,7 @@
 
 @ability('admin', 'cashbook_crud')
           <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Cashbook income - {{ \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') }}">
+            <div class="info-box" data-toggle="tooltip" title="Cashbook income - {{ $handcash->date ? \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') : '' }}">
               <span class="info-box-icon bg-info elevation-1"><i class="fas fa-search-dollar"></i></span>
 
               <div class="info-box-content">
@@ -431,7 +431,7 @@
 
 @ability('admin', 'cashbook_crud')
           <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Cashbook expense - {{ \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') }}">
+            <div class="info-box" data-toggle="tooltip" title="Cashbook expense - {{ $handcash->date ? \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') : '' }}">
               <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-funnel-dollar"></i></span>
 
               <div class="info-box-content">
