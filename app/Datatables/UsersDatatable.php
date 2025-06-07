@@ -21,6 +21,7 @@ class UsersDatatable extends Datatable
             'email',
             'last_name',
             'first_name',
+            'employee_id',
             'active',
             'users.created_at',
             'last_login',
@@ -73,6 +74,11 @@ class UsersDatatable extends Datatable
                 ->width('12%')
                 ->class('text-nowrap')
                 ->data('email'),
+
+            Column::add(__('Employee id'))
+                ->width('12%')
+                ->class('text-nowrap')
+                ->data('employee_id'),
 
             Column::add(__('boilerplate::users.list.roles'))
                 ->notOrderable()

@@ -38,6 +38,8 @@
                                     <a href="mailto:{{ $user->email }}" class="btn btn-default">
                                         <span class="far fa-fw fa-envelope"></span> {{ $user->email }}
                                     </a>
+                                    <br>
+                                    <span class="fas fa-fw fa-user-tie"></span> {{ $user->employee_id }}
                                 </p>
                                 <p class="mb-0 text-muted">
                                     {{ __('boilerplate::users.profile.subscribedsince', [
