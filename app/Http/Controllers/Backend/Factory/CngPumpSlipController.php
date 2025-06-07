@@ -284,6 +284,6 @@ class CngPumpSlipController extends Controller
         $dbtotalcash_receipt_amount = $query->sum('cash_receipt_amount');
 
         return view('backend.factory.cngpump.filter', compact('results', 'dbtotal', 'dbtotalcng_purchase_m3',
-        'dbtotalpurchase_taka', 'dbtotalfm3', 'dbtotalftk', 'dbtotaldifference_taka', 'dbtotaldifference_m3', 'dbtotalcash_receipt_amount'));
+            'dbtotalpurchase_taka', 'dbtotalfm3', 'dbtotalftk', 'dbtotaldifference_taka', 'dbtotaldifference_m3', 'dbtotalcash_receipt_amount'));
     }
 }

@@ -311,6 +311,6 @@ class WeightController extends Controller
         $dbtotalcash_receipt_amount = $query->sum('cash_receipt_amount');
 
         return view('backend.factory.weight.filter', compact('results', 'dbtotal', 'dbtotalcng_purchase_m3', 'dbtotalpurchase_taka', 'dbtotalfirst_weight', 'dbtotalsecond_weight',
-        'dbtotaltotal_weight', 'dbtotalreceive_m3', 'dbtotaldifference_m3', 'dbtotalftk', 'dbtotaldifference_taka', 'dbtotalcash_receipt_amount'));
+            'dbtotaltotal_weight', 'dbtotalreceive_m3', 'dbtotaldifference_m3', 'dbtotalftk', 'dbtotaldifference_taka', 'dbtotalcash_receipt_amount'));
     }
 }

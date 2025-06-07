@@ -172,8 +172,6 @@ class DieselController extends Controller
             return view('backend.diesel.filter', compact('diesels', 'dbtotaldiesel', 'dbtotaldiesel_purchase_litre', 'dbtotaltaka', 'dbtotaldistance', 'dbtotaluse_litre', 'dbtotaluse_balance'));
         }
 
-        
-
         return view('backend.diesel.filter', compact('diesels'));
     }
 }

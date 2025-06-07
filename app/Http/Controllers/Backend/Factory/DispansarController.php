@@ -325,6 +325,6 @@ class DispansarController extends Controller
         $dbtotalcash_receipt_amount = $query->sum('cash_receipt_amount');
 
         return view('backend.factory.dispansar.filter', compact('results', 'dbtotal', 'dbtotalcng_purchase_m3', 'dbtotalpurchase_taka', 'dbtotalopening_reading',
-       'dbtotalclosing_reading', 'dbtotaltotal_reading', 'dbtotalbill_amount', 'dbtotaldifference_m3', 'dbtotaldifference_taka', 'dbtotalcash_receipt_amount'));
+            'dbtotalclosing_reading', 'dbtotaltotal_reading', 'dbtotalbill_amount', 'dbtotaldifference_m3', 'dbtotaldifference_taka', 'dbtotalcash_receipt_amount'));
     }
 }
