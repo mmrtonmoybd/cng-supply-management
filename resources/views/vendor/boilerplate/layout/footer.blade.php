@@ -14,7 +14,7 @@
             {{ __('boilerplate::layout.rightsres') }}
         </div>
         <a href="https://engineerbd.net/" target="_blank">
-            Developed by Engineer BD Network
+            <strong>Developed by Engineer BD Network</strong>
         </a>
     </div>
 </footer>

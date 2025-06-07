@@ -42,7 +42,7 @@ return [
     'footer' => [
         'visible' => true,
         'vendorname' => 'Mars Bangla',
-        'vendorlink' => 'https://marsbangla.com',
+        'vendorlink' => '',
     ],
     'card' => [
         'outline' => true,
