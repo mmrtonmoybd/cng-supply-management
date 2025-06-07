@@ -255,10 +255,10 @@ class DashboardController extends Controller
         $handcash = $cashbook ? $cashbook : $cashbook2;
 
         // Income
-        $income = $handcash->incomeEntries->sum('amount');
+        $income = $handcash->incomeEntries->sum('amount') ?? 0;
 
         // Expense
-        $expense = $handcash->expenseEntries->sum('amount');
+        $expense = $handcash->expenseEntries->sum('amount') ?? 0;
 
         // Transport
         $transport_income = $profit_transport_rent - $profit_transport;
