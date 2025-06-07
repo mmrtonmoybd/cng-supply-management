@@ -403,7 +403,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Last' : '' }} Cash in hand</span>
                 <span class="info-box-number">
-                  {{ $handcash->balance }}
+                  {{ $handcash->balance ?? 0 }}
                 </span>
               </div>
               <!-- /.info-box-content -->
