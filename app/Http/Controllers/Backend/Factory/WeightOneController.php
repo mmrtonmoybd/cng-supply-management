@@ -291,7 +291,14 @@ class WeightOneController extends Controller
             }
         }
         $results = $query->orderBy('created_at', 'ASC')->get();
+        $dbtotal = $query->count('id');
+        $dbtotalcng_purchase_m3 = $query->sum('cng_purchase_m3');
+        $dbtotalpurchase_taka = $query->sum('purchase_taka');
+        $dbtotalfm3 = $query->sum('fm3');
+        $dbtotalftk = $query->sum('ftk');
+        $dbtotaldifference_taka = $query->sum('difference_taka');
+        $dbtotalcash_receipt_amount = $query->sum('cash_receipt_amount');
 
-        return view('backend.factory.weightone.filter', compact('results'));
+        return view('backend.factory.weightone.filter', compact('results', 'dbtotal', 'dbtotalcng_purchase_m3', 'dbtotalpurchase_taka', 'dbtotalfm3', 'dbtotalftk', 'dbtotaldifference_taka', 'dbtotalcash_receipt_amount'));
     }
 }

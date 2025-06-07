@@ -24,6 +24,162 @@
 @endpush
 
 @section('content')
+
+@if(isset($diesels) && request('filter'))
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            
+    <div class="row">
+
+    <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total diesel">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-oil-can"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total diesel</span>
+                <span class="info-box-number">
+                  {{ $dbtotaldiesel }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+        
+        <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total purchase m3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-oil-can"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total diesel liter</span>
+                <span class="info-box-number">
+                  {{ $dbtotaldiesel_purchase_litre }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total purchase taka">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-money-bill-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total purchase taka</span>
+                <span class="info-box-number">
+                  {{ $dbtotaltaka }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total Use distance(Km)">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-people-arrows"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total distance(Km)</span>
+                <span class="info-box-number">
+                  {{ $dbtotaldistance }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total use liter">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-oil-can"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total use liter</span>
+                <span class="info-box-number">
+                  {{ $dbtotaluse_litre }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total use balance">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-money-bill-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total use balance</span>
+                <span class="info-box-number">
+                  {{ $dbtotaluse_balance }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Due/Advance Litre(All purchase liter - All use liter)">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-balance-scale-right"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Due/Advance Litre</span>
+                <span class="info-box-number">
+                  {{ $dbtotaldiesel_purchase_litre - $dbtotaluse_litre }} 
+                  (@php 
+                            if (($dbtotaldiesel_purchase_litre - $dbtotaluse_litre) < 0) {
+                                echo 'Due';
+                            } else {
+                                echo 'Advance';
+                            }
+                            @endphp)
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Due/Advance Balance(All purchase taka - All use balance)">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-balance-scale-right"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Due/Advance Balance</span>
+                <span class="info-box-number">
+                  {{ $dbtotaltaka - $dbtotaluse_balance }} 
+                  (@php 
+                            if (($dbtotaltaka - $dbtotaluse_balance) < 0) {
+                                echo 'Due';
+                            } else {
+                                echo 'Advance';
+                            }
+                            @endphp)
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+    </div>
+    </div>
+    </div>
+</div>
+
+@endif
+
+
 <x-boilerplate::card>
     <x-slot name="header">
         Filter Diesel

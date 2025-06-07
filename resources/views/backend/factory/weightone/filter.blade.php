@@ -8,6 +8,157 @@
 ])
 
 @section('content')
+
+@if(isset($results) && $results->count() > 0)
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            
+    <div class="row">
+
+    <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total pump">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-industry"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Cng Pump & Weight Scale</span>
+                <span class="info-box-number">
+                  {{ $dbtotal }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+        
+        <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total purchase m3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-truck-loading"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total purchase m3</span>
+                <span class="info-box-number">
+                  {{ $dbtotalcng_purchase_m3 }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total m3 purchase taka">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-money-bill-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total m3 purchase taka</span>
+                <span class="info-box-number">
+                  {{ $dbtotalpurchase_taka }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total Factory m3">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-truck-loading"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Factory m3</span>
+                <span class="info-box-number">
+                  {{ $dbtotalfm3 }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total factory taka">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-money-bill-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total factory taka</span>
+                <span class="info-box-number">
+                  {{ $dbtotalftk }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total payment">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-comments-dollar"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Difference taka</span>
+                <span class="info-box-number">
+                  {{ $dbtotaldifference_taka }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+         <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total cash recive">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-money-bill-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total cash recive</span>
+                <span class="info-box-number">
+                  {{ $dbtotalcash_receipt_amount }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total balance(All payment - All purchase)">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-balance-scale-right"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total balance</span>
+                <span class="info-box-number">
+                  {{ $dbtotalcash_receipt_amount - $dbtotalftk }} 
+                  (@php 
+                            if (($dbtotalcash_receipt_amount - $dbtotalftk) > 0) {
+                                echo 'Advance';
+                            } elseif ($dbtotalcash_receipt_amount - $dbtotalftk == 0) {
+                                echo 'Paid';
+                            } else {
+                                echo 'Due';
+                            }
+                            @endphp)
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+    </div>
+    </div>
+    </div>
+</div>
+
+@endif
+
+
 <x-boilerplate::card>
     <form action="{{ route('backend.factory.weightone.showFilter') }}" method="GET">
         <div class="row">

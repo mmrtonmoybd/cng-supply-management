@@ -8,6 +8,219 @@
 ])
 
 @section('content')
+
+ @if(isset($results) && $results->count() > 0)
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            
+    <div class="row">
+
+    <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total Weight">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-industry"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Weight</span>
+                <span class="info-box-number">
+                  {{ $dbtotal }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+        
+        <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total load m3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-truck-loading"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total purchase m3</span>
+                <span class="info-box-number">
+                  {{ $dbtotalcng_purchase_m3 }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total purchase taka">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-money-bill-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total purchase taka</span>
+                <span class="info-box-number">
+                  {{ $dbtotalpurchase_taka }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total first weight">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-tachometer-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total first weight</span>
+                <span class="info-box-number">
+                  {{ $dbtotalfirst_weight }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total second weight">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-tachometer-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total second weight</span>
+                <span class="info-box-number">
+                  {{ $dbtotalsecond_weight }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total weight">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-tachometer-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total weight</span>
+                <span class="info-box-number">
+                  {{ $dbtotaltotal_weight }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total recive m3">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-truck-loading"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total recive m3</span>
+                <span class="info-box-number">
+                  {{ $dbtotalreceive_m3 }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total factory taka">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-money-bill-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total factory taka</span>
+                <span class="info-box-number">
+                  {{ $dbtotalftk }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total difference m3">
+              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-truck-loading"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total difference m3</span>
+                <span class="info-box-number">
+                  {{ $dbtotaldifference_m3 }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total difference taka">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-comments-dollar"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total difference taka</span>
+                <span class="info-box-number">
+                  {{ $dbtotaldifference_taka }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total cash recive">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-money-bill-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total cash recive</span>
+                <span class="info-box-number">
+                  {{ $dbtotalcash_receipt_amount }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total balance">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-balance-scale-right"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total balance</span>
+                <span class="info-box-number">
+                  {{ $dbtotalcash_receipt_amount - $dbtotalftk }}
+                  (@php 
+                            if (($dbtotalcash_receipt_amount - $dbtotalftk) > 0) {
+                                echo 'Advance';
+                            } elseif ($dbtotalcash_receipt_amount - $dbtotalftk == 0) {
+                                echo 'Paid';
+                            } else {
+                                echo 'Due';
+                            }
+                            @endphp)
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+    </div>
+    </div>
+    </div>
+</div>
+
+@endif
+
 <x-boilerplate::card>
     <form action="{{ route('backend.factory.weight.showFilter') }}" method="GET">
         <div class="row">

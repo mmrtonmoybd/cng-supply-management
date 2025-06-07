@@ -162,6 +162,7 @@ class TransportController extends Controller
         }
 
         $transports = $query->orderBy('date', 'ASC')->get();
+        $dbtotal = $query->count('id');
 
         // Calculate totals
         $totals = [
@@ -183,6 +184,6 @@ class TransportController extends Controller
 
         $totals['net_income'] = $totals['rent'] - $totals['total_cost'];
 
-        return view('backend.transport.filter', compact('transports', 'totals'));
+        return view('backend.transport.filter', compact('transports', 'totals', 'dbtotal'));
     }
 }

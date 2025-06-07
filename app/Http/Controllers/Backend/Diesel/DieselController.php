@@ -161,7 +161,18 @@ class DieselController extends Controller
             }
 
             $diesels = $query->orderBy('d_date', 'ASC')->get();
+
+            $dbtotaldiesel = $query->count('id');
+            $dbtotaldiesel_purchase_litre = $query->sum('diesel_purchase_litre');
+            $dbtotaltaka = $query->sum('taka');
+            $dbtotaldistance = $query->sum('distance');
+            $dbtotaluse_litre = $query->sum('use_litre');
+            $dbtotaluse_balance = $query->sum('use_balance');
+
+            return view('backend.diesel.filter', compact('diesels', 'dbtotaldiesel', 'dbtotaldiesel_purchase_litre', 'dbtotaltaka', 'dbtotaldistance', 'dbtotaluse_litre', 'dbtotaluse_balance'));
         }
+
+        
 
         return view('backend.diesel.filter', compact('diesels'));
     }

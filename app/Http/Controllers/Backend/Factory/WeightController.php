@@ -298,7 +298,19 @@ class WeightController extends Controller
             }
         }
         $results = $query->orderBy('created_at', 'ASC')->get();
+        $dbtotal = $query->count('id');
+        $dbtotalcng_purchase_m3 = $query->sum('cng_purchase_m3');
+        $dbtotalpurchase_taka = $query->sum('purchase_taka');
+        $dbtotalfirst_weight = $query->sum('first_weight');
+        $dbtotalsecond_weight = $query->sum('second_weight');
+        $dbtotaltotal_weight = $query->sum('total_weight');
+        $dbtotalreceive_m3 = $query->sum('receive_m3');
+        $dbtotalftk = $query->sum('ftk');
+        $dbtotaldifference_m3 = $query->sum('difference_m3');
+        $dbtotaldifference_taka = $query->sum('difference_taka');
+        $dbtotalcash_receipt_amount = $query->sum('cash_receipt_amount');
 
-        return view('backend.factory.weight.filter', compact('results'));
+        return view('backend.factory.weight.filter', compact('results', 'dbtotal', 'dbtotalcng_purchase_m3', 'dbtotalpurchase_taka', 'dbtotalfirst_weight', 'dbtotalsecond_weight',
+        'dbtotaltotal_weight', 'dbtotalreceive_m3', 'dbtotaldifference_m3', 'dbtotalftk', 'dbtotaldifference_taka', 'dbtotalcash_receipt_amount'));
     }
 }

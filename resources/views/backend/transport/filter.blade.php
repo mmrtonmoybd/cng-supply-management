@@ -25,6 +25,85 @@
 @endpush
 
 @section('content')
+
+@if(isset($transports) && request('filter'))
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            
+    <div class="row">
+
+    <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total dispansar">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-shuttle-van"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total transport</span>
+                <span class="info-box-number">
+                  {{ $dbtotal }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+        
+        <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total load m3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-truck-moving"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Rent</span>
+                <span class="info-box-number">
+                  {{ $totals['rent'] }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total cost">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-money-bill-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total cost</span>
+                <span class="info-box-number">
+                  {{ $totals['total_cost'] }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4 col-md-3">
+            <div class="info-box" data-toggle="tooltip" title="Total balance">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-balance-scale-right"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total balance</span>
+                <span class="info-box-number">
+                  {{ $totals['net_income'] }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+    </div>
+    </div>
+    </div>
+</div>
+
+@endif
+
+
 <x-boilerplate::card>
     <x-slot name="header">
         Filter Transport

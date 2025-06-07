@@ -147,8 +147,12 @@ class LoadEntryController extends Controller
         if ($request->filled('status') && in_array($request->status, ['0', '1'])) {
             $query->where('status', $request->status);
         }
+
+        $dbtotal_load = $query->count('id');
+        $dbtotal_m3 = $query->sum('cng_purchase_m3');
+        $dbtotal_purchase_taka = $query->sum('purchase_taka');
         $results = $query->orderBy('created_at', 'ASC')->get();
 
-        return view('backend.load.filter', compact('results'));
+        return view('backend.load.filter', compact('results', 'dbtotal_load', 'dbtotal_m3', 'dbtotal_purchase_taka'));
     }
 }

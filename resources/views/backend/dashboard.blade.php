@@ -38,9 +38,14 @@
         <div class="col-12">
             
     <div class="row">
-          <div class="col-12 col-sm-4 col-md-3">
+          
+@ability('admin', 'load_crud,pump_crud,dispansar_crud,weightone_crud,weight_crud,cngpump_crud,diesel_crud,transport_crud', [
+    'validate_all' => true,
+    'return_type' => 'both'
+])
+    <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Dispansar + Cng Pump & Weight Scale + Weight scale + CNG Pump Slip + Transport rent - (Pump + Diesel + Transport cost)">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-store"></i></span>
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-coins"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Profit</span>
@@ -52,10 +57,12 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+@ability('admin', 'load_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Total load m3(Main + third party)">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-truck-loading"></i></span>
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-truck-loading"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Load m3</span>
@@ -67,11 +74,13 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+@ability('admin', 'diesel_crud')
 
           <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Total load m3(Main + third party)">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+            <div class="info-box" data-toggle="tooltip" title="Diesel purchase cost">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-oil-can"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Diesel cost</span>
@@ -83,11 +92,13 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+@ability('admin', 'pump_crud')
 
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Total pay to pump(Main + third party)">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-gas-pump"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Pay pump</span>
@@ -99,11 +110,13 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+@ability('admin', 'pump_crud')
 
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Total pump(Main + third party) + Diesel">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-gas-pump"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} pump ({{ $total_due_type }})</span>
@@ -115,7 +128,9 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+@ability('admin', 'diesel_crud')
 
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="diesel purchase litre - Use liter ({{ $use_liter_type }})">
@@ -131,11 +146,13 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+@ability('admin', 'diesel_crud')
 
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Diesel taka - Diesel use balance ({{ $use_balance_type }})">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-oil-can"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Diesel balance ({{ $use_balance_type }})</span>
@@ -148,10 +165,13 @@
             <!-- /.info-box -->
           </div>
 
+@endability
+
+@ability('admin', 'dispansar_crud')
 
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Dispansar sell">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-dumpster-fire"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Dispansar sell</span>
@@ -163,10 +183,12 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+@ability('admin', 'dispansar_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Dispansar cash recive">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-dumpster-fire"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Dispansar cash recive</span>
@@ -178,10 +200,12 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+@ability('admin', 'dispansar_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Dispansar balance({{ $dispansar_balance_t_type }})">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-dumpster-fire"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Dispansar balance({{ $dispansar_balance_t_type }})</span>
@@ -193,11 +217,12 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
-
+@ability('admin', 'weightone_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Cng Pump & Weight Scale sell">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-car"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Cng Pump & Weight Scale sell</span>
@@ -209,10 +234,12 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+@ability('admin', 'weightone_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Cng Pump & Weight Scale cash recive">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-car"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Cng Pump & Weight Scale cash recive</span>
@@ -224,10 +251,12 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+@ability('admin', 'weightone_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Cng Pump & Weight Scale balance({{ $weightone_balance_t_type }})">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-car"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Cng Pump & Weight Scale balance({{ $weightone_balance_t_type }})</span>
@@ -239,11 +268,13 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
 
+@ability('admin', 'weight_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Weight scale sell">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-weight"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Weight scale sell</span>
@@ -255,10 +286,13 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+
+@ability('admin', 'weight_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Weight scale cash recive">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-weight"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Weight scale cash recive</span>
@@ -270,10 +304,13 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
+
+@ability('admin', 'weight_crud')
 
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Weight scale balance({{ $weight_balance_t_type }})">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-weight"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Weight scale balance({{ $weight_balance_t_type }})</span>
@@ -285,11 +322,13 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
 
+@ability('admin', 'cngpump_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="CNG Pump Slip sell">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-charging-station"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} CNG Pump Slip sell</span>
@@ -301,10 +340,12 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+@ability('admin', 'cngpump_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="CNG Pump Slip cash recive">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-charging-station"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} CNG Pump Slip cash recive</span>
@@ -316,10 +357,13 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+
+@ability('admin', 'cngpump_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="CNG Pump Slip balance({{ $cngpump_balance_t_type }})">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-charging-station"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} CNG Pump Slip balance({{ $cngpump_balance_t_type }})</span>
@@ -331,11 +375,12 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
-
+@ability('admin', 'invoice_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Invoice">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file-invoice-dollar"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Invoice</span>
@@ -347,11 +392,13 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
+@ability('admin', 'cashbook_crud')
 
            <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Cash in hand">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+            <div class="info-box" data-toggle="tooltip" title="Cash in hand - {{ \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') }}">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-hand-holding-usd"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Last' : '' }} Cash in hand</span>
@@ -363,11 +410,12 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
-
+@ability('admin', 'cashbook_crud')
           <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Cashbook income">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+            <div class="info-box" data-toggle="tooltip" title="Cashbook income - {{ \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') }}">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-search-dollar"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Last' : '' }} Cashbook income</span>
@@ -379,11 +427,12 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
-
+@ability('admin', 'cashbook_crud')
           <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Cashbook expense">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+            <div class="info-box" data-toggle="tooltip" title="Cashbook expense - {{ \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') }}">
+              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-funnel-dollar"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Last' : '' }} Cashbook expense</span>
@@ -395,11 +444,12 @@
             </div>
             <!-- /.info-box -->
           </div>
+@endability
 
-
+@ability('admin', 'transport_crud')
           <div class="col-12 col-sm-4 col-md-3">
             <div class="info-box" data-toggle="tooltip" title="Transport">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-shuttle-van"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Transport net income</span>
@@ -411,7 +461,7 @@
             </div>
             <!-- /.info-box -->
           </div>
-
+@endability
 
     </div>
 

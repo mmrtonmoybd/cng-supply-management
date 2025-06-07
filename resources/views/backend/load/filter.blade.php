@@ -8,6 +8,67 @@
 ])
 
 @section('content')
+
+@if(isset($results) && $results->count() > 0)
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            
+    <div class="row">
+
+    <div class="col-12 col-sm-4">
+            <div class="info-box" data-toggle="tooltip" title="Total load">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-truck-loading"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total load</span>
+                <span class="info-box-number">
+                  {{ $dbtotal_load }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+        
+        <div class="col-12 col-sm-4">
+            <div class="info-box" data-toggle="tooltip" title="Total load m3">
+              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-truck-loading"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total load purchase m3</span>
+                <span class="info-box-number">
+                  {{ $dbtotal_m3 }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+
+          <div class="col-12 col-sm-4">
+            <div class="info-box" data-toggle="tooltip" title="Total load purchase">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-money-bill-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total load purchase taka</span>
+                <span class="info-box-number">
+                  {{ $dbtotal_purchase_taka }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+    </div>
+    </div>
+    </div>
+</div>
+
+@endif
 <x-boilerplate::card>
     <form action="{{ route('backend.load.showFilter') }}" method="GET">
         <div class="row">

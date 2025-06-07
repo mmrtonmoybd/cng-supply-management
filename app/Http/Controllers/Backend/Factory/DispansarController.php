@@ -313,6 +313,18 @@ class DispansarController extends Controller
         }
         $results = $query->orderBy('created_at', 'ASC')->get();
 
-        return view('backend.factory.dispansar.filter', compact('results'));
+        $dbtotal = $query->count('id');
+        $dbtotalcng_purchase_m3 = $query->sum('cng_purchase_m3');
+        $dbtotalpurchase_taka = $query->sum('purchase_taka');
+        $dbtotalopening_reading = $query->sum('opening_reading');
+        $dbtotalclosing_reading = $query->sum('closing_reading');
+        $dbtotaltotal_reading = $query->sum('total_reading');
+        $dbtotalbill_amount = $query->sum('bill_amount');
+        $dbtotaldifference_m3 = $query->sum('difference_m3');
+        $dbtotaldifference_taka = $query->sum('difference_taka');
+        $dbtotalcash_receipt_amount = $query->sum('cash_receipt_amount');
+
+        return view('backend.factory.dispansar.filter', compact('results', 'dbtotal', 'dbtotalcng_purchase_m3', 'dbtotalpurchase_taka', 'dbtotalopening_reading',
+       'dbtotalclosing_reading', 'dbtotaltotal_reading', 'dbtotalbill_amount', 'dbtotaldifference_m3', 'dbtotaldifference_taka', 'dbtotalcash_receipt_amount'));
     }
 }

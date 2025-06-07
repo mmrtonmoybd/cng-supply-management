@@ -150,6 +150,11 @@ class PumpController extends Controller
 
         $results = $query->orderBy('created_at', 'ASC')->get();
 
-        return view('backend.pump.filter', compact('results', 'dieselsum'));
+        $dbtotalpump = $query->count('id');
+        $dbtotal_m3 = $query->sum('cng_purchase_m3');
+        $dbtotal_purchase_taka = $query->sum('purchase_taka');
+        $dbtotal_payment = $query->sum('payment');
+
+        return view('backend.pump.filter', compact('results', 'dieselsum', 'dbtotal_m3', 'dbtotal_purchase_taka', 'dbtotalpump', 'dbtotal_payment'));
     }
 }
