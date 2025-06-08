@@ -6,9 +6,9 @@
  * Shadow : 0-4.
  */
 return [
-    'navbar'  => [
-        'bg'     => 'white',
-        'type'   => 'light',
+    'navbar' => [
+        'bg' => 'white',
+        'type' => 'light',
         'border' => true,
         'user' => [
             'visible' => true,
@@ -17,16 +17,16 @@ return [
         'right' => ['backend.nav.notification'],
     ],
     'sidebar' => [
-        'type'    => 'dark',
-        'shadow'  => 4,
-        'border'  => false,
+        'type' => 'dark',
+        'shadow' => 4,
+        'border' => false,
         'compact' => false,
-        'links'   => [
-            'bg'     => 'blue',
+        'links' => [
+            'bg' => 'blue',
             'shadow' => 1,
         ],
-        'brand'   => [
-            'bg'   => 'gray-dark',
+        'brand' => [
+            'bg' => 'gray-dark',
             'logo' => [
                 'bg' => 'white',
                 'icon' => '<img src="/logo/new-logo.png" width="50" height="40">',
@@ -44,8 +44,8 @@ return [
         'vendorname' => 'Mars Bangla',
         'vendorlink' => '',
     ],
-    'card'    => [
-        'outline'       => true,
+    'card' => [
+        'outline' => true,
         'default_color' => 'info',
     ],
 ];

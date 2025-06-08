@@ -46,13 +46,13 @@ class LogFileDatatable extends Datatable
                 ->width('80px')
                 ->filterOptions(function () {
                     return [
-                        'debug'     => 'Debug',
-                        'info'      => 'Info',
-                        'notice'    => 'Notice',
-                        'warning'   => 'Warning',
-                        'error'     => 'Error',
-                        'critical'  => 'Critical',
-                        'alert'     => 'Alert',
+                        'debug' => 'Debug',
+                        'info' => 'Info',
+                        'notice' => 'Notice',
+                        'warning' => 'Warning',
+                        'error' => 'Error',
+                        'critical' => 'Critical',
+                        'alert' => 'Alert',
                         'emergency' => 'Emergency',
                     ];
                 })

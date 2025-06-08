@@ -5,16 +5,16 @@ return [
     'prefix' => '/',
 
     // Backend domain if different as current domain. Ex: "admin.mydomain.tld"
-    'domain'            => '',
+    'domain' => '',
 
     // Redirect to this route after login
-    'redirectTo'        => 'boilerplate.dashboard',
+    'redirectTo' => 'boilerplate.dashboard',
 
     // Activating daily logs and showing log viewer
     'logs' => false,
 
     // When set to true, allows admins to view the site as a user of their choice
-    'allowImpersonate'  => false,
+    'allowImpersonate' => false,
 
     // If true, the session will be kept alive and the user must log out
     'keepalive' => false,
@@ -28,20 +28,20 @@ return [
 
     // Progressive Web App configuration
     'pwa' => [
-        'enabled'          => true,
-        'name'             => env('APP_NAME', 'Boilerplate'),
-        'short_name'       => env('APP_NAME', 'Boilerplate'),
-        'description'      => '',
-        'theme_color'      => '#454d55',
+        'enabled' => true,
+        'name' => env('APP_NAME', 'Boilerplate'),
+        'short_name' => env('APP_NAME', 'Boilerplate'),
+        'description' => '',
+        'theme_color' => '#454d55',
         'background_color' => '#454d55',
-        'display'          => 'standalone',
-        'orientation'      => 'portrait-primary',
+        'display' => 'standalone',
+        'orientation' => 'portrait-primary',
         'apple_touch_icon' => 'assets/vendor/boilerplate/favicon.svg',
-        'icons'            => [
+        'icons' => [
             [
-                'src'   => 'assets/vendor/boilerplate/favicon.svg',
+                'src' => 'assets/vendor/boilerplate/favicon.svg',
                 'sizes' => 'any',
-                'type'  => 'image/svg+xml',
+                'type' => 'image/svg+xml',
             ],
             // ... additional icons here, see documentation
         ],

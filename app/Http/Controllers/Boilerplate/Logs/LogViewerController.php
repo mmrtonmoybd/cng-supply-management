@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Boilerplate\Logs;
 
-use Illuminate\Http\Request;
 use App\Models\Boilerplate\LogFile;
+use Illuminate\Http\Request;
 
 class LogViewerController
 {

@@ -122,7 +122,7 @@ class LogsDatatable extends Datatable
                         ->route('boilerplate.logs.delete')
                         ->attributes([
                             'data-action' => 'delete-log',
-                            'data-date'   => $date,
+                            'data-date' => $date,
                         ])
                         ->color('danger')
                         ->icon('trash')

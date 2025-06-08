@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class LogFile
 {
     protected Filesystem $storage;
+
     protected string $file;
 
     public static $levels = ['EMERGENCY', 'ALERT', 'CRITICAL', 'ERROR', 'WARNING', 'NOTICE', 'INFO', 'DEBUG'];
@@ -86,11 +87,11 @@ class LogFile
 
             if (preg_match($pattern, $line, $matches)) {
                 $entries[$lineNumber] = [
-                    'line'       => $lineNumber,
-                    'date'       => Date::createFromFormat('Y-m-d H:i:s', $matches['date']),
-                    'env'        => $matches['env'],
-                    'type'       => $matches['type'],
-                    'message'    => str_replace(base_path(), '', $matches['message']),
+                    'line' => $lineNumber,
+                    'date' => Date::createFromFormat('Y-m-d H:i:s', $matches['date']),
+                    'env' => $matches['env'],
+                    'type' => $matches['type'],
+                    'message' => str_replace(base_path(), '', $matches['message']),
                     'stacktrace' => [],
                 ];
 
@@ -134,12 +135,12 @@ class LogFile
         }
 
         return [
-            'file'          => $this->file,
-            'date'          => $this->getDate(),
-            'size'          => $this->fileSize(),
+            'file' => $this->file,
+            'date' => $this->getDate(),
+            'size' => $this->fileSize(),
             'sizeFormatted' => $this->fileSizeFormatted(),
-            'entries'       => count($parse),
-            'levels'        => $levels,
+            'entries' => count($parse),
+            'levels' => $levels,
         ];
     }
 

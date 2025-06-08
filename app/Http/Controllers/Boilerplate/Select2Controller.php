@@ -37,7 +37,7 @@ class Select2Controller
 
             $results = $query->get()->map(function ($item) {
                 return [
-                    'id'   => $item->select2_id,
+                    'id' => $item->select2_id,
                     'text' => $item->select2_text,
                 ];
             });
@@ -48,14 +48,14 @@ class Select2Controller
                 CASE WHEN '.$m[2].' LIKE "'.$q.'%" THEN 100 ELSE 0 END AS m1,
                 CASE WHEN '.$m[2].' LIKE "%'.$q.'%" THEN 50 ELSE 0 END AS m2'
             )
-            ->where(\DB::raw($m[2]), 'like', "%$q%")
-            ->orderBy('m1', 'desc')
-            ->orderBy('m2', 'desc')
-            ->orderBy($m[2], 'asc');
+                ->where(\DB::raw($m[2]), 'like', "%$q%")
+                ->orderBy('m1', 'desc')
+                ->orderBy('m2', 'desc')
+                ->orderBy($m[2], 'asc');
 
             $results = $query->get()->map(function ($item) use ($m, $key) {
                 return [
-                    'id'   => $item->{$key},
+                    'id' => $item->{$key},
                     'text' => $item->{$m[2]},
                 ];
             });
