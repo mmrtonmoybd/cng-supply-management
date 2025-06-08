@@ -140,8 +140,8 @@ class CalculationController extends Controller
             'date.required' => 'The date field is required.',
             'date.date' => 'The date must be a valid date.',
             'date.unique' => 'A Cashbook for this date already exists update those or make another date cashbook.',
-            'date.before_or_equal'    => 'Cashbook must be present or past date only no future date is allow.',         
-                           ]);
+            'date.before_or_equal' => 'Cashbook must be present or past date only no future date is allow.',
+        ]);
 
         $calculation->name = $request->name ?? $date;
         $calculation->date = $date;
