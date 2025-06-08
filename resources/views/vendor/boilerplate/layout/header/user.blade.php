@@ -4,6 +4,7 @@
         <span class="d-none d-md-block">
             <span>{{ Auth::user()->first_name }}</span>
             <span class="text-uppercase font-weight-bolder">{{ Auth::user()->last_name }}</span>
+            <span class="text-sm">(<strong>{{ Auth::user()->getRolesList() }}</strong>)</span>
         </span>
     </a>
 </li>

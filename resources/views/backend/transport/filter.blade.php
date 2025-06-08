@@ -103,6 +103,13 @@
 
 @endif
 
+<div class="row">
+        <div class="col-12 pb-3">
+            <a href="{{ route('backend.transport.index') }}" class="btn btn-default" data-toggle="tooltip" title="Transport lists">
+                <span class="far fa-arrow-alt-circle-left text-muted"></span>
+            </a>
+        </div>
+</div>
 
 <x-boilerplate::card>
     <x-slot name="header">

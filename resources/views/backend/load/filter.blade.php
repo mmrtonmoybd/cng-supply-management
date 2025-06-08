@@ -69,6 +69,14 @@
 </div>
 
 @endif
+
+<div class="row">
+        <div class="col-12 pb-3">
+            <a href="{{ route('backend.load.index') }}" class="btn btn-default" data-toggle="tooltip" title="Load lists">
+                <span class="far fa-arrow-alt-circle-left text-muted"></span>
+            </a>
+        </div>
+</div>
 <x-boilerplate::card>
     <form action="{{ route('backend.load.showFilter') }}" method="GET">
         <div class="row">

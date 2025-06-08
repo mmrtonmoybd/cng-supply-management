@@ -1,6 +1,10 @@
 @extends('boilerplate::layout.index', [
     'title' => 'Cng Pump Slip',
     'subtitle' => 'Filter Cng Pump Slip',
+    'breadcrumb' => [
+        'Cng Pump Slip' => 'backend.factory.cngpump.filter',
+        'Filter' => 'backend.factory.cngpump.filter'
+    ]
 ])
 
 @section('content')
@@ -170,6 +174,13 @@
 
 @endif
 
+<div class="row">
+        <div class="col-12 pb-3">
+            <a href="{{ route('backend.factory.cngpump.index') }}" class="btn btn-default" data-toggle="tooltip" title="Filter Cng Pump Slip lists">
+                <span class="far fa-arrow-alt-circle-left text-muted"></span>
+            </a>
+        </div>
+</div>
 
 <x-boilerplate::card>
     <form action="{{ route('backend.factory.cngpump.showFilter') }}" method="GET">

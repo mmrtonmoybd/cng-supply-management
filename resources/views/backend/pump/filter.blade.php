@@ -143,6 +143,14 @@
 
 @endif
 
+<div class="row">
+        <div class="col-12 pb-3">
+            <a href="{{ route('backend.pump.index') }}" class="btn btn-default" data-toggle="tooltip" title="Pump lists">
+                <span class="far fa-arrow-alt-circle-left text-muted"></span>
+            </a>
+        </div>
+</div>
+
 <x-boilerplate::card>
     <form action="{{ route('backend.pump.showFilter') }}" method="GET">
         <div class="row">

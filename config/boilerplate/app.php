@@ -11,13 +11,13 @@ return [
     'redirectTo' => 'boilerplate.dashboard',
 
     // Activating daily logs and showing log viewer
-    'logs' => false,
+    'logs' => true,
 
     // When set to true, allows admins to view the site as a user of their choice
     'allowImpersonate' => false,
 
     // If true, the session will be kept alive and the user must log out
-    'keepalive' => false,
+    'keepalive' => true,
 
     // Allows to generate text with ChatGPT in TinyMCE
     'openai' => [

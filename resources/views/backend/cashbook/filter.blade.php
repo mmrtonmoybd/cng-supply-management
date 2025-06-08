@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-12 pb-3">
         <a href="{{ route('backend.calculations.index') }}" class="btn btn-default" data-toggle="tooltip" title="Back to list">
-            <span class="far fa-arrow-alt-circle-left text-muted"></span> Back
+            <span class="far fa-arrow-alt-circle-left text-muted"></span>
         </a>
     </div>
 </div>
