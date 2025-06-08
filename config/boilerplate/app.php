@@ -2,7 +2,7 @@
 
 return [
     // Backend routes prefix. Ex: "admin" => "http://..../admin"
-    'prefix' => '/',
+    'prefix' => '',
 
     // Backend domain if different as current domain. Ex: "admin.mydomain.tld"
     'domain' => '',
