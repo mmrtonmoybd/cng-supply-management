@@ -62,11 +62,12 @@ class CalculationController extends Controller
         $request->merge(['date' => $date]);
 
         $request->validate([
-            'date' => 'required|date|unique:calculations,date',
+            'date' => 'required|date|unique:calculations,date|before_or_equal:today',
         ], [
             'date.required' => 'The date field is required.',
             'date.date' => 'The date must be a valid date.',
             'date.unique' => 'A Cashbook for this date already exists update those or make another date cashbook.',
+            'date.before_or_equal' => 'Cashbook must be present or past date only no future date is allow.',
         ]);
         $previousCalculation = Calculation::latest()->first();
         $previousBalance = $previousCalculation ? $previousCalculation->balance : 0;
@@ -134,11 +135,13 @@ class CalculationController extends Controller
         $request->merge(['date' => $date]);
 
         $request->validate([
-            'date' => 'required|date|unique:calculations,date,'.$calculation->id,
+            'date' => 'required|date|before_or_equal:today|unique:calculations,date,'.$calculation->id,
         ], [
             'date.required' => 'The date field is required.',
             'date.date' => 'The date must be a valid date.',
-            'date.unique' => 'A Cashbook for this date already exists update those or make another date cashbook.', ]);
+            'date.unique' => 'A Cashbook for this date already exists update those or make another date cashbook.',
+            'date.before_or_equal'    => 'Cashbook must be present or past date only no future date is allow.',         
+                           ]);
 
         $calculation->name = $request->name ?? $date;
         $calculation->date = $date;
