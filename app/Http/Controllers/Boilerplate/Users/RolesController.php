@@ -45,7 +45,7 @@ class RolesController
 
             $name = $perms->first()->category->display_name ?? __('boilerplate::permissions.categories.default');
             $permissions_categories[] = (object) [
-                'name' => $name,
+                'name'        => $name,
                 'permissions' => $perms,
             ];
         }
@@ -56,6 +56,7 @@ class RolesController
     /**
      * Store a newly created role in storage.
      *
+     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws ValidationException
@@ -67,12 +68,12 @@ class RolesController
         $request->replace($input);
 
         $this->validate($request, [
-            'name' => 'required|unique:roles,name',
+            'name'         => 'required|unique:roles,name',
             'display_name' => 'required',
-            'description' => 'required',
+            'description'  => 'required',
         ], [], [
             'display_name' => mb_strtolower(__('boilerplate::role.label')),
-            'description' => mb_strtolower(__('boilerplate::role.description')),
+            'description'  => mb_strtolower(__('boilerplate::role.description')),
         ]);
 
         $roleModel = config('boilerplate.laratrust.role');
@@ -80,7 +81,7 @@ class RolesController
         $role->permissions()->sync(array_keys($request->input('permission', [])));
 
         return redirect()->route('boilerplate.roles.edit', $role)
-            ->with('growl', [__('boilerplate::role.successadd'), 'success']);
+                         ->with('growl', [__('boilerplate::role.successadd'), 'success']);
     }
 
     /**
@@ -101,7 +102,7 @@ class RolesController
         foreach ($permissions as $perms) {
             $name = $perms->first()->category->display_name ?? __('boilerplate::permissions.categories.default');
             $permissions_categories[] = (object) [
-                'name' => $name,
+                'name'        => $name,
                 'permissions' => $perms,
             ];
         }
@@ -112,6 +113,7 @@ class RolesController
     /**
      * Update the specified role in storage.
      *
+     * @param  Request  $request
      * @param  int  $id
      * @return RedirectResponse
      */
@@ -119,10 +121,10 @@ class RolesController
     {
         $this->validate($request, [
             'display_name' => 'required',
-            'description' => 'required',
+            'description'  => 'required',
         ], [], [
             'display_name' => mb_strtolower(__('boilerplate::role.label')),
-            'description' => mb_strtolower(__('boilerplate::role.description')),
+            'description'  => mb_strtolower(__('boilerplate::role.description')),
         ]);
 
         $roleModel = config('boilerplate.laratrust.role');
@@ -131,7 +133,7 @@ class RolesController
         $role->permissions()->sync(array_keys($request->input('permission', [])));
 
         return redirect()->route('boilerplate.roles.edit', $role)
-            ->with('growl', [__('boilerplate::role.successmod'), 'success']);
+                         ->with('growl', [__('boilerplate::role.successmod'), 'success']);
     }
 
     /**

@@ -10,6 +10,9 @@ class LanguageController
 {
     /**
      * Switch language.
+     *
+     * @param  Request  $request
+     * @return RedirectResponse
      */
     public function switch(Request $request): RedirectResponse
     {

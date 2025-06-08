@@ -16,13 +16,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
 @stack('css')
+@if(config('boilerplate.app.pwa.enabled', false))
+    <link rel="manifest" href="{{ route('boilerplate.pwa.manifest') }}">
+    <meta name="theme-color" content="{{ config('boilerplate.app.pwa.theme_color') }}">
+    <link rel="apple-touch-icon" href="{{ url(config('boilerplate.app.pwa.apple_touch_icon')) }}">
+@endif
     <script src="{{ mix('/bootstrap.min.js', '/assets/vendor/boilerplate') }}"></script>
     <script src="{{ mix('/admin-lte.min.js', '/assets/vendor/boilerplate') }}"></script>
     <script src="{{ mix('/boilerplate.min.js', '/assets/vendor/boilerplate') }}" data-csrf="{{ csrf_token() }}" data-locale="{{ App::getLocale() }}" data-settings="{{ route('boilerplate.user.settings',null,false) }}"></script>
     @include('boilerplate::layout.session')
 @stack('plugin-js')
 
-@PwaHead
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NXWWXL4RPF"></script>
 <script>
@@ -60,56 +64,5 @@
 @if(session('growl'))
     <script>growl("{!! session('growl')[0] ?? session('growl') !!}", "{{ session('growl')[1] ?? 'info' }}")</script>
 @endif
-
-
-@RegisterServiceWorkerScript
-
-<script>
-  let deferredPrompt;
-
-  // Only show install button if PWA is not installed
-  function checkPWAInstallationStatus() {
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches
-      || window.navigator.standalone === true;
-
-    if (isStandalone) {
-      // Already installed — hide the install button
-      document.getElementById('installPwaBtn')?.remove();
-    }
-  }
-
-  // Check right away if app is already installed
-  window.addEventListener('load', () => {
-    checkPWAInstallationStatus();
-  });
-
-  window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent the mini-infobar from appearing
-    e.preventDefault();
-    deferredPrompt = e;
-
-    // Show install button if not installed
-    const installBtn = document.getElementById('installPwaBtn');
-    if (installBtn) installBtn.style.display = 'inline-block';
-  });
-
-  document.getElementById('installPwaBtn')?.addEventListener('click', async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-
-      if (outcome === 'accepted') {
-        console.log('User accepted install prompt');
-      } else {
-        console.log('User dismissed install prompt');
-      }
-
-      deferredPrompt = null;
-
-      // Hide the install button after decision
-      document.getElementById('installPwaBtn')?.remove();
-    }
-  });
-</script>
 </body>
 </html>

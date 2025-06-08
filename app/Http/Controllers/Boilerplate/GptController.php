@@ -27,6 +27,7 @@ class GptController
     /**
      * Generate the prompt to pass to the OpenAI API.
      *
+     * @param  Request  $request
      * @return JsonResponse
      */
     public function process(Request $request)
@@ -49,17 +50,18 @@ class GptController
     /**
      * Process rewrite / summarize / ...
      *
+     * @param  Request  $request
      * @return JsonResponse
      */
     private function processRewrite(Request $request)
     {
         $validator = Validator::make($request->post(), [
             'original-content' => 'required',
-            'language' => 'required_if:type,translate',
+            'language'         => 'required_if:type,translate',
         ], [], [
             'original-content' => __('boilerplate::gpt.form.rewrite.original'),
-            'language' => __('boilerplate::gpt.form.language'),
-            'translate' => __('boilerplate::gpt.form.translate'),
+            'language'         => __('boilerplate::gpt.form.language'),
+            'translate'        => __('boilerplate::gpt.form.translate'),
         ]);
 
         if ($validator->fails()) {
@@ -89,17 +91,18 @@ class GptController
     /**
      * Process wizard.
      *
+     * @param  $request
      * @return JsonResponse
      */
     private function processGenerator($request)
     {
         $validator = Validator::make($request->post(), [
-            'topic' => 'required',
+            'topic'    => 'required',
             'language' => 'required',
-            'type' => 'required',
+            'type'     => 'required',
         ], [], [
-            'topic' => __('boilerplate::gpt.form.topic'),
-            'type' => __('boilerplate::gpt.form.type.label'),
+            'topic'    => __('boilerplate::gpt.form.topic'),
+            'type'     => __('boilerplate::gpt.form.type.label'),
             'language' => __('boilerplate::gpt.form.language'),
         ]);
 
@@ -120,6 +123,7 @@ class GptController
     /**
      * Process raw prompt.
      *
+     * @param  $request
      * @return JsonResponse
      */
     private function processPrompt($request)
@@ -147,6 +151,7 @@ class GptController
     /**
      * Stream the result from OpenAI API.
      *
+     * @param  Request  $request
      * @return void
      *
      * @codeCoverageIgnore
@@ -188,6 +193,8 @@ class GptController
     /**
      * Send curl request to OpenAI Api.
      *
+     * @param  $prompt
+     * @param  $callback
      * @return bool|string
      *
      * @codeCoverageIgnore
@@ -197,13 +204,13 @@ class GptController
         $curl = curl_init();
 
         $data = [
-            'model' => config('boilerplate.app.openai.model', 'gpt-3.5-turbo'),
-            'messages' => [['role' => 'user', 'content' => $prompt]],
-            'temperature' => 0.6,
+            'model'             => config('boilerplate.app.openai.model', 'gpt-3.5-turbo'),
+            'messages'          => [['role' => 'user', 'content' => $prompt]],
+            'temperature'       => 0.6,
             'frequency_penalty' => 0.52,
-            'presence_penalty' => 0.5,
-            'max_tokens' => 500,
-            'stream' => true,
+            'presence_penalty'  => 0.5,
+            'max_tokens'        => 500,
+            'stream'            => true,
         ];
 
         $headers = [
@@ -216,17 +223,17 @@ class GptController
         }
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => 'https://api.openai.com/v1/chat/completions',
+            CURLOPT_URL            => 'https://api.openai.com/v1/chat/completions',
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
+            CURLOPT_ENCODING       => '',
+            CURLOPT_MAXREDIRS      => 10,
+            CURLOPT_TIMEOUT        => 0,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_WRITEFUNCTION => $callback,
+            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST  => 'POST',
+            CURLOPT_POSTFIELDS     => json_encode($data),
+            CURLOPT_HTTPHEADER     => $headers,
+            CURLOPT_WRITEFUNCTION  => $callback,
         ]);
 
         $response = curl_exec($curl);
@@ -246,6 +253,7 @@ class GptController
     /**
      * Build prompt to send to the API.
      *
+     * @param  Request  $request
      * @return string
      */
     private function buildPrompt(Request $request)
@@ -272,6 +280,7 @@ class GptController
     /**
      * Build prompt for text rewriting.
      *
+     * @param  Request  $request
      * @return string
      */
     private function buildRewritePrompt(Request $request)

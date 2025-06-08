@@ -11,15 +11,16 @@ use App\Http\Controllers\Boilerplate\GptController;
 use App\Http\Controllers\Boilerplate\ImpersonateController;
 use App\Http\Controllers\Boilerplate\LanguageController;
 use App\Http\Controllers\Boilerplate\Logs\LogViewerController;
+use App\Http\Controllers\Boilerplate\PwaController;
 use App\Http\Controllers\Boilerplate\Select2Controller;
 use App\Http\Controllers\Boilerplate\Users\RolesController;
 use App\Http\Controllers\Boilerplate\Users\UsersController;
 
 Route::group([
-    'prefix' => config('boilerplate.app.prefix', ''),
-    'domain' => config('boilerplate.app.domain', ''),
+    'prefix'     => config('boilerplate.app.prefix', ''),
+    'domain'     => config('boilerplate.app.domain', ''),
     'middleware' => ['web', 'boilerplate.locale'],
-    'as' => 'boilerplate.',
+    'as'         => 'boilerplate.',
 ], function () {
     // Logout
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
@@ -27,6 +28,11 @@ Route::group([
     // Language switch
     if (config('boilerplate.locale.switch', false)) {
         Route::post('language', [LanguageController::class, 'switch'])->name('lang.switch');
+    }
+
+    // PWA Manifest
+    if (config('boilerplate.app.pwa.enabled', false)) {
+        Route::get('manifest.json', [PwaController::class, 'manifest'])->name('pwa.manifest');
     }
 
     // Frontend
@@ -129,15 +135,11 @@ Route::group([
         // Logs
         if (config('boilerplate.app.logs', false)) {
             Route::prefix('logs')->as('logs.')->middleware('ability:admin,logs')->group(function () {
-                Route::get('/', [LogViewerController::class, 'index'])->name('dashboard');
-                Route::prefix('list')->group(function () {
-                    Route::get('/', [LogViewerController::class, 'listLogs'])->name('list');
-                    Route::delete('delete', [LogViewerController::class, 'delete'])->name('delete');
-                    Route::prefix('{date}')->group(function () {
-                        Route::get('/', [LogViewerController::class, 'show'])->name('show');
-                        Route::get('download', [LogViewerController::class, 'download'])->name('download');
-                        Route::get('{level}', [LogViewerController::class, 'showByLevel'])->name('filter');
-                    });
+                Route::get('/', [LogViewerController::class, 'index'])->name('list');
+                Route::delete('delete', [LogViewerController::class, 'delete'])->name('delete');
+                Route::prefix('{date}')->group(function () {
+                    Route::get('/', [LogViewerController::class, 'show'])->name('show');
+                    Route::get('download', [LogViewerController::class, 'download'])->name('download');
                 });
             });
         }

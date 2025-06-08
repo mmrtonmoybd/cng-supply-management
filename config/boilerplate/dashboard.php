@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'edition' => true,
-    'widgets' => [
+    'edition'    => true,
+    'widgets'    => [
         ['current-user' => []],
     ],
 ];

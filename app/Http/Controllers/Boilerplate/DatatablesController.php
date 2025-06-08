@@ -10,6 +10,8 @@ class DatatablesController
     /**
      * Rendering DataTable.
      *
+     * @param  Request  $request
+     * @param  string  $slug
      * @return mixed
      *
      * @throws ReflectionException
@@ -26,6 +28,7 @@ class DatatablesController
     /**
      * Get DataTable class for the given slug.
      *
+     * @param  string  $slug
      * @return false|mixed
      *
      * @throws ReflectionException
