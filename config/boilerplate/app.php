@@ -29,21 +29,32 @@ return [
     // Progressive Web App configuration
     'pwa' => [
         'enabled' => true,
-        'name' => env('APP_NAME', 'Boilerplate'),
-        'short_name' => env('APP_NAME', 'Boilerplate'),
-        'description' => '',
-        'theme_color' => '#454d55',
-        'background_color' => '#454d55',
+        'name' => 'Mars Bangla Fuel Solution ltd.',
+        'short_name' => 'Mars Bangla',
+        'description' => 'Reliable and efficient fuel delivery, storage, and management services across Bangladesh.',
+        'theme_color' => '#007bff',
+        'background_color' => '#ffffff',
         'display' => 'standalone',
         'orientation' => 'portrait-primary',
-        'apple_touch_icon' => 'assets/vendor/boilerplate/favicon.svg',
+        'apple_touch_icon' => 'logo/logo512.svg',
         'icons' => [
             [
-                'src' => 'assets/vendor/boilerplate/favicon.svg',
+                'src' => 'logo/logo512.svg',
                 'sizes' => 'any',
                 'type' => 'image/svg+xml',
             ],
-            // ... additional icons here, see documentation
+
+            [
+            'src'   => 'logo/logo192.png',
+            'sizes' => '192x192',
+            'type'  => 'image/png'
+        ],
+        [
+            'src'   => 'logo/logo512.png',
+            'sizes' => '512x512',
+            'type'  => 'image/png'
+        ]
+
         ],
     ],
 ];
