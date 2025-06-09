@@ -90,19 +90,5 @@
         Developed by <strong>Engineer BD Network</strong>
     </a>
 </footer>
-
-<script>
-  function applyTheme() {
-    document.body.classList.remove('dark-mode', 'light-mode');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.body.classList.add(prefersDark ? 'dark-mode' : 'light-mode');
-  }
-
-  // Apply on page load
-  document.addEventListener('DOMContentLoaded', applyTheme);
-
-  // Re-apply on system theme change
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
-</script>
 </body>
 </html>
