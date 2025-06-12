@@ -55,7 +55,7 @@ Route::group($default, function () {
     Route::get('load-filter/show', [App\Http\Controllers\Backend\Load\LoadEntryController::class, 'showFilter'])->name('load.showFilter');
 
     Route::group(['prefix' => 'cashbook'], function () {
-        Route::resource('calculations', CalculationController::class)->middleware('ability:admin,cashbook')->names('calculations');
+        Route::resource('calculations', CalculationController::class)->names('calculations');
         Route::get('calculations/export/{calculation}', [CalculationController::class, 'export'])->name('export');
         Route::resource('categories', CategoryController::class)->names('categories');
         Route::get('filter', [CalculationController::class, 'filter'])->name('calculations.filter');
