@@ -167,8 +167,13 @@ function calculateFM3FTKOnSubmit(e) {
         }
     }
     // M3 * lrate = purchase_taka logic
-    if (!isNaN(m3) && !isNaN(lrate) && purchaseTakaInput) {
+    if (!isNaN(m3) && !isNaN(lrate) && purchaseTakaInput && purchaseTakaInput.value === '') {
         purchaseTakaInput.value = (m3 * lrate).toFixed(2);
+    } else if (!isNaN(lrate) && !isNaN(purchaseTakaInput.value) && (isNaN(m3) || document.querySelector('[name="cng_purchase_m3"]').value === '')) {
+        var calculatedM3 = parseFloat(purchaseTakaInput.value) / lrate;
+        if (!isNaN(calculatedM3)) {
+            document.querySelector('[name="cng_purchase_m3"]').value = calculatedM3.toFixed(2);
+        }
     }
 }
 

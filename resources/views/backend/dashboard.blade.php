@@ -5,6 +5,15 @@
     ]
 ])
 
+@push('css')
+<style>
+    /* Make the chart dynamically responsive */
+    .chart-container {
+        height: 70vh; /* Adjust height dynamically */
+        min-height: 450px; /* Ensure it's tall enough */
+    }
+</style>
+@endpush
 @section('content')
 <div class="container-fluid">
 
@@ -23,10 +32,12 @@
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-filter"></i> Apply Filters
                 </button>
-                
+                <a href="{{ route('boilerplate.dashboard') }}" class="btn btn-secondary">
+                    <i class="fas fa-sync"></i> Clear Filters
+                </a>
             
-        </div>
-        </div>
+            </div>
+</div>
         
     </form>
 </x-boilerplate::card>
@@ -471,4 +482,120 @@
     </div>
 
 </div>
+
+<div class="container-fluid">
+    {{-- Form Row --}}
+    <div class="row mb-3">
+        <div class="col-12">
+            <x-boilerplate::card>
+                <x-slot name="header">
+                    {{ !request()->filled('daterange') ? 'Current Month Sales' : '' }}
+                </x-slot>
+                <div class="chart-container">
+                   <canvas id="salesChart"></canvas>
+                </div>
+            </x-boilerplate::card>
+        </div>
+    </div>
+</div>
+
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const salesChart = document.getElementById('salesChart');
+        
+        // Get raw labels and values from Laravel
+        const rawLabels = @json($dateLabels);
+        const rawData = @json(collect($dailyTotals)->map(fn($val) => $val ?? 0));
+
+        // Filter out dates where the value is 0 or null
+        const filteredData = rawData.filter(value => value > 0);
+        const filteredLabels = rawLabels.filter((_, index) => rawData[index] > 0);
+
+        new Chart(salesChart, {
+            type: 'bar',
+            data: {
+                labels: filteredLabels,
+                datasets: [
+                    {
+                        label: 'Total Daily Sales',
+                        type: 'bar',
+                        data: filteredData,
+                        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                        borderColor: 'rgba(0, 0, 0, 0.2)',
+                        borderWidth: 2,
+                        borderRadius: 4,
+                        barThickness: 10
+                    },
+                    {
+                        label: 'Sales Trend',
+                        type: 'line',
+                        data: filteredData,
+                        borderColor: 'rgba(255, 99, 132, 0.9)',  // Modern red for contrast
+                        borderWidth: 3,
+                        pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                        pointRadius: 5,
+                        tension: 0.4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: { padding: { top: 15, bottom: 15 } },
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutBounce'
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: { font: { size: 16, weight: 'bold' } }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => {
+                                return `Total: ৳ ${context.parsed.y.toLocaleString('en-BD', { minimumFractionDigits: 2 })}`;
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Advanced Sales Analytics',
+                        font: { size: 22, weight: 'bold' }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Sales Amount (BDT)',
+                            font: { size: 16, weight: 'bold' }
+                        },
+                        ticks: {
+                            callback: (value) => '৳ ' + value.toLocaleString(),
+                            font: { size: 14 }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Sales Date',
+                            font: { size: 16, weight: 'bold' }
+                        },
+                        grid: { display: false }
+                    }
+                },
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                }
+            }
+        });
+    });
+</script>
+
+@endpush
 @endsection

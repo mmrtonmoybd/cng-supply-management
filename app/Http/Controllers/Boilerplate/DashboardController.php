@@ -17,6 +17,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -262,11 +263,68 @@ class DashboardController extends Controller
         // Transport
         $transport_income = $profit_transport_rent - $profit_transport;
 
+
+    // Date range handling
+    $start_date = $request->input('daterange.start')
+        ? Carbon::parse($request->input('daterange.start'))
+        : Carbon::now()->startOfMonth();
+        
+    $end_date = $request->input('daterange.end')
+        ? Carbon::parse($request->input('daterange.end'))
+        : Carbon::now()->endOfMonth();
+
+    // Format dates for query
+    $con_start = $start_date->format('Y-m-d');
+    $con_end = $end_date->format('Y-m-d');
+
+    // Get sales data from all tables
+    $salesRecords = DB::table('dispansars')
+        ->select('date', DB::raw('SUM(bill_amount) as daily_total'))
+        ->whereBetween('date', [$con_start, $con_end])
+        ->groupBy('date')
+        ->unionAll(
+            DB::table('cng_pumps')
+                ->select('date', DB::raw('SUM(ftk) as daily_total'))
+                ->whereBetween('date', [$con_start, $con_end])
+                ->groupBy('date')
+        )
+        ->unionAll(
+            DB::table('weight_ones')
+                ->select('date', DB::raw('SUM(ftk) as daily_total'))
+                ->whereBetween('date', [$con_start, $con_end])
+                ->groupBy('date')
+        )
+        ->unionAll(
+            DB::table('weights')
+                ->select('date', DB::raw('SUM(ftk) as daily_total'))
+                ->whereBetween('date', [$con_start, $con_end])
+                ->groupBy('date')
+        )
+        ->get();
+
+    // Combine results by date
+    $aggregatedSales = $salesRecords->groupBy('date')->map(function ($records) {
+        return $records->sum('daily_total');
+    });
+
+    // Prepare chart data
+    $dateLabels = [];
+    $dailyTotals = [];
+    
+    $currentDate = $start_date->copy();
+    while ($currentDate <= $end_date) {
+        $dateString = $currentDate->format('Y-m-d');
+        $dateLabels[] = $currentDate->format('M d');
+        $dailyTotals[] = $aggregatedSales[$dateString] ?? 0;
+        $currentDate->addDay();
+    }
+
+
         return view('backend.dashboard', compact(['profit', 'load_count', 'load_m3', 'diesel_cost',
             'pay_pump', 'total_due', 'total_due_type', 'use_liter', 'use_liter_type', 'use_balance', 'use_balance_type',
             'profit_dispansar', 'dispansar_cashrec', 'dispansar_balance_t', 'dispansar_balance_t_type',
             'profit_weightone', 'weightone_cashrec', 'weightone_balance_t', 'weightone_balance_t_type',
             'profit_weight', 'weight_cashrec', 'weight_balance_t', 'weight_balance_t_type',
-            'profit_cngpump', 'cngpump_cashrec', 'cngpump_balance_t', 'cngpump_balance_t_type', 'invoice', 'handcash', 'income', 'expense', 'transport_income']));
+            'profit_cngpump', 'cngpump_cashrec', 'cngpump_balance_t', 'cngpump_balance_t_type', 'invoice', 'handcash', 'income', 'expense', 'transport_income', 'dateLabels', 'dailyTotals']));
     }
 }
