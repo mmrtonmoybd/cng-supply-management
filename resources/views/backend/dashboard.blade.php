@@ -501,14 +501,19 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const salesChart = document.getElementById('salesChart');
-        
-        // Get raw labels and values from Laravel
+
+        // Extract Data from Laravel
         const rawLabels = @json($dateLabels);
         const rawData = @json(collect($dailyTotals)->map(fn($val) => $val ?? 0));
 
-        // Filter out dates where the value is 0 or null
+        // Filter out zero/null values
         const filteredData = rawData.filter(value => value > 0);
         const filteredLabels = rawLabels.filter((_, index) => rawData[index] > 0);
+
+        // Calculate Incremental Sales Trend
+        const trendData = filteredData.map((value, index) => {
+            return index === 0 ? value : value - filteredData[index - 1];
+        });
 
         new Chart(salesChart, {
             type: 'bar',
@@ -519,20 +524,20 @@
                         label: 'Total Daily Sales',
                         type: 'bar',
                         data: filteredData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.8)', // Modern Blue
                         borderColor: 'rgba(0, 0, 0, 0.2)',
                         borderWidth: 2,
                         borderRadius: 4,
-                        barThickness: 10
+                        barThickness: 12
                     },
                     {
-                        label: 'Sales Trend',
+                        label: 'Sales Trend (Change Over Time)',
                         type: 'line',
-                        data: filteredData,
-                        borderColor: 'rgba(255, 99, 132, 0.9)',  // Modern red for contrast
+                        data: trendData,
+                        borderColor: 'rgba(255, 99, 132, 0.9)', // Trend Line in Red
                         borderWidth: 3,
                         pointBackgroundColor: 'rgba(255, 99, 132, 1)',
-                        pointRadius: 5,
+                        pointRadius: 6,
                         tension: 0.4
                     }
                 ]
@@ -542,8 +547,8 @@
                 maintainAspectRatio: false,
                 layout: { padding: { top: 15, bottom: 15 } },
                 animation: {
-                    duration: 1500,
-                    easing: 'easeOutBounce'
+                    duration: 2000, // Smooth Animation
+                    easing: 'easeOutQuart'
                 },
                 plugins: {
                     legend: {
@@ -593,6 +598,5 @@
         });
     });
 </script>
-
 @endpush
 @endsection
