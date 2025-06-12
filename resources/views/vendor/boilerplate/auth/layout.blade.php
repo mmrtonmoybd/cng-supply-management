@@ -50,6 +50,9 @@
     <link rel="manifest" href="{{ route('boilerplate.pwa.manifest') }}">
     <meta name="theme-color" content="{{ config('boilerplate.app.pwa.theme_color') }}">
     <link rel="apple-touch-icon" href="{{ url(config('boilerplate.app.pwa.apple_touch_icon')) }}">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
 @endif
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-NXWWXL4RPF"></script>

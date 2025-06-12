@@ -36,7 +36,7 @@ return [
         'background_color' => '#ffffff',
         'display' => 'standalone',
         'orientation' => 'portrait-primary',
-        'apple_touch_icon' => 'logo/logo512.svg',
+        'apple_touch_icon' => 'logo/logo180.png',
         'icons' => [
             [
                 'src' => 'logo/logo512.svg',
