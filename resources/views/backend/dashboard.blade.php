@@ -479,7 +479,7 @@
             
 
         </div>
-    </div>
+    <
 
 </div>
 
@@ -488,9 +488,6 @@
     <div class="row mb-3">
         <div class="col-12">
             <x-boilerplate::card>
-                <x-slot name="header">
-                    {{ !request()->filled('daterange') ? 'Current Month Sales' : '' }}
-                </x-slot>
                 <div class="chart-container">
                    <canvas id="salesChart"></canvas>
                 </div>
