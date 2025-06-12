@@ -21,7 +21,7 @@
     <meta name="theme-color" content="{{ config('boilerplate.app.pwa.theme_color') }}">
     <link rel="apple-touch-icon" href="{{ url(config('boilerplate.app.pwa.apple_touch_icon')) }}">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
 
 @endif
     <script src="{{ mix('/bootstrap.min.js', '/assets/vendor/boilerplate') }}"></script>
@@ -69,6 +69,22 @@
 @endif
 
 @if(config('boilerplate.app.pwa.enabled', false))
+<script>
+"use strict";
+                if ("serviceWorker" in navigator) {
+                    navigator.serviceWorker.register("/service-worker.js").then(
+                        (registration) => {
+                            console.log("Service worker registration succeeded:");
+                        },
+                        (error) => {
+                            console.error("Service worker registration failed", error);
+                        }
+                    );
+                } else {
+                    console.error("Service workers are not supported.");
+                }
+</script>
+
 <script>
   let deferredPrompt;
 
