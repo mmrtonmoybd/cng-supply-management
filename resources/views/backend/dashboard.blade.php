@@ -479,7 +479,7 @@
             
 
         </div>
-    <
+    </div>
 
 </div>
 
@@ -487,7 +487,7 @@
     {{-- Form Row --}}
     <div class="row mb-3">
         <div class="col-12">
-            <x-boilerplate::card>
+            <x-boilerplate::card>                
                 <div class="chart-container">
                    <canvas id="salesChart"></canvas>
                 </div>
