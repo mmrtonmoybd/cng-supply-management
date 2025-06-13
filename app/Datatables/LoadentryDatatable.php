@@ -49,13 +49,13 @@ class LoadentryDatatable extends Datatable
                 }),
 
             Column::add(__('M3'))
-                ->data('cng_purchase_m3'),
+                ->data('cng_purchase_m3')->sum(),
 
             Column::add(__('Rate'))
                 ->data('rate'),
 
             Column::add(__('Purchase Taka'))
-                ->data('purchase_taka'),
+                ->data('purchase_taka')->sum(),
 
             Column::add(__('Factory Name'))
                 ->data('factory.name')

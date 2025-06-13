@@ -25,7 +25,7 @@
             <x-boilerplate::input name='vehicle_number' label='Vehicle Number' required :value="old('vehicle_number', $vehicle->vehicle_number)" placeholder='Vehicle Number'/>
         </div>
         <div class="col-md-6">
-            <x-boilerplate::input name='vehicle_type' label='Vehicle Type' :value="old('vehicle_type', $vehicle->vehicle_type)" :options="['truck' => 'Truck', 'van' => 'Van']" type="select" placeholder='Vehicle Type'/>
+            <x-boilerplate::input name='vehicle_type' label='Vehicle Type' :value="old('vehicle_type', $vehicle->vehicle_type)" :options="['truck' => 'Truck', 'van' => 'Van', 'car' => 'Car']" type="select" placeholder='Vehicle Type'/>
         </div>
     </div>
     <div class="row">

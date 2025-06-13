@@ -54,7 +54,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Vehicle</label>
-                            <p class="form-control-static">{{ $diesel->vehicle->vehicle_number ?? '-' }}</p>
+                            <p class="form-control-static">{{ $diesel->vehicle_reg_number }}</p>
                         </div>
                     </div>
                     <div class="col-md-6">

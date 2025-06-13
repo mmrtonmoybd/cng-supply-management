@@ -56,6 +56,7 @@ class ActivitylogDatatable extends Datatable
                     'Transport' => 'Transport',
                     'Vehicle' => 'Vehicle',
                     'Vehicle Document' => 'Vehicle Document',
+                    'Vehicle income' => 'Vehicle income',
                 ])->filter(function ($query, $q) {
                     $query->where('log_name', $q);
                 }),

@@ -39,7 +39,8 @@ class VehicleDatatable extends Datatable
                 ->data('vehicle_type')
                 ->filterOptions([
                     'truck' => __('Truck'),
-                    'van' => __('Bus'),
+                    'van' => __('Van'),
+                    'car' => 'Car',
                 ]),
 
             Column::add(__('Driver Name'))

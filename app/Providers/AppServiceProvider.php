@@ -78,5 +78,9 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('transport_crud', function ($user) {
             return $user->ability(['admin'], 'transport_crud');
         });
+
+        Gate::define('vehicle_income_crud', function ($user) {
+            return $user->ability(['admin'], 'vehicle_income_crud');
+        });
     }
 }

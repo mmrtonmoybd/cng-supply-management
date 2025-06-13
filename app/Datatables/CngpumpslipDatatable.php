@@ -61,13 +61,13 @@ class CngpumpslipDatatable extends Datatable
                 }),
 
             Column::add('M3')
-                ->data('cng_purchase_m3'),
+                ->data('cng_purchase_m3')->sum(),
 
             Column::add('Rate')
                 ->data('rate'),
 
             Column::add('Purchase Taka')
-                ->data('purchase_taka'),
+                ->data('purchase_taka')->sum(),
 
             Column::add(__('Factory Name'))
                 ->data('factory.name')
@@ -85,25 +85,25 @@ class CngpumpslipDatatable extends Datatable
                 ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Fm3'))
-                ->data('fm3'),
+                ->data('fm3')->sum(),
 
             Column::add(__('Rate'))
                 ->data('rate'),
 
             Column::add(__('Ftk'))
-                ->data('ftk'),
+                ->data('ftk')->sum(),
 
             Column::add(__('Difference Taka'))
-                ->data('difference_taka'),
+                ->data('difference_taka')->sum(),
 
             Column::add(__('Difference M3'))
-                ->data('difference_m3'),
+                ->data('difference_m3')->sum(),
 
             Column::add(__('In'))
-                ->data('in'),
+                ->data('in')->sum(),
 
             Column::add(__('Out'))
-                ->data('out'),
+                ->data('out')->sum(),
 
             Column::add('Invoice')
                 ->data('invoice_id', function ($invoiceId) {
@@ -120,7 +120,7 @@ class CngpumpslipDatatable extends Datatable
                 ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Cash Receipt Amount'))
-                ->data('cash_receipt_amount'),
+                ->data('cash_receipt_amount')->sum(),
 
             Column::add(__('Recived By'))
                 ->data('recived_by'),

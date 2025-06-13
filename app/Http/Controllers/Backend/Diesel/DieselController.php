@@ -54,7 +54,7 @@ class DieselController extends Controller
             'd_time' => 'nullable',
             'slip_no' => 'nullable|string',
             'pumpName_id' => 'nullable|exists:pump_names,id',
-            'vehicle_id' => 'required|exists:vehicles,id',
+            'vehicle_reg_number' => 'required',
             'diesel_purchase_litre' => 'nullable|numeric',
             'taka' => 'nullable|numeric',
             'date' => 'nullable|date',
@@ -99,7 +99,7 @@ class DieselController extends Controller
             'd_time' => 'nullable',
             'slip_no' => 'nullable|string',
             'pumpName_id' => 'nullable|exists:pump_names,id',
-            'vehicle_id' => 'required|exists:vehicles,id',
+            'vehicle_reg_number' => 'required',
             'diesel_purchase_litre' => 'nullable|numeric',
             'taka' => 'nullable|numeric',
             'date' => 'nullable|date',
@@ -135,7 +135,7 @@ class DieselController extends Controller
         // Only query if filter button was clicked
         if ($request->has('filter')) {
             $query = Diesel::query()
-                ->with(['pumpname', 'vehicle'])
+                ->with(['pumpname'])
                 ->select('*');
 
             // Apply date range filter
@@ -156,9 +156,9 @@ class DieselController extends Controller
             }
 
             // Apply vehicle filter
-            if ($request->filled('vehicle_id')) {
-                $query->where('vehicle_id', $request->input('vehicle_id'));
-            }
+            if ($request->filled('car_no')) {
+            $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
+        }
 
             $diesels = $query->orderBy('d_date', 'ASC')->get();
 

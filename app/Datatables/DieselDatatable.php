@@ -15,7 +15,7 @@ class DieselDatatable extends Datatable
 
     public function datasource()
     {
-        return Diesel::with(['pumpname', 'vehicle'])->select('*');
+        return Diesel::with(['pumpname'])->select('*');
     }
 
     public function setUp()
@@ -53,18 +53,13 @@ class DieselDatatable extends Datatable
                 }),
 
             Column::add(__('Vehicle Number'))
-                ->data('vehicle.vehicle_number')
-                ->name('vehicles.vehicle_number')
-                ->filterOptions(Vehicle::distinct()->orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray())
-                ->filter(function ($query, $value) {
-                    return $query->where('vehicle_id', $value);
-                }),
+                ->data('vehicle_reg_number'),
 
             Column::add(__('Litre'))
-                ->data('diesel_purchase_litre'),
+                ->data('diesel_purchase_litre')->sum(),
 
             Column::add(__('Taka'))
-                ->data('taka'),
+                ->data('taka')->sum(),
 
             Column::add(__('___Use Date'))
                 ->data('date')
@@ -77,13 +72,13 @@ class DieselDatatable extends Datatable
                 })->notOrderable()->notSearchable(),
 
             Column::add(__('Distance'))
-                ->data('distance'),
+                ->data('distance')->sum(),
 
             Column::add(__('Use Litre'))
-                ->data('use_litre'),
+                ->data('use_litre')->sum(),
 
             Column::add(__('Use Balance'))
-                ->data('use_balance'),
+                ->data('use_balance')->sum(),
 
             Column::add(__('Remark'))
                 ->data('remark'),

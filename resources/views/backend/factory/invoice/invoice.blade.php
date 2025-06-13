@@ -60,7 +60,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 96px 0px 0px 0px;
+      padding: 230px 0px 0px 0px;
       text-align: left;
       border-top: 1px solid #000;
       font-size: 14px;
@@ -84,7 +84,7 @@
       }
 
       @page {
-        margin: 1.5in 0.1in 0.5in 0.5in;
+        margin: 1.95in 0in 0.5in 0.5in;
       }
 
       .spacer {
@@ -255,8 +255,8 @@
     </tbody>
   </table>
   <div >
-  
-    <strong>In Words: <span>{{ Illuminate\Support\Number::spell($total) }} only</span></strong>
+  <br>
+    <strong >In Words: <span >{{ Illuminate\Support\Number::spell($total) }} only</span></strong>
   </div>
 
   <!-- Spacer before footer -->
@@ -264,7 +264,7 @@
 
   <!-- Footer Signature -->
   <div class="print-footer">
-    <p><strong>Prepared By:</strong> ____________________________</p>
+    <p><strong><u>Prepared By:</u></strong></p>
   </div>
 
 </body>

@@ -66,13 +66,13 @@ class PumpDatatable extends Datatable
                 }),
 
             Column::add(__('M3'))
-                ->data('cng_purchase_m3'),
+                ->data('cng_purchase_m3')->sum(),
 
             Column::add(__('Rate'))
                 ->data('rate'),
 
             Column::add(__('Purchase Taka'))
-                ->data('purchase_taka'),
+                ->data('purchase_taka')->sum(),
 
             Column::add(__('Factory Name'))
                 ->data('factory.name')
@@ -86,7 +86,7 @@ class PumpDatatable extends Datatable
                 ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Payment'))
-                ->data('payment'),
+                ->data('payment')->sum(),
 
             Column::add(__('Remarks'))
                 ->data('remarks'),

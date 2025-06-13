@@ -37,12 +37,12 @@ class CashbookDatatable extends Datatable
             Column::add('Income')
                 ->data('incomeEntries.amount', function ($calculation) {
                     return $calculation->incomeEntries->sum('amount');
-                })->notSortable()->notSearchable()->notOrderable(),
+                })->notSortable()->notSearchable()->notOrderable()->sum(),
 
             Column::add('Expense')
                 ->data('expenseEntries.amount', function ($calculation) {
                     return $calculation->expenseEntries->sum('amount');
-                })->notSortable()->notSearchable()->notOrderable(),
+                })->notSortable()->notSearchable()->notOrderable()->sum(),
 
             Column::add('Net cash flow')
                 ->data('net_cash_flow', function ($calculation) {

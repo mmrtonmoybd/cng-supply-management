@@ -220,16 +220,7 @@
         <div class="row mt-2">
             <div class="col-md-4">
                 <div class="form-group">
-                    @php
-                        $vehicleOptions = \App\Models\Vehicle::orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray();
-                    @endphp
-                    <label for="vehicle_id">Vehicle</label>
-                    <select name="vehicle_id" class="form-control">
-                        <option value="">Select Vehicle</option>
-                        @foreach ($vehicleOptions as $key => $value)
-                            <option value="{{ $key }}" @if(request('vehicle_id') == $key) selected @endif>{{ $value }}</option>
-                        @endforeach
-                    </select>
+                    <x-boilerplate::input name="car_no" type="text" label="Car Number" :value="request('car_no')" placeholder="Enter Car Number"/>
                 </div>
             </div>
             <div class="col-md-4 d-flex align-items-end">                <div class="form-group">
@@ -272,7 +263,7 @@
                             <td>{{ $diesel->d_time ? date('h:i A', strtotime($diesel->d_time)) : '-' }}</td>
                             <td>{{ $diesel->slip_no ?? '-' }}</td>
                             <td>{{ $diesel->pumpname->name ?? '-' }}</td>
-                            <td>{{ $diesel->vehicle->vehicle_number ?? '-' }}</td>
+                            <td>{{ $diesel->vehicle_reg_number }}</td>
                             <td class="text-right">{{ number_format($diesel->diesel_purchase_litre, 2) }}</td>
                             <td class="text-right">{{ number_format($diesel->taka, 2) }}</td>
                             <td>{{ $diesel->date ? date('d-m-Y', strtotime($diesel->date)) : '-' }}</td>

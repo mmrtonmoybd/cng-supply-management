@@ -123,6 +123,7 @@ class PumpController extends Controller
         }
         if ($request->filled('car_no')) {
             $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
+            $diesel->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
         }
 
         if ($request->filled('type')) {

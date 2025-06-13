@@ -45,16 +45,7 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        @php
-                            $vehicleOptions = \App\Models\Vehicle::orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray();
-                        @endphp
-                        <label for="vehicle_id">Vehicle</label>
-                        <select name="vehicle_id" class="form-control" required>
-                            <option value="">Select Vehicle</option>
-                            @foreach ($vehicleOptions as $key => $value)
-                                <option value="{{ $key }}" @if (old('vehicle_id') == $key) selected @endif>{{ $value }}</option>
-                            @endforeach
-                        </select>
+                        <x-boilerplate::input name='vehicle_reg_number' label='Car No' required :value="old('vehicle_reg_number')" placeholder='Car No'/>
                     </div>
                     <div class="col-md-4">
                         <x-boilerplate::input name='diesel_purchase_litre' label='Diesel Purchase (Litre)' type='number' step='0.01' :value="old('diesel_purchase_litre')" placeholder='Diesel Purchase (Litre)'/>

@@ -94,6 +94,10 @@ Route::group($default, function () {
         Route::get('invoice/export/{invoice}', App\Http\Controllers\Backend\Invoice\InvoiceController::class.'@export')->name('invoice.export');
     });
 
+    Route::resource('vehicleincome', App\Http\Controllers\Backend\VehicleIncomeController::class)->names('vehicleIncome');
+    Route::get('vehicleincome-filter', [App\Http\Controllers\Backend\VehicleIncomeController::class, 'filter'])->name('vehicleIncome.filter');
+    Route::get('vehicleincome-filter/show', [App\Http\Controllers\Backend\VehicleIncomeController::class, 'showFilter'])->name('vehicleIncome.showFilter');
+
     Route::group(['prefix' => 'assets', 'as' => 'asset.'], function () {
 
         Route::resource('asset', App\Http\Controllers\Backend\Asset\AssetController::class)->names('asset');

@@ -54,31 +54,31 @@ class TransportDatatable extends Datatable
                 ->data('rent')->sum(),
 
             Column::add(__('Maintenance Cost'))
-                ->data('maintenance_cost'),
+                ->data('maintenance_cost')->sum(),
 
             Column::add(__('Diesel Cost'))
-                ->data('diesel_cost'),
+                ->data('diesel_cost')->sum(),
 
             Column::add(__('Toll Cost'))
-                ->data('toll_cost'),
+                ->data('toll_cost')->sum(),
 
             Column::add(__('Labour Cost'))
-                ->data('labour_cost'),
+                ->data('labour_cost')->sum(),
 
             Column::add(__('Chada Cost'))
-                ->data('chada_cost'),
+                ->data('chada_cost')->sum(),
 
             Column::add(__('Fooding Cost'))
-                ->data('fooding_cost'),
+                ->data('fooding_cost')->sum(),
 
             Column::add(__('Police Cost'))
-                ->data('police_cost'),
+                ->data('police_cost')->sum(),
 
             Column::add(__('Parking Cost'))
-                ->data('parking_cost'),
+                ->data('parking_cost')->sum(),
 
             Column::add(__('Other Cost'))
-                ->data('other_cost'),
+                ->data('other_cost')->sum(),
 
             Column::add(__('Total Cost'))
                 ->data('total_cost')->sum(),

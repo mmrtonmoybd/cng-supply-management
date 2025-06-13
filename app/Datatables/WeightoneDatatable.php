@@ -57,13 +57,13 @@ class WeightoneDatatable extends Datatable
                 }),
 
             Column::add(__('M3'))
-                ->data('cng_purchase_m3'),
+                ->data('cng_purchase_m3')->sum(),
 
             Column::add(__('Load rate'))
                 ->data('lrate'),
 
             Column::add(__('Purchase Taka'))
-                ->data('purchase_taka'),
+                ->data('purchase_taka')->sum(),
 
             Column::add(__('Challan No'))
                 ->data('bill_no'),
@@ -74,25 +74,25 @@ class WeightoneDatatable extends Datatable
                 ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('F m3'))
-                ->data('fm3'),
+                ->data('fm3')->sum(),
 
             Column::add(__('Rate'))
                 ->data('rate'),
 
             Column::add(__('F Taka'))
-                ->data('ftk'),
+                ->data('ftk')->sum(),
 
             Column::add(__('Difference Taka'))
-                ->data('difference_taka'),
+                ->data('difference_taka')->sum(),
 
             Column::add(__('First Weight'))
-                ->data('first_weight'),
+                ->data('first_weight')->sum(),
 
             Column::add(__('Second Weight'))
-                ->data('second_weight'),
+                ->data('second_weight')->sum(),
 
             Column::add(__('Total Weight'))
-                ->data('total_weight'),
+                ->data('total_weight')->sum(),
 
             Column::add('Invoice')
                 ->data('invoice_id', function ($invoiceId) {
@@ -109,7 +109,7 @@ class WeightoneDatatable extends Datatable
                 ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Cash Receipt Amount'))
-                ->data('cash_receipt_amount'),
+                ->data('cash_receipt_amount')->sum(),
 
             Column::add(__('Recived By'))
                 ->data('recived_by'),

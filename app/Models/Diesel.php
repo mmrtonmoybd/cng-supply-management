@@ -16,7 +16,7 @@ class Diesel extends Model
         'd_time',
         'slip_no',
         'pumpName_id',
-        'vehicle_id',
+        'vehicle_reg_number',
         'diesel_purchase_litre',
         'taka',
         'date',
@@ -30,11 +30,6 @@ class Diesel extends Model
     public function pumpname()
     {
         return $this->belongsTo(PumpName::class, 'pumpName_id');
-    }
-
-    public function vehicle()
-    {
-        return $this->belongsTo(Vehicle::class, 'vehicle_id');
     }
 
     protected static function booted()
