@@ -4,7 +4,6 @@ namespace App\Datatables;
 
 use App\Models\Diesel;
 use App\Models\PumpName;
-use App\Models\Vehicle;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;

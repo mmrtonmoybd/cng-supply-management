@@ -9,6 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class VehicleIncome extends Model
 {
     use LogsActivity;
+
     protected $fillable = [
         'load_entry_id',
         'dispansar_id',
@@ -26,19 +27,20 @@ class VehicleIncome extends Model
         'fm3',
         'rate',
         'ftk',
-        'difference', 
+        'difference',
         'rent',
         'driver_fooding',
         'maintenance',
         'other',
     ];
 
-    protected static function booted(): void {
+    protected static function booted(): void
+    {
         static::saving(function (VehicleIncome $model) {
-    if (!is_null($model->purchase_taka) && !is_null($model->ftk)) {
-        $model->difference = $model->ftk - $model->purchase_taka;
-    }
-});
+            if (! is_null($model->purchase_taka) && ! is_null($model->ftk)) {
+                $model->difference = $model->ftk - $model->purchase_taka;
+            }
+        });
     }
 
     public function pumpname()

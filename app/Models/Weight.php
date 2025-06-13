@@ -88,15 +88,15 @@ class Weight extends Model
         static::saved(function (Weight $model) {
             if ($model->load_entry_id) {
                 VehicleIncome::updateOrCreate([
-                'load_entry_id' => $model->load_entry_id,
-            ], 
-            [
-                'weight_id' => $model->id,
-                'bill_date' => $model->bill_date ?? $model->date,
-                'fm3' => $model->receive_m3,
-                'rate' => $model->rate,
-                'ftk' => $model->ftk,
-            ]);
+                    'load_entry_id' => $model->load_entry_id,
+                ],
+                    [
+                        'weight_id' => $model->id,
+                        'bill_date' => $model->bill_date ?? $model->date,
+                        'fm3' => $model->receive_m3,
+                        'rate' => $model->rate,
+                        'ftk' => $model->ftk,
+                    ]);
 
             }
         });

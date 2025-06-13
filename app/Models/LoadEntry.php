@@ -64,17 +64,17 @@ class LoadEntry extends Model
         static::saved(function (LoadEntry $model) {
             VehicleIncome::updateOrCreate([
                 'load_entry_id' => $model->id,
-            ], 
-            [
-                'load_entry_id' => $model->id,
-                'date' => $model->date,
-                'vehicle_reg_number' => $model->vehicle_reg_number,
-                'pumpName_id' => $model->pumpName_id,
-                'factory_id' => $model->factory_id,
-                'cng_purchase_m3' => $model->cng_purchase_m3,
-                'lrate' => $model->rate,
-                'purchase_taka' => $model->purchase_taka,
-            ]);
+            ],
+                [
+                    'load_entry_id' => $model->id,
+                    'date' => $model->date,
+                    'vehicle_reg_number' => $model->vehicle_reg_number,
+                    'pumpName_id' => $model->pumpName_id,
+                    'factory_id' => $model->factory_id,
+                    'cng_purchase_m3' => $model->cng_purchase_m3,
+                    'lrate' => $model->rate,
+                    'purchase_taka' => $model->purchase_taka,
+                ]);
         });
     }
 

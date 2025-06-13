@@ -157,8 +157,8 @@ class DieselController extends Controller
 
             // Apply vehicle filter
             if ($request->filled('car_no')) {
-            $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
-        }
+                $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
+            }
 
             $diesels = $query->orderBy('d_date', 'ASC')->get();
 

@@ -82,15 +82,15 @@ class WeightOne extends Model
         static::saved(function (WeightOne $model) {
             if ($model->load_entry_id) {
                 VehicleIncome::updateOrCreate([
-                'load_entry_id' => $model->load_entry_id,
-            ], 
-            [
-                'weight_one_id' => $model->id,
-                'bill_date' => $model->bill_date ?? $model->date,
-                'fm3' => $model->fm3,
-                'rate' => $model->rate,
-                'ftk' => $model->ftk,
-            ]);
+                    'load_entry_id' => $model->load_entry_id,
+                ],
+                    [
+                        'weight_one_id' => $model->id,
+                        'bill_date' => $model->bill_date ?? $model->date,
+                        'fm3' => $model->fm3,
+                        'rate' => $model->rate,
+                        'ftk' => $model->ftk,
+                    ]);
 
             }
         });

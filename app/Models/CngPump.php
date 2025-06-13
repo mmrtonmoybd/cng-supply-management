@@ -81,15 +81,15 @@ class CngPump extends Model
         static::saved(function (CngPump $model) {
             if ($model->load_entry_id) {
                 VehicleIncome::updateOrCreate([
-                'load_entry_id' => $model->load_entry_id,
-            ], 
-            [
-                'cng_pump_id' => $model->id,
-                'bill_date' => $model->bill_date ?? $model->date,
-                'fm3' => $model->fm3,
-                'rate' => $model->rate,
-                'ftk' => $model->ftk,
-            ]);
+                    'load_entry_id' => $model->load_entry_id,
+                ],
+                    [
+                        'cng_pump_id' => $model->id,
+                        'bill_date' => $model->bill_date ?? $model->date,
+                        'fm3' => $model->fm3,
+                        'rate' => $model->rate,
+                        'ftk' => $model->ftk,
+                    ]);
 
             }
         });

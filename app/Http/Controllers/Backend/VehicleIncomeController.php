@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Diesel;
 use App\Models\VehicleIncome;
 use Illuminate\Http\Request;
-use App\Models\Diesel;
 
 class VehicleIncomeController extends Controller
 {
@@ -15,6 +15,7 @@ class VehicleIncomeController extends Controller
     public function index()
     {
         $this->authorize('vehicle_income_crud');
+
         return view('backend.vehicleincome.list');
     }
 
@@ -23,7 +24,7 @@ class VehicleIncomeController extends Controller
      */
     public function create()
     {
-       $this->authorize('vehicle_income_crud');
+        $this->authorize('vehicle_income_crud');
     }
 
     /**
@@ -31,7 +32,7 @@ class VehicleIncomeController extends Controller
      */
     public function store(Request $request)
     {
-       $this->authorize('vehicle_income_crud');
+        $this->authorize('vehicle_income_crud');
     }
 
     /**
@@ -40,6 +41,7 @@ class VehicleIncomeController extends Controller
     public function show(VehicleIncome $vehicleincome)
     {
         $this->authorize('vehicle_income_crud');
+
         return view('backend.vehicleincome.show', compact('vehicleincome'));
     }
 
@@ -49,6 +51,7 @@ class VehicleIncomeController extends Controller
     public function edit(VehicleIncome $vehicleincome)
     {
         $this->authorize('vehicle_income_crud');
+
         return view('backend.vehicleincome.edit', compact('vehicleincome'));
     }
 
@@ -81,12 +84,15 @@ class VehicleIncomeController extends Controller
         $this->authorize('vehicle_income_crud');
     }
 
-    public function filter() {
+    public function filter()
+    {
         $this->authorize('vehicle_income_crud');
+
         return view('backend.vehicleincome.filter');
     }
 
-    public function showFilter(Request $request) {
+    public function showFilter(Request $request)
+    {
         $this->authorize('vehicle_income_crud');
         $query = VehicleIncome::with(['pumpname', 'factory']);
         $diesel = Diesel::query();
@@ -132,7 +138,7 @@ class VehicleIncomeController extends Controller
         $net_profit = $dbtotalnet_difference - $totalcost;
 
         return view('backend.vehicleincome.filter', compact('results', 'dbtotal', 'dbtotalcng_purchase_m3', 'dbtotalpurchase_taka',
-         'dbtotalfm3', 'dbtotalftk', 'dbtotaldifference', 'dieselsum', 'dbtotalnet_difference', 'dbtotalrent', 'dbtotaldriver_fooding',
-        'dbtotalmaintenance', 'dbtotalother', 'totalcost', 'net_profit'));
+            'dbtotalfm3', 'dbtotalftk', 'dbtotaldifference', 'dieselsum', 'dbtotalnet_difference', 'dbtotalrent', 'dbtotaldriver_fooding',
+            'dbtotalmaintenance', 'dbtotalother', 'totalcost', 'net_profit'));
     }
 }

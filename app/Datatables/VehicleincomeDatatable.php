@@ -2,12 +2,12 @@
 
 namespace App\Datatables;
 
+use App\Models\Factory;
+use App\Models\PumpName;
 use App\Models\VehicleIncome;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Factory;
-use App\Models\PumpName;
 
 class VehicleincomeDatatable extends Datatable
 {
@@ -96,9 +96,9 @@ class VehicleincomeDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (VehicleIncome $vehicleincome) {
-                    return join([
-                         Button::show('backend.vehicleIncome.show', $vehicleincome),
-                         Button::edit('backend.vehicleIncome.edit', $vehicleincome),
+                    return implode([
+                        Button::show('backend.vehicleIncome.show', $vehicleincome),
+                        Button::edit('backend.vehicleIncome.edit', $vehicleincome),
                     ]);
                 }),
         ];

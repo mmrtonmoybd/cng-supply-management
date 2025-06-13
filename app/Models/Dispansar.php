@@ -83,15 +83,15 @@ class Dispansar extends Model
         static::saved(function (Dispansar $model) {
             if ($model->load_entry_id) {
                 VehicleIncome::updateOrCreate([
-                'load_entry_id' => $model->load_entry_id,
-            ], 
-            [
-                'dispansar_id' => $model->id,
-                'bill_date' => $model->bill_date ?? $model->date,
-                'fm3' => $model->total_reading,
-                'rate' => $model->rate,
-                'ftk' => $model->bill_amount,
-            ]);
+                    'load_entry_id' => $model->load_entry_id,
+                ],
+                    [
+                        'dispansar_id' => $model->id,
+                        'bill_date' => $model->bill_date ?? $model->date,
+                        'fm3' => $model->total_reading,
+                        'rate' => $model->rate,
+                        'ftk' => $model->bill_amount,
+                    ]);
 
             }
         });
