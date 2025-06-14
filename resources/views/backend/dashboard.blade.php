@@ -314,7 +314,7 @@
                         label: 'Total Daily Sales',
                         type: 'bar',
                         data: filteredData,
-                        backgroundColor: 'rgba(54, 162, 235, 0.8)', // Modern Blue
+                        backgroundColor: 'rgba(13, 110, 253, 1)', // Modern Blue
                         borderColor: 'rgba(0, 0, 0, 0.2)',
                         borderWidth: 2,
                         borderRadius: 4,
@@ -324,9 +324,9 @@
                         label: 'Sales Trend (Change Over Time)',
                         type: 'line',
                         data: trendData,
-                        borderColor: 'rgba(255, 99, 132, 0.9)', // Trend Line in Red
+                        borderColor: 'rgba(25, 135, 84, 0.9)', // Trend Line in Red
                         borderWidth: 3,
-                        pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                        pointBackgroundColor: 'rgba(25, 135, 84, 0.2)',
                         pointRadius: 6,
                         tension: 0.4
                     }
@@ -338,7 +338,8 @@
                 layout: { padding: { top: 15, bottom: 15 } },
                 animation: {
                     duration: 2000, // Smooth Animation
-                    easing: 'easeOutQuart'
+                    easing: 'easeInOutQuart',
+                    loop: true // Keeps animating
                 },
                 plugins: {
                     legend: {
@@ -376,6 +377,12 @@
                             display: true,
                             text: 'Sales Date',
                             font: { size: 16, weight: 'bold' }
+                        },
+                        ticks: {
+                            font: { size: 14 },
+                            autoSkip: false, // Prevent labels from skipping
+                            maxRotation: 45, // Rotate for better readability
+                            minRotation: 45  // Fix rotation angle
                         },
                         grid: { display: false }
                     }

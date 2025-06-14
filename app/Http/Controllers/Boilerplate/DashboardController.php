@@ -313,7 +313,7 @@ class DashboardController extends Controller
         $currentDate = $start_date->copy();
         while ($currentDate <= $end_date) {
             $dateString = $currentDate->format('Y-m-d');
-            $dateLabels[] = $currentDate->format('M d');
+            $dateLabels[] = $currentDate->format('d-M-y');
             $dailyTotals[] = $aggregatedSales[$dateString] ?? 0;
             $currentDate->addDay();
         }
