@@ -17,7 +17,7 @@ return [
     'allowImpersonate' => false,
 
     // If true, the session will be kept alive and the user must log out
-    'keepalive' => true,
+    'keepalive' => false,
 
     // Allows to generate text with ChatGPT in TinyMCE
     'openai' => [
