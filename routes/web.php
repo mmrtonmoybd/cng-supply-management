@@ -12,7 +12,6 @@ $default = [
         'boilerplatelocale',
         'boilerplateauth',
         'ability:admin,backend_access', 'boilerplate.emailverified',
-        'auth.session',
     ],
     'as' => 'backend.',
 ];

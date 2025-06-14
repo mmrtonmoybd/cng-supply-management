@@ -100,7 +100,6 @@ class LoginController
     protected function authenticated(Request $request, $user)
     {
         if (! empty($user->name)) {
-            Auth::logoutOtherDevices($request->password);
             Log::info('User logged in : '.$user->name);
 
             return true;

@@ -66,7 +66,7 @@ Route::group([
     });
 
     // Backend
-    Route::group(['middleware' => ['boilerplate.auth', 'auth.session', 'ability:admin,backend_access', 'boilerplate.emailverified']], function () {
+    Route::group(['middleware' => ['boilerplate.auth', 'ability:admin,backend_access', 'boilerplate.emailverified']], function () {
         // Impersonate another user
         if (config('boilerplate.app.allowImpersonate', false)) {
             Route::as('impersonate.')->group(function () {
