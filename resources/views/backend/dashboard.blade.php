@@ -377,7 +377,7 @@
                     },
                     x: {
                         title: {
-                            display: true,
+                            display: false,
                             text: 'Sales Date',
                             font: { size: 16, weight: 'bold' }
                         },
