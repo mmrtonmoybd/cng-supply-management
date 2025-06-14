@@ -328,7 +328,11 @@
                         borderWidth: 3,
                         pointBackgroundColor: 'rgba(25, 135, 84, 0.2)',
                         pointRadius: 6,
-                        tension: 0.4
+                        tension: 0.4,
+                        animation: { // Apply animation only here
+                            duration: 2000,
+                            easing: 'easeOutQuart'
+                        }
                     }
                 ]
             },
@@ -338,8 +342,7 @@
                 layout: { padding: { top: 15, bottom: 15 } },
                 animation: {
                     duration: 2000, // Smooth Animation
-                    easing: 'easeInOutQuart',
-                    loop: true // Keeps animating
+                    easing: 'easeOutQuart'
                 },
                 plugins: {
                     legend: {
