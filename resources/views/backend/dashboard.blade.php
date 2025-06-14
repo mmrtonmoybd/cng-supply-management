@@ -318,7 +318,8 @@
                         borderColor: 'rgba(0, 0, 0, 0.2)',
                         borderWidth: 2,
                         borderRadius: 4,
-                        barThickness: 12
+                        barThickness: 12,
+                        barThickness: barThickness // Dynamically set thickness
                     },
                     {
                         label: 'Sales Trend (Change Over Time)',
