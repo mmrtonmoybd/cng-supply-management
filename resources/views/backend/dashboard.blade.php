@@ -304,6 +304,11 @@
         const trendData = filteredData.map((value, index) => {
             return index === 0 ? value : value - filteredData[index - 1];
         });
+        // Determine bar thickness dynamically
+        const totalBars = filteredLabels.length;
+
+        // Dynamically adjust thickness based on data size
+        const barThickness = Math.max(4, Math.min(20, 300 / totalBars));
 
         new Chart(salesChart, {
             type: 'bar',
