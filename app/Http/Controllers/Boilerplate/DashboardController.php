@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Boilerplate;
 
 use App\Http\Controllers\Controller;
+use App\Models\Boilerplate\User;
 use App\Models\Calculation;
 use App\Models\CngPump;
 use App\Models\Diesel;
@@ -10,6 +11,7 @@ use App\Models\Dispansar;
 use App\Models\Invoice;
 use App\Models\Pump;
 use App\Models\Transport;
+use App\Models\Vehicle;
 use App\Models\Weight;
 use App\Models\WeightOne;
 use Illuminate\Contracts\Foundation\Application;
@@ -263,6 +265,12 @@ class DashboardController extends Controller
         // Transport
         $transport_income = $profit_transport_rent - $profit_transport;
 
+        // Total vehicle
+        $totalvehicle = Vehicle::count('id');
+
+        // Total user
+        $totaluser = User::count('id');
+
         // Date range handling
         $start_date = $request->input('daterange.start')
             ? Carbon::parse($request->input('daterange.start'))
@@ -313,8 +321,13 @@ class DashboardController extends Controller
         $currentDate = $start_date->copy();
         while ($currentDate <= $end_date) {
             $dateString = $currentDate->format('Y-m-d');
-            $dateLabels[] = $currentDate->format('d-M-y');
-            $dailyTotals[] = $aggregatedSales[$dateString] ?? 0;
+            $total = $aggregatedSales[$dateString] ?? 0;
+
+            if ($total > 0) {
+                $dateLabels[] = $currentDate->format('d-M-y');
+                $dailyTotals[] = (float) $total;
+            }
+
             $currentDate->addDay();
         }
 
@@ -323,6 +336,6 @@ class DashboardController extends Controller
             'profit_dispansar', 'dispansar_cashrec', 'dispansar_balance_t', 'dispansar_balance_t_type',
             'profit_weightone', 'weightone_cashrec', 'weightone_balance_t', 'weightone_balance_t_type',
             'profit_weight', 'weight_cashrec', 'weight_balance_t', 'weight_balance_t_type',
-            'profit_cngpump', 'cngpump_cashrec', 'cngpump_balance_t', 'cngpump_balance_t_type', 'invoice', 'handcash', 'income', 'expense', 'transport_income', 'dateLabels', 'dailyTotals']));
+            'profit_cngpump', 'cngpump_cashrec', 'cngpump_balance_t', 'cngpump_balance_t_type', 'invoice', 'handcash', 'income', 'expense', 'transport_income', 'dateLabels', 'dailyTotals', 'totalvehicle', 'totaluser']));
     }
 }

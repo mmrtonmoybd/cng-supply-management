@@ -47,226 +47,165 @@
     {{-- Info Box Card --}}
     <div class="row">
         <div class="col-12">
-            
-    <div class="row">
           
-@ability('admin', 'load_crud,pump_crud,dispansar_crud,weightone_crud,weight_crud,cngpump_crud,diesel_crud,transport_crud', [
-    'validate_all' => true,
-    'return_type' => 'both'
-])
-    <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Dispansar + Cng Pump & Weight Scale + Weight scale + CNG Pump Slip + Transport rent - (Pump + Diesel + Transport cost)">
-              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-coins"></i></span>
+        <div class="row">
+  @php
+    $isToday = !request()->filled('daterange') ? 'Today' : '';
+    $isLast = !request()->filled('daterange') ? 'Last' : '';
+    $lastdate = $handcash?->date ? \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') : '';
+  @endphp
 
-              <div class="info-box-content">
-                <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Profit</span>
-                <span class="info-box-number">
-                  {{ $profit }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-@endability
+  @ability('admin', 'load_crud,pump_crud,dispansar_crud,weightone_crud,weight_crud,cngpump_crud,diesel_crud,transport_crud,vehicle_income_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-coins',
+      'bg' => 'primary',
+      'title' => "$isToday Profit",
+      'tooltip' => 'Dispansar + Cng Pump & Weight Scale + Weight scale + CNG Pump Slip + Transport rent - (Pump + Diesel + Transport cost)',
+      'value' => $profit
+    ])
 
-@ability('admin', 'load_crud')
-          <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Total load m3(Main + third party)">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-truck-loading"></i></span>
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-dollar-sign',
+      'bg' => 'danger',
+      'title' => "$isToday Total sale",
+      'tooltip' => 'Total sale(Dispansar + Cng Pump & Weight Scale + Weight Scale + Cng Pump Slip)',
+      'value' => $profit_dispansar + $profit_weightone + $profit_weight + $profit_cngpump
+    ])
+  @endability
 
-              <div class="info-box-content">
-                <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Load m3</span>
-                <span class="info-box-number">
-                  {{ $load_m3 }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-@endability
+  @ability('admin', 'vehicle_income_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-car',
+      'bg' => 'warning',
+      'title' => "$isToday Vehicle income",
+      'tooltip' => 'Vehicle income profit',
+      'value' => $load_m3
+    ])
+  @endability
 
-@ability('admin', 'diesel_crud')
+  @ability('admin', 'load_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-truck-loading',
+      'bg' => 'success',
+      'title' => "$isToday Load m3",
+      'tooltip' => 'Total load m3(Main + third party)',
+      'value' => $load_m3
+    ])
+  @endability
 
-          <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Diesel purchase cost">
-              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-oil-can"></i></span>
+  @ability('admin', 'diesel_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-oil-can',
+      'bg' => 'danger',
+      'title' => "$isToday Diesel cost",
+      'tooltip' => 'Diesel purchase cost',
+      'value' => $diesel_cost
+    ])
+  @endability
 
-              <div class="info-box-content">
-                <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Diesel cost</span>
-                <span class="info-box-number">
-                  {{ $diesel_cost }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-@endability
+  @ability('admin', 'pump_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-gas-pump',
+      'bg' => 'info',
+      'title' => "$isToday Pay pump",
+      'tooltip' => 'Total pay to pump(Main + third party)',
+      'value' => $pay_pump
+    ])
 
-@ability('admin', 'pump_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-gas-pump',
+      'bg' => 'secondary',
+      'title' => "$isToday pump ($total_due_type)",
+      'tooltip' => 'Total pump(Main + third party) + Diesel',
+      'value' => $total_due
+    ])
+  @endability
 
-          <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Total pay to pump(Main + third party)">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-gas-pump"></i></span>
+  @ability('admin', 'diesel_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-oil-can',
+      'bg' => 'warning',
+      'title' => "$isToday Diesel liter ($use_liter_type)",
+      'tooltip' => "diesel purchase litre - Use liter ($use_liter_type)",
+      'value' => $use_liter
+    ])
 
-              <div class="info-box-content">
-                <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Pay pump</span>
-                <span class="info-box-number">
-                  {{ $pay_pump }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-@endability
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-oil-can',
+      'bg' => 'primary',
+      'title' => "$isToday Diesel balance ($use_balance_type)",
+      'tooltip' => "Diesel taka - Diesel use balance ($use_balance_type)",
+      'value' => $use_balance
+    ])
+  @endability
 
-@ability('admin', 'pump_crud')
+  @ability('admin', 'invoice_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-file-invoice-dollar',
+      'bg' => 'success',
+      'title' => "$isToday Invoice",
+      'tooltip' => 'Invoice',
+      'value' => $invoice
+    ])
+  @endability
 
-          <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Total pump(Main + third party) + Diesel">
-              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-gas-pump"></i></span>
+  @ability('admin', 'cashbook_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-hand-holding-usd',
+      'bg' => 'danger',
+      'title' => "$isLast Cash in hand",
+      'tooltip' => "Cash in hand - $lastdate",
+      'value' => $handcash->balance ?? 0
+    ])
 
-              <div class="info-box-content">
-                <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} pump ({{ $total_due_type }})</span>
-                <span class="info-box-number">
-                  {{ $total_due }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-@endability
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-search-dollar',
+      'bg' => 'info',
+      'title' => "$isLast Cashbook income",
+      'tooltip' => "Cashbook income - $lastdate",
+      'value' => $income
+    ])
 
-@ability('admin', 'diesel_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-funnel-dollar',
+      'bg' => 'secondary',
+      'title' => "$isLast Cashbook expense",
+      'tooltip' => "Cashbook expense - $lastdate",
+      'value' => $expense
+    ])
+  @endability
 
-          <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="diesel purchase litre - Use liter ({{ $use_liter_type }})">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-oil-can"></i></span>
+  @ability('admin', 'transport_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-shuttle-van',
+      'bg' => 'warning',
+      'title' => "$isToday Transport net income",
+      'tooltip' => 'Transport',
+      'value' => $transport_income
+    ])
+  @endability
 
-              <div class="info-box-content">
-                <span class="info-box-text text-nowrap">{{ !request()->filled('daterange') ? 'Today' : '' }} Diesel liter ({{ $use_liter_type }})</span>
-                <span class="info-box-number">
-                  {{ $use_liter }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-@endability
+  @ability('admin', 'vehicle_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-shuttle-van',
+      'bg' => 'success',
+      'title' => "Total vehicle",
+      'tooltip' => 'Which avilable in vehicle section',
+      'value' => $transport_income
+    ])
+  @endability
 
-@ability('admin', 'diesel_crud')
+  @ability('admin', 'users_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-users',
+      'bg' => 'warning',
+      'title' => "Total users",
+      'tooltip' => 'Toatal user',
+      'value' => $totaluser
+    ])
+  @endability
+</div>
 
-          <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Diesel taka - Diesel use balance ({{ $use_balance_type }})">
-              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-oil-can"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Diesel balance ({{ $use_balance_type }})</span>
-                <span class="info-box-number">
-                  {{ $use_balance }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-
-@endability
-
-@ability('admin', 'invoice_crud')
-          <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Invoice">
-              <span class="info-box-icon bg-success elevation-1"><i class="fas fa-file-invoice-dollar"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Invoice</span>
-                <span class="info-box-number">
-                  {{ $invoice }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-@endability
-
-@ability('admin', 'cashbook_crud')
-
-           <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Cash in hand - {{ $handcash?->date ?  \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') : '' }}">
-              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-hand-holding-usd"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">{{ !request()->filled('daterange') ? 'Last' : '' }} Cash in hand</span>
-                <span class="info-box-number">
-                  {{ $handcash->balance ?? 0  }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-@endability
-
-@ability('admin', 'cashbook_crud')
-          <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Cashbook income - {{ $handcash?->date ? \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') : '' }}">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-search-dollar"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">{{ !request()->filled('daterange') ? 'Last' : '' }} Cashbook income</span>
-                <span class="info-box-number">
-                  {{ $income }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-@endability
-
-@ability('admin', 'cashbook_crud')
-          <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Cashbook expense - {{ $handcash?->date ? \Carbon\Carbon::parse($handcash->date)->format('d-m-Y') : '' }}">
-              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-funnel-dollar"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">{{ !request()->filled('daterange') ? 'Last' : '' }} Cashbook expense</span>
-                <span class="info-box-number">
-                  {{ $expense }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-@endability
-
-@ability('admin', 'transport_crud')
-          <div class="col-12 col-sm-4 col-md-3">
-            <div class="info-box" data-toggle="tooltip" title="Transport">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-shuttle-van"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">{{ !request()->filled('daterange') ? 'Today' : '' }} Transport net income</span>
-                <span class="info-box-number">
-                  {{ $transport_income }}
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-@endability
-
-    </div>
-
-            
 
         </div>
     </div>
@@ -292,23 +231,14 @@
     document.addEventListener("DOMContentLoaded", () => {
         const salesChart = document.getElementById('salesChart');
 
-        // Extract Data from Laravel
-        const rawLabels = @json($dateLabels);
-        const rawData = @json(collect($dailyTotals)->map(fn($val) => $val ?? 0));
-
         // Filter out zero/null values
-        const filteredData = rawData.filter(value => value > 0);
-        const filteredLabels = rawLabels.filter((_, index) => rawData[index] > 0);
+        const filteredData = @json($dailyTotals);
+        const filteredLabels = @json($dateLabels);
 
         // Calculate Incremental Sales Trend
         const trendData = filteredData.map((value, index) => {
             return index === 0 ? value : value - filteredData[index - 1];
         });
-        // Determine bar thickness dynamically
-        const totalBars = filteredLabels.length;
-
-        // Dynamically adjust thickness based on data size
-        const barThickness = Math.max(4, Math.min(20, 300 / totalBars));
 
         new Chart(salesChart, {
             type: 'bar',
@@ -323,8 +253,6 @@
                         borderColor: 'rgba(0, 0, 0, 0.2)',
                         borderWidth: 2,
                         borderRadius: 4,
-                        barThickness: 12,
-                        barThickness: barThickness // Dynamically set thickness
                     },
                     {
                         label: 'Sales Trend (Change Over Time)',
