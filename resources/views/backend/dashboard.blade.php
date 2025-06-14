@@ -191,7 +191,7 @@
       'bg' => 'success',
       'title' => "Total vehicle",
       'tooltip' => 'Which avilable in vehicle section',
-      'value' => $transport_income
+      'value' => $totalvehicle
     ])
   @endability
 
