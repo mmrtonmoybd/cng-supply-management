@@ -209,7 +209,7 @@
 
 <div class="row">
         <div class="col-12 pb-3">
-            <a href="{{ route('backend.factory.weightone.index') }}" class="btn btn-default" data-toggle="tooltip" title="Cng Pump & Weight Scale lists">
+            <a href="{{ route('backend.vehicleIncome.index') }}" class="btn btn-default" data-toggle="tooltip" title="Cng Pump & Weight Scale lists">
                 <span class="far fa-arrow-alt-circle-left text-muted"></span>
             </a>
         </div>
@@ -421,7 +421,16 @@ $(document).ready(function() {
                 footer: true,
                 title: exportFileName,
                 exportOptions: { columns: ':visible' }
+            },
+            {
+            text: 'Summary Print',
+            className: 'btn btn-primary', // Bootstrap style
+            action: function (e, dt, node, config) {
+                const dateRange = '{{ request('date_range') }}'; // Blade variable (ensure it's escaped correctly)
+                const url = "{{ route('backend.vehicleIncome.showFilterPrint', ['date_range' => '__RANGE__']) }}".replace('__RANGE__', dateRange);
+                window.open(url, '_blank');
             }
+        }
         ]
     });
 });

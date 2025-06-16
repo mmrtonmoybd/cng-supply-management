@@ -11,6 +11,11 @@
                     <i class="fas fa-plus"></i> Asset
                 </a>
             </span>
+            <span class="float-right pb-3 mr-2">
+                <a href="{{ route('backend.asset.assetdocument.index') }}" class="btn btn-warning">
+                    <i class="fas fa-folder-open"></i> Asset document
+                </a>
+            </span>
         </div>
     </div>
     <x-boilerplate::card>

@@ -4,10 +4,10 @@
 ])
 
 @section('content')
-<x-boilerplate::form route='backend.asset.vehicledocument.store' enctype="multipart/form-data">
+<x-boilerplate::form route='backend.vehicle.vehicledocument.store' enctype="multipart/form-data">
     <div class="row">
         <div class="col-12 pb-3">
-            <a href="{{ route('backend.asset.vehicledocument.index') }}" class="btn btn-default" data-toggle="tooltip" title="Vehicle Document lists">
+            <a href="{{ route('backend.vehicle.vehicledocument.index') }}" class="btn btn-default" data-toggle="tooltip" title="Vehicle Document lists">
                 <span class="far fa-arrow-alt-circle-left text-muted"></span>
             </a>
             <span class="btn-group float-right">

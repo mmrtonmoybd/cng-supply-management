@@ -73,7 +73,9 @@
             <x-boilerplate::input name="remarks" label="Remarks" type="text" :value="old('remarks')" placeholder="Remarks" />
         </div>
 
-        <h2 class="col-md-12 mt-4"><font color="red">Manual third party input(This input field will be use if no Load ID is selected, otherwise ignore.)</font></h2>
+        <div class="alert bg-danger text-white alert-dismissible fade show" role="alert">
+        থার্ড পার্টি ডাটা যুক্ত করার ক্ষেত্রে অবশ্যয় লোড আইডি আন-সিলেক্ট হতে হবে। যদি লোড আইডি সিলেক্ট করা হয় সেক্ষেত্রে নিচের ফিল্ড গুলো কোন কাজে আসবে না(সেক্ষেত্রে লোডের ডাটা গুলো টোটাল লোড থেকে আসবে)।
+        </div>
         <div class="col-md-4">
             <x-boilerplate::input name="date" label="Date" type="date" :value="old('date')" placeholder="Date" />
         </div>

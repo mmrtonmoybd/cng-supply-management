@@ -4,17 +4,17 @@
 ])
 
 @section('content')
-<x-boilerplate::form route='backend.asset.vehicle.store'>
+<x-boilerplate::form route='backend.vehicle.vehicle.store'>
     <div class="row">
         <div class="col-12 pb-3">
-            <a href="{{ route('backend.asset.vehicle.index') }}" class="btn btn-default" data-toggle="tooltip" title="Vehicle lists">
+            <a href="{{ route('backend.vehicle.vehicle.index') }}" class="btn btn-default" data-toggle="tooltip" title="Vehicle lists">
                 <span class="far fa-arrow-alt-circle-left text-muted"></span>
             </a>
             <span class="btn-group float-right">
                 <button type="submit" class="btn btn-primary">
                     Save
                 </button>
-     iv  </span>
+       </span>
         </div>
     </div>
     <div class="row">
@@ -49,8 +49,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8">
-            <x-boilerplate::input name='maintenance_date' label='Maintenance Date' type='date' :value="old('maintenance_date')" placeholder='Maintenance Date'/>
+        <div class="col-md-6">
+            <x-boilerplate::input required name='type' label='Vehicle Type' :value="old('type')" :options="['own' => 'Own', 'rent' => 'Rent']" type="select" placeholder='Type'/>
         </div>
     </div>
 </x-boilerplate::card>

@@ -81,8 +81,8 @@ class VehicledocumentDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (VehicleDocument $vehicledocument) {
                     return implode([
-                        Button::edit('backend.asset.vehicledocument.edit', $vehicledocument),
-                        Button::delete('backend.asset.vehicledocument.destroy', $vehicledocument),
+                        Button::edit('backend.vehicle.vehicledocument.edit', $vehicledocument),
+                        Button::delete('backend.vehicle.vehicledocument.destroy', $vehicledocument),
                     ]);
                 }),
         ];

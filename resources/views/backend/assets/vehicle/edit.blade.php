@@ -4,10 +4,10 @@
 ])
 
 @section('content')
-<x-boilerplate::form :route="['backend.asset.vehicle.update', $vehicle->id]" method="put">
+<x-boilerplate::form :route="['backend.vehicle.vehicle.update', $vehicle->id]" method="put">
     <div class="row">
         <div class="col-12 pb-3">
-            <a href="{{ route('backend.asset.vehicle.index') }}" class="btn btn-default" data-toggle="tooltip" title="Vehicle lists">
+            <a href="{{ route('backend.vehicle.vehicle.index') }}" class="btn btn-default" data-toggle="tooltip" title="Vehicle lists">
                 <span class="far fa-arrow-alt-circle-left text-muted"></span>
             </a>
             <span class="btn-group float-right">
@@ -51,7 +51,7 @@
 
     <div class="row">
         <div class="col-md-8">
-            <x-boilerplate::input name='maintenance_date' label='Maintenance Date' type='date' :value="old('maintenance_date', $vehicle->maintenance_date)" placeholder='Maintenance Date'/>
+            <x-boilerplate::input required name='type' label='Type' :value="old('type', $vehicle->type)" :options="['own' => 'Own', 'rent' => 'Rent']" type="select" placeholder='Type'/>
         </div>
     </div>
 </x-boilerplate::card>

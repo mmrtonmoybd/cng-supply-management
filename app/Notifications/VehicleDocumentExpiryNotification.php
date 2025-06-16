@@ -36,7 +36,7 @@ class VehicleDocumentExpiryNotification extends Notification
 
         return [
             'message' => $message,
-            'url' => route('backend.asset.vehicle.show', $this->document->vehicle_id),
+            'url' => route('backend.vehicle.vehicle.show', $this->document->vehicle_id),
             'icon' => 'fas fa-exclamation-triangle',
             'id' => $this->document->id,
         ];

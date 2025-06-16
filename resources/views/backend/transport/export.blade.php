@@ -95,53 +95,53 @@
         </tr>
         <tr>
             <td>Rent</td>
-            <td>{{ $transport->rent }}</td>
             <td></td>
+            <td>{{ $transport->rent }}</td>
         </tr>
         <tr>
             <td>Diesel</td>
-            <td></td>
             <td>{{ $transport->diesel_cost }}</td>
+            <td></td>
         </tr>
         <tr>
             <td>Fooding</td>
-            <td></td>
             <td>{{ $transport->fooding_cost }}</td>
+            <td></td>
         </tr>
         <tr>
             <td>Toll</td>
-            <td></td>
             <td>{{ $transport->toll_cost }}</td>
+            <td></td>
         </tr>
         <tr>
             <td>Labour</td>
-            <td></td>
             <td>{{ $transport->labour_cost }}</td>
+            <td></td>
         </tr>
         <tr>
             <td>Chada</td>
-            <td></td>
             <td>{{ $transport->chada_cost }}</td>
+            <td></td>
         </tr>
         <tr>
             <td>Police</td>
-            <td></td>
             <td>{{ $transport->police_cost }}</td>
+            <td></td>
         </tr>
         <tr>
             <td>Parking</td>
-            <td></td>
             <td>{{ $transport->parking_cost }}</td>
+            <td></td>
         </tr>
         <tr>
             <td>Maintenance</td>
-            <td></td>
             <td>{{ $transport->maintenance_cost }}</td>
+            <td></td>
         </tr>
         <tr>
             <td>Others</td>
-            <td></td>
             <td>{{ $transport->other_cost }}</td>
+            <td></td>
         </tr>
         <tr>
             <td><strong>Total</strong></td>

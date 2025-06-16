@@ -51,7 +51,7 @@ class VehicleDocumentController extends Controller
 
         VehicleDocument::create($validated);
 
-        return redirect()->route('backend.asset.vehicledocument.index')
+        return redirect()->route('backend.vehicle.vehicledocument.index')
             ->with('growl', ['Vehicle document created successfully.', 'success']);
     }
 
@@ -99,7 +99,7 @@ class VehicleDocumentController extends Controller
 
         $vehicle_document->update($validated);
 
-        return redirect()->route('backend.asset.vehicledocument.index')
+        return redirect()->route('backend.vehicle.vehicledocument.index')
             ->with('growl', ['Vehicle document updated successfully.', 'success']);
     }
 

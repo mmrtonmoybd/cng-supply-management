@@ -50,6 +50,8 @@ class WeightDatatable extends Datatable
 
             Column::add(__('Factory Name'))
                 ->data('factory.name')
+                ->width('12%')
+                ->class('text-nowrap')
                 ->filterOptions(Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
                 ->filter(function ($query, $value) {
                     return $query->where('factory_id', $value);

@@ -6,7 +6,7 @@
 @section('content')
 <div class="row">
     <div class="col-12 pb-3">
-        <a href="{{ route('backend.asset.vehicle.index') }}" class="btn btn-default" data-toggle="tooltip" title="Back to list">
+        <a href="{{ route('backend.vehicle.vehicle.index') }}" class="btn btn-default" data-toggle="tooltip" title="Back to list">
             <span class="far fa-arrow-alt-circle-left text-muted"></span> Back
         </a>
     </div>
@@ -21,32 +21,10 @@
                     <tr><th>Vehicle Type</th><td>{{ $vehicle->vehicle_type }}</td></tr>
                     <tr><th>Driver Name</th><td>{{ $vehicle->driver_name }}</td></tr>
                     <tr><th>Driver Phone</th><td>{{ $vehicle->driver_phone }}</td></tr>
+                    <tr><th>Type</th><td>{{ $vehicle->type }}</td></tr>
                     <tr><th>Registration Date</th><td>{{ $vehicle->registration_date ? (\Carbon\Carbon::parse($vehicle->registration_date)->format('d-m-Y')) : 'N/A' }}</td></tr>
-                    <tr><th>Maintenance Date</th><td>
-                        @php
-                            $maintenanceClass = '';
-                            $maintenanceHuman = '';
-                            if ($vehicle->maintenance_date) {
-                                $maintenance = \Carbon\Carbon::parse($vehicle->maintenance_date);
-                                $now = \Carbon\Carbon::now();
-                                $diffInDays = $now->diffInDays($maintenance, false);
-                                $maintenanceHuman = '('.$maintenance->diffForHumans($now).')';
-                                if ($maintenance < $now || $diffInDays <= 7) {
-                                    $maintenanceClass = 'text-danger';
-                                } elseif ($diffInDays <= 20) {
-                                    $maintenanceClass = 'text-warning';
-                                } else {
-                                    $maintenanceClass = 'text-success';
-                                }
-                            }
-                        @endphp
-                        @if($vehicle->maintenance_date)
-                            <span class="{{ $maintenanceClass }}">{{ \Carbon\Carbon::parse($vehicle->maintenance_date)->format('d-m-Y') }}</span>
-                            <span class="text-muted">{{ $maintenanceHuman }}</span>
-                        @else
-                            N/A
-                        @endif
-                    </td></tr>
+                    <tr><th>Last Maintenance Date</th><td>{{ $vehicle->maintenance_date ? (\Carbon\Carbon::parse($vehicle->maintenance_date)->format('d-m-Y')) : 'N/A' }}</td></tr>
+
                     <tr><th>Status</th><td>{!! $vehicle->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Inactive</span>' !!}</td></tr>
                     <tr>
                         <th colspan="2">
@@ -95,6 +73,51 @@
                                     @empty
                                         <tr><td colspan="3">No documents available</td></tr>
                                     @endforelse
+                                </tbody>
+                            </table>
+                        </th>
+                    </tr>
+
+
+                    <tr>
+                        <th colspan="2">
+                            <h4 class="mb-3 mt-4">Vehicle Maintenance</h4>
+                            <table class="table table-bordered table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Details</th>
+                                        <th>Cost</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $documents = \App\Models\VehicleMaintenance::where('vehicle_id', $vehicle->id)->orderBy('id', 'desc')->get();
+                                    @endphp
+                                    @forelse($documents as $document)
+                                        <tr>
+                                            <td>{{ \Carbon\Carbon::parse($document->maintenance_date)->format('d-m-Y') }}</td>
+                                            <td>
+                                               
+                                            {{ $document->details }}
+                                               
+                                            </td>
+                                            <td>
+                                                {{ $document->maintenance_cost }}
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr><td colspan="3">No maintenance available</td></tr>
+                                    @endforelse
+
+                                    @if($documents)
+                                    <tr>
+                                            <td colspan="2"> Total</td>
+                                            <td>
+                                                {{ $documents->sum('maintenance_cost') }}
+                                            </td>
+                                    </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </th>

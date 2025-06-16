@@ -141,4 +141,56 @@ class VehicleIncomeController extends Controller
             'dbtotalfm3', 'dbtotalftk', 'dbtotaldifference', 'dieselsum', 'dbtotalnet_difference', 'dbtotalrent', 'dbtotaldriver_fooding',
             'dbtotalmaintenance', 'dbtotalother', 'totalcost', 'net_profit'));
     }
+
+
+        public function showFilterPrint(Request $request)
+    {
+        $this->authorize('vehicle_income_crud');
+        $query = VehicleIncome::with(['pumpname', 'factory']);
+        $diesel = Diesel::query();
+        if ($request->filled('pumpName_id')) {
+            $query->where('pumpName_id', $request->pumpName_id);
+            $diesel->where('pumpName_id', $request->pumpName_id);
+        }
+        if ($request->filled('factory_id')) {
+            $query->where('factory_id', $request->factory_id);
+            $diesel->where('factory_id', $request->factory_id);
+        }
+        if ($request->filled('car_no')) {
+            $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
+            $diesel->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
+        }
+        if ($request->filled('date_range')) {
+            $dates = explode(' - ', $request->date_range);
+            if (count($dates) == 2) {
+                $diesel->whereBetween('d_date', [
+                    date('Y-m-d', strtotime($dates[0])),
+                    date('Y-m-d', strtotime($dates[1])),
+                ]);
+                $query->whereBetween('date', [
+                    date('Y-m-d', strtotime($dates[0])),
+                    date('Y-m-d', strtotime($dates[1])),
+                ]);
+            }
+        }
+        $results = $query->orderBy('created_at', 'ASC')->get();
+        $dbtotal = $query->count('id');
+        $dbtotalcng_purchase_m3 = $query->sum('cng_purchase_m3');
+        $dbtotalpurchase_taka = $query->sum('purchase_taka');
+        $dbtotalfm3 = $query->sum('fm3');
+        $dbtotalftk = $query->sum('ftk');
+        $dbtotaldifference = $query->sum('difference');
+        $dieselsum = $diesel->sum('taka');
+        $dbtotalnet_difference = $dbtotaldifference - $dieselsum;
+        $dbtotalrent = $query->sum('rent');
+        $dbtotaldriver_fooding = $query->sum('driver_fooding');
+        $dbtotalmaintenance = $query->sum('maintenance');
+        $dbtotalother = $query->sum('other');
+        $totalcost = $dbtotalrent + $dbtotaldriver_fooding + $dbtotalmaintenance + $dbtotalother;
+        $net_profit = $dbtotalnet_difference - $totalcost;
+
+        return view('backend.vehicleincome.printcopy', compact('results', 'dbtotal', 'dbtotalcng_purchase_m3', 'dbtotalpurchase_taka',
+            'dbtotalfm3', 'dbtotalftk', 'dbtotaldifference', 'dieselsum', 'dbtotalnet_difference', 'dbtotalrent', 'dbtotaldriver_fooding',
+            'dbtotalmaintenance', 'dbtotalother', 'totalcost', 'net_profit'));
+    }
 }

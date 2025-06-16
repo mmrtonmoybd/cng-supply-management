@@ -18,7 +18,12 @@ class Vehicle extends Model
         'registration_date',
         'status',
         'maintenance_date',
+        'type',
     ];
+
+    public function maintenance() {
+        return $this->hasMany(VehicleMaintenance::class);
+    }
 
     public function getActivitylogOptions(): LogOptions
     {

@@ -47,7 +47,7 @@ class VehicleController extends Controller
 
         Vehicle::create($request->all());
 
-        return redirect()->route('backend.asset.vehicle.index')->with('growl', ['Vehicle created successfully.', 'success']);
+        return redirect()->route('backend.vehicle.vehicle.index')->with('growl', ['Vehicle created successfully.', 'success']);
     }
 
     /**
@@ -88,7 +88,7 @@ class VehicleController extends Controller
 
         $vehicle->update($request->all());
 
-        return redirect()->route('backend.asset.vehicle.index')->with('growl', ['Vehicle updated successfully.', 'success']);
+        return redirect()->route('backend.vehicle.vehicle.index')->with('growl', ['Vehicle updated successfully.', 'success']);
     }
 
     /**

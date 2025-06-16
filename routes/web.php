@@ -96,15 +96,20 @@ Route::group($default, function () {
     Route::resource('vehicleincome', App\Http\Controllers\Backend\VehicleIncomeController::class)->names('vehicleIncome');
     Route::get('vehicleincome-filter', [App\Http\Controllers\Backend\VehicleIncomeController::class, 'filter'])->name('vehicleIncome.filter');
     Route::get('vehicleincome-filter/show', [App\Http\Controllers\Backend\VehicleIncomeController::class, 'showFilter'])->name('vehicleIncome.showFilter');
+    Route::get('vehicleincome-filter/show/print', [App\Http\Controllers\Backend\VehicleIncomeController::class, 'showFilterPrint'])->name('vehicleIncome.showFilterPrint');
 
     Route::group(['prefix' => 'assets', 'as' => 'asset.'], function () {
 
         Route::resource('asset', App\Http\Controllers\Backend\Asset\AssetController::class)->names('asset');
         Route::resource('asset-document', App\Http\Controllers\Backend\Asset\AssetDocumentController::class)->names('assetdocument');
+    });
 
+    Route::group(['prefix' => 'vehicle', 'as' => 'vehicle.'], function () {
         // Vehicle related routes
         Route::resource('vehicle', App\Http\Controllers\Backend\Asset\VehicleController::class)->names('vehicle');
         Route::resource('vehicle-document', App\Http\Controllers\Backend\Asset\VehicleDocumentController::class)->names('vehicledocument');
+
+        Route::resource('vehicle-maintenance', App\Http\Controllers\Backend\Asset\VehicleMaintenanceController::class)->names('vehiclemaintenance');
     });
 
     Route::resource('transport', App\Http\Controllers\Backend\Transport\TransportController::class)->names('transport');

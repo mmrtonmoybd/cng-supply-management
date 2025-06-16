@@ -43,6 +43,13 @@ class VehicleDatatable extends Datatable
                     'car' => 'Car',
                 ]),
 
+            Column::add(__('Type'))
+                ->data('type')
+                ->filterOptions([
+                    'own' => __('Own'),
+                    'rent' => __('Rent'),
+                ]),
+
             Column::add(__('Driver Name'))
                 ->data('driver_name'),
 
@@ -52,28 +59,7 @@ class VehicleDatatable extends Datatable
                 ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Maintenance Date'))
-                ->data('maintenance_date', function (Vehicle $vehicle) {
-                    if ($vehicle->maintenance_date) {
-                        $expiry = \Carbon\Carbon::parse($vehicle->maintenance_date);
-                        $now = \Carbon\Carbon::now();
-                        $diffInDays = $now->diffInDays($expiry, false);
-                        if ($expiry < $now) {
-                            // Expired
-                            return '<span class="text-danger">'.$expiry->format('d-m-Y').'</span>';
-                        } elseif ($diffInDays <= 7) {
-                            // Less than or equal to 10 days left
-                            return '<span class="text-danger">'.$expiry->format('d-m-Y').'</span>';
-                        } elseif ($diffInDays <= 20) {
-                            // Less than or equal to 30 days left
-                            return '<span class="text-warning">'.$expiry->format('d-m-Y').'</span>';
-                        } else {
-                            // More than 30 days left
-                            return '<span class="text-success">'.$expiry->format('d-m-Y').'</span>';
-                        }
-                    } else {
-                        return null;
-                    }
-                })->notSearchable()->notSortable(),
+                ->data('maintenance_date')->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Documents'))
                 ->data('documents', function (Vehicle $vehicle) {
@@ -117,9 +103,9 @@ class VehicleDatatable extends Datatable
                 ->width('20px')
                 ->actions(function (Vehicle $vehicle) {
                     return implode([
-                        Button::show('backend.asset.vehicle.show', $vehicle),
-                        Button::edit('backend.asset.vehicle.edit', $vehicle),
-                        Button::delete('backend.asset.vehicle.destroy', $vehicle),
+                        Button::show('backend.vehicle.vehicle.show', $vehicle),
+                        Button::edit('backend.vehicle.vehicle.edit', $vehicle),
+                        Button::delete('backend.vehicle.vehicle.destroy', $vehicle),
                     ]);
                 }),
         ];

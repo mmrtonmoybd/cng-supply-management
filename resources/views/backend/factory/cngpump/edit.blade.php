@@ -72,7 +72,9 @@
         <div class="col-md-4">
             <x-boilerplate::input name="remarks" label="Remarks" type="text" :value="old('remarks', $cngPump->remarks)" placeholder="Remarks" />
         </div>
-        <h2 class="col-md-12 mt-4"><font color="red">Manual third party input(This input field will be use if no Load ID is selected, otherwise ignore.)</font></h2>
+        <div class="alert bg-danger text-white alert-dismissible fade show" role="alert">
+       যদি লোড আইডি সিলেক্ট করা থাকে সেক্ষেত্রে নিচের ফিল্ড গুলো পরিবর্তন করাতে উভয় জায়গায় টোটাল লোডের ডাটা গুলো পরিবর্তন হবে। যদি লোড আইডি সিলেক্ট করা না থাকে সেক্ষেত্রে নিচের ডাটা গুলো পরিবর্তন করায় থার্ড পার্টি ডাটা পরিবর্তন হবে।
+        </div>
         <div class="col-md-4">
             <x-boilerplate::input name="date" label="Date" type="date" :value="old('date', $cngPump->date)" placeholder="Date" />
         </div>
