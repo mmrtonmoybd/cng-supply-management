@@ -9,6 +9,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class VehicleMaintenance extends Model
 {
     use LogsActivity;
+
     protected $fillable = [
         'vehicle_id',
         'maintenance_cost',
@@ -32,8 +33,9 @@ class VehicleMaintenance extends Model
         // Chain fluent methods for configuration options
     }
 
-    protected static function booted(): void {
-        static::saving(function(VehicleMaintenance $model) {
+    protected static function booted(): void
+    {
+        static::saving(function (VehicleMaintenance $model) {
             $vehicle = Vehicle::find($model->vehicle_id);
             $vehicle->maintenance_date = $model->maintenance_date;
             $vehicle->save();

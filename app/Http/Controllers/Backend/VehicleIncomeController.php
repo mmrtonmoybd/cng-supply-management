@@ -142,8 +142,7 @@ class VehicleIncomeController extends Controller
             'dbtotalmaintenance', 'dbtotalother', 'totalcost', 'net_profit'));
     }
 
-
-        public function showFilterPrint(Request $request)
+    public function showFilterPrint(Request $request)
     {
         $this->authorize('vehicle_income_crud');
         $query = VehicleIncome::with(['pumpname', 'factory']);

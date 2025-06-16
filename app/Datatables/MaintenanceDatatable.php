@@ -2,11 +2,11 @@
 
 namespace App\Datatables;
 
+use App\Models\Vehicle;
 use App\Models\VehicleMaintenance;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Vehicle;
 
 class MaintenanceDatatable extends Datatable
 {
@@ -57,10 +57,10 @@ class MaintenanceDatatable extends Datatable
             Column::add()
                 ->width('20px')
                 ->actions(function (VehicleMaintenance $vehiclemaintenance) {
-                    return join([
+                    return implode([
                         // Button::show('vehiclemaintenance.show', $vehiclemaintenance),
-                         Button::edit('backend.vehicle.vehiclemaintenance.edit', $vehiclemaintenance),
-                         Button::delete('backend.vehicle.vehiclemaintenance.destroy', $vehiclemaintenance),
+                        Button::edit('backend.vehicle.vehiclemaintenance.edit', $vehiclemaintenance),
+                        Button::delete('backend.vehicle.vehiclemaintenance.destroy', $vehiclemaintenance),
                     ]);
                 }),
         ];

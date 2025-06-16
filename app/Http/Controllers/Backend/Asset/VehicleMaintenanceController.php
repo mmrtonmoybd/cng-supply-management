@@ -14,6 +14,7 @@ class VehicleMaintenanceController extends Controller
     public function index()
     {
         $this->authorize('vehicle_crud');
+
         return view('backend.assets.vehicle.maintenance.list');
     }
 
@@ -23,6 +24,7 @@ class VehicleMaintenanceController extends Controller
     public function create()
     {
         $this->authorize('vehicle_crud');
+
         return view('backend.assets.vehicle.maintenance.create');
     }
 
@@ -35,7 +37,7 @@ class VehicleMaintenanceController extends Controller
         $request->validate([
             'vehicle_id' => 'required|exists:vehicles,id',
             'maintenance_cost' => 'required|numeric',
-            'maintenance_date' => 'required|date'
+            'maintenance_date' => 'required|date',
         ]);
 
         VehicleMaintenance::create($request->all());
@@ -58,6 +60,7 @@ class VehicleMaintenanceController extends Controller
     public function edit(VehicleMaintenance $vehicle_maintenance)
     {
         $this->authorize('vehicle_crud');
+
         return view('backend.assets.vehicle.maintenance.edit', [
             'vehiclemaintenance' => $vehicle_maintenance,
         ]);
@@ -72,7 +75,7 @@ class VehicleMaintenanceController extends Controller
         $request->validate([
             'vehicle_id' => 'required|exists:vehicles,id',
             'maintenance_cost' => 'required|numeric',
-            'maintenance_date' => 'required|date'
+            'maintenance_date' => 'required|date',
         ]);
 
         $vehicle_maintenance->update($request->all());

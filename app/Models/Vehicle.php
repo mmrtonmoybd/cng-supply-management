@@ -21,7 +21,8 @@ class Vehicle extends Model
         'type',
     ];
 
-    public function maintenance() {
+    public function maintenance()
+    {
         return $this->hasMany(VehicleMaintenance::class);
     }
 
