@@ -50,7 +50,7 @@ class CngpumpslipDatatable extends Datatable
                 }),
                 */
 
-            Column::add('Car no')
+            Column::add('______Car no')
                 ->data('vehicle_reg_number'),
 
             Column::add(__('Pump Name'))
