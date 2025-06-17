@@ -251,22 +251,21 @@ class WeightController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Weight $weight)
-{
-    $this->authorize('weight_crud');
+    {
+        $this->authorize('weight_crud');
 
-    // Find the related LoadEntry
-    $load = \App\Models\LoadEntry::find($weight->load_entry_id);
+        // Find the related LoadEntry
+        $load = \App\Models\LoadEntry::find($weight->load_entry_id);
 
-    // Only update if LoadEntry exists
-    if ($load) {
-        $load->status = 0;
-        $load->save();
+        // Only update if LoadEntry exists
+        if ($load) {
+            $load->status = 0;
+            $load->save();
+        }
+
+        // Now delete the weight
+        return response()->json(['success' => $weight->delete() ?? false]);
     }
-
-    // Now delete the weight
-    return response()->json(['success' => $weight->delete() ?? false]);
-}
-
 
     public function filter()
     {
