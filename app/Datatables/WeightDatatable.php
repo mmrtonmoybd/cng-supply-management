@@ -38,7 +38,7 @@ class WeightDatatable extends Datatable
                 ->data('date')
                 ->dateFormat('DD-MM-YYYY'),
 
-            Column::add(__('Car No'))
+            Column::add(__('______Car No'))
                 ->data('vehicle_reg_number'),
 
             Column::add(__('Pump Name'))
