@@ -64,7 +64,7 @@ class DispansarDatatable extends Datatable
                 ->data('cng_purchase_m3')->sum(),
 
             Column::add('Rate')
-                ->data('rate'),
+                ->data('lrate'),
 
             Column::add('Purchase Taka')
                 ->data('purchase_taka')->sum(),
