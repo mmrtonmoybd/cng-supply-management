@@ -39,7 +39,7 @@ class WeightoneDatatable extends Datatable
                 ->data('date')
                 ->dateFormat('DD-MM-YYYY'),
 
-            Column::add(__('______Car No'))
+            Column::add(__('___Car No'))
                 ->data('vehicle_reg_number'),
 
             Column::add(__('Pump Name'))
