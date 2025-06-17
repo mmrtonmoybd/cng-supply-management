@@ -258,9 +258,6 @@
         </div>
     </div>
 </div>
-<div style="text-align: center; margin: 20px 0; color: #555; font-size: 0.9rem;">
-    Developed by Engineer BD Network
-</div>
 <div class="no-print" style="text-align:center; margin-top: 20px;">
     <button onclick="window.print()">Print</button>
 </div>
