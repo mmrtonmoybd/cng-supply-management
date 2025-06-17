@@ -124,7 +124,7 @@
     </div>
     <div class="right">
       <strong>Invoice ID:</strong> #{{ $invoice->id }}<br>
-      <strong>Invoice Date:</strong> {{ $invoice->date ? (\Carbon\Carbon::parse($invoice->date)->format('d-m-Y')) : 'N/A' }}
+      <strong>Invoice Date:</strong> {{ $invoice->date ? (\Carbon\Carbon::parse($invoice->date)->format('l, F j, Y')) : 'N/A' }}
     </div>
   </div>
 
