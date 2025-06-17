@@ -148,7 +148,7 @@ class DispansarController extends Controller
             'bill_date' => 'nullable|date',
             'opening_reading' => 'nullable|numeric',
             'closing_reading' => 'nullable|numeric',
-            'rate' => 'numeric|required',
+            'rate' => 'nullable|numeric',
             'in' => 'nullable|numeric',
             'out' => 'nullable|numeric',
             'cash_receipt_date' => 'nullable|date',
