@@ -59,7 +59,7 @@
     @include('backend.partials.infobox', [
       'icon' => 'fas fa-coins',
       'bg' => 'primary',
-      'title' => "$isToday Profit",
+      'title' => "$isToday Income",
       'tooltip' => 'Dispansar + Cng Pump & Weight Scale + Weight scale + CNG Pump Slip + Transport rent - (Pump + Diesel + Transport cost)',
       'value' => $profit
     ])
