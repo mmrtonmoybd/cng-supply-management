@@ -46,13 +46,17 @@ class DieselDatatable extends Datatable
 
             Column::add(__('Pump Name'))
                 ->data('pumpname.name')
+                ->width('12%')
+                ->class('text-nowrap')
                 ->filterOptions(PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
                 ->filter(function ($query, $value) {
                     return $query->where('pumpName_id', $value);
                 }),
 
             Column::add(__('Vehicle Number'))
-                ->data('vehicle_reg_number'),
+                ->data('vehicle_reg_number')
+                ->width('12%')
+                ->class('text-nowrap'),
 
             Column::add(__('Litre'))
                 ->data('diesel_purchase_litre')->sum(),

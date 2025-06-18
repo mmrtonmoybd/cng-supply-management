@@ -241,18 +241,21 @@ class WeightOneController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(WeightOne $weightOne)
+    public function destroy(WeightOne $weightone)
     {
         $this->authorize('weightone_crud');
 
-        if (! $weightOne->load_entry_id) {
-            return response()->json(['success' => $weightOne->delete() ?? false]);
-        }
-        $load = \App\Models\LoadEntry::find($weightOne->load_entry_id);
-        $load->status = 0;
-        $load->save();
+        // Find the related LoadEntry
+        $load = \App\Models\LoadEntry::find($weightone->load_entry_id);
 
-        return response()->json(['success' => $weightOne->delete() ?? false]);
+        // Only update if LoadEntry exists
+        if ($load) {
+            $load->status = 0;
+            $load->save();
+        }
+
+        // Now delete the weight
+        return response()->json(['success' => $weightone->delete() ?? false]);
     }
 
     /**

@@ -176,7 +176,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <x-boilerplate::select2 name="type" label="Pump type" :value="request('type')" placeholder="Select Pump type">
+                <x-boilerplate::select2 name="type" :allow-clear=true label="Pump type" :value="request('type')" placeholder="Select Pump type">
                     <option value="">All</option>
                     <option value="1" {{ request('type') === '1' ? 'selected' : '' }}>Main</option>
                     <option value="0" {{ request('type') === '0' ? 'selected' : '' }}>Third party</option>

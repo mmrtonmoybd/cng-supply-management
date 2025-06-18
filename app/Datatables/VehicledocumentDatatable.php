@@ -36,6 +36,8 @@ class VehicledocumentDatatable extends Datatable
             Column::add(__('Vehicle Number'))
                 ->data('vehicle.vehicle_number')
                 ->name('vehicles.vehicle_number')
+                ->width('12%')
+                ->class('text-nowrap')
                 ->filterOptions(Vehicle::distinct()->orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray())
                 ->filter(function ($query, $value) {
                     return $query->where('vehicle_id', $value);

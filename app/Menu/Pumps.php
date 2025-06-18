@@ -27,5 +27,11 @@ class Pumps implements MenuItemInterface
             'active' => 'backend.pumpname.*',
             'permission' => 'pump_name_crud',
         ]);
+
+        $item->add('Pump summary', [
+            'route' => 'backend.pumpsum.filter',
+            'active' => 'backend.pumpsum.*',
+            'permission' => 'pump_name_crud',
+        ]);
     }
 }

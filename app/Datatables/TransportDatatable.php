@@ -84,9 +84,25 @@ class TransportDatatable extends Datatable
                 ->data('total_cost')->sum(),
 
             Column::add('Net income')
-                ->data('balance', function (Transport $transport) {
+                ->data('totalincome', function (Transport $transport) {
                     return $transport->rent - $transport->total_cost;
                 })->sum()->notOrderable()->notSearchable(),
+
+            Column::add('Cash recive date')
+                ->data('cash_receipt_date')
+                ->dateFormat('DD-MM-YYYY'),
+
+            Column::add(__('Cash Receipt Amount'))
+                ->data('cash_receipt_amount')->sum(),
+
+            Column::add(__('Recived By'))
+                ->data('recived_by'),
+
+            Column::add('Balance')
+                ->data('balance')->sum(),
+
+            Column::add(__('Remarks'))
+                ->data('remarks'),
 
             Column::add()
                 ->width('20px')

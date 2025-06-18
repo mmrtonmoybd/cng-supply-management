@@ -34,7 +34,7 @@ class PumpDatatable extends Datatable
             Column::add(__('Id'))
                 ->data('id'),
 
-            Column::add('Date')
+            Column::add('________Date')
                 ->data('date')
                 ->dateFormat('DD-MM-YYYY')
                 ->filterType('daterangepicker'),
@@ -44,6 +44,8 @@ class PumpDatatable extends Datatable
 
             Column::add(__('Pump Name'))
                 ->data('pumpname.name')
+                ->width('12%')
+                ->class('text-nowrap')
                 ->filterOptions(PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
                 ->filter(function ($query, $value) {
                     return $query->where('pumpName_id', $value);
@@ -76,12 +78,14 @@ class PumpDatatable extends Datatable
 
             Column::add(__('Factory Name'))
                 ->data('factory.name')
+                ->width('12%')
+                ->class('text-nowrap')
                 ->filterOptions(Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
                 ->filter(function ($query, $value) {
                     return $query->where('factory_id', $value);
                 }),
 
-            Column::add(__('Payment Date'))
+            Column::add(__('____Payment Date'))
                 ->data('payment_date')
                 ->dateFormat('DD-MM-YYYY'),
 

@@ -51,5 +51,11 @@ class Factory implements MenuItemInterface
             'active' => 'backend.factory.invoice.*',
             'route' => 'backend.factory.invoice.index',
         ]);
+
+        $item->add('Factory summary', [
+            'permission' => 'factory_crud',
+            'active' => 'backend.factory.factorysum.*',
+            'route' => 'backend.factory.factorysum.filter',
+        ]);
     }
 }

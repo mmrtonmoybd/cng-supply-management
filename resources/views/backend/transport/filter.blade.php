@@ -33,7 +33,7 @@
             
     <div class="row">
 
-    <div class="col-12 col-sm-4 col-md-3">
+    <div class="col-12 col-sm-4">
             <div class="info-box" data-toggle="tooltip" title="Total dispansar">
               <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-shuttle-van"></i></span>
 
@@ -49,7 +49,7 @@
           </div>
 
         
-        <div class="col-12 col-sm-4 col-md-3">
+        <div class="col-12 col-sm-4">
             <div class="info-box" data-toggle="tooltip" title="Total load m3">
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-truck-moving"></i></span>
 
@@ -65,7 +65,7 @@
           </div>
 
 
-          <div class="col-12 col-sm-4 col-md-3">
+          <div class="col-12 col-sm-4">
             <div class="info-box" data-toggle="tooltip" title="Total cost">
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-money-bill-alt"></i></span>
 
@@ -80,15 +80,44 @@
             <!-- /.info-box -->
           </div>
 
+          <div class="col-12 col-sm-4">
+            <div class="info-box" data-toggle="tooltip" title="Total income">
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-percent"></i></span>
 
-          <div class="col-12 col-sm-4 col-md-3">
+              <div class="info-box-content">
+                <span class="info-box-text">Total Income</span>
+                <span class="info-box-number">
+                  {{ $totals['net_income'] }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div class="col-12 col-sm-4">
+            <div class="info-box" data-toggle="tooltip" title="Total cash recive">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-money-bill-alt"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Cash recive</span>
+                <span class="info-box-number">
+                  {{ $totals['cash_receipt_amount'] }}
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div class="col-12 col-sm-4">
             <div class="info-box" data-toggle="tooltip" title="Total balance">
-              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-balance-scale-right"></i></span>
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-balance-scale-right"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">Total balance</span>
                 <span class="info-box-number">
-                  {{ $totals['net_income'] }}
+                  {{ $totals['balance'] }}
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -173,6 +202,9 @@
                             <th class="text-right">Other</th>
                             <th class="text-right">Total Cost</th>
                             <th class="text-right">Net Income</th>
+                            <th>Cash Receipt Amount</th>
+                            <th>Cash Receipt Date</th>
+                            <th>Balance</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -201,6 +233,9 @@
                                 <td class="text-right">{{ number_format($transport->other_cost, 2) }}</td>
                                 <td class="text-right">{{ number_format($total_cost, 2) }}</td>
                                 <td class="text-right">{{ number_format($net_income, 2) }}</td>
+                                <td>{{ $transport->cash_receipt_amount }}</td>
+                                <td>{{ $transport->cash_receipt_date ? (\Carbon\Carbon::parse($transport->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
+                                <td>{{ $transport->balance }}</td>
                             </tr>
                         @empty
                             <tr>
@@ -223,6 +258,10 @@
                             <th class="text-right">{{ number_format($totals['other_cost'], 2) }}</th>
                             <th class="text-right">{{ number_format($totals['total_cost'], 2) }}</th>
                             <th class="text-right">{{ number_format($totals['net_income'], 2) }}</th>
+
+                            <th class="text-right">{{ number_format($totals['cash_receipt_amount'], 2) }}</th>
+                            <th class="text-right"></th>
+                            <th class="text-right">{{ number_format($totals['balance'], 2) }}</th>
                         </tr>
                     </tfoot>
                 </table>

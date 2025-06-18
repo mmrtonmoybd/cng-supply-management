@@ -124,7 +124,7 @@
 
     <table>
         <tr>
-            <td><strong>Renr</strong></td>
+            <td><strong>Rent</strong></td>
             <td> {{ $dbtotalrent }}</td>
         </tr>
         <tr>

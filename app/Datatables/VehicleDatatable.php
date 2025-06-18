@@ -33,7 +33,9 @@ class VehicleDatatable extends Datatable
                 ->data('id'),
 
             Column::add(__('Vehicle Number'))
-                ->data('vehicle_number'),
+                ->data('vehicle_number')
+                ->width('12%')
+                ->class('text-nowrap'),
 
             Column::add(__('Vehicle Type'))
                 ->data('vehicle_type')
@@ -51,7 +53,9 @@ class VehicleDatatable extends Datatable
                 ]),
 
             Column::add(__('Driver Name'))
-                ->data('driver_name'),
+                ->data('driver_name')
+                ->width('12%')
+                ->class('text-nowrap'),
 
             Column::add(__('Registration Date'))
                 ->width('180px')

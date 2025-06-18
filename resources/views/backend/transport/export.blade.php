@@ -78,8 +78,8 @@
         <tr>
             <td><strong>Trip from</strong></td>
             <td>{{ $transport->from }}</td>
-            <td><strong>Start Time</strong></td>
-            <td></td>
+            <td><strong>Cash recive date</strong></td>
+            <td>{{ $transport->cash_receipt_date ? (\Carbon\Carbon::parse($transport->cash_receipt_date)->format('d-m-Y')) : '' }}</td>
         </tr>
         <tr>
             <td><strong>Trip Destination</strong></td>
@@ -162,7 +162,7 @@
 
     <table>
         <tr>
-            <td><strong>Balance</strong></td>
+            <td><strong>Net income</strong></td>
             <td>{{ ($transport->rent ?? 0) - (
                 ($transport->diesel_cost ?? 0) +
                 ($transport->fooding_cost ?? 0) +
@@ -176,20 +176,20 @@
             ) }}</td>
         </tr>
         <tr>
-            <td><strong>Previous Accounts</strong></td>
-            <td></td>
-        </tr>
-        <tr>
             <td><strong>Cash Received</strong></td>
-            <td></td>
+            <td>{{ $transport->cash_receipt_amount }}</td>
         </tr>
         <tr>
-            <td><strong>Cash Send</strong></td>
-            <td></td>
+            <td><strong>Balance(Cash Received - Net income)</strong></td>
+            <td>{{ $transport->balance }}</td>
+        </tr>
+        <tr>
+            <td><strong>Cash reveive by</strong></td>
+            <td>{{ $transport->recived_by }}</td>
         </tr>
         <tr>
             <td><strong>Note:</strong></td>
-            <td></td>
+            <td>{{ $transport->remarks }}</td>
         </tr>
     </table>
 

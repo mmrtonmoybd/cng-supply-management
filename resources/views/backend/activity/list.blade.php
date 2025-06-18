@@ -2,7 +2,7 @@
     'title' => 'Activity',
     'subtitle' => 'Activity lists',
     'breadcrumb' => [
-        'Load' => 'backend.activity.index',
+        'Activity' => 'backend.activity.index',
     ]
 ])
 

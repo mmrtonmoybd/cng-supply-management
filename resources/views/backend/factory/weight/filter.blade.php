@@ -308,8 +308,6 @@
                         <th>Cash Receipt Amount</th>
                         <th>Cash Receipt Date</th>
                         <th>Balance</th>
-                        <th>Received By</th>
-                        <th>Remarks</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -355,8 +353,6 @@
                             <td>{{ $row->cash_receipt_amount }}</td>
                             <td>{{ $row->cash_receipt_date ? (\Carbon\Carbon::parse($row->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $row->balance }}</td>
-                            <td>{{ $row->recived_by }}</td>
-                            <td>{{ $row->remarks }}</td>
                         </tr>
                         @php
                             $totalM3 += $row->cng_purchase_m3;
@@ -410,8 +406,6 @@
                                 echo 'Due';
                             }
                             @endphp)</th>
-                        <th></th>
-                        <th></th>
                     </tr>
                 </tfoot>
             </table>

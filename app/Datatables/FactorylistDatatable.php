@@ -32,7 +32,9 @@ class FactorylistDatatable extends Datatable
                 ->data('id'),
 
             Column::add(__('Name'))
-                ->data('name'),
+                ->data('name')
+                ->width('12%')
+                ->class('text-nowrap'),
 
             Column::add(__('Type'))
                 ->data('type', function ($value) {

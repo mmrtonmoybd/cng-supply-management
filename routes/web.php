@@ -46,6 +46,8 @@ Route::group($default, function () {
     Route::get('activity/{activity}', App\Http\Controllers\Backend\Activity\ActivityController::class.'@show')->name('activity.show');
 
     Route::resource('pumpname', App\Http\Controllers\Backend\Pump\PumpNameController::class)->names('pumpname');
+    Route::get('pump-summary', [App\Http\Controllers\Backend\Pump\PumpNameController::class, 'filter'])->name('pumpsum.filter');
+    Route::get('pump-summary/result', [App\Http\Controllers\Backend\Pump\PumpNameController::class, 'filterResult'])->name('pumpsum.filter.result');
 
     Route::resource('pump', App\Http\Controllers\Backend\Pump\PumpController::class)->names('pump');
     Route::get('pump-filter', [App\Http\Controllers\Backend\Pump\PumpController::class, 'filter'])->name('pump.filter');
@@ -87,6 +89,9 @@ Route::group($default, function () {
         Route::get('cngPump-filter/show', [App\Http\Controllers\Backend\Factory\CngPumpSlipController::class, 'showFilter'])->name('cngpump.showFilter');
 
         Route::resource('factory', App\Http\Controllers\Backend\Factory\FactoryController::class)->names('factory');
+
+        Route::get('factory-summary', [App\Http\Controllers\Backend\Factory\FactoryController::class, 'filter'])->name('factorysum.filter');
+        Route::get('factory-summary/result', [App\Http\Controllers\Backend\Factory\FactoryController::class, 'filterResult'])->name('factorysum.filter.result');
 
         Route::resource('invoice', App\Http\Controllers\Backend\Invoice\InvoiceController::class)->names('invoice');
 

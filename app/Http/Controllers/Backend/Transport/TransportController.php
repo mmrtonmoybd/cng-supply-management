@@ -49,6 +49,10 @@ class TransportController extends Controller
             'police_cost' => 'nullable|numeric',
             'parking_cost' => 'nullable|numeric',
             'other_cost' => 'nullable|numeric',
+            'cash_receipt_date' => 'nullable|date',
+            'cash_receipt_amount' => 'nullable|numeric',
+            'recived_by' => 'nullable|string|max:255',
+            'remarks' => 'nullable|string|max:1000',
         ]);
 
         Transport::create($validated);
@@ -98,6 +102,10 @@ class TransportController extends Controller
             'police_cost' => 'nullable|numeric',
             'parking_cost' => 'nullable|numeric',
             'other_cost' => 'nullable|numeric',
+            'cash_receipt_date' => 'nullable|date',
+            'cash_receipt_amount' => 'nullable|numeric',
+            'recived_by' => 'nullable|string|max:255',
+            'remarks' => 'nullable|string|max:1000',
         ]);
 
         $transport->update($validated);
@@ -176,6 +184,8 @@ class TransportController extends Controller
             'police_cost' => $transports->sum('police_cost'),
             'parking_cost' => $transports->sum('parking_cost'),
             'other_cost' => $transports->sum('other_cost'),
+            'balance' => $transports->sum('balance'),
+            'cash_receipt_amount' => $transports->sum('cash_receipt_amount'),
         ];
 
         $totals['total_cost'] = $totals['maintenance_cost'] + $totals['diesel_cost'] + $totals['toll_cost'] +

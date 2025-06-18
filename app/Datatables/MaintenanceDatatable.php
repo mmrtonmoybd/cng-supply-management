@@ -35,6 +35,8 @@ class MaintenanceDatatable extends Datatable
 
             Column::add(__('Vehicle Number'))
                 ->data('vehicle.vehicle_number')
+                ->width('12%')
+                ->class('text-nowrap')
                 ->name('vehicles.vehicle_number')
                 ->filterOptions(Vehicle::distinct()->orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray())
                 ->filter(function ($query, $value) {
@@ -46,6 +48,8 @@ class MaintenanceDatatable extends Datatable
 
             Column::add(__('Details'))
                 ->data('details')
+                ->width('12%')
+                ->class('text-nowrap')
                 ->width('30%')
                 ->class('text-nowrap'),
 

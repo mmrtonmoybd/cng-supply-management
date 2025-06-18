@@ -231,13 +231,17 @@ class CngPumpSlipController extends Controller
     public function destroy(CngPump $cngPump)
     {
         $this->authorize('cngpump_crud');
-        if (! $cngPump->load_entry_id) {
-            return response()->json(['success' => $cngPump->delete() ?? false]);
-        }
-        $load = \App\Models\LoadEntry::find($cngPump->load_entry_id);
-        $load->status = 0;
-        $load->save();
 
+        // Find the related LoadEntry
+        $load = \App\Models\LoadEntry::find($cngPump->load_entry_id);
+
+        // Only update if LoadEntry exists
+        if ($load) {
+            $load->status = 0;
+            $load->save();
+        }
+
+        // Now delete the weight
         return response()->json(['success' => $cngPump->delete() ?? false]);
     }
 

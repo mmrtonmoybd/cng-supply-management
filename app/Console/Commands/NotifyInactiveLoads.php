@@ -24,14 +24,14 @@ class NotifyInactiveLoads extends Command
      *
      * @var string
      */
-    protected $description = 'Check for loads that have been inactive for more than 6 hours and notify users';
+    protected $description = 'Check for loads that have been inactive for more than 12 hours and notify users';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $sixHoursAgo = Carbon::now()->subHours(6);
+        $sixHoursAgo = Carbon::now()->subHours(12);
 
         // Get inactive loads created more than 6 hours ago
         $inactiveLoads = LoadEntry::where('status', 0)

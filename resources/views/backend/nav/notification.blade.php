@@ -108,7 +108,7 @@ function loadNotifications() {
 // Polling interval based on environment
 if (typeof isLiveServer === 'undefined') {
     const isLiveServer = {{ config('app.live_server') ? 'true' : 'false' }};
-    const pollingInterval = isLiveServer ? 15000 : 30000; // 15 second for live server, 30 seconds otherwise
+    const pollingInterval = isLiveServer ? 300000 : 300000; // 15 second for live server, 30 seconds otherwise
     setInterval(loadNotifications, pollingInterval);
 }
 

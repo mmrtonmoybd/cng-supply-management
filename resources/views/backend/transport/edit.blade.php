@@ -80,6 +80,19 @@
         <div class="col-4">
             <x-boilerplate::input name='other_cost' label='Other Cost' type='number' step='0.01' :value="old('other_cost', $transport->other_cost)" placeholder='Other Cost'/>
         </div>
+
+        <div class="col-md-4">
+            <x-boilerplate::input name="cash_receipt_date" label="Cash Receipt Date" type="date" :value="old('cash_receipt_date', $transport->cash_receipt_date)" placeholder="Cash Receipt Date" />
+        </div>
+        <div class="col-md-4">
+            <x-boilerplate::input name="cash_receipt_amount" label="Cash Receipt Amount" type="number" step="0.01" :value="old('cash_receipt_amount', $transport->cash_receipt_amount)" placeholder="Cash Receipt Amount" />
+        </div>
+        <div class="col-md-4">
+            <x-boilerplate::input name="recived_by" label="Received By" type="text" :value="old('recived_by', $transport->recived_by)" placeholder="Received By" />
+        </div>
+        <div class="col-md-4">
+            <x-boilerplate::input name="remarks" label="Remarks" type="text" :value="old('remarks', $transport->remarks)" placeholder="Remarks" />
+        </div>
     </div>
 </x-boilerplate::card>
         </div>

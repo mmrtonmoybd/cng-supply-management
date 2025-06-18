@@ -28,4 +28,20 @@ class Factory extends Model
             ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
     }
+
+    public function cngpump() {
+        return $this->hasMany(CngPump::class, 'factory_id');
+    }
+
+    public function dispansar() {
+        return $this->hasMany(Dispansar::class, 'factory_id');
+    }
+
+    public function weight() {
+        return $this->hasMany(Weight::class, 'factory_id');
+    }
+
+    public function weightone() {
+        return $this->hasMany(WeightOne::class, 'factory_id');
+    }
 }

@@ -86,6 +86,16 @@
   @ability('admin', 'load_crud')
     @include('backend.partials.infobox', [
       'icon' => 'fas fa-truck-loading',
+      'bg' => 'primary',
+      'title' => "$isToday Total load",
+      'tooltip' => 'Toatal load',
+      'value' => $load_count
+    ])
+  @endability
+
+  @ability('admin', 'load_crud')
+    @include('backend.partials.infobox', [
+      'icon' => 'fas fa-truck-loading',
       'bg' => 'success',
       'title' => "$isToday Load m3",
       'tooltip' => 'Total load m3(Main + third party)',
@@ -192,16 +202,6 @@
       'title' => "Total vehicle",
       'tooltip' => 'Which avilable in vehicle section',
       'value' => $totalvehicle
-    ])
-  @endability
-
-  @ability('admin', 'users_crud')
-    @include('backend.partials.infobox', [
-      'icon' => 'fas fa-users',
-      'bg' => 'warning',
-      'title' => "Total users",
-      'tooltip' => 'Toatal user',
-      'value' => $totaluser
     ])
   @endability
 </div>

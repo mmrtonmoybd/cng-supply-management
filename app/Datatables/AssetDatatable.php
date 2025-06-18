@@ -33,7 +33,9 @@ class AssetDatatable extends Datatable
                 ->data('id'),
 
             Column::add(__('Asset name'))
-                ->data('name'),
+                ->data('name')
+                ->width('12%')
+                ->class('text-nowrap'),
 
             Column::add(__('Asset type'))
                 ->data('type')
@@ -41,6 +43,8 @@ class AssetDatatable extends Datatable
 
             Column::add(__('Vehicle'))
                 ->data('vehicle.vehicle_number')
+                ->width('12%')
+                ->class('text-nowrap')
                 ->filterOptions(Vehicle::distinct()->orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray())
                 ->filter(function ($query, $value) {
                     return $query->where('vehicle_id', $value);

@@ -23,6 +23,14 @@ class PumpName extends Model
         return $this->hasMany(LoadEntry::class);
     }
 
+    public function diesel() {
+        return $this->hasMany(Diesel::class, 'pumpName_id');
+    }
+
+    public function pump() {
+        return $this->hasMany(Pump::class, 'pumpName_id');
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

@@ -129,9 +129,13 @@ class InvoiceController extends Controller
         return view('backend.factory.invoice.show', compact('invoice'));
     }
 
-    public function export(Invoice $invoice)
+    public function export(Invoice $invoice, Request $request)
     {
         $this->authorize('invoice_crud');
+
+        if ($request->filled('header')) {
+            return view('backend.factory.invoice.invoice2', compact('invoice'));
+        }
 
         return view('backend.factory.invoice.invoice', compact('invoice'));
     }

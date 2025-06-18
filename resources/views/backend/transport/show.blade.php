@@ -38,6 +38,11 @@
                     <tr><th>Other Cost</th><td>{{ $transport->other_cost }}</td></tr>
                     <tr><th>Total Cost</th><td>{{ $transport->total_cost }}</td></tr>
                     <tr><th>Net Income</th><td>{{ $transport->rent - $transport->total_cost }}</td></tr>
+                    <tr><th>Cash Receipt Date</th><td>{{ $transport->cash_receipt_date ? (\Carbon\Carbon::parse($transport->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td></tr>
+                    <tr><th>Cash Receipt Amount</th><td>{{ $transport->cash_receipt_amount }}</td></tr>
+                    <tr><th>Balance</th><td>{{ $transport->balance }}</td></tr>
+                    <tr><th>Received By</th><td>{{ $transport->recived_by }}</td></tr>
+                    <tr><th>Remarks</th><td>{{ $transport->remarks }}</td></tr>
                 </tbody>
             </table>
         </x-boilerplate::card>

@@ -238,13 +238,16 @@ class DispansarController extends Controller
     {
         $this->authorize('dispansar_crud');
 
-        if (! $dispansar->load_entry_id) {
-            return response()->json(['success' => $dispansar->delete() ?? false]);
-        }
+         // Find the related LoadEntry
         $load = \App\Models\LoadEntry::find($dispansar->load_entry_id);
-        $load->status = 0;
-        $load->save();
 
+        // Only update if LoadEntry exists
+        if ($load) {
+            $load->status = 0;
+            $load->save();
+        }
+
+        // Now delete the weight
         return response()->json(['success' => $dispansar->delete() ?? false]);
     }
 

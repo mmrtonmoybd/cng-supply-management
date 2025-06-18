@@ -427,7 +427,7 @@ $(document).ready(function() {
             className: 'btn btn-primary', // Bootstrap style
             action: function (e, dt, node, config) {
                 const dateRange = '{{ request('date_range') }}'; // Blade variable (ensure it's escaped correctly)
-                const url = "{{ route('backend.vehicleIncome.showFilterPrint', ['date_range' => '__RANGE__']) }}".replace('__RANGE__', dateRange);
+                const url = "{{ route('backend.vehicleIncome.showFilterPrint') }}?pumpName_id={{ request('pumpName_id') }}&car_no={{ request('car_no') }}&date_range={{ request('date_range') }}";
                 window.open(url, '_blank');
             }
         }

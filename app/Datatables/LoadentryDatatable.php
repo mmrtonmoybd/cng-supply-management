@@ -34,15 +34,19 @@ class LoadentryDatatable extends Datatable
                 ->data('id')
                 ->name('load_entries.id'),
 
-            Column::add(__('Date'))
+            Column::add(__('________Date'))
                 ->data('date')
                 ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Car No'))
-                ->data('vehicle_reg_number'),
+                ->data('vehicle_reg_number')
+                ->width('12%')
+                ->class('text-nowrap'),
 
             Column::add(__('Pump Name'))
                 ->data('pumpname.name')
+                ->width('12%')
+                ->class('text-nowrap')
                 ->filterOptions(PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
                 ->filter(function ($query, $value) {
                     return $query->where('pumpName_id', $value);
@@ -59,6 +63,8 @@ class LoadentryDatatable extends Datatable
 
             Column::add(__('Factory Name'))
                 ->data('factory.name')
+                ->width('12%')
+                ->class('text-nowrap')
                 ->filterOptions(Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
                 ->filter(function ($query, $value) {
                     return $query->where('factory_id', $value);

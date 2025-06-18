@@ -9,9 +9,15 @@
         <a href="{{ route('backend.factory.invoice.index') }}" class="btn btn-default" data-toggle="tooltip" title="Back to list">
             <span class="far fa-arrow-alt-circle-left text-muted"></span> Back
         </a>
-        <a href="{{ route('backend.factory.invoice.export', $invoice->id) }}" target="_blank" class="btn btn-primary">
-            <i class="fas fa-file-invoice-dollar"></i> Export Invoice
+         
+        <span class="float-right pb-3 mr-2">
+        <a href="{{ route('backend.factory.invoice.export', $invoice->id) }}?header=1" target="_blank" class="btn btn-success">
+            <i class="fas fa-file-invoice-dollar"></i> Export Invoice(With header)
         </a>
+        <a href="{{ route('backend.factory.invoice.export', $invoice->id) }}" target="_blank" class="btn btn-primary">
+            <i class="fas fa-file-invoice-dollar"></i> Export Invoice(Without header)
+        </a>
+        </span>
     </div>
 </div>
 <div class="row justify-content-center">

@@ -60,7 +60,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      padding: 230px 0px 0px 0px;
+      padding: 80px 0px 0px 0px;
       text-align: left;
       border-top: 1px solid #000;
       font-size: 14px;
@@ -84,7 +84,7 @@
       }
 
       @page {
-        margin: 1.95in 0in 0.5in 0.5in;
+        margin: 1.95in 0in 0.7in 0.5in;
       }
 
       .spacer {
@@ -254,7 +254,7 @@
 	  
     </tbody>
   </table>
-  <div >
+  <div>
   <br>
     <strong >In Words: <span >{{ Illuminate\Support\Number::spell($total) }} only</span></strong>
   </div>

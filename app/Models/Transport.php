@@ -26,6 +26,11 @@ class Transport extends Model
         'parking_cost',
         'other_cost',
         'total_cost',
+        'cash_receipt_date',
+        'cash_receipt_amount',
+        'balance',
+        'recived_by',
+        'remarks',
     ];
 
     public function vehicle()
@@ -43,6 +48,9 @@ class Transport extends Model
                 $model->fooding_cost + $model->police_cost + $model->parking_cost +
                 $model->other_cost;
             $model->total_cost = round($model->total_cost, 2);
+            if ($model->cash_receipt_amount > 0) {
+                $model->balance = $model->cash_receipt_amount - ($model->rent - $model->total_cost);
+            }
         });
     }
 

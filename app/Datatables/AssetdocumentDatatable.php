@@ -42,7 +42,9 @@ class AssetdocumentDatatable extends Datatable
                 }),
 
             Column::add(__('Name'))
-                ->data('name'),
+                ->data('name')
+                ->width('12%')
+                ->class('text-nowrap'),
 
             Column::add(__('Document url'))
                 ->data('path', function (AssetDocument $assetdocument) {
