@@ -238,7 +238,7 @@ class DispansarController extends Controller
     {
         $this->authorize('dispansar_crud');
 
-         // Find the related LoadEntry
+        // Find the related LoadEntry
         $load = \App\Models\LoadEntry::find($dispansar->load_entry_id);
 
         // Only update if LoadEntry exists

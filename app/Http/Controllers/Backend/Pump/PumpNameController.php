@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Backend\Pump;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pump;
 use App\Models\PumpName;
 use Illuminate\Http\Request;
-use App\Models\Diesel;
-use App\Models\Pump;
 
 class PumpNameController extends Controller
 {
@@ -96,7 +95,8 @@ class PumpNameController extends Controller
         return response()->json(['success' => $pumpname->delete() ?? false]);
     }
 
-    public function filter(Request $request) {
+    public function filter(Request $request)
+    {
         $this->authorize('pump_name_crud');
 
         // Get unique pump names for the dropdown
@@ -104,17 +104,18 @@ class PumpNameController extends Controller
         return view('backend.pumpname.filter');
     }
 
-    public function filterResult(Request $request) {
+    public function filterResult(Request $request)
+    {
 
         $dates = explode(' - ', $request->date_range);
         $fromDate = date('Y-m-d', strtotime($dates[0]));
         $toDate = date('Y-m-d', strtotime($dates[1]));
 
         $query = PumpName::with(['diesel' => function ($query) use ($fromDate, $toDate) {
-        $query->whereBetween('d_date', [$fromDate, $toDate]);
-    }, 'pump' => function ($query) use ($fromDate, $toDate) {
-        $query->whereBetween('date', [$fromDate, $toDate]);
-    }]);
+            $query->whereBetween('d_date', [$fromDate, $toDate]);
+        }, 'pump' => function ($query) use ($fromDate, $toDate) {
+            $query->whereBetween('date', [$fromDate, $toDate]);
+        }]);
 
         // Filter by pump name if provided
         if ($request->filled('type')) {
@@ -126,36 +127,35 @@ class PumpNameController extends Controller
         }
 
         $results = $query->orderBy('name', 'ASC')->get()->map(function ($pump) {
-        $cng_purchase_m3 = $pump->pump->sum('cng_purchase_m3');
-        $purchase_taka = $pump->pump->sum('purchase_taka');
-        $payment = $pump->pump->sum('payment');
-        $diesel_purchase = $pump->diesel->sum('taka');
-        $diesel_liter = $pump->diesel->sum('diesel_purchase_litre');
-        
-        $balance = $payment - ($purchase_taka + $diesel_purchase);
-        $status = $balance > 0 ? 'Advance' : ($balance == 0 ? 'Paid' : 'Due');
+            $cng_purchase_m3 = $pump->pump->sum('cng_purchase_m3');
+            $purchase_taka = $pump->pump->sum('purchase_taka');
+            $payment = $pump->pump->sum('payment');
+            $diesel_purchase = $pump->diesel->sum('taka');
+            $diesel_liter = $pump->diesel->sum('diesel_purchase_litre');
 
-        return [
-            'id' => $pump->id,
-            'diesel_liter' => $diesel_liter,
-            'diesel_purchase' => $diesel_purchase,
-            'cng_purchase_m3' => $cng_purchase_m3,
-            'purchase_taka' => $purchase_taka,
-            'payment' => $payment,
-            'name' => $pump->name,
-            'balance' => $balance,
-            'status' => $status,
-        ];
-    });
+            $balance = $payment - ($purchase_taka + $diesel_purchase);
+            $status = $balance > 0 ? 'Advance' : ($balance == 0 ? 'Paid' : 'Due');
 
-    //dd($results);
+            return [
+                'id' => $pump->id,
+                'diesel_liter' => $diesel_liter,
+                'diesel_purchase' => $diesel_purchase,
+                'cng_purchase_m3' => $cng_purchase_m3,
+                'purchase_taka' => $purchase_taka,
+                'payment' => $payment,
+                'name' => $pump->name,
+                'balance' => $balance,
+                'status' => $status,
+            ];
+        });
 
-    $dbtotalpump = $results->count();
-    $dieselsum = $results->sum('diesel_purchase');
-    $dbtotal_m3 = $results->sum('cng_purchase_m3');
-    $dbtotal_purchase_taka = $results->sum('purchase_taka');
-    $dbtotal_payment = $results->sum('payment');
+        // dd($results);
 
+        $dbtotalpump = $results->count();
+        $dieselsum = $results->sum('diesel_purchase');
+        $dbtotal_m3 = $results->sum('cng_purchase_m3');
+        $dbtotal_purchase_taka = $results->sum('purchase_taka');
+        $dbtotal_payment = $results->sum('payment');
 
         return view('backend.pumpname.filter', compact('results', 'dieselsum', 'dbtotal_m3', 'dbtotal_purchase_taka', 'dbtotalpump', 'dbtotal_payment'));
     }

@@ -29,19 +29,23 @@ class Factory extends Model
         // Chain fluent methods for configuration options
     }
 
-    public function cngpump() {
+    public function cngpump()
+    {
         return $this->hasMany(CngPump::class, 'factory_id');
     }
 
-    public function dispansar() {
+    public function dispansar()
+    {
         return $this->hasMany(Dispansar::class, 'factory_id');
     }
 
-    public function weight() {
+    public function weight()
+    {
         return $this->hasMany(Weight::class, 'factory_id');
     }
 
-    public function weightone() {
+    public function weightone()
+    {
         return $this->hasMany(WeightOne::class, 'factory_id');
     }
 }
