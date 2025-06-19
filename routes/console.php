@@ -8,3 +8,7 @@ Schedule::command('vehicle:check-documents')->dailyAt('09:00')
 Schedule::command('loads:check-inactive')
     ->hourly()
     ->appendOutputTo(storage_path('logs/inactive-loads-check.log'));
+
+Schedule::command('session:prune')
+->hourly()
+    ->appendOutputTo(storage_path('logs/session-clean.log'));
