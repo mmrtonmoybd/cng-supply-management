@@ -10,5 +10,5 @@ Schedule::command('loads:check-inactive')
     ->appendOutputTo(storage_path('logs/inactive-loads-check.log'));
 
 Schedule::command('session:prune')
-->hourly()
+    ->hourly()
     ->appendOutputTo(storage_path('logs/session-clean.log'));
