@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-md-4">
             @php
-                $loadOptions = \App\Models\LoadEntry::where('status', 0)
+                $loadOptions = \App\Models\LoadEntry::with('pumpname')->where('status', 0)
                     ->orWhere('id', $weight->load_entry_id)
                     ->orderByDesc('id')->get();
             @endphp
@@ -33,7 +33,7 @@
                     <option value="">No Load select</option>
                     @foreach($loadOptions as $load)
                         <option value="{{ $load->id }}" {{ (string)old('load_entry_id', $weight->load_entry_id) === (string)$load->id ? 'selected' : '' }}>
-                            Car no: {{ $load->vehicle_reg_number }}, Pump name: {{ $load->pump_name }} & Date: {{ $load->date }}
+                            Car no: {{ $load->vehicle_reg_number }}, Pump name: {{ $load->pumpname->name }} & Date: {{ $load->date }}
                         </option>
                     @endforeach
                 </select>

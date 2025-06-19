@@ -32,7 +32,7 @@
                     <option value="">No Load select</option>
                     @foreach($loadOptions as $load)
                         <option value="{{ $load->id }}" {{ old('load_entry_id') == $load->id ? 'selected' : '' }}>
-                            Car no: {{ $load->vehicle_reg_number }}, Pump name: {{ $load->pump_name }} & Date: {{ $load->date }}
+                            Car no: {{ $load->vehicle_reg_number }}, Pump name: {{ $load->pumpname->name }} & Date: {{ $load->date }}
                         </option>
                     @endforeach
                 </select>

@@ -24,7 +24,7 @@ class WeightOneController extends Controller
     public function create()
     {
         $this->authorize('weightone_crud');
-        $loadOptions = \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
+        $loadOptions = \App\Models\LoadEntry::with('pumpname')->where('status', 0)->orderByDesc('id')->get();
 
         return view('backend.factory.weightone.create', compact('loadOptions'));
     }

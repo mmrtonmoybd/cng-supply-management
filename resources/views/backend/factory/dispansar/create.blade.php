@@ -9,7 +9,7 @@
 
 @section('content')
 @php
-    $loadOptions = \App\Models\LoadEntry::where('status', 0)->orderByDesc('id')->get();
+    $loadOptions = \App\Models\LoadEntry::with('pumpname')->where('status', 0)->orderByDesc('id')->get();
 @endphp
 <x-boilerplate::form route="backend.factory.dispansar.store">
     <div class="row">
@@ -35,7 +35,7 @@
                     <option value="">No Load select</option>
                     @foreach($loadOptions as $load)
                         <option value="{{ $load->id }}" {{ old('load_entry_id') == $load->id ? 'selected' : '' }}>
-                            Car no: {{ $load->vehicle_reg_number }}, Pump name: {{ $load->pump_name }} & Date: {{ $load->date }}
+                            Car no: {{ $load->vehicle_reg_number }}, Pump name: {{ $load->pumpname->name }} & Date: {{ $load->date }}
                         </option>
                     @endforeach
                 </select>
