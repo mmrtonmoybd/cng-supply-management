@@ -10,5 +10,5 @@ Schedule::command('loads:check-inactive')
     ->appendOutputTo(storage_path('logs/inactive-loads-check.log'));
 
 Schedule::command('auth:clear-resets')
-    ->daily()
+    ->hourly()
     ->appendOutputTo(storage_path('logs/reset-password-clean.log'));
