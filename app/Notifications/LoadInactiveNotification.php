@@ -36,7 +36,7 @@ class LoadInactiveNotification extends Notification
     public function toDatabase(object $notifiable): array
     {
         return [
-            'message' => 'Load has been added for 6+ hours ago but have not been entry in factory - Car no: '.$this->loadEntry->vehicle_reg_number,
+            'message' => 'Load has been added for 12+ hours ago but have not been entry in factory - Car no: '.$this->loadEntry->vehicle_reg_number,
             'url' => route('backend.load.show', $this->loadEntry->id),
             'icon' => 'fas fa-exclamation-triangle',
             'load_id' => $this->loadEntry->id,
