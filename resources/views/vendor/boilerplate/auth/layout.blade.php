@@ -52,6 +52,43 @@
     <link rel="apple-touch-icon" href="{{ url(config('boilerplate.app.pwa.apple_touch_icon')) }}">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- NProgress CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    
+    <style>
+      #nprogress {
+        pointer-events: none;
+      }
+    
+      #nprogress .bar {
+        background: #ffc107 !important;
+        position: fixed;
+        z-index: 99999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+      }
+    
+      #nprogress .peg {
+        display: block;
+        position: absolute;
+        right: 0px;
+        width: 100px;
+        height: 100%;
+        box-shadow: 0 0 10px #ffc107, 0 0 5px #ffc107;
+        opacity: 1.0;
+        -webkit-transform: rotate(3deg) translate(0px, -4px);
+            -ms-transform: rotate(3deg) translate(0px, -4px);
+                transform: rotate(3deg) translate(0px, -4px);
+      }
+    
+      #nprogress .spinner {
+        display: none !important;
+      }
+    </style>
 
 @endif
 <!-- Google tag (gtag.js) -->
@@ -63,6 +100,7 @@
 
   gtag('config', 'G-NXWWXL4RPF');
 </script>
+
 </head>
 <body class="hold-transition login-page">
     @yield('content')
@@ -109,6 +147,40 @@
                 } else {
                     console.error("Service workers are not supported.");
                 }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Finish progress on load
+    NProgress.done();
+
+    // Form submission
+    document.querySelectorAll('form').forEach(function (form) {
+      form.addEventListener('submit', function () {
+        NProgress.start();
+      });
+    });
+
+    // Link clicks
+    document.querySelectorAll('a[href]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        if (
+          link.hostname === window.location.hostname &&
+          !link.target &&
+          !e.ctrlKey && !e.metaKey &&
+          !link.hasAttribute('download') &&
+          !link.href.includes('#')
+        ) {
+          NProgress.start();
+        }
+      });
+    });
+
+    // Also handle page unload/reload
+    window.addEventListener('beforeunload', function () {
+      NProgress.start();
+    });
+  });
 </script>
 @endif
 </body>
