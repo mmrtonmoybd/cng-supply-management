@@ -28,7 +28,7 @@
                 <tbody>
                     <tr><th>Invoice no: </th><td>{{ $invoice->id }}</td></tr>
                     <tr><th>Invoice date: </th><td>{{ $invoice->date ? (\Carbon\Carbon::parse($invoice->date)->format('d-m-Y')) : 'N/A' }}</td></tr>
-                    <tr><th>Factory: </th><td>{{ $invoice->factory->name }}</td></tr>
+                    <tr><th>Factory: </th><td>{{ $invoice->factory?->name }}</td></tr>
                     <tr><th>Invoice amount: </th><td>{{ $invoice->total }}</td></tr>
                     <tr><th>Factory type: </th><td>
                         @if ($invoice->factory_type == 'dispansar')
