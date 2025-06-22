@@ -207,9 +207,6 @@
     .table-responsive {
         overflow-x: auto;
     }
-    .table {
-        width: auto !important;
-    }
 </style>
 @endpush
 
