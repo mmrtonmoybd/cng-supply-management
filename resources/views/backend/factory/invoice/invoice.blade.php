@@ -118,9 +118,9 @@
   <div class="invoice-info">
     <div class="left">
       <strong>Invoice To:</strong><br>
-      {{ $invoice->factory->name }}<br>
-      {{ $invoice->factory->address ?? '' }}<br>
-      {{ $invoice->factory->email ?? '' }}
+      {{ $invoice->factory?->name }}<br>
+      {{ $invoice->factory?->address ?? '' }}<br>
+      {{ $invoice->factory?->email ?? '' }}
     </div>
     <div class="right">
       <strong>Invoice ID:</strong> #{{ $invoice->id }}<br>
