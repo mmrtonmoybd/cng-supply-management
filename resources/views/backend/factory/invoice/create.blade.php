@@ -40,7 +40,7 @@
                         <select name="factories_id[]" id="factories_id" class="form-control select2" multiple required>
                             @foreach ($dispansarOptions as $dispansar)
                                 <option value="{{ $dispansar->id }}">
-                                    #Bill no: {{ $dispansar->bill_no }} - Factory: {{ $dispansar->factory->name }} - Car no: {{ $dispansar->vehicle_reg_number }}
+                                    #Bill no: {{ $dispansar->bill_no }} - Factory: {{ $dispansar->factory?->name }} - Car no: {{ $dispansar->vehicle_reg_number }}
                                 </option>
                             @endforeach
                         </select>
@@ -56,7 +56,7 @@
                         <select name="factories_id[]" id="factories_id" class="form-control select2" multiple required>
                             @foreach ($dispansarOptions as $dispansar)
                                 <option value="{{ $dispansar->id }}">
-                                    #Challan no: {{ $dispansar->bill_no }} - Factory: {{ $dispansar->factory->name }} - Car no: {{ $dispansar->vehicle_reg_number }}
+                                    #Challan no: {{ $dispansar->bill_no }} - Factory: {{ $dispansar->factory?->name }} - Car no: {{ $dispansar->vehicle_reg_number }}
                                 </option>
                             @endforeach
                         </select>
@@ -72,7 +72,7 @@
                         <select name="factories_id[]" id="factories_id" class="form-control select2" multiple required>
                             @foreach ($dispansarOptions as $dispansar)
                                 <option value="{{ $dispansar->id }}">
-                                    #Bill no: {{ $dispansar->bill_no }} - Factory: {{ $dispansar->factory->name }} - Car no: {{ $dispansar->vehicle_reg_number }}
+                                    #Bill no: {{ $dispansar->bill_no }} - Factory: {{ $dispansar->factory?->name }} - Car no: {{ $dispansar->vehicle_reg_number }}
                                 </option>
                             @endforeach
                         </select>
@@ -88,7 +88,7 @@
                         <select name="factories_id[]" id="factories_id" class="form-control select2" multiple required>
                             @foreach ($dispansarOptions as $dispansar)
                                 <option value="{{ $dispansar->id }}">
-                                    #Bill no: {{ $dispansar->bill_no }} - Factory: {{ $dispansar->factory->name }} - Car no: {{ $dispansar->vehicle_reg_number }}
+                                    #Bill no: {{ $dispansar->bill_no }} - Factory: {{ $dispansar->factory?->name }} - Car no: {{ $dispansar->vehicle_reg_number }}
                                 </option>
                             @endforeach
                         </select>
