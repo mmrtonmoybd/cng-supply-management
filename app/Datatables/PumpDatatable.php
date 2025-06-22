@@ -40,7 +40,9 @@ class PumpDatatable extends Datatable
                 ->filterType('daterangepicker'),
 
             Column::add('Car no')
-                ->data('vehicle_reg_number'),
+                ->data('vehicle_reg_number')
+                ->width('12%')
+                ->class('text-nowrap'),
 
             Column::add(__('Pump Name'))
                 ->data('pumpname.name')
