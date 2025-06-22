@@ -55,7 +55,7 @@ class VehicleincomeDatatable extends Datatable
             Column::add(__('Factory Name'))
                 ->data('factory.name')
                 ->filterOptions(Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
-            ->width('12%')
+                ->width('12%')
                 ->class('text-nowrap')
                 ->filter(function ($query, $value) {
                     return $query->where('factory_id', $value);
