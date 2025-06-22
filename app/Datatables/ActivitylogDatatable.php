@@ -102,7 +102,7 @@ class ActivitylogDatatable extends Datatable
                         }
                     }
 
-                    return '<div class="desc-wrapper collapsed">'. $output . '</div>';
+                    return '<div class="desc-wrapper collapsed">'.$output.'</div>';
                 })->class('activity-desc'),
 
             Column::add()
