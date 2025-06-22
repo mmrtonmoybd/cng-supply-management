@@ -55,6 +55,8 @@ class VehicleincomeDatatable extends Datatable
             Column::add(__('Factory Name'))
                 ->data('factory.name')
                 ->filterOptions(Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray())
+            ->width('12%')
+                ->class('text-nowrap')
                 ->filter(function ($query, $value) {
                     return $query->where('factory_id', $value);
                 }),
@@ -68,7 +70,7 @@ class VehicleincomeDatatable extends Datatable
             Column::add(__('Purchase Taka'))
                 ->data('purchase_taka')->sum(),
 
-            Column::add(__('___F date'))
+            Column::add(__('______F date'))
                 ->width('180px')
                 ->data('bill_date')
                 ->dateFormat('DD-MM-YYYY'),
