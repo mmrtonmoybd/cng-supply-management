@@ -55,7 +55,9 @@ class InvoiceDatatable extends Datatable
                         'cngpump' => __('CNG Pump Slip'),
                         'weight' => __('Weight Scale'),
                         'weightone' => __('Cng Pump & Weight Scale'),
-                    ]),
+                    ])
+            ->width('12%')
+                ->class('text-nowrap'),
 
             Column::add(__('Factory Name'))
                 ->data('factory.name')
