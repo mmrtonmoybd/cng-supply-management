@@ -300,9 +300,9 @@
   <div class="address-section">
     <div class="address" style="text-align: left">
       <strong>Invoice To:</strong><br>
-      {{ $invoice->factory->name }}<br>
-      {{ $invoice->factory->address ?? '' }}<br>
-      {{ $invoice->factory->email ?? '' }}<br>
+      {{ $invoice->factory?->name }}<br>
+      {{ $invoice->factory?->address ?? '' }}<br>
+      {{ $invoice->factory?->email ?? '' }}<br>
     </div>
     <div class="address" style="text-align: right">
       <strong>Invoice From:</strong><br>
