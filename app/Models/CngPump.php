@@ -44,7 +44,7 @@ class CngPump extends Model
                 Pump::create([
                     'cng_pump_id' => $model->id,
                     'purchase_taka' => $model->purchase_taka,
-                    'rate' => $model->rate,
+                    'rate' => $model->lrate,
                     'date' => $model->date,
                     'vehicle_reg_number' => $model->vehicle_reg_number,
                     'pumpName_id' => $model->pumpName_id,
@@ -60,7 +60,7 @@ class CngPump extends Model
                 Pump::updateOrCreate(['cng_pump_id' => $model->id], [
                     'cng_pump_id' => $model->id,
                     'purchase_taka' => $model->purchase_taka,
-                    'rate' => $model->rate,
+                    'rate' => $model->lrate,
                     'date' => $model->date,
                     'vehicle_reg_number' => $model->vehicle_reg_number,
                     'pumpName_id' => $model->pumpName_id,

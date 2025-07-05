@@ -46,7 +46,7 @@ class Dispansar extends Model
                 Pump::create([
                     'dispansar_id' => $model->id,
                     'purchase_taka' => $model->purchase_taka,
-                    'rate' => $model->rate,
+                    'rate' => $model->lrate,
                     'date' => $model->date,
                     'vehicle_reg_number' => $model->vehicle_reg_number,
                     'pumpName_id' => $model->pumpName_id,
@@ -62,7 +62,7 @@ class Dispansar extends Model
                 Pump::updateOrCreate(['dispansar_id' => $model->id], [
                     'dispansar_id' => $model->id,
                     'purchase_taka' => $model->purchase_taka,
-                    'rate' => $model->rate,
+                    'rate' => $model->lrate,
                     'date' => $model->date,
                     'vehicle_reg_number' => $model->vehicle_reg_number,
                     'pumpName_id' => $model->pumpName_id,

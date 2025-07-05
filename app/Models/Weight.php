@@ -51,7 +51,7 @@ class Weight extends Model
                 Pump::create([
                     'weight_id' => $model->id,
                     'purchase_taka' => $model->purchase_taka,
-                    'rate' => $model->rate,
+                    'rate' => $model->lrate,
                     'date' => $model->date,
                     'vehicle_reg_number' => $model->vehicle_reg_number,
                     'pumpName_id' => $model->pumpName_id,
@@ -67,7 +67,7 @@ class Weight extends Model
                 Pump::updateOrCreate(['weight_id' => $model->id], [
                     'weight_id' => $model->id,
                     'purchase_taka' => $model->purchase_taka,
-                    'rate' => $model->rate,
+                    'rate' => $model->lrate,
                     'date' => $model->date,
                     'vehicle_reg_number' => $model->vehicle_reg_number,
                     'pumpName_id' => $model->pumpName_id,
