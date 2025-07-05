@@ -145,7 +145,6 @@
         </tr>
         <tr>
             <td><strong>Total</strong></td>
-            <td><strong>{{ $transport->rent }}</strong></td>
             <td><strong>{{
                 ($transport->diesel_cost ?? 0) +
                 ($transport->fooding_cost ?? 0) +
@@ -157,6 +156,7 @@
                 ($transport->maintenance_cost ?? 0) +
                 ($transport->other_cost ?? 0)
             }}</strong></td>
+            <td><strong>{{ $transport->rent }} </strong></td>
         </tr>
     </table>
 
