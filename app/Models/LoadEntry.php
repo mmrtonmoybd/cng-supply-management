@@ -61,6 +61,59 @@ class LoadEntry extends Model
             ]);
         });
 
+        static::updating(function (LoadEntry $model) {
+            Pump::where('load_entry_id', $model->id)->update([
+                'purchase_taka' => $model->purchase_taka,
+                'rate' => $model->rate,
+                'date' => $model->date,
+                'vehicle_reg_number' => $model->vehicle_reg_number,
+                'pumpName_id' => $model->pumpName_id,
+                'cng_purchase_m3' => $model->cng_purchase_m3,
+                'factory_id' => $model->factory_id,
+            ]);
+
+            Dispansar::where('load_entry_id', $model->id)->update([
+                'purchase_taka' => $model->purchase_taka,
+                'lrate' => $model->rate,
+                'date' => $model->date,
+                'vehicle_reg_number' => $model->vehicle_reg_number,
+                'pumpName_id' => $model->pumpName_id,
+                'cng_purchase_m3' => $model->cng_purchase_m3,
+                'factory_id' => $model->factory_id,
+            ]);
+
+            CngPump::where('load_entry_id', $model->id)->update([
+                'purchase_taka' => $model->purchase_taka,
+                'lrate' => $model->rate,
+                'date' => $model->date,
+                'vehicle_reg_number' => $model->vehicle_reg_number,
+                'pumpName_id' => $model->pumpName_id,
+                'cng_purchase_m3' => $model->cng_purchase_m3,
+                'factory_id' => $model->factory_id,
+            ]);
+
+            Weight::where('load_entry_id', $model->id)->update([
+                'purchase_taka' => $model->purchase_taka,
+                'lrate' => $model->rate,
+                'date' => $model->date,
+                'vehicle_reg_number' => $model->vehicle_reg_number,
+                'pumpName_id' => $model->pumpName_id,
+                'cng_purchase_m3' => $model->cng_purchase_m3,
+                'factory_id' => $model->factory_id,
+            ]);
+
+            WeightOne::where('load_entry_id', $model->id)->update([
+                'purchase_taka' => $model->purchase_taka,
+                'lrate' => $model->rate,
+                'date' => $model->date,
+                'vehicle_reg_number' => $model->vehicle_reg_number,
+                'pumpName_id' => $model->pumpName_id,
+                'cng_purchase_m3' => $model->cng_purchase_m3,
+                'factory_id' => $model->factory_id,
+            ]);
+
+        });
+
         static::saved(function (LoadEntry $model) {
             VehicleIncome::updateOrCreate([
                 'load_entry_id' => $model->id,
