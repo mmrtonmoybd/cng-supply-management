@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('date');
             $table->string('vehicle_reg_number');
             $table->string('pump_name');
-            $table->decimal('cng_purchase_m3', 10, 2);
+            $table->decimal('cng_purchase_m3', 10, 3);
             $table->decimal('rate', 10, 2);
             $table->decimal('purchase_taka', 15, 2);
             $table->decimal('fuel_cost', 15, 2)->nullable();

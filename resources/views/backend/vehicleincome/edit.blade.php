@@ -22,18 +22,18 @@
 <x-boilerplate::card>
     <div class="row">
         <div class="col-6">
-            <x-boilerplate::input name='rent' label='Rent' type='number' step='0.01' :value="old('rent', $vehicleincome->rent)" placeholder='Rent'/>
+            <x-boilerplate::input name='rent' label='Rent' type='number' step='0.001' :value="old('rent', $vehicleincome->rent)" placeholder='Rent'/>
         </div>
         <div class="col-6">
-            <x-boilerplate::input name='driver_fooding' label='Driver Fooding' type='number' step='0.01' :value="old('driver_fooding', $vehicleincome->driver_fooding)" placeholder='Driver Fooding'/>
+            <x-boilerplate::input name='driver_fooding' label='Driver Fooding' type='number' step='0.001' :value="old('driver_fooding', $vehicleincome->driver_fooding)" placeholder='Driver Fooding'/>
         </div>
     </div>
     <div class="row">
         <div class="col-6">
-            <x-boilerplate::input name='maintenance' label='Maintenance' type='number' step='0.01' :value="old('maintenance', $vehicleincome->maintenance)" placeholder='Maintenance'/>
+            <x-boilerplate::input name='maintenance' label='Maintenance' type='number' step='0.001' :value="old('maintenance', $vehicleincome->maintenance)" placeholder='Maintenance'/>
         </div>
         <div class="col-6">
-            <x-boilerplate::input name='other' label='other' type='number' step='0.01' :value="old('other', $vehicleincome->other)" placeholder='other'/>
+            <x-boilerplate::input name='other' label='other' type='number' step='0.001' :value="old('other', $vehicleincome->other)" placeholder='other'/>
         </div>
     </div>
 </x-boilerplate::card>

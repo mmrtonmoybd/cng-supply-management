@@ -46,25 +46,25 @@
             <x-boilerplate::input name="bill_date" label="Bill Date" type="date" :value="old('bill_date', $cngPump->bill_date)" placeholder="Bill Date" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="in" label="In" type="number" step="0.01" :value="old('in', $cngPump->in)" placeholder="In" />
+            <x-boilerplate::input name="in" label="In" type="number" step="0.001" :value="old('in', $cngPump->in)" placeholder="In" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="out" label="Out" type="number" step="0.01" :value="old('out', $cngPump->out)" placeholder="Out" />
+            <x-boilerplate::input name="out" label="Out" type="number" step="0.001" :value="old('out', $cngPump->out)" placeholder="Out" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="fm3" label="FM3" type="number" step="0.01" :value="old('fm3', $cngPump->fm3)" placeholder="FM3" />
+            <x-boilerplate::input name="fm3" label="FM3" type="number" step="0.001" :value="old('fm3', $cngPump->fm3)" placeholder="FM3" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="rate" label="Rate" type="number" step="0.01" :value="old('rate', $cngPump->rate)" placeholder="Rate" />
+            <x-boilerplate::input name="rate" label="Rate" type="number" step="0.001" :value="old('rate', $cngPump->rate)" placeholder="Rate" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="ftk" label="FTK" type="number" step="0.01" :value="old('ftk', $cngPump->ftk)" placeholder="FTK" />
+            <x-boilerplate::input name="ftk" label="FTK" type="number" step="0.001" :value="old('ftk', $cngPump->ftk)" placeholder="FTK" />
         </div>
         <div class="col-md-4">
             <x-boilerplate::input name="cash_receipt_date" label="Cash Receipt Date" type="date" :value="old('cash_receipt_date', $cngPump->cash_receipt_date)" placeholder="Cash Receipt Date" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="cash_receipt_amount" label="Cash Receipt Amount" type="number" step="0.01" :value="old('cash_receipt_amount', $cngPump->cash_receipt_amount)" placeholder="Cash Receipt Amount" />
+            <x-boilerplate::input name="cash_receipt_amount" label="Cash Receipt Amount" type="number" step="0.001" :value="old('cash_receipt_amount', $cngPump->cash_receipt_amount)" placeholder="Cash Receipt Amount" />
         </div>
         <div class="col-md-4">
             <x-boilerplate::input name="recived_by" label="Received By" type="text" :value="old('recived_by', $cngPump->recived_by)" placeholder="Received By" />
@@ -95,13 +95,13 @@
             </select>
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="cng_purchase_m3" label="M3" type="number" step="0.01" :value="old('cng_purchase_m3', $cngPump->cng_purchase_m3)" placeholder="M3" />
+            <x-boilerplate::input name="cng_purchase_m3" label="M3" type="number" step="0.001" :value="old('cng_purchase_m3', $cngPump->cng_purchase_m3)" placeholder="M3" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="lrate" label="Rate" type="number" step="0.01" :value="old('lrate', $cngPump->lrate)" placeholder="Rate" />
+            <x-boilerplate::input name="lrate" label="Rate" type="number" step="0.001" :value="old('lrate', $cngPump->lrate)" placeholder="Rate" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="purchase_taka" label="Purchase Taka" type="number" step="0.01" :value="old('purchase_taka', $cngPump->purchase_taka)" placeholder="Purchase Taka" />
+            <x-boilerplate::input name="purchase_taka" label="Purchase Taka" type="number" step="0.001" :value="old('purchase_taka', $cngPump->purchase_taka)" placeholder="Purchase Taka" />
         </div>
         <div class="col-md-4">
 

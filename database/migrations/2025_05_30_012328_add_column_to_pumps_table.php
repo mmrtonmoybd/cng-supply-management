@@ -24,7 +24,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('factories')
                 ->onDelete('cascade');
-            $table->decimal('cng_purchase_m3', 10, 2)->nullable()->after('id');
+            $table->decimal('cng_purchase_m3', 10, 3)->nullable()->after('id');
             $table->decimal('rate', 10, 2)->nullable()->after('id');
             $table->decimal('purchase_taka', 15, 2)->nullable()->after('id');
             $table->foreignId('load_entry_id')->nullable()->change();

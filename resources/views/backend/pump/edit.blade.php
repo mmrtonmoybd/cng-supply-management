@@ -30,7 +30,7 @@
                         <x-boilerplate::input name='payment_date' label='Payment Date' type='date' required :value="old('payment_date', $pump->payment_date ?? '')" placeholder='Payment Date'/>
                     </div>
                     <div class="col-6">
-                        <x-boilerplate::input name='payment' label='Payment' type='number' step='0.01' required :value="old('payment', $pump->payment ?? '')" placeholder='Payment'/>
+                        <x-boilerplate::input name='payment' label='Payment' type='number' step='0.001' required :value="old('payment', $pump->payment ?? '')" placeholder='Payment'/>
                     </div>
                 </div>
                 <div class="row">

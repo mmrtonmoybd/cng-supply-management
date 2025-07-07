@@ -45,30 +45,30 @@
             <x-boilerplate::input name="bill_date" label="Challan Date" type="date" :value="old('bill_date')" placeholder="Bill Date" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="first_weight" label="First Weight" type="number" step="0.01" :value="old('first_weight')" placeholder="First Weight" />
+            <x-boilerplate::input name="first_weight" label="First Weight" type="number" step="0.001" :value="old('first_weight')" placeholder="First Weight" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="second_weight" label="Second Weight" type="number" step="0.01" :value="old('second_weight')" placeholder="Second Weight" />
-        </div>
-        
-        <div class="col-md-4">
-            <x-boilerplate::input name="fm3" label="FM3" type="number" step="0.01" :value="old('fm3')" placeholder="FM3" />
-        </div>
-        <div class="col-md-4">
-            <x-boilerplate::input name="rate" label="Rate" type="number" step="0.01" :value="old('rate')" placeholder="Rate" />
+            <x-boilerplate::input name="second_weight" label="Second Weight" type="number" step="0.001" :value="old('second_weight')" placeholder="Second Weight" />
         </div>
         
         <div class="col-md-4">
-            <x-boilerplate::input name="ftk" label="FTK" type="number" step="0.01" :value="old('ftk')" placeholder="FTK" />
+            <x-boilerplate::input name="fm3" label="FM3" type="number" step="0.001" :value="old('fm3')" placeholder="FM3" />
+        </div>
+        <div class="col-md-4">
+            <x-boilerplate::input name="rate" label="Rate" type="number" step="0.001" :value="old('rate')" placeholder="Rate" />
+        </div>
+        
+        <div class="col-md-4">
+            <x-boilerplate::input name="ftk" label="FTK" type="number" step="0.001" :value="old('ftk')" placeholder="FTK" />
         </div>
         <div class="col-md-4" hidden>
-            <x-boilerplate::input name="bill_amount" label="Bill Amount" type="number" step="0.01" :value="old('bill_amount')" placeholder="Bill Amount" hidden />
+            <x-boilerplate::input name="bill_amount" label="Bill Amount" type="number" step="0.001" :value="old('bill_amount')" placeholder="Bill Amount" hidden />
         </div>
         <div class="col-md-4">
             <x-boilerplate::input name="cash_receipt_date" label="Cash Receipt Date" type="date" :value="old('cash_receipt_date')" placeholder="Cash Receipt Date" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="cash_receipt_amount" label="Cash Receipt Amount" type="number" step="0.01" :value="old('cash_receipt_amount')" placeholder="Cash Receipt Amount" />
+            <x-boilerplate::input name="cash_receipt_amount" label="Cash Receipt Amount" type="number" step="0.001" :value="old('cash_receipt_amount')" placeholder="Cash Receipt Amount" />
         </div>
         <div class="col-md-4">
             <x-boilerplate::input name="recived_by" label="Received By" type="text" :value="old('recived_by')" placeholder="Received By" />
@@ -99,13 +99,13 @@
             </select>
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="cng_purchase_m3" label="M3" type="number" step="0.01" :value="old('cng_purchase_m3')" placeholder="M3" />
+            <x-boilerplate::input name="cng_purchase_m3" label="M3" type="number" step="0.001" :value="old('cng_purchase_m3')" placeholder="M3" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="lrate" label="Rate" type="number" step="0.01" :value="old('lrate')" placeholder="Rate" />
+            <x-boilerplate::input name="lrate" label="Rate" type="number" step="0.001" :value="old('lrate')" placeholder="Rate" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="purchase_taka" label="Purchase Taka" type="number" step="0.01" :value="old('purchase_taka')" placeholder="Purchase Taka" />
+            <x-boilerplate::input name="purchase_taka" label="Purchase Taka" type="number" step="0.001" :value="old('purchase_taka')" placeholder="Purchase Taka" />
         </div>
         <div class="col-md-4">
             @php

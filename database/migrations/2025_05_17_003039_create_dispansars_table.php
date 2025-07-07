@@ -27,17 +27,17 @@ return new class extends Migration
                 ->references('id')
                 ->on('factories')
                 ->onDelete('cascade');
-            $table->decimal('cng_purchase_m3', 10, 2)->nullable();
+            $table->decimal('cng_purchase_m3', 10, 3)->nullable();
             $table->decimal('lrate', 10, 2)->nullable();
             $table->decimal('purchase_taka', 15, 2)->nullable();
             $table->integer('bill_no')->nullable();
             $table->date('bill_date')->nullable();
-            $table->decimal('opening_reading', 15, 2)->nullable();
-            $table->decimal('closing_reading', 15, 2)->nullable();
-            $table->decimal('total_reading', 15, 2)->nullable();
+            $table->decimal('opening_reading', 15, 3)->nullable();
+            $table->decimal('closing_reading', 15, 3)->nullable();
+            $table->decimal('total_reading', 15, 3)->nullable();
             $table->decimal('rate', 15, 2)->nullable();
             $table->decimal('bill_amount', 15, 2)->nullable();
-            $table->decimal('difference_m3', 15, 2)->nullable();
+            $table->decimal('difference_m3', 15, 3)->nullable();
             $table->decimal('difference_taka', 15, 2)->nullable();
             $table->decimal('in', 15, 2)->nullable();
             $table->decimal('out', 15, 2)->nullable();

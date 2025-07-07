@@ -48,12 +48,12 @@
                         <x-boilerplate::input name='vehicle_reg_number' label='Car No' required :value="old('vehicle_reg_number')" placeholder='Car No'/>
                     </div>
                     <div class="col-md-4">
-                        <x-boilerplate::input name='diesel_purchase_litre' label='Diesel Purchase (Litre)' type='number' step='0.01' :value="old('diesel_purchase_litre')" placeholder='Diesel Purchase (Litre)'/>
+                        <x-boilerplate::input name='diesel_purchase_litre' label='Diesel Purchase (Litre)' type='number' step='0.001' :value="old('diesel_purchase_litre')" placeholder='Diesel Purchase (Litre)'/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <x-boilerplate::input name='taka' label='Taka' type='number' step='0.01' :value="old('taka')" placeholder='Taka'/>
+                        <x-boilerplate::input name='taka' label='Taka' type='number' step='0.001' :value="old('taka')" placeholder='Taka'/>
                     </div>
                     <div class="col-md-4">
                         <x-boilerplate::input name='date' label='Usage Date' type='date' :value="old('date')" placeholder='Usage Date'/>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <x-boilerplate::input name='distance' label='Distance (km)' required type='number' step='0.01' :value="old('distance')" placeholder='Distance'/>
+                        <x-boilerplate::input name='distance' label='Distance (km)' required type='number' step='0.001' :value="old('distance')" placeholder='Distance'/>
                     </div>
                 </div>
                 <div class="row">
