@@ -52,6 +52,23 @@ class Diesel extends Model
             }
 
         });
+
+         static::saved(function ($model) {
+        // Move Pump update here
+        if ($model->taka && $model->pumpname && $model->pumpname->diesel) {
+            Pump::updateOrCreate([
+                'diesel_id' => $model->id,
+            ], [
+                'diesel_id' => $model->id,
+                'purchase_taka' => 0,
+                'rate' => 0,
+                'cng_purchase_m3' => 0,
+                'pumpName_id' => $model->pumpName_id,
+                'vehicle_reg_number' => $model->vehicle_reg_number,
+                'date' => $model->d_date,
+            ]);
+        }
+    });
     }
 
     public function getActivitylogOptions(): LogOptions

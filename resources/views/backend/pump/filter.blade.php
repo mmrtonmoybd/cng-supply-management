@@ -238,6 +238,7 @@
                             <td></td>
                             <td>{{ $pump->payment_date ? (\Carbon\Carbon::parse($pump->payment_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $pump->payment ?? 'N/A' }}</td>
+                            <td>{{ $pump->remarks }}</td>
                             <td></td>
                             
                             <!--
@@ -269,6 +270,7 @@
                         <th>{{ $dieselsum }}</th>
                         <th></th>
                         <th>{{ $totalPayment }}</th>
+                        <th></th>
                         <th>{{ $totalPayment - ($totalPurchaseTaka + $dieselsum) }} 
                             (@php 
                             if (($totalPayment - ($totalPurchaseTaka + $dieselsum)) > 0) {

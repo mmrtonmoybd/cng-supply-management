@@ -40,7 +40,10 @@
                     <tr><th>Net Income</th><td>{{ $transport->rent - $transport->total_cost }}</td></tr>
                     <tr><th>Cash Receipt Date</th><td>{{ $transport->cash_receipt_date ? (\Carbon\Carbon::parse($transport->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Cash Receipt Amount</th><td>{{ $transport->cash_receipt_amount }}</td></tr>
-                    <tr><th>Balance</th><td>{{ $transport->balance }}</td></tr>
+                    @php
+                    $model = \App\Models\Transport::where('vehicle_id', $transport->vehicle_id)->where('date', '<=', $transport->date)->sum('balance');
+                    @endphp
+                    <tr><th>Balance</th><td>{{ $model }}</td></tr>
                     <tr><th>Received By</th><td>{{ $transport->recived_by }}</td></tr>
                     <tr><th>Remarks</th><td>{{ $transport->remarks }}</td></tr>
                 </tbody>

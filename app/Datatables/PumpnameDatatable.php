@@ -46,6 +46,11 @@ class PumpnameDatatable extends Datatable
                     return $query->where('type', $value);
                 }),
 
+            Column::add(__('Is Diesel'))
+                ->data('diesel', function($model) {
+                    return $model->diesel ? 'Yes' : 'No';
+                })->notSearchable()->notSortable(),
+
             Column::add(__('Address'))
                 ->data('address'),
 

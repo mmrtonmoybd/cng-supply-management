@@ -16,6 +16,7 @@ class Invoice extends Model
         'date',
         'total',
         'hash',
+        'invoice_number',
     ];
 
     public function getActivitylogOptions(): LogOptions

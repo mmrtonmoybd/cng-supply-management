@@ -51,6 +51,7 @@ class WeightOne extends Model
                     'pumpName_id' => $model->pumpName_id,
                     'cng_purchase_m3' => $model->cng_purchase_m3,
                     'factory_id' => $model->factory_id,
+                    'remarks' => $model->factory->name,
                 ]);
             }
 
@@ -67,6 +68,7 @@ class WeightOne extends Model
                     'pumpName_id' => $model->pumpName_id,
                     'cng_purchase_m3' => $model->cng_purchase_m3,
                     'factory_id' => $model->factory_id,
+                    'remarks' => $model->factory->name,
                 ]);
             }
 

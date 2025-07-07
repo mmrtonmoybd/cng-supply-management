@@ -179,9 +179,12 @@
             <td><strong>Cash Received</strong></td>
             <td>{{ $transport->cash_receipt_amount }}</td>
         </tr>
+        @php
+          $model = \App\Models\Transport::where('vehicle_id', $transport->vehicle_id)->where('date', '<=', $transport->date)->sum('balance');
+        @endphp
         <tr>
-            <td><strong>Balance(Cash Received - Net income)</strong></td>
-            <td>{{ $transport->balance }}</td>
+            <td><strong>total Balance(Cash Received - Net income)</strong></td>
+            <td>{{ $model }}</td>
         </tr>
         <tr>
             <td><strong>Cash reveive by</strong></td>

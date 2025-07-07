@@ -41,6 +41,7 @@ class PumpNameController extends Controller
             'address' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
             'phone' => 'required|string|max:255',
+            'diesel' => 'nullable|boolean',
         ]);
         PumpName::create($request->all());
 
@@ -79,6 +80,7 @@ class PumpNameController extends Controller
             'address' => 'nullable|string|max:255',
             'email' => 'nullable|email|max:255',
             'phone' => 'required|string|max:255',
+            'diesel' => 'nullable|boolean',
         ]);
         $pumpname->update($request->all());
 

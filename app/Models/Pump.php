@@ -28,6 +28,7 @@ class Pump extends Model
         'weight_id',
         'weight_one_id',
         'dispansar_id',
+        'diesel_id',
     ];
 
     protected static $recordEvents = ['updated', 'deleted'];

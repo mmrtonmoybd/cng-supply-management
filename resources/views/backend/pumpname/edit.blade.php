@@ -50,6 +50,10 @@
                     <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone', $pumpname->phone) }}" required>
                 </div>
             </div>
+            <div class="col-md-6">
+                <input type="hidden" name="diesel" value="0">
+                <x-boilerplate::toggle name="diesel" label="Only diesel" value="1" :checked="old('diesel', $pumpname->diesel) == 1" />
+            </div>
             <div class="col-12 mt-3">
                 <button type="submit" class="btn btn-primary">Update</button>
                 <a href="{{ route('backend.pumpname.index') }}" class="btn btn-secondary">Cancel</a>
