@@ -197,9 +197,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="date_range">Date Range</label>
-                    <input type="text" name="date_range" id="date_range" class="form-control" value="{{ request('date_range') }}" placeholder="Select date range">
-                    <input type="hidden" name="from_date" id="from_date" value="{{ request('from_date') }}">
-                    <input type="hidden" name="to_date" id="to_date" value="{{ request('to_date') }}">
+                    <input type="text" class="form-control" id="date_range" name="date_range" value="{{ request('date_range') }}" placeholder="Select Date Range">
                 </div>
             </div>
             <div class="col-md-4">
@@ -321,34 +319,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script>
 $(function() {
-    var start = moment().startOf('month');
-    var end = moment().endOf('month');
-
-    @if(request('from_date') && request('to_date'))
-        start = moment("{{ request('from_date') }}");
-        end = moment("{{ request('to_date') }}");
-    @endif
-
-    function cb(start, end) {
-        $('#date_range').val(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
-        $('#from_date').val(start.format('YYYY-MM-DD'));
-        $('#to_date').val(end.format('YYYY-MM-DD'));
-    }
-
     $('#date_range').daterangepicker({
-        startDate: start,
-        endDate: end,
-        ranges: {
-           'Today': [moment(), moment()],
-           'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-           'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-           'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-           'This Month': [moment().startOf('month'), moment().endOf('month')],
-           'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        autoUpdateInput: false,
+        showDropdowns: true,
+        locale: {
+            cancelLabel: 'Clear',
+            format: 'YYYY-MM-DD'
         }
-    }, cb);
-
-    cb(start, end);
+    });
+    @if(request('date_range'))
+        var dates = '{{ request('date_range') }}'.split(' - ');
+        $('#date_range').data('daterangepicker').setStartDate(dates[0]);
+        $('#date_range').data('daterangepicker').setEndDate(dates[1]);
+        $('#date_range').val('{{ request('date_range') }}');
+    @endif
+    $('#date_range').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
+    });
+    $('#date_range').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+    });
 
     // Initialize DataTable with export buttons
     var now = new Date();

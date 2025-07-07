@@ -139,15 +139,12 @@ class DieselController extends Controller
                 ->select('*');
 
             // Apply date range filter
-            if ($request->filled(['from_date', 'to_date'])) {
+            if ($request->filled('date_range')) {
+                $dates = explode(' - ', $request->date_range);
                 $query->whereBetween('d_date', [
-                    $request->input('from_date'),
-                    $request->input('to_date'),
+                    date('Y-m-d', strtotime($dates[0])),
+                    date('Y-m-d', strtotime($dates[1])),
                 ]);
-            } else {
-                // Default to current month if no date range selected
-                $query->whereMonth('d_date', now()->month)
-                    ->whereYear('d_date', now()->year);
             }
 
             // Apply pump filter

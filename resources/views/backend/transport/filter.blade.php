@@ -287,6 +287,7 @@ $(function() {
     // Initialize daterangepicker
     $('#date_range').daterangepicker({
         autoUpdateInput: false,
+        showDropdowns: true,
         locale: {
             cancelLabel: 'Clear',
             format: 'YYYY-MM-DD'
