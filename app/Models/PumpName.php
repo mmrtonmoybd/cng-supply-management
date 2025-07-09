@@ -16,7 +16,7 @@ class PumpName extends Model
         'address',
         'email',
         'phone',
-        'diesel',
+        'is_diesel',
     ];
 
     public function loada()

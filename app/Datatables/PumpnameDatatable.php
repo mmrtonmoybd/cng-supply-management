@@ -47,8 +47,8 @@ class PumpnameDatatable extends Datatable
                 }),
 
             Column::add(__('Is Diesel'))
-                ->data('diesel', function ($model) {
-                    return $model->diesel ? 'Yes' : 'No';
+                ->data('is_diesel', function ($model) {
+                    return $model->is_diesel ? 'Yes' : 'No';
                 })->notSearchable()->notSortable(),
 
             Column::add(__('Address'))

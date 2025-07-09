@@ -52,10 +52,10 @@
             <div class="col-md-6">
                 
                 <label for="diesel">Diesel<span class="text-danger"></span></label>
-                <select name="diesel" id="diesel" class="form-control" required>
+                <select name="is_diesel" id="is_diesel" class="form-control" required>
                         <option value="">Diesel Type</option>
-                        <option value="1" {{ old('diesel') == 1 ? 'selected' : '' }}>Only Diesel</option>
-                        <option value="0" {{ old('diesel') == 0 ? 'selected' : '' }}>CNG + Diesel</option>
+                        <option value="1" {{ old('is_diesel') == 1 ? 'selected' : '' }}>Only Diesel</option>
+                        <option value="0" {{ old('is_diesel') == 0 ? 'selected' : '' }}>CNG + Diesel</option>
                 </select>
             </div>
             <div class="col-12 mt-3">
