@@ -197,7 +197,7 @@
 
     @if(isset($results) && $results->count() > 0)
         <div class="table-responsive mt-4">
-            <table class="table table-bordered table-striped">
+            <table id="transportTable" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>SL</th>
@@ -306,6 +306,18 @@
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet" />
+
+<style>
+    #transportTable th, #transportTable td {
+        white-space: nowrap;
+    }
+    .table-responsive {
+        overflow-x: auto;
+    }
+    .table {
+        width: auto !important;
+    }
+</style>
 @endpush
 
 @push('js')
@@ -351,7 +363,7 @@ $(document).ready(function() {
     var now = new Date();
     var dateStr = now.getFullYear() + '-' + (now.getMonth()+1).toString().padStart(2, '0') + '-' + now.getDate().toString().padStart(2, '0') + '_' + now.getHours().toString().padStart(2, '0') + now.getMinutes().toString().padStart(2, '0') + now.getSeconds().toString().padStart(2, '0');
     var fileName = 'pump-filter-' + dateStr;
-    var table = $('.table.table-bordered').DataTable({
+    var table = $('#transportTable').DataTable({
         dom: 'Bfrtip',
         buttons: [
             {
