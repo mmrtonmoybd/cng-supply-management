@@ -211,6 +211,7 @@
                         <th>Payment Date</th>
                         <th>Payment</th>
                         <th>Balance</th>
+                        <th>Remarks</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -238,8 +239,8 @@
                             <td></td>
                             <td>{{ $pump->payment_date ? (\Carbon\Carbon::parse($pump->payment_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $pump->payment ?? 'N/A' }}</td>
-                            <td>{{ $pump->remarks }}</td>
                             <td></td>
+                            <td>{{ $pump->remarks }}</td>
                             
                             <!--
                             <td>
@@ -270,7 +271,7 @@
                         <th>{{ $dieselsum }}</th>
                         <th></th>
                         <th>{{ $totalPayment }}</th>
-                        <th></th>
+                        
                         <th>{{ $totalPayment - ($totalPurchaseTaka + $dieselsum) }} 
                             (@php 
                             if (($totalPayment - ($totalPurchaseTaka + $dieselsum)) > 0) {
@@ -281,6 +282,8 @@
                                 echo 'Due';
                             }
                             @endphp)</th>
+
+                        <th></th>
                     </tr>
                 </tfoot>
             </table>
