@@ -181,6 +181,7 @@
                         <th>Purchase Taka</th>
                         <th>Sell M3</th>
                         <th>Sell taka</th>
+                        <th>Difference taka</th>
                         <th>Cash recive amount</th>
                         <th>Balance</th>
                         <th>Status</th>
@@ -194,6 +195,7 @@
                         $totalPurchaseTaka = 0;
                         $totalSellTaka = 0;
                         $totalSellM3 = 0;
+                        $totalDifferenceTaka = 0;
                     @endphp
                     @foreach($results as $key => $pump)
                         @php
@@ -203,6 +205,7 @@
                             $totalSellM3 += $pump['sell_m3'] ?? 0;
                             $totalPurchaseTaka += $pump['purchase_taka'] ?? 0;
                             $totalSellTaka += $pump['sell_tk'] ?? 0;
+                            $totalDifferenceTaka += $pump['difference_taka'] ?? 0;
                         @endphp
                         <tr>
                             <td>{{ $key + 1 }}</td>
@@ -211,6 +214,7 @@
                             <td>{{ $pump['purchase_taka'] }}</td>
                             <td>{{ $pump['sell_m3'] }}</td>
                             <td>{{ $pump['sell_tk'] }}</td>
+                            <td>{{ $pump['difference_taka'] }}</td>
                             <td>{{ $pump['cash_receipt_amount'] }}</td>
                             <td>{{ $pump['balance'] }}</td>
                             <td>{{ $pump['status'] }}</td>
@@ -225,6 +229,7 @@
                         <th>{{ $totalPurchaseTaka }}</th>
                         <th>{{ $totalSellM3 }}</th>
                         <th>{{ $totalSellTaka }}</th>
+                        <th>{{ $totalDifferenceTaka }}</th>
                         <th>{{ $totalPayment }}</th>
                         <th>{{ $totalBalance }}</th>
                         <th>

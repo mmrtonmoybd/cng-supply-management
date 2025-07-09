@@ -117,7 +117,16 @@
               <div class="info-box-content">
                 <span class="info-box-text">Total balance</span>
                 <span class="info-box-number">
-                  {{ $totals['balance'] }}
+                  {{ number_format($totals['new_balance'], 2) }} 
+(@php 
+    if ($totals['new_balance'] > 0) {
+        echo 'Advance';
+    } elseif ($totals['new_balance'] == 0) {
+        echo 'Paid';
+    } else {
+        echo 'Due';
+    }
+@endphp)
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -205,6 +214,7 @@
                             <th>Cash Receipt Amount</th>
                             <th>Cash Receipt Date</th>
                             <th>Balance</th>
+                            <th>Remarks</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -235,7 +245,8 @@
                                 <td class="text-right">{{ number_format($net_income, 2) }}</td>
                                 <td>{{ $transport->cash_receipt_amount }}</td>
                                 <td>{{ $transport->cash_receipt_date ? (\Carbon\Carbon::parse($transport->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
-                                <td>{{ $transport->balance }}</td>
+                                <td></td>
+                                <td>{{ $transport->remarks }}</td>
                             </tr>
                         @empty
                             <tr>
@@ -261,7 +272,17 @@
 
                             <th class="text-right">{{ number_format($totals['cash_receipt_amount'], 2) }}</th>
                             <th class="text-right"></th>
-                            <th class="text-right">{{ number_format($totals['balance'], 2) }}</th>
+                            <th class="text-right">{{ number_format($totals['new_balance'], 2) }} 
+(@php 
+    if ($totals['new_balance'] > 0) {
+        echo 'Advance';
+    } elseif ($totals['new_balance'] == 0) {
+        echo 'Paid';
+    } else {
+        echo 'Due';
+    }
+@endphp)</th>
+                            <th class="text-right"></th>
                         </tr>
                     </tfoot>
                 </table>

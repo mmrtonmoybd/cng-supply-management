@@ -174,18 +174,18 @@ class TransportController extends Controller
 
         // Calculate totals
         $totals = [
-            'rent' => $transports->sum('rent'),
-            'maintenance_cost' => $transports->sum('maintenance_cost'),
-            'diesel_cost' => $transports->sum('diesel_cost'),
-            'toll_cost' => $transports->sum('toll_cost'),
-            'labour_cost' => $transports->sum('labour_cost'),
-            'chada_cost' => $transports->sum('chada_cost'),
-            'fooding_cost' => $transports->sum('fooding_cost'),
-            'police_cost' => $transports->sum('police_cost'),
-            'parking_cost' => $transports->sum('parking_cost'),
-            'other_cost' => $transports->sum('other_cost'),
-            'balance' => $transports->sum('balance'),
-            'cash_receipt_amount' => $transports->sum('cash_receipt_amount'),
+            'rent' => $transports->sum('rent') ?? 0,
+            'maintenance_cost' => $transports->sum('maintenance_cost') ?? 0,
+            'diesel_cost' => $transports->sum('diesel_cost') ?? 0,
+            'toll_cost' => $transports->sum('toll_cost') ?? 0,
+            'labour_cost' => $transports->sum('labour_cost') ?? 0,
+            'chada_cost' => $transports->sum('chada_cost') ?? 0,
+            'fooding_cost' => $transports->sum('fooding_cost') ?? 0,
+            'police_cost' => $transports->sum('police_cost') ?? 0,
+            'parking_cost' => $transports->sum('parking_cost') ?? 0,
+            'other_cost' => $transports->sum('other_cost') ?? 0,
+            'balance' => $transports->sum('balance') ?? 0,
+            'cash_receipt_amount' => $transports->sum('cash_receipt_amount') ?? 0,
         ];
 
         $totals['total_cost'] = $totals['maintenance_cost'] + $totals['diesel_cost'] + $totals['toll_cost'] +
@@ -193,6 +193,7 @@ class TransportController extends Controller
                               $totals['police_cost'] + $totals['parking_cost'] + $totals['other_cost'];
 
         $totals['net_income'] = $totals['rent'] - $totals['total_cost'];
+        $totals['new_balance'] = $totals['rent'] - $totals['cash_receipt_amount'];
 
         return view('backend.transport.filter', compact('transports', 'totals', 'dbtotal'));
     }

@@ -134,6 +134,7 @@ class FactoryController extends Controller
 
             $balance = $cash_receipt_amount - $sell_tk;
             $status = $balance > 0 ? 'Advance' : ($balance == 0 ? 'Paid' : 'Due');
+            $difference_taka = $factory->cngpump->sum('difference_taka') + $factory->dispansar->sum('difference_taka') + $factory->weight->sum('difference_taka') + $factory->weightone->sum('difference_taka');
 
             return [
                 'id' => $factory->id,
@@ -145,6 +146,7 @@ class FactoryController extends Controller
                 'sell_tk' => $sell_tk,
                 'balance' => $balance,
                 'status' => $status,
+                'difference_taka' => $difference_taka,
             ];
         });
 
@@ -156,7 +158,8 @@ class FactoryController extends Controller
         $dbtotal_cash_receipt_amount = $results->sum('cash_receipt_amount');
         $dbtotal_sell_m3 = $results->sum('sell_m3');
         $dbtotal_sell_tk = $results->sum('sell_tk');
+        $dbtotal_difference_taka = $results->sum('difference_taka');
 
-        return view('backend.factory.filter', compact('results', 'dbtotal_m3', 'dbtotal_purchase_taka', 'dbtotalpump', 'dbtotal_cash_receipt_amount', 'dbtotal_sell_m3', 'dbtotal_sell_tk'));
+        return view('backend.factory.filter', compact('results', 'dbtotal_m3', 'dbtotal_purchase_taka', 'dbtotalpump', 'dbtotal_cash_receipt_amount', 'dbtotal_sell_m3', 'dbtotal_sell_tk', 'dbtotal_difference_taka'));
     }
 }
