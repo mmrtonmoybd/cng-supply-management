@@ -31,7 +31,7 @@ class Pump extends Model
         'diesel_id',
     ];
 
-    //protected static $recordEvents = ['updated', 'deleted'];
+    // protected static $recordEvents = ['updated', 'deleted'];
 
     public function loada()
     {
