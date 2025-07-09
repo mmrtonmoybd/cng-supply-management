@@ -120,11 +120,11 @@
                   {{ number_format($totals['new_balance'], 2) }} 
 (@php 
     if ($totals['new_balance'] > 0) {
-        echo 'Advance';
+        echo 'Due';
     } elseif ($totals['new_balance'] == 0) {
         echo 'Paid';
     } else {
-        echo 'Due';
+        echo 'Advance';
     }
 @endphp)
                 </span>
@@ -275,11 +275,11 @@
                             <th class="text-right">{{ number_format($totals['new_balance'], 2) }} 
 (@php 
     if ($totals['new_balance'] > 0) {
-        echo 'Advance';
+        echo 'Due';
     } elseif ($totals['new_balance'] == 0) {
         echo 'Paid';
     } else {
-        echo 'Due';
+        echo 'Advance';
     }
 @endphp)</th>
                             <th class="text-right"></th>
