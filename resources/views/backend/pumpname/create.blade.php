@@ -50,7 +50,13 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <x-boilerplate::toggle name="diesel" label="Only diesel" value="0" />
+                
+                <label for="diesel">Diesel<span class="text-danger"></span></label>
+                <select name="diesel" id="diesel" class="form-control" required>
+                        <option value="">Diesel Type</option>
+                        <option value="1" {{ old('diesel') == 1 ? 'selected' : '' }}>Only Diesel</option>
+                        <option value="0" {{ old('diesel') == 0 ? 'selected' : '' }}>CNG + Diesel</option>
+                </select>
             </div>
             <div class="col-12 mt-3">
                 <button type="submit" class="btn btn-primary">Save</button>

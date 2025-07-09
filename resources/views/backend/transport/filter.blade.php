@@ -303,6 +303,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
 <script>
 $(function() {
     // Initialize daterangepicker
@@ -343,6 +344,11 @@ $(function() {
         $('#transportTable').DataTable({
             dom: 'Bfrtip',
             buttons: [
+            {
+                extend: 'colvis',
+                text: 'Toggle Columns',
+                postfixButtons: ['colvisRestore']
+            },
                 {
                     extend: 'excelHtml5',
                     title: 'Transport Filter Results',
