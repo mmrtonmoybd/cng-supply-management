@@ -69,7 +69,7 @@ class VehicleDatatable extends Datatable
                 ->data('documents', function (Vehicle $vehicle) {
                     $documents = VehicleDocument::where('vehicle_id', $vehicle->id)->get();
                     if ($documents->isEmpty()) {
-                        return __('No documents available');
+                        
                     } else {
                         $output = '';
                         
