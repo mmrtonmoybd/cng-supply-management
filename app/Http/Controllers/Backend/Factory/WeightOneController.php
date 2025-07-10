@@ -130,9 +130,9 @@ class WeightOneController extends Controller
     public function edit(WeightOne $weightone)
     {
         $this->authorize('weightone_crud');
-        $loadOptions = \App\Models\LoadEntry::with('pumpname', 'factory')->where('status', 0)->whereHas('factory', function($factoryQuery) {
-    return $factoryQuery->where('type', 'Cng Pump & Weight Scale');
-    })->orderByDesc('id')->get();
+        $loadOptions = \App\Models\LoadEntry::with('pumpname', 'factory')->where('status', 0)->whereHas('factory', function ($factoryQuery) {
+            return $factoryQuery->where('type', 'Cng Pump & Weight Scale');
+        })->orderByDesc('id')->get();
 
         return view('backend.factory.weightone.edit', [
             'weightone' => $weightone,
