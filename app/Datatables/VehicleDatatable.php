@@ -72,34 +72,33 @@ class VehicleDatatable extends Datatable
                         
                     } else {
                         $output = '';
-                        
-                      foreach ($documents as $document) {
-    if (!empty($document->expiry_date)) {
-        $expiryDate = \Carbon\Carbon::parse($document->expiry_date);
-        $now = \Carbon\Carbon::now();
-        $diffInDays = $now->diffInDays($expiryDate, false);
 
-        if ($expiryDate < $now) {
-            $statusClass = 'text-danger';
-        } elseif ($diffInDays <= 30) {
-            $statusClass = 'text-danger';
-        } elseif ($diffInDays <= 40) {
-            $statusClass = 'text-warning';
-        } else {
-            $statusClass = 'text-success';
-        }
+                        foreach ($documents as $document) {
+                            if (! empty($document->expiry_date)) {
+                                $expiryDate = \Carbon\Carbon::parse($document->expiry_date);
+                                $now = \Carbon\Carbon::now();
+                                $diffInDays = $now->diffInDays($expiryDate, false);
 
-        $expireHtml = '<span class="'.$statusClass.'">'.$expiryDate->format('d-m-Y').'</span> ';
-    } else {
-        $expireHtml = '';
-    }
+                                if ($expiryDate < $now) {
+                                    $statusClass = 'text-danger';
+                                } elseif ($diffInDays <= 30) {
+                                    $statusClass = 'text-danger';
+                                } elseif ($diffInDays <= 40) {
+                                    $statusClass = 'text-warning';
+                                } else {
+                                    $statusClass = 'text-success';
+                                }
 
-    $url = asset($document->document_url);
-    $output .= '<span style="color: #222;">'.e($document->name).'</span> '
-        .$expireHtml
-        .'<a href="'.$url.'" target="_blank" style="color:#007bff;font-weight:bold;">'.__('View').'</a><br>';
-}
+                                $expireHtml = '<span class="'.$statusClass.'">'.$expiryDate->format('d-m-Y').'</span> ';
+                            } else {
+                                $expireHtml = '';
+                            }
 
+                            $url = asset($document->document_url);
+                            $output .= '<span style="color: #222;">'.e($document->name).'</span> '
+                                .$expireHtml
+                                .'<a href="'.$url.'" target="_blank" style="color:#007bff;font-weight:bold;">'.__('View').'</a><br>';
+                        }
 
                         return $output;
                     }
