@@ -196,6 +196,7 @@
 @endsection
 
 @push('css')
+@include('components.datatable-print-css')
 <link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
@@ -211,6 +212,7 @@
 @endpush
 
 @push('js')
+@include('components.datatable-export-js')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -251,43 +253,7 @@ $(document).ready(function() {
     });
 
     // DataTable export buttons
-    var now = new Date();
-    var dateStr = now.getFullYear() + '-' + (now.getMonth()+1).toString().padStart(2, '0') + '-' + now.getDate().toString().padStart(2, '0') + '_' + now.getHours().toString().padStart(2, '0') + now.getMinutes().toString().padStart(2, '0') + now.getSeconds().toString().padStart(2, '0');
-    var fileName = 'load-filter-' + dateStr;
-    var table = $('.table.table-bordered').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'colvis',
-                text: 'Toggle Columns',
-                postfixButtons: ['colvisRestore']
-            },
-            {
-                extend: 'excelHtml5',
-                title: 'Load Filter Results',
-                filename: fileName,
-                exportOptions: { columns: ':visible' },
-                footer: true
-            },
-            {
-                extend: 'pdfHtml5',
-                title: 'Load Filter Results',
-                filename: fileName,
-                exportOptions: { columns: ':visible' },
-                footer: true
-            },
-            {
-                extend: 'print',
-                title: 'Load Filter Results',
-                exportOptions: { columns: ':visible' },
-                footer: true
-            }
-        ],
-        paging: false,
-        searching: false,
-        ordering: false,
-        info: false
-    });
+    window.initExportableDataTable('.table.table-bordered');
 });
 </script>
 @endpush

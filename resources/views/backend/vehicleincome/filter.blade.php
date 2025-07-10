@@ -333,6 +333,7 @@
 @endsection
 
 @push('css')
+@include('components.datatable-print-css')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
@@ -350,6 +351,7 @@
 @endpush
 
 @push('js')
+@include('components.datatable-export-js')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -394,52 +396,7 @@ $(document).ready(function() {
     }, 200);
 
     // DataTable export/print with unique file name
-    var exportFileName = 'Vehicle_Income_Filter_Export_' + moment().format('YYYYMMDD_HHmmss');
-    var table = $('.table').DataTable({
-        paging: false,
-        searching: false,
-        info: false,
-        ordering: false,
-        dom: 'Bfrtip',
-        buttons: [
-          {
-                extend: 'colvis',
-                text: 'Toggle Columns',
-                postfixButtons: ['colvisRestore']
-            },
-            {
-                extend: 'excelHtml5',
-                footer: true,
-                title: exportFileName,
-                filename: exportFileName,
-                exportOptions: { columns: ':visible' }
-            },
-            {
-                extend: 'pdfHtml5',
-                orientation: 'landscape',
-                pageSize: 'A3',
-                footer: true,
-                title: exportFileName,
-                filename: exportFileName,
-                exportOptions: { columns: ':visible' }
-            },
-            {
-                extend: 'print',
-                footer: true,
-                title: exportFileName,
-                exportOptions: { columns: ':visible' }
-            },
-            {
-            text: 'Summary Print',
-            className: 'btn btn-primary', // Bootstrap style
-            action: function (e, dt, node, config) {
-                const dateRange = '{{ request('date_range') }}'; // Blade variable (ensure it's escaped correctly)
-                const url = "{{ route('backend.vehicleIncome.showFilterPrint') }}?pumpName_id={{ request('pumpName_id') }}&car_no={{ request('car_no') }}&date_range={{ request('date_range') }}";
-                window.open(url, '_blank');
-            }
-        }
-        ]
-    });
+    window.initExportableDataTable('.table');
 });
 </script>
 @endpush

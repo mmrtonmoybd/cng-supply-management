@@ -8,6 +8,7 @@
 ])
 
 @push('css')
+@include('components.datatable-print-css')
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
@@ -22,6 +23,7 @@
         width: auto !important;
     }
 </style>
+
 @endpush
 
 @section('content')
@@ -117,14 +119,14 @@
               <div class="info-box-content">
                 <span class="info-box-text">Total balance</span>
                 <span class="info-box-number">
-                  {{ number_format($totals['new_balance'], 2) }} 
+                  {{ number_format($totals['balance'], 2) }} 
 (@php 
-    if ($totals['new_balance'] > 0) {
-        echo 'Due';
-    } elseif ($totals['new_balance'] == 0) {
+    if ($totals['balance'] > 0) {
+        echo 'Advance';
+    } elseif ($totals['balance'] == 0) {
         echo 'Paid';
     } else {
-        echo 'Advance';
+        echo 'Due';
     }
 @endphp)
                 </span>
@@ -245,7 +247,7 @@
                                 <td class="text-right">{{ number_format($net_income, 2) }}</td>
                                 <td>{{ $transport->cash_receipt_amount }}</td>
                                 <td>{{ $transport->cash_receipt_date ? (\Carbon\Carbon::parse($transport->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
-                                <td></td>
+                                <td>{{ $transport->balance }}</td>
                                 <td>{{ $transport->remarks }}</td>
                             </tr>
                         @empty
@@ -272,14 +274,14 @@
 
                             <th class="text-right">{{ number_format($totals['cash_receipt_amount'], 2) }}</th>
                             <th class="text-right"></th>
-                            <th class="text-right">{{ number_format($totals['new_balance'], 2) }} 
+                            <th class="text-right">{{ number_format($totals['balance'], 2) }} 
 (@php 
-    if ($totals['new_balance'] > 0) {
-        echo 'Due';
-    } elseif ($totals['new_balance'] == 0) {
+    if ($totals['balance'] > 0) {
+        echo 'Advance';
+    } elseif ($totals['balance'] == 0) {
         echo 'Paid';
     } else {
-        echo 'Advance';
+        echo 'Due';
     }
 @endphp)</th>
                             <th class="text-right"></th>
@@ -293,6 +295,7 @@
 @endif
 
 @push('js')
+@include('components.datatable-export-js')
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -331,53 +334,7 @@ $(function() {
     @endif
 
     // Initialize DataTable with export buttons
-    if($('#transportTable').length > 0) {
-        var now = new Date();
-        var dateStr = now.getFullYear() + '-' + 
-                     (now.getMonth()+1).toString().padStart(2, '0') + '-' + 
-                     now.getDate().toString().padStart(2, '0') + '_' + 
-                     now.getHours().toString().padStart(2, '0') + 
-                     now.getMinutes().toString().padStart(2, '0') + 
-                     now.getSeconds().toString().padStart(2, '0');
-        var fileName = 'transport-filter-' + dateStr;
-
-        $('#transportTable').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-            {
-                extend: 'colvis',
-                text: 'Toggle Columns',
-                postfixButtons: ['colvisRestore']
-            },
-                {
-                    extend: 'excelHtml5',
-                    title: 'Transport Filter Results',
-                    filename: fileName,
-                    exportOptions: { columns: ':visible' },
-                    footer: true
-                },
-                {
-                    extend: 'pdfHtml5',
-                    title: 'Transport Filter Results',
-                    filename: fileName,
-                    exportOptions: { columns: ':visible' },
-                    footer: true,
-                    orientation: 'landscape',
-                    pageSize: 'A4'
-                },
-                {
-                    extend: 'print',
-                    title: 'Transport Filter Results',
-                    exportOptions: { columns: ':visible' },
-                    footer: true
-                }
-            ],
-            paging: false,
-            searching: false,
-            ordering: false,
-            info: false
-        });
-    }
+    window.initExportableDataTable('#transportTable');
 });
 </script>
 @endpush

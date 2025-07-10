@@ -383,6 +383,7 @@
 @endsection
 
 @push('css')
+@include('components.datatable-print-css')
 <link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
@@ -400,6 +401,7 @@
 @endpush
 
 @push('js')
+@include('components.datatable-export-js')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -438,42 +440,7 @@ $(document).ready(function() {
     $('#date_range').on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
     });
-    $('#dispansarTable').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-        {
-                extend: 'colvis',
-                text: 'Toggle Columns',
-                postfixButtons: ['colvisRestore']
-            },
-            {
-                extend: 'excelHtml5',
-                title: 'Dispenser Filter Results',
-                filename: 'dispenser-filter-results-{{ date('Ymd_His') }}',
-                exportOptions: { columns: ':visible' },
-                footer: true
-            },
-            {
-                extend: 'pdfHtml5',
-                title: 'Dispenser Filter Results',
-                filename: 'dispenser-filter-results-{{ date('Ymd_His') }}',
-                exportOptions: { columns: ':visible' },
-                footer: true,
-                orientation: 'landscape',
-                pageSize: 'A3'
-            },
-            {
-                extend: 'print',
-                title: 'Dispenser Filter Results',
-                exportOptions: { columns: ':visible' },
-                footer: true
-            }
-        ],
-        paging: false,
-        searching: false,
-        ordering: false,
-        info: false
-    });
+    window.initExportableDataTable('#dispansarTable');
 });
 </script>
 @endpush
