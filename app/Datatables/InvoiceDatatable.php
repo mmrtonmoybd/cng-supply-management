@@ -68,7 +68,7 @@ class InvoiceDatatable extends Datatable
 
             Column::add(__('Invoice amount'))
                 ->data('total')->sum(),
-            
+
             Column::add(__('Invoice number'))
                 ->data('invoice_number'),
 
