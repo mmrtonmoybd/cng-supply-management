@@ -12,15 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pumps', function (Blueprint $table) {
-           $table->string('third_party_pump_name')->after('pumpName_id')->nullable(); 
+            $table->string('third_party_pump_name')->after('pumpName_id')->nullable();
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
-    {
-        
-    }
+    public function down(): void {}
 };
