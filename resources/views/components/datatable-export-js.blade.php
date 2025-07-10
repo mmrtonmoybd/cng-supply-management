@@ -1,3 +1,42 @@
+@php
+$default = 'Filter Results';
+
+if (request()->is('transport-filter/show')) {
+    $default = request()->filled('vehicle_id')
+        ? \App\Models\Vehicle::find(request()->vehicle_id)?->vehicle_number . ' Filter Results'
+        : 'Transport Filter Results';
+
+} elseif (request()->is('load-filter/show')) {
+    $default = request()->filled('pumpName_id') || request()->filled('car_no')
+        ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Load Filter Results'
+        : 'Load Filter Results';
+
+} elseif (request()->is('pump-filter/show')) {
+    $default = request()->filled('pumpName_id') || request()->filled('car_no')
+        ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Pump Filter Results'
+        : 'Pump Filter Results';
+
+} elseif (request()->is('pump-summary/result')) {
+    $default = 'Pump Summary Results';
+
+} elseif (request()->is('diesel-filter')) {
+    $default = request()->filled('pumpName_id') || request()->filled('car_no')
+        ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Diesel Filter Results'
+        : 'Diesel Filter Results';
+
+} elseif (request()->is('vehicleincome-filter/show')) {
+    $default = request()->filled('pumpName_id') || request()->filled('car_no')
+        ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Vehicle Income Filter Results'
+        : 'Vehicle Income Filter Results';
+
+} elseif(request()->is('factory/dispansar-filter/show')) {
+    $default = request()->filled('pumpName_id') || request()->filled('car_no') || request()->filled('factory_id')
+        ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Filter Results'
+        : 'Dispansar Filter Results';
+}
+@endphp
+
+
 <script>
 // Usage: window.initExportableDataTable('#yourTableId');
 window.initExportableDataTable = function(tableSelector) {
@@ -9,7 +48,7 @@ window.initExportableDataTable = function(tableSelector) {
                      now.getHours().toString().padStart(2, '0') + 
                      now.getMinutes().toString().padStart(2, '0') + 
                      now.getSeconds().toString().padStart(2, '0');
-        var fileName = 'datatable-export-' + dateStr;
+        var fileName = '{{ $default }}-export-' + dateStr;
 
         $(tableSelector).DataTable({
             dom: 'Bfrtip',
@@ -28,7 +67,7 @@ window.initExportableDataTable = function(tableSelector) {
                 },
                 {
                     extend: 'pdfHtml5',
-                    title: 'Filter Results',
+                    title: '{{ $default }}',
                     filename: fileName,
                     exportOptions: { columns: ':visible' },
                     footer: true,
@@ -52,7 +91,7 @@ window.initExportableDataTable = function(tableSelector) {
                 },
                 {
                     extend: 'print',
-                    title: 'Filter Results',
+                    title: '{{ $default }}',
                     exportOptions: { columns: ':visible' },
                     footer: true,
                     customize: function (win) {

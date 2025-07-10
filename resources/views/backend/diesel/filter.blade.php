@@ -231,7 +231,7 @@
     </form>
 </x-boilerplate::card>
 
-@if(isset($diesels) && request('filter'))
+@if(isset($diesels) && $diesels->count() > 0 && request('filter'))
 <div class="row">
     <div class="col-12">
         <x-boilerplate::card>
@@ -343,57 +343,10 @@ $(function() {
         $(this).val('');
     });
 
-    // Initialize DataTable with export buttons
-    var now = new Date();
-    var dateStr = now.getFullYear() + '-' + 
-                 (now.getMonth()+1).toString().padStart(2, '0') + '-' + 
-                 now.getDate().toString().padStart(2, '0') + '_' + 
-                 now.getHours().toString().padStart(2, '0') + 
-                 now.getMinutes().toString().padStart(2, '0') + 
-                 now.getSeconds().toString().padStart(2, '0');
-    var fileName = 'diesel-filter-' + dateStr;
-
-    $('.table').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-          {
-                extend: 'colvis',
-                text: 'Toggle Columns',
-                postfixButtons: ['colvisRestore']
-            },
-            {
-                extend: 'excelHtml5',
-                title: 'Diesel Filter Results',
-                filename: fileName,
-                exportOptions: { columns: ':visible' },
-                footer: true
-            },
-            {
-                extend: 'pdfHtml5',
-                title: 'Diesel Filter Results',
-                filename: fileName,
-                exportOptions: { columns: ':visible' },
-                footer: true,
-                orientation: 'landscape',
-                pageSize: 'A4'
-            },
-            {
-                extend: 'print',
-                title: 'Diesel Filter Results',
-                exportOptions: { columns: ':visible' },
-                footer: true
-            }
-        ],
-        paging: false,
-        searching: false,
-        ordering: false,
-        info: false
-    });
+    // Initialize DataTable with export buttons 
 });
 
-$(document).ready(function() {
-    window.initExportableDataTable('.table');
-});
+window.initExportableDataTable('.table.table-bordered');
 </script>
 @endpush
 @endsection
