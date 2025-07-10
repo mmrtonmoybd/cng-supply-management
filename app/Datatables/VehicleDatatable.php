@@ -100,9 +100,9 @@ class VehicleDatatable extends Datatable
                                 .'<a href="'.$url.'" target="_blank" style="color:#007bff;font-weight:bold;">'.__('View').'</a><br>';
                         }
 
-                        return $output;
+                        return '<div class="desc-wrapper collapsed">'.$output.'</div>';
                     }
-                })->notOrderable()->notSearchable()->notSortable(),
+                })->class('activity-desc')->notOrderable()->notSearchable()->notSortable(),
 
             Column::add(__('Status'))
                 ->data('status', function ($vehicle) {
