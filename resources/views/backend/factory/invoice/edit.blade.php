@@ -105,6 +105,10 @@
                     </div>
                     @endif
 
+                    <div class="col-md-6">
+                        <x-boilerplate::input name="invoice_number" label="Manual invoice number" type="text" :value="old('invoice_number', $invoice->invoice_number)" placeholder="Manual invoice number" required />
+                    </div>
+
                     <input name="factory" type="text" value="{{ request()->get('factory') }}" required hidden />
                 </div>
             </x-boilerplate::card>

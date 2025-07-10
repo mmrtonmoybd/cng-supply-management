@@ -204,6 +204,8 @@
                         <th>Date</th>
                         <th>Car No</th>
                         <th>Pump Name</th>
+                        <th>Third party pump name</th>
+                        <th>Factory</th>
                         <th>M3</th>
                         <th>Rate</th>
                         <th>Purchase Taka</th>
@@ -233,6 +235,8 @@
                             <td>{{ $pump->date ? (\Carbon\Carbon::parse($pump->date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $pump->vehicle_reg_number ?? 'N/A' }}</td>
                             <td>{{ $pump->pumpname->name ?? 'N/A' }}</td>
+                            <td>{{ $pump->third_party_pump_name }}</td>
+                            <td>{{ $pump->factory->name ?? 'N/A' }}</td>
                             <td>{{ $pump->cng_purchase_m3 ?? 'N/A' }}</td>
                             <td>{{ $pump->rate ?? 'N/A' }}</td>
                             <td>{{ $pump->purchase_taka ?? 'N/A' }}</td>
@@ -261,6 +265,8 @@
                 </tbody>
                 <tfoot>
                     <tr>
+                        <th></th>
+                        <th></th>
                         <th></th>
                         <th></th>
                         <th></th>

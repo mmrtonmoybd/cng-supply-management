@@ -23,7 +23,9 @@
     <div class="row">
         <div class="col-md-4">
             @php
-                $loadOptions = \App\Models\LoadEntry::with('pumpname')->where('status', 0)
+                $loadOptions = \App\Models\LoadEntry::with('pumpname', 'factory')->whereHas('factory', function($factoryQuery) {
+    return $factoryQuery->where('type', 'Cng Pump & Weight Scale');
+    })->where('status', 0)
                     ->orWhere('id', $weightone->load_entry_id)
                     ->orderByDesc('id')->get();
             @endphp
@@ -33,7 +35,7 @@
                     <option value="">No Load select</option>
                     @foreach($loadOptions as $load)
                         <option value="{{ $load->id }}" {{ (string)old('load_entry_id', $weightone->load_entry_id) === (string)$load->id ? 'selected' : '' }}>
-                            Car no: {{ $load->vehicle_reg_number }}, Pump name: {{ $load->pumpname->name }} & Date: {{ $load->date }}
+                             {{ $load->vehicle_reg_number }}, {{ $load->pumpname->name }}, {{ $load->factory->name }} & {{ $load->date }}
                         </option>
                     @endforeach
                 </select>
@@ -98,6 +100,12 @@
             </select>
         </div>
         <div class="col-md-4">
+            @php
+            $thirdparty = \App\Models\Pump::where('weight_one_id', $weightone->id)->first()->third_party_pump_name ?? '';
+            @endphp
+            <x-boilerplate::input name="third_party_pump_name" label="Third party pump name" type="text" :value="old('third_party_pump_name', $thirdparty)" placeholder="Third party pump name" />
+        </div>
+        <div class="col-md-4">
             <x-boilerplate::input name="cng_purchase_m3" label="M3" type="number" step="0.001" :value="old('cng_purchase_m3', $weightone->cng_purchase_m3)" placeholder="M3" />
         </div>
         <div class="col-md-4">
@@ -109,7 +117,7 @@
         <div class="col-md-4">
 
             @php
-                $factoryOptions = \App\Models\Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+                $factoryOptions = \App\Models\Factory::distinct()->where('type', 'Cng Pump & Weight Scale')->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
                 $selectedFactory = old('factory_id', $weightone->factory_id);
             @endphp
             <label for="factory_id">Factory Name</label>

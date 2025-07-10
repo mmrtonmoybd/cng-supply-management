@@ -5,7 +5,9 @@
 
 @section('content')
 @php
-    $loadOptions = \App\Models\LoadEntry::with('pumpname')->where('status', 0)->orderByDesc('id')->get();
+    $loadOptions = \App\Models\LoadEntry::with('pumpname', 'factory')->whereHas('factory', function($factoryQuery) {
+    return $factoryQuery->where('type', 'CNG Pump Slip');
+    })->where('status', 0)->orderByDesc('id')->get();
 @endphp
 <x-boilerplate::form route="backend.factory.cngpump.store">
     <div class="row">
@@ -31,7 +33,7 @@
                     <option value="">No Load select</option>
                     @foreach($loadOptions as $load)
                         <option value="{{ $load->id }}" {{ old('load_entry_id') == $load->id ? 'selected' : '' }}>
-                            Car no: {{ $load->vehicle_reg_number }}, Pump name: {{ $load->pumpname->name }} & Date: {{ $load->date }}
+                            {{ $load->vehicle_reg_number }}, {{ $load->pumpname->name }}, {{ $load->factory->name }} & {{ $load->date }}
                         </option>
                     @endforeach
                 </select>
@@ -95,6 +97,9 @@
             </select>
         </div>
         <div class="col-md-4">
+            <x-boilerplate::input name="third_party_pump_name" label="Third party pump name" type="text" :value="old('third_party_pump_name')" placeholder="Third party pump name" />
+        </div>
+        <div class="col-md-4">
             <x-boilerplate::input name="cng_purchase_m3" label="M3" type="number" step="0.001" :value="old('cng_purchase_m3')" placeholder="M3" />
         </div>
         <div class="col-md-4">
@@ -105,7 +110,7 @@
         </div>
         <div class="col-md-4">
             @php
-                $factoryOptions = \App\Models\Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+                $factoryOptions = \App\Models\Factory::distinct()->where('type', 'CNG Pump Slip')->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
             @endphp
             <label for="factory_id">Factory Name</label>
             <select name="factory_id"  class="form-control">

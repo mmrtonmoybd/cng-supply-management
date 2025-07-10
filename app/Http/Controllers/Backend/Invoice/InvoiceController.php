@@ -42,6 +42,7 @@ class InvoiceController extends Controller
             'factory' => 'required',
             'factories_id' => 'required',
             'date' => 'required|date',
+            'invoice_number' => 'required|string|max:255',
         ]);
 
         if ($request->factory == 'dispansar') {
@@ -54,6 +55,7 @@ class InvoiceController extends Controller
                 'factory_type' => $request->input('factory'),
                 'total' => $total,
                 'factory_id' => $factory,
+                'invoice_number' => $request->input('invoice_number'),
             ]);
 
             Dispansar::whereIn('id', $request->factories_id)->whereNull('invoice_id')->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);
@@ -72,6 +74,7 @@ class InvoiceController extends Controller
                 'factory_type' => $request->input('factory'),
                 'total' => $total,
                 'factory_id' => $factory,
+                'invoice_number' => $request->input('invoice_number'),
             ]);
 
             WeightOne::whereIn('id', $request->factories_id)->whereNull('invoice_id')->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);
@@ -90,6 +93,7 @@ class InvoiceController extends Controller
                 'factory_type' => $request->input('factory'),
                 'total' => $total,
                 'factory_id' => $factory,
+                'invoice_number' => $request->input('invoice_number'),
             ]);
 
             Weight::whereIn('id', $request->factories_id)->whereNull('invoice_id')->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);
@@ -108,6 +112,7 @@ class InvoiceController extends Controller
                 'factory_type' => $request->input('factory'),
                 'total' => $total,
                 'factory_id' => $factory,
+                'invoice_number' => $request->input('invoice_number'),
             ]);
 
             CngPump::whereIn('id', $request->factories_id)->whereNull('invoice_id')->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);
@@ -169,6 +174,7 @@ class InvoiceController extends Controller
             'factory' => 'required',
             'factories_id' => 'required',
             'date' => 'required|date',
+            'invoice_number' => 'required|string|max:255',
         ]);
 
         if ($request->factory == 'dispansar') {
@@ -183,6 +189,7 @@ class InvoiceController extends Controller
                 'factory_type' => $request->input('factory'),
                 'total' => $total,
                 'factory_id' => $factory,
+                'invoice_number' => $request->input('invoice_number'),
             ]);
 
             Dispansar::whereIn('id', $request->factories_id)->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);
@@ -203,6 +210,7 @@ class InvoiceController extends Controller
                 'factory_type' => $request->input('factory'),
                 'total' => $total,
                 'factory_id' => $factory,
+                'invoice_number' => $request->input('invoice_number'),
             ]);
 
             WeightOne::whereIn('id', $request->factories_id)->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);
@@ -223,6 +231,7 @@ class InvoiceController extends Controller
                 'factory_type' => $request->input('factory'),
                 'total' => $total,
                 'factory_id' => $factory,
+                'invoice_number' => $request->input('invoice_number'),
             ]);
 
             Weight::whereIn('id', $request->factories_id)->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);
@@ -243,6 +252,7 @@ class InvoiceController extends Controller
                 'factory_type' => $request->input('factory'),
                 'total' => $total,
                 'factory_id' => $factory,
+                'invoice_number' => $request->input('invoice_number'),
             ]);
 
             CngPump::whereIn('id', $request->factories_id)->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);

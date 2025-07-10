@@ -291,7 +291,7 @@
     </div>
     <div class="invoice-info">
       <h2>INVOICE</h2>
-      <strong><p>Invoice No: #{{ $invoice->id }}</p>
+      <strong><p>Invoice No: #{{ $invoice->invoice_number }}</p>
       <p>Invoice Date: {{ $invoice->date ? (\Carbon\Carbon::parse($invoice->date)->format('l, F j, Y')) : 'N/A' }}</p>
     </strong>
     </div>

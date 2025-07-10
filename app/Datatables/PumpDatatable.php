@@ -69,6 +69,9 @@ class PumpDatatable extends Datatable
                     }
                 }),
 
+            Column::add(__('Third party pump name'))
+                ->data('third_party_pump_name'),
+
             Column::add(__('M3'))
                 ->data('cng_purchase_m3')->sum(),
 

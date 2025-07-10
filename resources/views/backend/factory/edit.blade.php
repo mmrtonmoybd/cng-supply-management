@@ -27,8 +27,10 @@
                     <label for="type">Type <span class="text-danger">*</span></label>
                      <select name="type" id="type" class="form-control" required>
                         <option value="">Select Type</option>
-                        <option value="Fixed" {{ old('type', $factory->type) == 'Fixed' ? 'selected' : '' }}>Fixed</option>
-                        <option value="Unit based" {{ old('type', $factory->type) == 'Unit based' ? 'selected' : '' }}>Unit based</option>
+                        <option value="Dispenser" {{ old('type', $factory->type) == 'Dispenser' ? 'selected' : '' }}>Dispenser</option>
+                        <option value="Cng Pump & Weight Scale" {{ old('type', $factory->type) == 'Cng Pump & Weight Scale' ? 'selected' : '' }}>Cng Pump & Weight Scale</option>
+                        <option value="Weight scale" {{ old('type', $factory->type) == 'Weight scale' ? 'selected' : '' }}>Weight scale</option>
+                        <option value="CNG Pump Slip" {{ old('type', $factory->type) == 'CNG Pump Slip' ? 'selected' : '' }}>CNG Pump Slip</option>
                     </select>
                 </div>
             </div>

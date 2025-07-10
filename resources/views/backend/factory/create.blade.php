@@ -23,11 +23,13 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="type">Contract <span class="text-danger">*</span></label>
+                    <label for="type">Factory type<span class="text-danger">*</span></label>
                     <select name="type" id="type" class="form-control" required>
                         <option value="">Select Type</option>
-                        <option value="Fixed" {{ old('type') == 'Fixed' ? 'selected' : '' }}>Fixed</option>
-                        <option value="Unit based" {{ old('type') == 'Unit based' ? 'selected' : '' }}>Unit based</option>
+                        <option value="Dispenser" {{ old('type') == 'Dispenser' ? 'selected' : '' }}>Dispenser</option>
+                        <option value="Cng Pump & Weight Scale" {{ old('type') == 'Cng Pump & Weight Scale' ? 'selected' : '' }}>Cng Pump & Weight Scale</option>
+                        <option value="Weight scale" {{ old('type') == 'Weight scale' ? 'selected' : '' }}>Weight scale</option>
+                        <option value="CNG Pump Slip" {{ old('type') == 'CNG Pump Slip' ? 'selected' : '' }}>CNG Pump Slip</option>
                     </select>
                 </div>
             </div>

@@ -37,16 +37,7 @@ class FactorylistDatatable extends Datatable
                 ->class('text-nowrap'),
 
             Column::add(__('Type'))
-                ->data('type', function ($value) {
-                    return $value === 1 ? 'Fixed' : 'Unit based';
-                })
-                ->filterOptions([
-                    'Fixed' => 'Fixed',
-                    'Unit based' => 'Unit based',
-                ])
-                ->filter(function ($query, $value) {
-                    return $query->where('type', $value);
-                }),
+                ->data('type'),
 
             Column::add(__('Address'))
                 ->data('address'),
