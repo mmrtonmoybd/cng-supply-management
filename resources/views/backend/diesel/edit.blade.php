@@ -65,7 +65,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <x-boilerplate::input name='distance' label='Distance (km)' required type='number' step='0.001' :value="old('distance', $diesel->distance)" placeholder='Distance'/>
+                        <x-boilerplate::input name='distance' label='Distance (km)' type='number' step='0.001' :value="old('distance', $diesel->distance)" placeholder='Distance'/>
                     </div>
                 </div>
                 <div class="row">
