@@ -274,7 +274,7 @@
 
                             <th class="text-right">{{ number_format($totals['cash_receipt_amount'], 2) }}</th>
                             <th class="text-right"></th>
-                            <th class="text-right">{{ number_format($totals['new_balance'], 2) }} 
+                            <th class="text-right">{{ number_format($totals['cash_receipt_amount'], 2) - number_format($totals['net_income'], 2) }} 
 (@php 
     if ($totals['balance'] > 0) {
         echo 'Advance';
