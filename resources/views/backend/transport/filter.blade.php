@@ -119,7 +119,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">Total balance</span>
                 <span class="info-box-number">
-                  {{ number_format($totals['balance'], 2) }} 
+                  {{ number_format($totals['new_balance'], 2) }} 
 (@php 
     if ($totals['balance'] > 0) {
         echo 'Advance';
@@ -247,7 +247,7 @@
                                 <td class="text-right">{{ number_format($net_income, 2) }}</td>
                                 <td>{{ $transport->cash_receipt_amount }}</td>
                                 <td>{{ $transport->cash_receipt_date ? (\Carbon\Carbon::parse($transport->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
-                                <td>{{ $transport->balance }}</td>
+                                <td></td>
                                 <td>{{ $transport->remarks }}</td>
                             </tr>
                         @empty
@@ -274,7 +274,7 @@
 
                             <th class="text-right">{{ number_format($totals['cash_receipt_amount'], 2) }}</th>
                             <th class="text-right"></th>
-                            <th class="text-right">{{ number_format($totals['balance'], 2) }} 
+                            <th class="text-right">{{ number_format($totals['new_balance'], 2) }} 
 (@php 
     if ($totals['balance'] > 0) {
         echo 'Advance';
