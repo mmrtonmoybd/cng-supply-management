@@ -48,7 +48,7 @@ class Transport extends Model
                 $model->fooding_cost + $model->police_cost + $model->parking_cost +
                 $model->other_cost;
             $model->total_cost = round($model->total_cost, 2);
-            if ($model->cash_receipt_amount > 0) {
+            if ($model->cash_receipt_amount) {
                 $model->balance = $model->cash_receipt_amount - ($model->rent - $model->total_cost);
             }
         });
