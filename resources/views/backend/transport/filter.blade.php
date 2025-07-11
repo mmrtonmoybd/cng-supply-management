@@ -119,11 +119,11 @@
               <div class="info-box-content">
                 <span class="info-box-text">Total balance</span>
                 <span class="info-box-number">
-                  {{ number_format($totals['new_balance'], 2) }} 
+                  {{ (int) $totals['cash_receipt_amount'] - (int) $totals['net_income'] }} 
 (@php 
-    if ($totals['balance'] > 0) {
+    if (((int) $totals['cash_receipt_amount'] - (int) $totals['net_income']) > 0) {
         echo 'Advance';
-    } elseif ($totals['balance'] == 0) {
+    } elseif (((int) $totals['cash_receipt_amount'] - (int) $totals['net_income']) == 0) {
         echo 'Paid';
     } else {
         echo 'Due';
@@ -274,11 +274,11 @@
 
                             <th class="text-right">{{ number_format($totals['cash_receipt_amount'], 2) }}</th>
                             <th class="text-right"></th>
-                            <th class="text-right">{{ number_format($totals['cash_receipt_amount'], 2) - number_format($totals['net_income'], 2) }} 
+                            <th class="text-right">{{ (int) $totals['cash_receipt_amount'] - (int) $totals['net_income']  }}
 (@php 
-    if ($totals['balance'] > 0) {
+    if (((int) $totals['cash_receipt_amount'] - (int) $totals['net_income']) > 0) {
         echo 'Advance';
-    } elseif ($totals['balance'] == 0) {
+    } elseif (((int) $totals['cash_receipt_amount'] - (int) $totals['net_income']) == 0) {
         echo 'Paid';
     } else {
         echo 'Due';
