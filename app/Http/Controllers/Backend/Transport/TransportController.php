@@ -193,7 +193,7 @@ class TransportController extends Controller
                               $totals['police_cost'] + $totals['parking_cost'] + $totals['other_cost'];
 
         $totals['net_income'] = $totals['rent'] - $totals['total_cost'];
-        $totals['new_balance'] = $totals['cash_receipt_amount'] - ( $totals['rent'] - $totals['cash_receipt_amount']);
+        $totals['new_balance'] = $totals['cash_receipt_amount'] - ($totals['rent'] - $totals['cash_receipt_amount']);
 
         return view('backend.transport.filter', compact('transports', 'totals', 'dbtotal'));
     }
