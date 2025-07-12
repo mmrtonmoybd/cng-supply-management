@@ -23,7 +23,7 @@ class LoadentryDatatable extends Datatable
         $this->order('id', 'desc')
             ->permissions('load_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->setRowId('id');
     }
 

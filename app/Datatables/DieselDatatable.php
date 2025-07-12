@@ -21,7 +21,7 @@ class DieselDatatable extends Datatable
     {
         $this->order('id', 'desc')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->permissions('diesel_crud')
             ->setRowId('id');
     }

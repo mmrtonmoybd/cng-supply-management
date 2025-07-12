@@ -23,7 +23,7 @@ class WeightDatatable extends Datatable
         $this->order('id', 'desc')
             ->permissions('weight_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->setRowId('id');
     }
 

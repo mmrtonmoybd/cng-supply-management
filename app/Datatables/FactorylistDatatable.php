@@ -21,7 +21,7 @@ class FactorylistDatatable extends Datatable
         $this->order('id', 'desc')
             ->permissions('factory_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->setRowId('id');
     }
 

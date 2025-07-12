@@ -22,7 +22,7 @@ class ActivitylogDatatable extends Datatable
         $this->order('id', 'desc')
             ->buttons('filters', 'colvis', 'refresh')
             ->permissions('activity_logs')
-            ->condensed()
+            ->condensed()->stateSave()
             ->setRowId('id');
     }
 

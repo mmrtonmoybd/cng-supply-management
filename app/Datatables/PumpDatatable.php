@@ -22,7 +22,7 @@ class PumpDatatable extends Datatable
     {
         $this->order('id', 'desc')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->permissions('pump_crud')
             ->setRowId('id');
     }

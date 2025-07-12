@@ -23,7 +23,7 @@ class VehicleincomeDatatable extends Datatable
         $this->order('id', 'desc')
             ->permissions('vehicle_income_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->setRowId('id');
     }
 

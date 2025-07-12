@@ -21,7 +21,7 @@ class PumpnameDatatable extends Datatable
         $this->order('id', 'desc')
             ->permissions('pump_name_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->setRowId('id');
     }
 

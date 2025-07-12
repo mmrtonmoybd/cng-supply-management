@@ -20,7 +20,7 @@ class CategoryentryDatatable extends Datatable
     {
         $this->order('id', 'desc')
             ->buttons('filters', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->permissions('cashbook_crud')
             ->setRowId('id');
     }

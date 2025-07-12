@@ -22,7 +22,7 @@ class InvoiceDatatable extends Datatable
         $this->order('id', 'desc')
             ->permissions('invoice_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->lengthMenu([[10, 28, 29, 30, 31, 50, 100, -1], [10, 28, 29, 30, 31, 50, 100, 'All']])
             ->setRowId('id');
     }

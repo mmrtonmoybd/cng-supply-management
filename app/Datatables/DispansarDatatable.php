@@ -22,7 +22,7 @@ class DispansarDatatable extends Datatable
     {
         $this->order('id', 'desc')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->permissions('dispansar_crud')
             ->setRowId('id');
     }

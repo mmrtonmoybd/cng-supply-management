@@ -23,7 +23,7 @@ class TransportDatatable extends Datatable
         $this->order('id', 'desc')
             ->permissions('transport_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->setRowId('id');
     }
 

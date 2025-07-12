@@ -22,7 +22,7 @@ class CngpumpslipDatatable extends Datatable
     {
         $this->order('id', 'desc')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->permissions('cngpump_crud')
             ->setRowId('id');
     }

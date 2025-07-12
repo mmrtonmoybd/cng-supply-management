@@ -21,7 +21,7 @@ class AssetdocumentDatatable extends Datatable
     {
         $this->order('id', 'desc')
             ->buttons('filters', 'csv', 'excel', 'print', 'copy', 'refresh')
-            ->condensed()
+            ->condensed()->stateSave()
             ->permissions('asset_crud')
             ->setRowId('id');
     }
