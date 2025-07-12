@@ -249,7 +249,7 @@
                             @endif
                             
                             <td>{{ $pump->cng_purchase_m3 ?? 'N/A' }}</td>
-                            <td>{{ $pump->rate ?? 'N/A' }}</td>
+                            <td>{{ $pump->new_rate ?? $pump->rate }}</td>
                             <td>{{ $pump->purchase_taka ?? 'N/A' }}</td>
                             <td></td>
                             <td>{{ $pump->payment_date ? (\Carbon\Carbon::parse($pump->payment_date)->format('d-m-Y')) : 'N/A' }}</td>

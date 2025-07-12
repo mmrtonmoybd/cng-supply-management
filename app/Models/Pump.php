@@ -30,9 +30,19 @@ class Pump extends Model
         'dispansar_id',
         'diesel_id',
         'third_party_pump_name',
+        'new_rate',
+        'commission_rate',
     ];
 
     // protected static $recordEvents = ['updated', 'deleted'];
+
+    protected static function booted(): void {
+        static::updating(function (Pump $model) {
+            if ($model->new_rate) {
+                $model->purchase_taka = $model->cng_purchase_m3 * $model->new_rate;
+            }
+        });
+    }
 
     public function loada()
     {

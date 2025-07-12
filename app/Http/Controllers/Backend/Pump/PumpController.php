@@ -67,6 +67,7 @@ class PumpController extends Controller
             'payment_date' => 'nullable|date',
             'payment' => 'nullable|numeric|min:0',
             'premarks' => 'nullable|string|max:1000',
+            'new_rate' => 'nullable|numeric',
         ]);
 
         $onlyrequest = $request->only([
@@ -74,11 +75,12 @@ class PumpController extends Controller
             'payment',
         ]);
 
-        $balance = $pump->loada->purchase_taka - $request->input('payment');
+       // $balance = $pump->loada->purchase_taka - $request->input('payment');
 
         $marge = array_merge([
-            'balance' => $balance,
+            
             'remarks' => $request->input('premarks'),
+            'new_rate' => $request->input('new_rate'),
         ], $onlyrequest);
 
         $pump->update($marge);
