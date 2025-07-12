@@ -128,11 +128,11 @@ class PumpController extends Controller
 
         if ($request->filled('type')) {
             if ($request->input('type') == 1) {
-                $query->whereHas('pumpname', function($query) {
+                $query->whereHas('pumpname', function ($query) {
                     $query->where('type', 'Main');
                 });
             } else {
-                $query->whereHas('pumpname', function($query) {
+                $query->whereHas('pumpname', function ($query) {
                     $query->where('type', 'Third Party');
                 });
             }
