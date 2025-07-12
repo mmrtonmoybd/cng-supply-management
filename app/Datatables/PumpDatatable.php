@@ -32,7 +32,8 @@ class PumpDatatable extends Datatable
         return [
 
             Column::add(__('Id'))
-                ->data('id'),
+                ->data('id')
+                ->name('pumps.id'),
 
             Column::add('________Date')
                 ->data('date')
@@ -54,20 +55,13 @@ class PumpDatatable extends Datatable
                 }),
 
             Column::add('Pump type')
-                ->data('type', function ($pump) {
-                    return (! $pump->load_entry_id) ? '<span class="badge badge-pill badge-primary">Third party</span>' : '<span class="badge badge-pill badge-warning">Main</span>';
+                ->data('pumpname.type', function ($pump) {
+                    return ($pump->pumpname->type == 'Third Party') ? '<span class="badge badge-pill badge-primary">Third party</span>' : '<span class="badge badge-pill badge-warning">Main</span>';
                 })
                 ->filterOptions([
-                    '1' => 'Main',
-                    '0' => 'Third Party',
-                ])
-                ->filter(function ($query, $value) {
-                    if ($value === 1) {
-                        $query->where('load_entry_id', '!=', null);
-                    } else {
-                        $query->where('load_entry_id', '=', null);
-                    }
-                }),
+                    'Main' => 'Main',
+                    'Third Party' => 'Third Party',
+                ]),
 
             Column::add(__('Third party pump name'))
                 ->data('third_party_pump_name'),

@@ -204,8 +204,9 @@
                         <th>Date</th>
                         <th>Car No</th>
                         <th>Pump Name</th>
+                        @if (request('type') === '0')
                         <th>Third party pump name</th>
-                        <th>Factory</th>
+                        @endif
                         <th>M3</th>
                         <th>Rate</th>
                         <th>Purchase Taka</th>
@@ -235,8 +236,10 @@
                             <td>{{ $pump->date ? (\Carbon\Carbon::parse($pump->date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $pump->vehicle_reg_number ?? 'N/A' }}</td>
                             <td>{{ $pump->pumpname->name ?? 'N/A' }}</td>
+                            @if (request('type') === '0')
                             <td>{{ $pump->third_party_pump_name }}</td>
-                            <td>{{ $pump->factory->name ?? 'N/A' }}</td>
+                            @endif
+                            
                             <td>{{ $pump->cng_purchase_m3 ?? 'N/A' }}</td>
                             <td>{{ $pump->rate ?? 'N/A' }}</td>
                             <td>{{ $pump->purchase_taka ?? 'N/A' }}</td>
@@ -268,9 +271,10 @@
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th></th>
-                        <th></th>
                         <th class="text-right">Total</th>
+                        @if (request('type') === '0')
+                        <th></th>
+                        @endif
                         <th>{{ $totalM3 }}</th>
                         <th></th>
                         <th>{{ $totalPurchaseTaka }}</th>

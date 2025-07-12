@@ -128,9 +128,13 @@ class PumpController extends Controller
 
         if ($request->filled('type')) {
             if ($request->input('type') == 1) {
-                $query->where('load_entry_id', '!=', null);
+                $query->whereHas('pumpname', function($query) {
+                    $query->where('type', 'Main');
+                });
             } else {
-                $query->where('load_entry_id', '=', null);
+                $query->whereHas('pumpname', function($query) {
+                    $query->where('type', 'Third Party');
+                });
             }
         }
         if ($request->filled('date_range')) {
