@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Cashbook;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Models\Calculation;
+use App\Models\Category;
 use App\Models\ExpenseEntry;
 use App\Models\IncomeEntry;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -140,15 +140,15 @@ class CategoryController extends Controller
         $calculation = null;
 
         if ($startDate && $endDate) {
-           // $calIds = Calculation::whereBetween('date', [$startDate, $endDate])->pluck('id')->toArray();
-           if ($categoryId) {
-            $incomeEntries = IncomeEntry::where('category_id', $categoryId)->whereBetween('date', [$startDate, $endDate]);
-            $expenseEntries = ExpenseEntry::where('category_id', $categoryId)->whereBetween('date', [$startDate, $endDate]);
-           } else {
-            $incomeEntries = IncomeEntry::whereBetween('date', [$startDate, $endDate]);
-            $expenseEntries = ExpenseEntry::whereBetween('date', [$startDate, $endDate]);
-           }
-            
+            // $calIds = Calculation::whereBetween('date', [$startDate, $endDate])->pluck('id')->toArray();
+            if ($categoryId) {
+                $incomeEntries = IncomeEntry::where('category_id', $categoryId)->whereBetween('date', [$startDate, $endDate]);
+                $expenseEntries = ExpenseEntry::where('category_id', $categoryId)->whereBetween('date', [$startDate, $endDate]);
+            } else {
+                $incomeEntries = IncomeEntry::whereBetween('date', [$startDate, $endDate]);
+                $expenseEntries = ExpenseEntry::whereBetween('date', [$startDate, $endDate]);
+            }
+
             $previousIncome = Calculation::with('incomeEntries')->where('date', '<', $startDate)->get()->pluck('incomeEntries')->collapse()->sum('amount');
             $previousExpense = Calculation::with('expenseEntries')->where('date', '<', $startDate)->get()->pluck('expenseEntries')->collapse()->sum('amount');
             $previousBalance = $previousIncome - $previousExpense;
