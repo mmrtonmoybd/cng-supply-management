@@ -143,11 +143,22 @@ class PumpController extends Controller
         if ($request->filled('diesel')) {
             if ($request->input('diesel') == 1) {
                 $query->whereNotNull('diesel_id');
+
+                $diesel->whereHas('pumpname', function($query) {
+                $query->where('is_diesel', 1);
+            });
+                
             } else {
                 $query->whereNull('diesel_id');
+                $diesel->whereHas('pumpname', function($query) {
+                $query->where('is_diesel', 0);
+            });
             }
         } else {
             $query->whereNull('diesel_id');
+            $diesel->whereHas('pumpname', function($query) {
+                $query->where('is_diesel', 0);
+            });
         }
 
         if ($request->filled('date_range')) {
