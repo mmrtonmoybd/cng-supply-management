@@ -17,8 +17,14 @@
         }
         .header h1 {
             font-size: 2rem;
-            margin: 0 0 4px 0;
+            margin: 0 0 2px 0;
             font-weight: 700;
+            color: #222;
+        }
+        .header h2 {
+            font-size: 1rem;
+            margin: 0 0 2px 0;
+            font-weight: 600;
             color: #222;
         }
         .header p {
@@ -30,7 +36,7 @@
             font-size: 1rem;
             color: #888;
             margin-top: 8px;
-            text-align: right;
+            text-align: center;
         }
         .row {
             display: flex;
@@ -58,6 +64,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 12px;
+            -webkit-overflow-scrolling: touch;
         }
         th, td {
             border-bottom: 1px solid #e0e0e0;
@@ -84,54 +91,109 @@
             color: #222;
             border-top: 2px solid #007bff;
         }
-        @media print {
-            body { background: #fff; margin: 0; padding: 0; }
-            .row {
-                display: table;
-                width: 100%;
-                table-layout: fixed;
-                gap: 0;
-            }
-            .col-md-6 {
-                display: table-cell;
-                vertical-align: top;
-                width: 50%;
-                box-shadow: none;
-                page-break-inside: avoid;
-                margin: 0;
-                min-width: unset;
-                max-width: unset;
-                padding: 0 10px 0 0;
-            }
-            .header, .row, .col-md-6, table, th, td {
-                page-break-inside: avoid !important;
-                break-inside: avoid;
-            }
-            .no-print { display: none; }
-            html, body {
-                width: 100%;
-                height: 100%;
-                overflow: visible !important;
-            }
-        }
+
+       @media print {
+    /* Force full-page width usage */
+    html, body {
+        width: 210mm;
+        margin: 0;
+        padding: 0;
+    }
+
+    .row {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    .col-md-6 {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    table {
+        width: 100% !important;
+        table-layout: fixed;
+    }
+
+    th, td {
+        word-wrap: break-word;
+    }
+
+    /* Prevent shadow/padding that may cause spacing */
+    .col-md-6, .header {
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    @page {
+        size: A4 portrait;
+        margin: 10mm;
+    }
+}
+
+
+@media screen and (max-width: 767px) {
+    body {
+        padding: 12px;
+        background: #f8f9fa;
+    }
+
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .header h2 {
+        font-size: 1rem;
+    }
+
+    .header p,
+    .header .date {
+        font-size: 0.9rem;
+        text-align: center;
+    }
+
+    .row {
+        display: block;
+        gap: 0;
+    }
+
+    .col-md-6 {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 12px 0;
+        box-shadow: none;
+    }
+
+    table {
+        font-size: 0.875rem;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 6px 10px;
+    }
+}
+
     </style>
 </head>
 <body>
 <div id="exportContent">
     <div class="header">
         <h1>Mars Bangla</h1>
+        <h2>Cash Ledger</h2>
         <p>House #43, Road #03, Sector #03, Uttra, Dhaka-1230</p>
-        <div class="date">Date: {{ ($range != '' ) ? $range :  ( (!empty($calculation->date)) ? \Illuminate\Support\Carbon::parse($calculation->date)->format('d/m/Y') : '' )}}</div>
+        <div class="date">Date: {{ ($range != '' ) ? invoiceDateStructure($range) :  ( (!empty($calculation->date)) ? \Illuminate\Support\Carbon::parse($calculation->date)->format('l, F j, Y') : '' )}}</div>
     </div>
-    @if(isset($dateRange) && $dateRange)
-        <div class="alert alert-info">
-            <strong>Date Range:</strong> {{ $dateRange }}
-        </div>
-    @elseif(isset($range) && $range)
-        <div class="alert alert-info">
-            <strong>Date Range:</strong> {{ $range }}
-        </div>
-    @endif
     <div class="row">
         <div class="col-md-6">
             <div class="section-title">Income</div>

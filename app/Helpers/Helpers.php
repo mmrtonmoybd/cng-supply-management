@@ -40,3 +40,15 @@ if (! function_exists('convertBengaliToEnglish')) {
         }
     }
 }
+
+if (! function_exists('invoiceDateStructure')) {
+  function invoiceDateStructure($range) {
+     $dates = explode(' - ', $range);
+    if (count($dates) !== 2) return '';
+
+    $from = date('l, F j, Y', strtotime($dates[0]));
+    $to = date('l, F j, Y', strtotime($dates[1]));
+
+    return "$from - $to";
+  }
+}
