@@ -144,19 +144,19 @@ class PumpController extends Controller
             if ($request->input('diesel') == 1) {
                 $query->whereNotNull('diesel_id');
 
-                $diesel->whereHas('pumpname', function($query) {
-                $query->where('is_diesel', 1);
-            });
-                
+                $diesel->whereHas('pumpname', function ($query) {
+                    $query->where('is_diesel', 1);
+                });
+
             } else {
                 $query->whereNull('diesel_id');
-                $diesel->whereHas('pumpname', function($query) {
-                $query->where('is_diesel', 0);
-            });
+                $diesel->whereHas('pumpname', function ($query) {
+                    $query->where('is_diesel', 0);
+                });
             }
         } else {
             $query->whereNull('diesel_id');
-            $diesel->whereHas('pumpname', function($query) {
+            $diesel->whereHas('pumpname', function ($query) {
                 $query->where('is_diesel', 0);
             });
         }
