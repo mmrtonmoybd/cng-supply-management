@@ -55,7 +55,7 @@ class Diesel extends Model
 
         static::saved(function ($model) {
             // Move Pump update here
-            if ($model->taka && $model->pumpname && $model->pumpname->diesel) {
+            if ($model->taka && $model->pumpname && $model->pumpname->is_diesel == 1) {
                 Pump::updateOrCreate([
                     'diesel_id' => $model->id,
                 ], [
