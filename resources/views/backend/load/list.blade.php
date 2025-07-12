@@ -5,7 +5,18 @@
         'Load' => 'backend.load.index',
     ]
 ])
+@push('css')
+<style>
+    tr.alert-danger {
+        background-color: #f8d7da !important;  /* Bootstrap's danger background */
+        color: #721c24 !important;             /* Bootstrap's danger text */
+    }
+    tr.alert-danger:hover {
+    background-color: #f1b0b7 !important;
+   }
 
+</style>
+@endpush
 @section('content')
     <div class="row">
         <div class="col-12 mbl">
