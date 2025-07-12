@@ -182,6 +182,14 @@
                     <option value="0" {{ request('type') === '0' ? 'selected' : '' }}>Third party</option>
                 </x-boilerplate::select2>
             </div>
+
+            <div class="col-md-4">
+                <x-boilerplate::select2 name="diesel" :allow-clear=true label="Diesel" :value="request('diesel')" placeholder="Select Diesel">
+                    <option value="">All</option>
+                    <option value="1" {{ request('diesel') === '1' ? 'selected' : '' }}>Only diesel</option>
+                    <option value="0" {{ request('diesel') === '0' ? 'selected' : '' }}>Diesel + CNG</option>
+                </x-boilerplate::select2>
+            </div>
         </div>
         <div class="row mt-3">
             <div class="col-12">

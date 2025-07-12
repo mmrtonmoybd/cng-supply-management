@@ -98,9 +98,6 @@ class TransportDatatable extends Datatable
             Column::add(__('Recived By'))
                 ->data('recived_by'),
 
-            Column::add('Balance')
-                ->data('balance')->sum(),
-
             Column::add(__('Remarks'))
                 ->data('remarks'),
 

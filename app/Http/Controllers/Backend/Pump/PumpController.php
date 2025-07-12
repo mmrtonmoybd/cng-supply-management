@@ -137,6 +137,17 @@ class PumpController extends Controller
                 });
             }
         }
+
+        if ($request->filled('diesel')) {
+            if ($request->input('diesel') == 1) {
+                $query->whereNotNull('diesel_id');
+            } else {
+                $query->whereNull('diesel_id');
+            }
+        } else {
+            $query->whereNull('diesel_id');
+        }
+
         if ($request->filled('date_range')) {
             $dates = explode(' - ', $request->date_range);
             if (count($dates) == 2) {

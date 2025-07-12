@@ -66,6 +66,20 @@ class PumpDatatable extends Datatable
             Column::add(__('Third party pump name'))
                 ->data('third_party_pump_name'),
 
+            Column::add('Only diesel')
+                ->data('diesel_id', function ($pump) {
+                    return $pump->diesel_id ? '<span class="badge badge-pill badge-success">Yes</span>' : '<span class="badge badge-pill badge-danger">No</span>';
+                })->filterOptions([
+                    '1' => 'Yes',
+                    '0' => 'No',
+                ])->filter(function ($query, $value) {
+                    if ($value === '1') {
+                        return $query->whereNotNull('diesel_id');
+                    } elseif ($value === '0') {
+                        return $query->whereNull('diesel_id');
+                    }
+                }),
+
             Column::add(__('M3'))
                 ->data('cng_purchase_m3')->sum(),
 

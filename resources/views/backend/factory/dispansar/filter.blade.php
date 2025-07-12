@@ -230,7 +230,7 @@
             </div>
             <div class="col-md-3">
                 @php
-                $factoryOptions = \App\Models\Factory::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+                $factoryOptions = \App\Models\Factory::distinct()->where('type', 'Dispenser')->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
             @endphp
             <lebel for="factory_id"><b>Factory Name</b></label>
             <select name="factory_id" class="form-control">
