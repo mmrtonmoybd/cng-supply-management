@@ -88,7 +88,7 @@
         </div>
         <div class="col-md-4">
             @php
-                $pumpOptions = \App\Models\PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+                $pumpOptions = \App\Models\PumpName::distinct()->where('is_diesel', 0)->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
                 $selectedPump = old('pumpName_id', $weightone->pumpName_id);
             @endphp
             <label for="pumpName_id">Pump Name</label>

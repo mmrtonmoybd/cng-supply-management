@@ -86,7 +86,7 @@
         </div>
         <div class="col-md-4">
             @php
-                $pumpOptions = \App\Models\PumpName::distinct()->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+                $pumpOptions = \App\Models\PumpName::distinct()->where('is_diesel', 0)->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
             @endphp
             <label for="pumpName_id">Pump Name</label>
             <select name="pumpName_id"  class="form-control">
