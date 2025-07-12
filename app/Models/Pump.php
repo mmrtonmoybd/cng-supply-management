@@ -36,7 +36,8 @@ class Pump extends Model
 
     // protected static $recordEvents = ['updated', 'deleted'];
 
-    protected static function booted(): void {
+    protected static function booted(): void
+    {
         static::updating(function (Pump $model) {
             if ($model->new_rate) {
                 $model->purchase_taka = $model->cng_purchase_m3 * $model->new_rate;

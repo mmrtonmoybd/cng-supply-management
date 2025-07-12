@@ -75,10 +75,10 @@ class PumpController extends Controller
             'payment',
         ]);
 
-       // $balance = $pump->loada->purchase_taka - $request->input('payment');
+        // $balance = $pump->loada->purchase_taka - $request->input('payment');
 
         $marge = array_merge([
-            
+
             'remarks' => $request->input('premarks'),
             'new_rate' => $request->input('new_rate'),
         ], $onlyrequest);
