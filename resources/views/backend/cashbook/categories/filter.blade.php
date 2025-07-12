@@ -29,7 +29,7 @@
             </div>
             <div class="col-md-4">
                 <label for="date_range">Date Range</label>
-                <input type="text" class="form-control" id="date_range" name="date_range" value="{{ request('date_range') }}" placeholder="YYYY-MM-DD - YYYY-MM-DD">
+                <input type="text" class="form-control" id="date_range" required name="date_range" value="{{ request('date_range') }}" placeholder="YYYY-MM-DD - YYYY-MM-DD">
             </div>
             <div class="col-md-4 d-flex align-items-end">
                 <button type="submit" class="btn btn-primary">Filter</button>
@@ -110,6 +110,12 @@
                     </tr>
                 </tfoot>
             </table>
+        </div>
+
+        <div class="d-flex justify-content-end mt-3 gap-2">
+            
+        <a href="{{ route('backend.categories.filterExport') }}?date_range={{ request('date_range') }}&category_id={{ request('category_id') }}" target="_blank" class="btn btn-primary">Export</a>
+            
         </div>
     </div>
 </x-boilerplate::card>

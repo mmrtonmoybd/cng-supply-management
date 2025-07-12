@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group">
                             <label for="income[{{ $index }}][category_id]">Entries heading</label>
-                            <select name="income[{{ $index }}][category_id]" class="form-control">
+                            <select name="income[{{ $index }}][category_id]" class="form-control" required>
                                 <option value="">No Entries heading</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" {{ $category->id == $income->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="form-group">
                             <label for="expense[{{ $index }}][category_id]">Entries heading</label>
-                            <select name="expense[{{ $index }}][category_id]" class="form-control">
+                            <select name="expense[{{ $index }}][category_id]" class="form-control" required>
                                 <option value="">No Entries heading</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" {{ $category->id == $expense->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
@@ -131,7 +131,7 @@ function createCard(type, count) {
             </div>
             <div class="form-group">
                 <label for="${type}[${count}][category_id]">Entries heading</label>
-                <select name="${type}[${count}][category_id]" class="form-control">
+                <select name="${type}[${count}][category_id]" class="form-control" required>
                     <option value="">No Entries heading</option>
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>

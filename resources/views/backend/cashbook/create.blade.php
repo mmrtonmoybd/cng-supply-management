@@ -76,7 +76,7 @@
                 </div>
                 <div class="form-group">
                     <label for="${type}[${count}][category_id]">Entries Heading</label>
-                    <select name="${type}[${count}][category_id]" class="form-control">
+                    <select name="${type}[${count}][category_id]" class="form-control" required>
                         <option value="">No Entries Heading</option>
                         @foreach($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>

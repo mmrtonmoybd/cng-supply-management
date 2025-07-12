@@ -201,6 +201,11 @@
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
     }
+
+    th {
+        text-align: right !important;
+        vertical-align: middle !important;
+    }
     /* Removed description-cell ellipsis styling */
 </style>
 @endpush

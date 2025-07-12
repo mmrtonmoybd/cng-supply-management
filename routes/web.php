@@ -65,6 +65,7 @@ Route::group($default, function () {
         // Category filter and date range filter for income/expense entries
         Route::get('categories-filter', [App\Http\Controllers\Cashbook\CategoryController::class, 'filter'])->name('categories.filter');
         Route::get('categories-filter-show', [App\Http\Controllers\Cashbook\CategoryController::class, 'filterShow'])->name('categories.filtershow');
+        Route::get('categories-filter-export', [App\Http\Controllers\Cashbook\CategoryController::class, 'filterExport'])->name('categories.filterExport');
     });
 
     Route::group(['prefix' => 'factory', 'as' => 'factory.'], function () {

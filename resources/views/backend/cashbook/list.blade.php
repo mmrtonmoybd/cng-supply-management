@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <label for="date_range">Date Range</label>
-                            <input type="text" name="date_range" id="date_range" class="form-control" value="{{ request('date_range') }}" placeholder="YYYY-MM-DD - YYYY-MM-DD">
+                            <input type="text" name="date_range" required id="date_range" class="form-control" value="{{ request('date_range') }}" placeholder="YYYY-MM-DD - YYYY-MM-DD">
                         </div>
                         <div class="col-md-4 d-flex align-items-end">
                             <button type="submit" class="btn btn-primary w-100">Filter by Date</button>

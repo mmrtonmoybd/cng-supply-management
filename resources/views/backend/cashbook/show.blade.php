@@ -6,6 +6,19 @@
     ]
 ])
 
+@push('css')
+<style>
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+    }
+    th {
+        text-align: right !important;
+        vertical-align: middle !important;
+    }
+</style>
+@endpush
 @section('content')
 <div class="row">
     <div class="col-12 pb-3">
@@ -22,7 +35,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <label for="date_range">Date Range</label>
-                        <input type="text" name="date_range" id="date_range" class="form-control" value="{{ $dateRange }}" placeholder="YYYY-MM-DD - YYYY-MM-DD">
+                        <input type="text" name="date_range" required id="date_range" class="form-control" value="{{ $dateRange }}" placeholder="YYYY-MM-DD - YYYY-MM-DD">
                     </div>
                     <div class="col-md-4 d-flex align-items-end">
                         <button type="submit" class="btn btn-primary w-100">Filter by Date</button>
@@ -40,6 +53,10 @@
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         scroll-behavior: smooth;
+    }
+    th {
+        text-align: center !important;
+        vertical-align: middle !important;
     }
 </style>
 @endpush

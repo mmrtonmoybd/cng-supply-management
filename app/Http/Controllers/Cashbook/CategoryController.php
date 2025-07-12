@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Cashbook;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Calculation;
+use App\Models\ExpenseEntry;
+use App\Models\IncomeEntry;
 
 class CategoryController extends Controller
 {
@@ -114,5 +117,50 @@ class CategoryController extends Controller
         $endDate = null;
 
         return view('backend.cashbook.categories.filtershow', compact('categories', 'categoryId', 'dateRange'));
+    }
+
+    public function filterExport(Request $request)
+    {
+        $this->authorize('cashbook_crud');
+        $dateRange = $request->input('date_range');
+        $startDate = null;
+        $endDate = null;
+        $categoryId = $request->input('category_id');
+        if ($dateRange && strpos($dateRange, ' - ') !== false) {
+            [$startDate, $endDate] = array_map('trim', explode(' - ', $dateRange));
+        }
+        $incomeEntries = collect();
+        $expenseEntries = collect();
+        $previousBalance = 0;
+        $totalIncome = 0;
+        $totalExpense = 0;
+        $netChange = 0;
+        $netBalance = 0;
+        $range = '';
+        $calculation = null;
+
+        if ($startDate && $endDate) {
+           // $calIds = Calculation::whereBetween('date', [$startDate, $endDate])->pluck('id')->toArray();
+           if ($categoryId) {
+            $incomeEntries = IncomeEntry::where('category_id', $categoryId)->whereBetween('date', [$startDate, $endDate]);
+            $expenseEntries = ExpenseEntry::where('category_id', $categoryId)->whereBetween('date', [$startDate, $endDate]);
+           } else {
+            $incomeEntries = IncomeEntry::whereBetween('date', [$startDate, $endDate]);
+            $expenseEntries = ExpenseEntry::whereBetween('date', [$startDate, $endDate]);
+           }
+            
+            $previousIncome = Calculation::with('incomeEntries')->where('date', '<', $startDate)->get()->pluck('incomeEntries')->collapse()->sum('amount');
+            $previousExpense = Calculation::with('expenseEntries')->where('date', '<', $startDate)->get()->pluck('expenseEntries')->collapse()->sum('amount');
+            $previousBalance = $previousIncome - $previousExpense;
+            $incomeEntries = $incomeEntries->get();
+            $expenseEntries = $expenseEntries->get();
+            $totalIncome = $incomeEntries->sum('amount');
+            $totalExpense = $expenseEntries->sum('amount');
+            $netChange = $totalIncome - $totalExpense;
+            $netBalance = $previousBalance + $netChange;
+            $range = $dateRange;
+        }
+
+        return view('backend.cashbook.export', compact('calculation', 'incomeEntries', 'expenseEntries', 'totalIncome', 'totalExpense', 'netBalance', 'previousBalance', 'startDate', 'endDate', 'range', 'dateRange'));
     }
 }

@@ -92,6 +92,11 @@
             border-top: 2px solid #007bff;
         }
 
+        th {
+        text-align: right !important;
+        vertical-align: middle !important;
+    }
+
        @media print {
     /* Force full-page width usage */
     html, body {
@@ -190,7 +195,13 @@
 <div id="exportContent">
     <div class="header">
         <h1>Mars Bangla</h1>
+        @if (Route::currentRouteName() !== 'backend.categories.filterExport')
         <h2>Cash Ledger</h2>
+        @elseif(is_null(request('category_id')))
+        <h2>All category of Cash Ledger</h2>
+        @elseif(!empty(request('category_id'))) 
+        <h2>Cash ledger for category: {{ \App\Models\Category::find(request('category_id'))?->name ?? '' }}</h2>
+        @endif
         <p>House #43, Road #03, Sector #03, Uttra, Dhaka-1230</p>
         <div class="date">Date: {{ ($range != '' ) ? invoiceDateStructure($range) :  ( (!empty($calculation->date)) ? \Illuminate\Support\Carbon::parse($calculation->date)->format('l, F j, Y') : '' )}}</div>
     </div>
@@ -222,9 +233,9 @@
                         @foreach($entries as $i => $income)
                             @php $inc = \App\Models\Calculation::where('id', $income->calculation_id)->first(); @endphp
                             <tr>
-                                <td style="padding-left: 2em;">{{ (!empty($inc->date)) ? \Illuminate\Support\Carbon::parse($inc->date)->format('d/m/Y') : '' }}</td>
-                                <td style="padding-left: 2em;">{{ $income->description }}</td>
-                                <td style="padding-left: 2em;">{{ number_format($income->amount, 2) }}</td>
+                                <td style="padding-left: 2em; text-align: right;">{{ (!empty($inc->date)) ? \Illuminate\Support\Carbon::parse($inc->date)->format('d/m/Y') : '' }}</td>
+                                <td style="padding-left: 2em; text-align: right;">{{ $income->description }}</td>
+                                <td style="padding-left: 2em; text-align: right;">{{ number_format($income->amount, 2) }}</td>
                                 <td style="padding-left: 2em; text-align: right;">
                                     @if ($i == $entryCount - 1)
                                         {{ number_format($categoryTotal, 2) }}
@@ -279,9 +290,9 @@
                         @foreach($entries as $i => $expense)
                             @php $inc = \App\Models\Calculation::where('id', $expense->calculation_id)->first(); @endphp
                             <tr>
-                                <td style="padding-left: 2em;">{{ (!empty($inc->date)) ? \Illuminate\Support\Carbon::parse($inc->date)->format('d/m/Y') : '' }}</td>
-                                <td style="padding-left: 2em;">{{ $expense->description }}</td>
-                                <td style="padding-left: 2em;">{{ number_format($expense->amount, 2) }}</td>
+                                <td style="padding-left: 2em; text-align: right;">{{ (!empty($inc->date)) ? \Illuminate\Support\Carbon::parse($inc->date)->format('d/m/Y') : '' }}</td>
+                                <td style="padding-left: 2em; text-align: right;">{{ $expense->description }}</td>
+                                <td style="padding-left: 2em; text-align: right;">{{ number_format($expense->amount, 2) }}</td>
                                 <td style="padding-left: 2em; text-align: right;">
                                     @if ($i == $entryCount - 1)
                                         {{ number_format($categoryTotal, 2) }}
@@ -312,11 +323,16 @@
     </div>
     <div class="row" style="margin-top: 32px;">
         <div class="col-md-6">
-            <div style="margin-bottom: 8px;"><strong>Previous Balance:</strong> {{ number_format($previousBalance, 2) }}/-</div>
+        @if (Route::currentRouteName() !== 'backend.categories.filterExport')
+        <div style="margin-bottom: 8px;"><strong>Previous Balance:</strong> {{ number_format($previousBalance, 2) }}/-</div>
+        @endif
+            
             <div style="margin-bottom: 8px;"><strong>Total Income:</strong> {{ number_format($totalIncome, 2) }}/-</div>
             <div style="margin-bottom: 8px;"><strong>Total Expense:</strong> {{ number_format($totalExpense, 2) }}/-</div>
             <div style="margin-bottom: 8px;"><strong>Net Change (Income - Expense):</strong> {{ number_format($totalIncome - $totalExpense, 2) }}/-</div>
+        @if (Route::currentRouteName() !== 'backend.categories.filterExport')
             <div style="margin-bottom: 8px;"><strong>Net Balance (Previous + Net Change):</strong> {{ number_format($previousBalance + $totalIncome - $totalExpense, 2) }}/-</div>
+        @endif
         </div>
     </div>
 </div>

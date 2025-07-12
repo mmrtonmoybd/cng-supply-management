@@ -29,7 +29,7 @@
             </div>
             <div class="col-md-4">
                 <label for="date_range">Date Range</label>
-                <input type="text" class="form-control" id="date_range" name="date_range" value="{{ request('date_range') }}" placeholder="YYYY-MM-DD - YYYY-MM-DD">
+                <input type="text" class="form-control" id="date_range" required name="date_range" value="{{ request('date_range') }}" placeholder="YYYY-MM-DD - YYYY-MM-DD">
             </div>
             <div class="col-md-4 d-flex align-items-end">
                 <button type="submit" class="btn btn-primary">Filter</button>
