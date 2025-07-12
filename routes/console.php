@@ -20,9 +20,9 @@ Schedule::command('activitylog:clean --days=61')
     ->appendOutputTo(storage_path('logs/activity-clean.log'));
 
 Schedule::call(function () {
-     DatabaseNotification::whereNotNull('read_at')
+    DatabaseNotification::whereNotNull('read_at')
         ->where('created_at', '<', Carbon::now()->subDays(60))
         ->delete();
 
-    //logger("Deleted $deleted old read notifications.");
+    // logger("Deleted $deleted old read notifications.");
 })->daily()->appendOutputTo(storage_path('logs/notification-clean.log'));
