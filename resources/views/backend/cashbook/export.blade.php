@@ -234,7 +234,7 @@
                             @php $inc = \App\Models\Calculation::where('id', $income->calculation_id)->first(); @endphp
                             <tr>
                                 <td style="padding-left: 2em; text-align: right;">{{ (!empty($inc->date)) ? \Illuminate\Support\Carbon::parse($inc->date)->format('d/m/Y') : '' }}</td>
-                                <td style="padding-left: 2em; text-align: right;">{{ $income->description }}</td>
+                                <td style="padding-left: 2em; text-align: left;">{{ $income->description }}</td>
                                 <td style="padding-left: 2em; text-align: right;">{{ number_format($income->amount, 2) }}</td>
                                 <td style="padding-left: 2em; text-align: right;">
                                     @if ($i == $entryCount - 1)
@@ -291,7 +291,7 @@
                             @php $inc = \App\Models\Calculation::where('id', $expense->calculation_id)->first(); @endphp
                             <tr>
                                 <td style="padding-left: 2em; text-align: right;">{{ (!empty($inc->date)) ? \Illuminate\Support\Carbon::parse($inc->date)->format('d/m/Y') : '' }}</td>
-                                <td style="padding-left: 2em; text-align: right;">{{ $expense->description }}</td>
+                                <td style="padding-left: 2em; text-align: left;">{{ $expense->description }}</td>
                                 <td style="padding-left: 2em; text-align: right;">{{ number_format($expense->amount, 2) }}</td>
                                 <td style="padding-left: 2em; text-align: right;">
                                     @if ($i == $entryCount - 1)
