@@ -84,7 +84,7 @@ class PumpDatatable extends Datatable
                 ->data('cng_purchase_m3')->sum(),
 
             Column::add(__('Rate'))
-                ->data('rate', function($pump) {
+                ->data('rate', function ($pump) {
                     return $pump->new_rate ?? $pump->rate;
                 }),
 
