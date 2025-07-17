@@ -315,7 +315,7 @@
                             <td>{{ $dispansar->vehicle_reg_number }}</td>
                             <td>{{ $dispansar->pumpname ? $dispansar->pumpname->name : '' }}</td>
                             <td>{{ $dispansar->cng_purchase_m3 }}</td>
-                            <td>{{ $dispansar->rate }}</td>
+                            <td>{{ $dispansar->lrate }}</td>
                             <td>{{ $dispansar->purchase_taka }}</td>
                             <td>{{ $dispansar->bill_no }}</td>
                             <td>{{ $dispansar->bill_date }}</td>
