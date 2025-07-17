@@ -43,7 +43,7 @@ class VehicleDatatable extends Datatable
                     'truck' => __('Truck'),
                     'van' => __('Van'),
                     'car' => 'Car',
-                    'transport' => 'Transport'
+                    'transport' => 'Transport',
                 ]),
 
             Column::add(__('Type'))
