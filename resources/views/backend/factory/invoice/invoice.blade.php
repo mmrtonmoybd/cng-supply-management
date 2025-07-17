@@ -168,19 +168,19 @@
 	
 	@if ($invoice->factory_type == 'dispansar')
                             @php
-                            $items = $invoice->dispansar;
+                            $items = $invoice->dispansar->sortBy('bill_no');
                             @endphp
                         @elseif($invoice->factory_type == 'weightone')
                             @php
-                            $items = $invoice->weightone;
+                            $items = $invoice->weightone->sortBy('bill_no');
                             @endphp
                         @elseif($invoice->factory_type == 'cngpump')
                             @php
-                            $items = $invoice->cngpump;
+                            $items = $invoice->cngpump->sortBy('bill_no');
                             @endphp
                         @elseif($invoice->factory_type == 'weight')
                             @php
-                            $items = $invoice->weight;
+                            $items = $invoice->weight->sortBy('bill_no');
                             @endphp
                         @endif
 
