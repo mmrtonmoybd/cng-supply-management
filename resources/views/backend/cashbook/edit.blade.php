@@ -159,11 +159,20 @@ document.addEventListener('click', function (event) {
         const button = event.target.closest('.remove-entry');
         const entryId = button.dataset.id;
         const entryType = button.dataset.type;
-        if (document.getElementById(`${entryType}-${entryId}`)) {
-            document.getElementById(`${entryType}-${entryId}`).remove();
-        } else if (document.getElementById(`new-${entryType}-${entryId}`)) {
-            document.getElementById(`new-${entryType}-${entryId}`).remove();
+        const possibleIds = [
+            `${entryType}-${entryId}`,
+            `new-${entryType}-${entryId}`,
+            entryId // fallback
+        ];
+
+        for (const id of possibleIds) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.remove();
+                break;
+            }
         }
+
     }
 });
 </script>
