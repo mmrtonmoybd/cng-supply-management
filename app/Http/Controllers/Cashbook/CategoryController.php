@@ -93,8 +93,8 @@ class CategoryController extends Controller
             $incomeQuery->whereBetween('date', [$startDate, $endDate]);
             $expenseQuery->whereBetween('date', [$startDate, $endDate]);
         }
-        $incomeEntries = $incomeQuery->orderByDesc('date')->get();
-        $expenseEntries = $expenseQuery->orderByDesc('date')->get();
+        $incomeEntries = $incomeQuery->orderBy('date', 'ASC')->get();
+        $expenseEntries = $expenseQuery->orderBy('date', 'ASC')->get();
 
         return view('backend.cashbook.categories.filter', compact('categories', 'incomeEntries', 'expenseEntries', 'categoryId', 'dateRange'));
     }
@@ -152,8 +152,8 @@ class CategoryController extends Controller
             $previousIncome = Calculation::with('incomeEntries')->where('date', '<', $startDate)->get()->pluck('incomeEntries')->collapse()->sum('amount');
             $previousExpense = Calculation::with('expenseEntries')->where('date', '<', $startDate)->get()->pluck('expenseEntries')->collapse()->sum('amount');
             $previousBalance = $previousIncome - $previousExpense;
-            $incomeEntries = $incomeEntries->get();
-            $expenseEntries = $expenseEntries->get();
+            $incomeEntries = $incomeEntries->orderBy('date', 'ASC')->get();
+            $expenseEntries = $expenseEntries->orderBy('date', 'ASC')->get();
             $totalIncome = $incomeEntries->sum('amount');
             $totalExpense = $expenseEntries->sum('amount');
             $netChange = $totalIncome - $totalExpense;

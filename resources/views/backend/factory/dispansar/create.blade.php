@@ -50,25 +50,25 @@
             <x-boilerplate::input name="bill_date" label="Bill Date" type="date" :value="old('bill_date')" placeholder="Bill Date" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="opening_reading" label="Opening Reading" type="number" step="0.001" :value="old('opening_reading')" placeholder="Opening Reading" />
+            <x-boilerplate::input name="opening_reading" label="Opening Reading" type="number" step="0.01" :value="old('opening_reading')" placeholder="Opening Reading" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="closing_reading" label="Closing Reading" type="number" step="0.001" :value="old('closing_reading')" placeholder="Closing Reading" />
+            <x-boilerplate::input name="closing_reading" label="Closing Reading" type="number" step="0.01" :value="old('closing_reading')" placeholder="Closing Reading" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="rate" label="Rate" type="number" step="0.001" :value="old('rate')" placeholder="Rate" />
+            <x-boilerplate::input name="rate" label="Rate" type="number" step="0.01" :value="old('rate')" placeholder="Rate" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="in" label="In" type="number" step="0.001" :value="old('in')" placeholder="In" />
+            <x-boilerplate::input name="in" label="In" type="number" step="0.01" :value="old('in')" placeholder="In" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="out" label="Out" type="number" step="0.001" :value="old('out')" placeholder="Out" />
+            <x-boilerplate::input name="out" label="Out" type="number" step="0.01" :value="old('out')" placeholder="Out" />
         </div>
         <div class="col-md-4">
             <x-boilerplate::input name="cash_receipt_date" label="Cash Receipt Date" type="date" :value="old('cash_receipt_date')" placeholder="Cash Receipt Date" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="cash_receipt_amount" label="Cash Receipt Amount" type="number" step="0.001" :value="old('cash_receipt_amount')" placeholder="Cash Receipt Amount" />
+            <x-boilerplate::input name="cash_receipt_amount" label="Cash Receipt Amount" type="number" step="0.01" :value="old('cash_receipt_amount')" placeholder="Cash Receipt Amount" />
         </div>
         <div class="col-md-4">
             <x-boilerplate::input name="recived_by" label="Received By" :value="old('recived_by')" placeholder="Received By" />
@@ -104,13 +104,13 @@
             <x-boilerplate::input name="third_party_pump_name" label="Third party pump name" type="text" :value="old('third_party_pump_name')" placeholder="Third party pump name" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="cng_purchase_m3" label="M3" type="number" step="0.001" :value="old('cng_purchase_m3')" placeholder="M3" />
+            <x-boilerplate::input name="cng_purchase_m3" label="M3" type="number" step="0.01" :value="old('cng_purchase_m3')" placeholder="M3" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="lrate" label="Rate" type="number" step="0.001" :value="old('lrate')" placeholder="Rate" />
+            <x-boilerplate::input name="lrate" label="Rate" type="number" step="0.01" :value="old('lrate')" placeholder="Rate" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="purchase_taka" label="Purchase Taka" type="number" step="0.001" :value="old('purchase_taka')" placeholder="Purchase Taka" />
+            <x-boilerplate::input name="purchase_taka" label="Purchase Taka" type="number" step="0.01" :value="old('purchase_taka')" placeholder="Purchase Taka" />
         </div>
         <div class="col-md-4">
             @php

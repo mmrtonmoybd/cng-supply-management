@@ -30,12 +30,12 @@
                         <x-boilerplate::input name='payment_date' label='Payment Date' type='date' :value="old('payment_date', $pump->payment_date ?? '')" placeholder='Payment Date'/>
                     </div>
                     <div class="col-6">
-                        <x-boilerplate::input name='payment' label='Payment' type='number' step='0.001' :value="old('payment', $pump->payment ?? '')" placeholder='Payment'/>
+                        <x-boilerplate::input name='payment' label='Payment' type='number' step='0.01' :value="old('payment', $pump->payment ?? '')" placeholder='Payment'/>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <x-boilerplate::input name='new_rate' label='New Rate' type='number' step='0.001' :value="old('new_rate', $pump->new_rate ?? '')" placeholder='New Rate'/>
+                        <x-boilerplate::input name='new_rate' label='New Rate' type='number' step='0.01' :value="old('new_rate', $pump->new_rate ?? '')" placeholder='New Rate'/>
                     </div>
                     <div class="col-6">
                         <x-boilerplate::input name='premarks' label='Remarks' :value="old('premarks', $pump->remarks ?? '')" placeholder='Remarks'/>

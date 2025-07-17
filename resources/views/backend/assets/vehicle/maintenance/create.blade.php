@@ -25,7 +25,7 @@
            <x-boilerplate::select2 name='vehicle_id' model='App\\Models\\Vehicle|vehicle_number|id'  label='Vehicle' required :selected="old('vehicle_id')" placeholder='Select Vehicle'/>
         </div>
         <div class="col-md-6">
-            <x-boilerplate::input name='maintenance_cost' required label='Taka' type='number' step='0.001' :value="old('maintenance_cost')" placeholder='Taka'/>
+            <x-boilerplate::input name='maintenance_cost' required label='Taka' type='number' step='0.01' :value="old('maintenance_cost')" placeholder='Taka'/>
         </div>
     </div>
     <div class="row">

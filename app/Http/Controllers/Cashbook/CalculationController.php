@@ -274,8 +274,8 @@ class CalculationController extends Controller
         }
 
         // Get the filtered entries
-        $incomeEntries = $incomeEntries->get();
-        $expenseEntries = $expenseEntries->get();
+        $incomeEntries = $incomeEntries->orderBy('date', 'ASC')->get();
+        $expenseEntries = $expenseEntries->orderBy('date', 'ASC')->get();
 
         // dd($incomeEntries);
 
@@ -337,8 +337,8 @@ class CalculationController extends Controller
         }
 
         // Get the filtered entries
-        $incomeEntries = $incomeEntries->get();
-        $expenseEntries = $expenseEntries->get();
+        $incomeEntries = $incomeEntries->orderBy('date', 'ASC')->get();
+        $expenseEntries = $expenseEntries->orderBy('date', 'ASC')->get();
 
         // dd($incomeEntries);
 
@@ -420,8 +420,8 @@ class CalculationController extends Controller
             $previousIncome = Calculation::with('incomeEntries')->where('date', '<', $startDate)->get()->pluck('incomeEntries')->collapse()->sum('amount');
             $previousExpense = Calculation::with('expenseEntries')->where('date', '<', $startDate)->get()->pluck('expenseEntries')->collapse()->sum('amount');
             $previousBalance = $previousIncome - $previousExpense;
-            $incomeEntries = $incomeEntries->get();
-            $expenseEntries = $expenseEntries->get();
+            $incomeEntries = $incomeEntries->orderBy('date', 'ASC')->get();
+            $expenseEntries = $expenseEntries->orderBy('date', 'ASC')->get();
             $totalIncome = $incomeEntries->sum('amount');
             $totalExpense = $expenseEntries->sum('amount');
             $netChange = $totalIncome - $totalExpense;
@@ -457,8 +457,8 @@ class CalculationController extends Controller
             $previousIncome = Calculation::with('incomeEntries')->where('date', '<', $startDate)->get()->pluck('incomeEntries')->collapse()->sum('amount');
             $previousExpense = Calculation::with('expenseEntries')->where('date', '<', $startDate)->get()->pluck('expenseEntries')->collapse()->sum('amount');
             $previousBalance = $previousIncome - $previousExpense;
-            $incomeEntries = $incomeEntries->get();
-            $expenseEntries = $expenseEntries->get();
+            $incomeEntries = $incomeEntries->orderBy('date', 'ASC')->get();
+            $expenseEntries = $expenseEntries->orderBy('date', 'ASC')->get();
             $totalIncome = $incomeEntries->sum('amount');
             $totalExpense = $expenseEntries->sum('amount');
             $netChange = $totalIncome - $totalExpense;

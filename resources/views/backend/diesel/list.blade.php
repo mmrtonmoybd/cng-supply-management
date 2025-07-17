@@ -31,12 +31,12 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">                               <label>Use liter factor</label>
-                            <input name='factor_liter' class="form-control" type="number" step="0.001" label='Use liter factor' value="{{ old('factor_liter', settings()->get('factor_liter')) }}" placeholder='Use liter factor' />
+                            <input name='factor_liter' class="form-control" type="number" step="0.01" label='Use liter factor' value="{{ old('factor_liter', settings()->get('factor_liter')) }}" placeholder='Use liter factor' />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">                              <label>Use balance factor</label>
-                            <input name="factor_balance" class="form-control" type="number" step="0.001" label="Use balance factor" value="{{ old('factor_balance', settings()->get('factor_balance')) }}" placeholder='Use balance factor'/>
+                            <input name="factor_balance" class="form-control" type="number" step="0.01" label="Use balance factor" value="{{ old('factor_balance', settings()->get('factor_balance')) }}" placeholder='Use balance factor'/>
                             </div>
                         </div>
                         <div class="col-md-4 d-flex align-items-end">

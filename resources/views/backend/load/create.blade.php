@@ -41,15 +41,15 @@
             </select>
         </div>
         <div class="col-6">
-            <x-boilerplate::input name='cng_purchase_m3' label='M3' type='number' step='0.001' :value="old('cng_purchase_m3')" placeholder='M3'/>
+            <x-boilerplate::input name='cng_purchase_m3' label='M3' type='number' step='0.01' :value="old('cng_purchase_m3')" placeholder='M3'/>
         </div>
     </div>
     <div class="row">
         <div class="col-6">
-            <x-boilerplate::input name='rate' label='Rate' type='number' step='0.001' required :value="old('rate')" placeholder='Rate'/>
+            <x-boilerplate::input name='rate' label='Rate' type='number' step='0.01' required :value="old('rate')" placeholder='Rate'/>
         </div>
         <div class="col-6">
-            <x-boilerplate::input name='purchase_taka' label='Purchase Taka' type='number' step='0.001' :value="old('purchase_taka')" placeholder='Purchase Taka'/>
+            <x-boilerplate::input name='purchase_taka' label='Purchase Taka' type='number' step='0.01' :value="old('purchase_taka')" placeholder='Purchase Taka'/>
         </div>
     </div>
     <div class="row">

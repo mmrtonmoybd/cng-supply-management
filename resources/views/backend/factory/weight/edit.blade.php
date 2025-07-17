@@ -48,16 +48,16 @@
             <x-boilerplate::input name="bill_date" label="Bill Date" type="date" :value="old('bill_date', $weight->bill_date)" placeholder="Bill Date" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="first_weight" label="First Weight" type="number" step="0.001" :value="old('first_weight', $weight->first_weight)" placeholder="First Weight" />
+            <x-boilerplate::input name="first_weight" label="First Weight" type="number" step="0.01" :value="old('first_weight', $weight->first_weight)" placeholder="First Weight" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="second_weight" label="Second Weight" type="number" step="0.001" :value="old('second_weight', $weight->second_weight)" placeholder="Second Weight" />
+            <x-boilerplate::input name="second_weight" label="Second Weight" type="number" step="0.01" :value="old('second_weight', $weight->second_weight)" placeholder="Second Weight" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="fact" label="Fact" type="number" step="0.001" :value="old('fact', $weight->fact)" placeholder="Fact" />
+            <x-boilerplate::input name="fact" label="Fact" type="number" step="0.01" :value="old('fact', $weight->fact)" placeholder="Fact" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="rate" label="Rate" type="number" step="0.001" :value="old('rate', $weight->rate)" placeholder="Rate" />
+            <x-boilerplate::input name="rate" label="Rate" type="number" step="0.01" :value="old('rate', $weight->rate)" placeholder="Rate" />
         </div>
         <div class="col-md-4" hidden>
             <x-boilerplate::input name="total_bill_no" label="Total Bill No" type="text" :value="old('total_bill_no', $weight->total_bill_no)" placeholder="Total Bill No" />
@@ -66,19 +66,19 @@
             <x-boilerplate::input name="total_bill_taka" label="Total Bill Taka" type="text" :value="old('total_bill_taka', $weight->total_bill_taka)" placeholder="Total Bill Taka" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="in" label="In" type="number" step="0.001" :value="old('in', $weight->in)" placeholder="In" />
+            <x-boilerplate::input name="in" label="In" type="number" step="0.01" :value="old('in', $weight->in)" placeholder="In" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="out" label="Out" type="number" step="0.001" :value="old('out', $weight->out)" placeholder="Out" />
+            <x-boilerplate::input name="out" label="Out" type="number" step="0.01" :value="old('out', $weight->out)" placeholder="Out" />
         </div>
         <div class="col-md-4" hidden>
-            <x-boilerplate::input name="bill_amount" label="Bill Amount" type="number" step="0.001" :value="old('bill_amount', $weight->bill_amount)" placeholder="Bill Amount" />
+            <x-boilerplate::input name="bill_amount" label="Bill Amount" type="number" step="0.01" :value="old('bill_amount', $weight->bill_amount)" placeholder="Bill Amount" />
         </div>
         <div class="col-md-4">
             <x-boilerplate::input name="cash_receipt_date" label="Cash Receipt Date" type="date" :value="old('cash_receipt_date', $weight->cash_receipt_date)" placeholder="Cash Receipt Date" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="cash_receipt_amount" label="Cash Receipt Amount" type="number" step="0.001" :value="old('cash_receipt_amount', $weight->cash_receipt_amount)" placeholder="Cash Receipt Amount" />
+            <x-boilerplate::input name="cash_receipt_amount" label="Cash Receipt Amount" type="number" step="0.01" :value="old('cash_receipt_amount', $weight->cash_receipt_amount)" placeholder="Cash Receipt Amount" />
         </div>
         <div class="col-md-4">
             <x-boilerplate::input name="recived_by" label="Received By" :value="old('recived_by', $weight->recived_by)" placeholder="Received By" />
@@ -115,13 +115,13 @@
             <x-boilerplate::input name="third_party_pump_name" label="Third party pump name" type="text" :value="old('third_party_pump_name', $thirdparty)" placeholder="Third party pump name" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="cng_purchase_m3" label="M3" type="number" step="0.001" :value="old('cng_purchase_m3', $weight->cng_purchase_m3)" placeholder="M3" />
+            <x-boilerplate::input name="cng_purchase_m3" label="M3" type="number" step="0.01" :value="old('cng_purchase_m3', $weight->cng_purchase_m3)" placeholder="M3" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="lrate" label="Rate" type="number" step="0.001" :value="old('lrate', $weight->lrate)" placeholder="Rate" />
+            <x-boilerplate::input name="lrate" label="Rate" type="number" step="0.01" :value="old('lrate', $weight->lrate)" placeholder="Rate" />
         </div>
         <div class="col-md-4">
-            <x-boilerplate::input name="purchase_taka" label="Purchase Taka" type="number" step="0.001" :value="old('purchase_taka', $weight->purchase_taka)" placeholder="Purchase Taka" />
+            <x-boilerplate::input name="purchase_taka" label="Purchase Taka" type="number" step="0.01" :value="old('purchase_taka', $weight->purchase_taka)" placeholder="Purchase Taka" />
         </div>
         <div class="col-md-4">
 
