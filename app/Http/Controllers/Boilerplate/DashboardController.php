@@ -9,6 +9,7 @@ use App\Models\CngPump;
 use App\Models\Diesel;
 use App\Models\Dispansar;
 use App\Models\Invoice;
+use App\Models\LoadEntry;
 use App\Models\Pump;
 use App\Models\Transport;
 use App\Models\Vehicle;
@@ -77,7 +78,7 @@ class DashboardController extends Controller
         $profit = ($profit_dispansar + $profit_weightone + $profit_weight + $profit_cngpump + $profit_transport_rent) - ($profit_pump + $profit_diesel + $profit_transport);
 
         // Load
-        $load = Pump::whereBetween('date', [
+        $load = LoadEntry::whereBetween('date', [
             $con_start,
             $con_end,
         ]);
