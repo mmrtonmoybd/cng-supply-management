@@ -253,6 +253,7 @@
                             <th class="text-right">Use Balance</th>
                             <th class="text-right">Due/Advance Litre</th>
                             <th class="text-right">Due/Advance</th>
+                            <th>Remarks</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -272,6 +273,7 @@
                             <td class="text-right">{{ number_format($diesel->use_balance ?? 0, 2) }}</td>
                             <td class="text-right">{{ number_format($diesel->diesel_purchase_litre - ($diesel->use_litre ?? 0), 2) }}</td>
                             <td class="text-right">{{ number_format($diesel->taka - ($diesel->use_balance ?? 0), 2) }}</td>
+                            <td>{{ $diesel->remarks }}</td>
                         </tr>
                         @empty
                         <tr>
@@ -299,6 +301,7 @@
                                 {{ number_format($diesels->sum('taka') - $diesels->sum('use_balance'), 2) }}
                                 {{ ($diesels->sum('taka') - $diesels->sum('use_balance')) < 0 ? '(Due)' : '(Advance)' }}
                             </th>
+                            <th></th>
                         </tr>
                     </tfoot>
                 </table>

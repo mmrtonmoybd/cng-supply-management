@@ -229,6 +229,9 @@
                         <th>Purchase Taka</th>
                         <th> Challan NO</th>
                         <th>Challan Date</th>
+                        <th>First Weight</th>
+                        <th>Second Weight</th>
+                        <th>Total Weight</th>
                         <th>FM3</th>
                         <th>Rate</th>
                         <th>FTK</th>
@@ -237,7 +240,9 @@
                         <th>Invoice Date</th>
                         <th>Cash Receipt Amount</th>
                         <th>Cash Receipt Date</th>
+                        <th>Receive by</th>
                         <th>Balance</th>
+                        <th>Remarks</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -246,6 +251,9 @@
                         $totalPurchaseTaka = 0;
                         $totalFM3 = 0;
                         $totalFTK = 0;
+                        $totalFirstWeight = 0;
+                        $totalSecondWeight = 0;
+                        $totalTotalWeight = 0;
                         $totalDifferenceTaka = 0;
                         $totalBillAmount = 0;
                         $totalCashReceiptAmount = 0;
@@ -262,6 +270,9 @@
                             <td>{{ $row->purchase_taka }}</td>
                             <td>{{ $row->bill_no }}</td>
                             <td>{{ $row->bill_date }}</td>
+                            <td>{{ $row->first_weight }}</td>
+                            <td>{{ $row->second_weight }}</td>
+                            <td>{{ $row->total_weight }}</td>
                             <td>{{ $row->fm3 }}</td>
                             <td>{{ $row->rate }}</td>
                             <td>{{ $row->ftk }}</td>
@@ -270,13 +281,18 @@
                             <td>{{ $row->invoice_date ? (\Carbon\Carbon::parse($row->invoice_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $row->cash_receipt_amount }}</td>
                             <td>{{ $row->cash_receipt_date ? (\Carbon\Carbon::parse($row->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
+                            <td>{{ $row->recived_by }}</td>
                             <td></td>
+                            <td>{{ $row->remarks }}</td>
                         </tr>
                         @php
                             $totalM3 += $row->cng_purchase_m3;
                             $totalPurchaseTaka += $row->purchase_taka;
                             $totalFM3 += $row->fm3;
                             $totalFTK += $row->ftk;
+                            $totalFirstWeight += $row->first_weight;
+                            $totalSecondWeight += $row->second_weight;
+                            $totalTotalWeight += $row->total_weight;
                             $totalDifferenceTaka += $row->difference_taka;
                             $totalBillAmount += $row->bill_amount;
                             $totalCashReceiptAmount += $row->cash_receipt_amount;
@@ -295,6 +311,9 @@
                         <th>{{ number_format($totalPurchaseTaka, 2) }}</th>
                         <th></th>
                         <th></th>
+                        <th>{{ number_format($totalFirstWeight, 2) }}</th>
+                        <th>{{ number_format($totalSecondWeight, 2) }}</th>
+                        <th>{{ number_format($totalTotalWeight, 2) }}</th>
                         <th>{{ number_format($totalFM3, 2) }}</th>
                         <th></th>
                         <th>{{ number_format($totalFTK, 2) }}</th>
@@ -302,6 +321,7 @@
                         <th></th>
                         <th></th>
                         <th>{{ number_format($totalCashReceiptAmount, 2) }}</th>
+                        <th></th>
                         <th></th>
                         <th>{{ number_format(($totalCashReceiptAmount - $totalFTK), 2) }}(@php 
                             if (($totalCashReceiptAmount - $totalFTK) > 0) {
@@ -312,6 +332,7 @@
                                 echo 'Due';
                             }
                             @endphp)</th>
+                            <th></th>
                     </tr>
                 </tfoot>
             </table>

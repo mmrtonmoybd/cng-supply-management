@@ -69,7 +69,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Total first weight</span>
-                <span class="info-box-number>
+                <span class="info-box-number">
                   {{ $dbtotalfirst_weight }}
                 </span>
               </div>
@@ -206,7 +206,8 @@
                             } else {
                                 echo 'Due';
                             }
-                            @endphp)
+                            @endphp
+                            )
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -307,7 +308,9 @@
                         <th>Invoice Date</th>
                         <th>Cash Receipt Amount</th>
                         <th>Cash Receipt Date</th>
+                        <th>Receive by</th>
                         <th>Balance</th>
+                        <th>Remarks</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -352,7 +355,9 @@
                             <td>{{ $row->invoice_date ? (\Carbon\Carbon::parse($row->invoice_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $row->cash_receipt_amount }}</td>
                             <td>{{ $row->cash_receipt_date ? (\Carbon\Carbon::parse($row->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
-                            <td>{{ $row->balance }}</td>
+                            <td>{{ $row->recived_by }}</td>
+                            <td></td>
+                            <td>{{ $row->remarks }}</td>
                         </tr>
                         @php
                             $totalM3 += $row->cng_purchase_m3;
@@ -397,6 +402,7 @@
                         <th></th>
                         <th>{{ number_format($totalCashReceiptAmount, 2) }}</th>
                         <th></th>
+                        <th></th>
                         <th>{{ number_format(($totalCashReceiptAmount - $totalFTK), 2) }}(@php 
                             if (($totalCashReceiptAmount - $totalFTK) > 0) {
                                 echo 'Advance';
@@ -406,6 +412,7 @@
                                 echo 'Due';
                             }
                             @endphp)</th>
+                            <th></th>
                     </tr>
                 </tfoot>
             </table>

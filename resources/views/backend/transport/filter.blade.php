@@ -167,7 +167,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     @php
-                        $vehicleOptions = \App\Models\Vehicle::orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray();
+                        $vehicleOptions = \App\Models\Vehicle::where('vehicle_type', 'transport')->orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray();
                     @endphp
                     <label for="vehicle_id">Vehicle</label>
                     <select name="vehicle_id" class="form-control">
@@ -215,6 +215,7 @@
                             <th class="text-right">Net Income</th>
                             <th>Cash Receipt Amount</th>
                             <th>Cash Receipt Date</th>
+                            <th>Receive by</th>
                             <th>Balance</th>
                             <th>Remarks</th>
                         </tr>
@@ -247,6 +248,7 @@
                                 <td class="text-right">{{ number_format($net_income, 2) }}</td>
                                 <td>{{ $transport->cash_receipt_amount }}</td>
                                 <td>{{ $transport->cash_receipt_date ? (\Carbon\Carbon::parse($transport->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
+                                <td>{{ $transport->recived_by }}</td>
                                 <td></td>
                                 <td>{{ $transport->remarks }}</td>
                             </tr>
@@ -273,6 +275,7 @@
                             <th class="text-right">{{ number_format($totals['net_income'], 2) }}</th>
 
                             <th class="text-right">{{ number_format($totals['cash_receipt_amount'], 2) }}</th>
+                            <th class="text-right"></th>
                             <th class="text-right"></th>
                             <th class="text-right">{{ (int) $totals['cash_receipt_amount'] - (int) $totals['net_income']  }}
 (@php 

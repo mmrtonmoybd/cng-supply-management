@@ -289,7 +289,9 @@
                         <th>Invoice date</th>
                         <th>Cash Receipt Date</th>
                         <th>Cash Receipt Amount</th>
+                        <th>Receive by</th>
                         <th>Balance</th>
+                        <th>Remarks</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -332,7 +334,9 @@
                             <td>{{ $dispansar->invoice_date ? (\Carbon\Carbon::parse($dispansar->invoice_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $dispansar->cash_receipt_date ? (\Carbon\Carbon::parse($dispansar->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $dispansar->cash_receipt_amount }}</td>
+                            <td>{{ $dispansar->recived_by }}</td>
                             <td></td>
+                            <td>{{ $dispansar->remarks }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -360,6 +364,7 @@
                         <th></th>
                         <th></th>
                         <th>{{ $sumCash }}</th>
+                        <th></th>
                         <th>{{ $sumCash - $sumBill}}(@php 
                             if (($sumCash - $sumBill) > 0) {
                                 echo 'Advance';
@@ -369,6 +374,7 @@
                                 echo 'Due';
                             }
                             @endphp)</th>
+                            <th></th>
                     </tr>
                 </tfoot>
             </table>

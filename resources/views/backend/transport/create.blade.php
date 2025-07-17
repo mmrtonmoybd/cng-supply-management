@@ -26,7 +26,7 @@
         </div>
         <div class="col-4">
             @php
-                $vehicleOptions = \App\Models\Vehicle::orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray();
+                $vehicleOptions = \App\Models\Vehicle::where('vehicle_type', 'transport')->orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray();
             @endphp
             <label for="vehicle_id">Vehicle</label>
             <select name="vehicle_id" class="form-control" required>

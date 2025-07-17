@@ -35,7 +35,7 @@ class TransportDatatable extends Datatable
 
             Column::add(__('Vehicle no'))
                 ->data('vehicle.vehicle_number')
-                ->filterOptions(Vehicle::distinct()->orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray())
+                ->filterOptions(Vehicle::where('vehicle_type', 'transport')->distinct()->orderBy('vehicle_number', 'ASC')->pluck('vehicle_number', 'id')->toArray())
                 ->filter(function ($query, $value) {
                     return $query->where('vehicle_id', $value);
                 }),
