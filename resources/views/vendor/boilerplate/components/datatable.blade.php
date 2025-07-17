@@ -86,6 +86,7 @@
                 stateSave: true,
                 stateSaveParams: $.fn.dataTable.saveFiltersState,
                 stateLoadParams: $.fn.dataTable.loadFiltersState,
+                stateDuration: 60*60*24*365*10,
             @endif
             ajax: {
                 url: '{!! route('boilerplate.datatables', $datatable->slug, false) !!}',
