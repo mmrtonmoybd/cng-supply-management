@@ -158,11 +158,9 @@ document.addEventListener('click', function (event) {
     if (event.target.closest('.remove-entry')) {
         const button = event.target.closest('.remove-entry');
         const entryId = button.dataset.id;
-        const entryType = button.dataset.type;
-        if (document.getElementById(`${entryType}-${entryId}`)) {
-            document.getElementById(`${entryType}-${entryId}`).remove();
-        } else if (document.getElementById(`new-${entryType}-${entryId}`)) {
-            document.getElementById(`new-${entryType}-${entryId}`).remove();
+        const element = document.getElementById(entryId);
+        if (element) {
+            element.remove();
         }
     }
 });
