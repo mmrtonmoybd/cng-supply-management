@@ -57,7 +57,8 @@ class Weight extends Model
                     'pumpName_id' => $model->pumpName_id,
                     'cng_purchase_m3' => $model->cng_purchase_m3,
                     'factory_id' => $model->factory_id,
-                    'remarks' => $model->factory->name,
+                    //'remarks' => $model->factory->name,
+                    'third_party_pump_name' => request()->input('third_party_pump_name'),
                 ]);
             }
 
@@ -74,7 +75,8 @@ class Weight extends Model
                     'pumpName_id' => $model->pumpName_id,
                     'cng_purchase_m3' => $model->cng_purchase_m3,
                     'factory_id' => $model->factory_id,
-                    'remarks' => $model->factory->name,
+                    //'remarks' => $model->factory->name,
+                    'third_party_pump_name' => request()->input('third_party_pump_name'),
                 ]);
             }
 

@@ -222,6 +222,9 @@
                         <th>Payment Date</th>
                         <th>Payment</th>
                         <th>Balance</th>
+                        @if (request('type') === '0')
+                        <th>Factory</th>
+                        @endif
                         <th>Remarks</th>
                     </tr>
                 </thead>
@@ -255,6 +258,9 @@
                             <td>{{ $pump->payment_date ? (\Carbon\Carbon::parse($pump->payment_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $pump->payment ?? 'N/A' }}</td>
                             <td></td>
+                            @if (request('type') === '0')
+                            <td>{{ $pump->factory->name }}</td>
+                            @endif
                             <td>{{ $pump->remarks }}</td>
                             
                             <!--
@@ -300,6 +306,10 @@
                                 echo 'Due';
                             }
                             @endphp)</th>
+                        
+                        @if (request('type') === '0')
+                        <th></th>
+                        @endif
 
                         <th></th>
                     </tr>
