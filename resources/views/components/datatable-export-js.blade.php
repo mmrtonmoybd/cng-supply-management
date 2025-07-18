@@ -33,7 +33,26 @@ if (request()->is('transport-filter/show')) {
     $default = request()->filled('pumpName_id') || request()->filled('car_no') || request()->filled('factory_id')
         ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Filter Results'
         : 'Dispansar Filter Results';
-}
+} elseif(request()->is('factory/weightone-filter/show')) {
+    $default = request()->filled('pumpName_id') || request()->filled('car_no') || request()->filled('factory_id')
+        ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Filter Results'
+        : 'Cng Pump & Weight Scale Filter Results';
+    } elseif(request()->is('factory/weight-filter/show')) {
+    $default = request()->filled('pumpName_id') || request()->filled('car_no') || request()->filled('factory_id')
+        ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Filter Results'
+        : 'Weight Filter Filter Results';
+    } elseif(request()->is('factory/cngPump-filter/show')) {
+    $default = request()->filled('pumpName_id') || request()->filled('car_no') || request()->filled('factory_id')
+        ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Filter Results'
+        : 'Cng Pump Slip Filter Results';
+    } elseif (request()->is('factory/factory-summary/result')) {
+    $default = 'Factory Summary Results';
+
+    } elseif (request()->is('transport-filter/show')) {
+    $default =  request()->filled('vehicle_id')
+        ? \App\Models\Vehicle::find(request()->vehicle_id)?->vehicle_number . ' Filter Results'
+        : 'Transport Filter Results';
+    }
 @endphp
 
 
@@ -52,6 +71,9 @@ window.initExportableDataTable = function(tableSelector) {
 
         $(tableSelector).DataTable({
             dom: 'Bfrtip',
+            stateSave: true,
+            stateDuration: 60 * 60 * 24 * 365 * 10,
+            
             buttons: [
                 {
                     extend: 'colvis',
