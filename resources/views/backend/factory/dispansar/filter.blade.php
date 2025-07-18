@@ -330,7 +330,14 @@
                             <td>{{ $dispansar->difference_taka }}</td>
                             <td>{{ $dispansar->in }}</td>
                             <td>{{ $dispansar->out }}</td>
-                            <td>{{ $dispansar->invoice_id }}</td>
+                            @php
+                            $invoice_id = '';
+                            if ($dispansar->invoice_id) {
+                                $invoice = \App\Models\Invoice::find($dispansar->invoice_id);
+                                $invoice_id = $invoice->invoice_number;
+                                }
+                            @endphp
+                            <td>{{ $invoice_id }}</td>
                             <td>{{ $dispansar->invoice_date ? (\Carbon\Carbon::parse($dispansar->invoice_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $dispansar->cash_receipt_date ? (\Carbon\Carbon::parse($dispansar->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $dispansar->cash_receipt_amount }}</td>

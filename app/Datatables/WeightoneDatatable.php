@@ -100,8 +100,9 @@ class WeightoneDatatable extends Datatable
 
             Column::add('Invoice')
                 ->data('invoice_id', function ($invoiceId) {
-                    return $invoiceId->invoice_id ? '<a href="'.route('backend.factory.invoice.show', $invoiceId->invoice_id).'" target="_blank" style="color:#007bff;font-weight:bold;">Invoice('.$invoiceId->invoice_id.')</a>' : null;
-                })->notOrderable(),
+                    $invoice = \App\Models\Invoice::find($invoiceId->invoice_id);
+                    return $invoiceId->invoice_id ? '<a href="'.route('backend.factory.invoice.show', $invoiceId->invoice_id).'" target="_blank" style="color:#007bff;font-weight:bold;">'.$invoice->invoice_number.'</a>' : null;
+                })->notOrderable()->notSearchable(),
 
             Column::add(__('___Invoice Date'))
                 ->data('invoice_date')

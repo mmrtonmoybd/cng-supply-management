@@ -32,6 +32,7 @@ class Pump extends Model
         'third_party_pump_name',
         'new_rate',
         'commission_rate',
+        'bill_no',
     ];
 
     // protected static $recordEvents = ['updated', 'deleted'];

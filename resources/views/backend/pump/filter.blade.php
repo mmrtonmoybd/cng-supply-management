@@ -214,6 +214,7 @@
                         <th>Pump Name</th>
                         @if (request('type') === '0')
                         <th>Third party pump name</th>
+                        <th>Bill no</th>
                         @endif
                         <th>M3</th>
                         <th>Rate</th>
@@ -249,6 +250,7 @@
                             <td>{{ $pump->pumpname->name ?? 'N/A' }}</td>
                             @if (request('type') === '0')
                             <td>{{ $pump->third_party_pump_name }}</td>
+                            <td>{{ $pump->bill_no }}</td>
                             @endif
                             
                             <td>{{ $pump->cng_purchase_m3 ?? 'N/A' }}</td>
@@ -287,6 +289,7 @@
                         <th></th>
                         <th class="text-right">Total</th>
                         @if (request('type') === '0')
+                        <th></th>
                         <th></th>
                         @endif
                         <th>{{ $totalM3 }}</th>

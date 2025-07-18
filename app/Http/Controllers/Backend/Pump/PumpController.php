@@ -177,7 +177,7 @@ class PumpController extends Controller
 
         $dieselsum = $diesel->sum('taka');
 
-        $results = $query->orderBy('created_at', 'ASC')->get();
+        $results = $query->orderBy('date', 'ASC')->get();
 
         $dbtotalpump = $query->count('id');
         $dbtotal_m3 = $query->sum('cng_purchase_m3');

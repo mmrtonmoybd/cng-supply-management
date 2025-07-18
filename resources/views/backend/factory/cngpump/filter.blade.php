@@ -290,7 +290,14 @@
                             <td>{{ $row->difference_m3 }}</td>
                             <td>{{ $row->in }}</td>
                             <td>{{ $row->out }}</td>
-                            <td>{{ $row->invoice_id }}</td>
+                            @php
+                            $invoice_id = '';
+                            if ($row->invoice_id) {
+                                $invoice = \App\Models\Invoice::find($row->invoice_id);
+                                $invoice_id = $invoice->invoice_number;
+                                }
+                            @endphp
+                            <td>{{ $invoice_id }}</td>
                             <td>{{ $row->invoice_date ? (\Carbon\Carbon::parse($row->invoice_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $row->cash_receipt_amount }}</td>
                             <td>{{ $row->cash_receipt_date ? (\Carbon\Carbon::parse($row->cash_receipt_date)->format('d-m-Y')) : 'N/A' }}</td>

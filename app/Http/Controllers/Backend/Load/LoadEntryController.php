@@ -151,7 +151,7 @@ class LoadEntryController extends Controller
         $dbtotal_load = $query->count('id');
         $dbtotal_m3 = $query->sum('cng_purchase_m3');
         $dbtotal_purchase_taka = $query->sum('purchase_taka');
-        $results = $query->orderBy('created_at', 'ASC')->get();
+        $results = $query->orderBy('date', 'ASC')->get();
 
         return view('backend.load.filter', compact('results', 'dbtotal_load', 'dbtotal_m3', 'dbtotal_purchase_taka'));
     }

@@ -100,6 +100,9 @@ class PumpDatatable extends Datatable
                     return $query->where('factory_id', $value);
                 }),
 
+            Column::add('Bill no')
+                ->data('bill_no'),
+
             Column::add(__('____Payment Date'))
                 ->data('payment_date')
                 ->dateFormat('DD-MM-YYYY'),

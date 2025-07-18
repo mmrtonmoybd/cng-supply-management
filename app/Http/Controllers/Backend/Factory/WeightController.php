@@ -299,7 +299,7 @@ class WeightController extends Controller
                 ]);
             }
         }
-        $results = $query->orderBy('created_at', 'ASC')->get();
+        $results = $query->orderBy('date', 'ASC')->get();
         $dbtotal = $query->count('id');
         $dbtotalcng_purchase_m3 = $query->sum('cng_purchase_m3');
         $dbtotalpurchase_taka = $query->sum('purchase_taka');

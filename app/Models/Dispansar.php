@@ -52,6 +52,7 @@ class Dispansar extends Model
                     'pumpName_id' => $model->pumpName_id,
                     'cng_purchase_m3' => $model->cng_purchase_m3,
                     'factory_id' => $model->factory_id,
+                    'bill_no' => $model->bill_no,
                     // 'remarks' => $model->factory->name,
                     'third_party_pump_name' => request()->input('third_party_pump_name'),
                 ]);
@@ -71,6 +72,7 @@ class Dispansar extends Model
                     'cng_purchase_m3' => $model->cng_purchase_m3,
                     'factory_id' => $model->factory_id,
                     // 'remarks' => $model->factory->name,
+                    'bill_no' => $model->bill_no,
                     'third_party_pump_name' => request()->input('third_party_pump_name'),
                 ]);
             }
