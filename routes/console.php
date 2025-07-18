@@ -15,6 +15,14 @@ Schedule::command('auth:clear-resets')
     ->hourly()
     ->appendOutputTo(storage_path('logs/reset-password-clean.log'));
 
+Schedule::command('backup:run')
+    ->dailyAt('00:30')
+    ->appendOutputTo(storage_path('logs/backup.log'));
+
+Schedule::command('backup:clean')
+    ->dailyAt('03:00')
+    ->appendOutputTo(storage_path('logs/backup-clean.log'));
+
 Schedule::command('activitylog:clean --days=61')
     ->daily()
     ->appendOutputTo(storage_path('logs/activity-clean.log'));
