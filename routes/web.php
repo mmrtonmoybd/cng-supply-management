@@ -133,7 +133,7 @@ Route::get('factory/invoice/verify/{hash}', [App\Http\Controllers\Backend\Invoic
 Route::get('test', App\Http\Controllers\Test::class.'@index')->name('test.index');
 
 Route::get('/migration', function () {
-    $exitCode = Artisan::call('migrate');
+    $exitCode = Artisan::call('migrate --force');
     // return what you want
 });
 
