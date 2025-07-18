@@ -37,7 +37,7 @@ class AssetDocumentController extends Controller
         $validated = $request->validate([
             'asset_id' => 'required|exists:assets,id',
             'name' => 'required|string|max:255',
-            'path' => 'required|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10000', // 10MB max
+            'path' => 'required|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:50000000000', // 10MB max
         ]);
 
         if ($request->hasFile('path')) {
@@ -79,7 +79,7 @@ class AssetDocumentController extends Controller
         $validated = $request->validate([
             'asset_id' => 'required|exists:assets,id',
             'name' => 'required|string|max:255',
-            'path' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10000', // 10MB max
+            'path' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:50000000000', // 10MB max
         ]);
 
         // Handle file upload if new file is provided

@@ -10,7 +10,10 @@
         "laravel/tinker": "^2.9",
         "rawilk/laravel-settings": "^3.4",
         "sebastienheyd/boilerplate": "^8.2",
-        "spatie/laravel-activitylog": "^4.10"
+        "sebastienheyd/boilerplate-media-manager": "^8.0",
+        "spatie/db-dumper": "^3.8",
+        "spatie/laravel-activitylog": "^4.10",
+        "spatie/laravel-backup": "^9.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.15",

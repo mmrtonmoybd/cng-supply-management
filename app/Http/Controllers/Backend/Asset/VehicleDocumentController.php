@@ -39,7 +39,7 @@ class VehicleDocumentController extends Controller
             'name' => 'required|string|max:255',
             'issued_date' => 'nullable|date',
             'expiry_date' => 'nullable|date',
-            'path' => 'required|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10000', // 10MB max
+            'path' => 'required|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:50000000000', // 10MB max
         ]);
 
         // Handle file upload
@@ -84,7 +84,7 @@ class VehicleDocumentController extends Controller
             'name' => 'required|string|max:255',
             'issued_date' => 'nullable|date',
             'expiry_date' => 'nullable|date',
-            'path' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10000', // 10MB max
+            'path' => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:50000000000', // 10MB max
         ]);
 
         // Handle file upload if new file is provided
