@@ -86,7 +86,7 @@ class DashboardController extends Controller
         $load_m3 = $load->sum('cng_purchase_m3');
 
         // Diesel cost
-        $diesel_cost = Diesel::whereBetween('date', [
+        $diesel_cost = Diesel::whereBetween('d_date', [
             $con_start,
             $con_end,
         ])->sum('taka');
