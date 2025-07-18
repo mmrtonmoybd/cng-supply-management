@@ -110,10 +110,11 @@ class CngpumpslipDatatable extends Datatable
 
             Column::add(__('Out'))
                 ->data('out')->sum(),
-            
+
             Column::add('Invoice')
                 ->data('invoice_id', function ($invoiceId) {
                     $invoice = \App\Models\Invoice::find($invoiceId->invoice_id);
+
                     return $invoiceId->invoice_id ? '<a href="'.route('backend.factory.invoice.show', $invoiceId->invoice_id).'" target="_blank" style="color:#007bff;font-weight:bold;">'.$invoice->invoice_number.'</a>' : null;
                 })->notOrderable()->notSearchable(),
 
