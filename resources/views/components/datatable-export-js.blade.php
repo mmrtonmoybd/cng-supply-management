@@ -73,7 +73,7 @@ window.initExportableDataTable = function(tableSelector) {
             dom: 'Bfrtip',
             stateSave: true,
             stateDuration: 60 * 60 * 24 * 365 * 10,
-            
+
             buttons: [
                 {
                     extend: 'colvis',
@@ -99,9 +99,20 @@ window.initExportableDataTable = function(tableSelector) {
                         doc.pageMargins = [10, 10, 10, 10];
                         doc.defaultStyle.fontSize = 6;
                         doc.styles.tableHeader.fontSize = 7;
+
+                        // Center the title
+                        doc.content.splice(0, 1, {
+                            text: '{{ $default }}',
+                            style: 'header',
+                            alignment: 'center',
+                            fontSize: 12,
+                            margin: [0, 0, 0, 12]
+                        });
+
                         var body = doc.content[1].table.body;
                         var colCount = body[0].length;
                         doc.content[1].table.widths = Array(colCount).fill('*');
+                        
                         body.forEach(function(row) {
                             row.forEach(function(cell) {
                                 if (typeof cell === 'object') {
@@ -110,6 +121,7 @@ window.initExportableDataTable = function(tableSelector) {
                             });
                         });
                     }
+
                 },
                 {
                     extend: 'print',
@@ -121,7 +133,15 @@ window.initExportableDataTable = function(tableSelector) {
                         $(win.document.body).find('table')
                             .addClass('compact')
                             .css('font-size', 'inherit');
+
+                        // Center the title
+                        $(win.document.body).find('h1').css({
+                            'text-align': 'center',
+                            'font-size': '18pt',
+                            'margin-bottom': '10px'
+                        });
                     }
+
                 }
             ],
             paging: false,
