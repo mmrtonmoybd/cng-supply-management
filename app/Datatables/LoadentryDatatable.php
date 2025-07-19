@@ -24,17 +24,6 @@ class LoadentryDatatable extends Datatable
             ->permissions('load_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()->stateSave()
-            ->setRowClass(function ($entry) {
-                return LoadEntry::where('id', '!=', $entry->id)
-                    ->where('vehicle_reg_number', $entry->vehicle_reg_number)
-                    ->where('pumpName_id', $entry->pumpName_id)
-                    ->where('cng_purchase_m3', $entry->cng_purchase_m3)
-                    ->where('rate', $entry->rate)
-                    ->where('purchase_taka', $entry->purchase_taka)
-                    ->where('factory_id', $entry->factory_id)
-                    ->whereDate('date', $entry->date)
-                    ->exists() ? 'alert-danger' : '';
-            })
             ->setRowId('id');
     }
 
