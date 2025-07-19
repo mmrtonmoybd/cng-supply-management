@@ -70,7 +70,7 @@ class WeightoneDatatable extends Datatable
                 ->data('purchase_taka')->sum(),
 
             Column::add(__('Challan No'))
-                ->data('bill_no', function($billno) {
+                ->data('bill_no', function ($billno) {
                     return $billno->invoice_id ? '<a style="color:#007bff;font-weight:bold;">'.$billno->bill_no.'</a>' : $billno->bill_no;
                 }),
 
