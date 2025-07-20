@@ -6,6 +6,7 @@ use App\Models\PumpName;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
+use App\Models\Highlight;
 
 class PumpnameDatatable extends Datatable
 {
@@ -22,6 +23,20 @@ class PumpnameDatatable extends Datatable
             ->permissions('pump_name_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()->stateSave()
+            ->setRowClass(function ($row) {
+                $class = '';
+
+                // Highlight color if set
+                $highlight = Highlight::where('module_name', 'pumpname')
+                    ->where('module_id', $row->id)
+                    ->value('color');
+
+                if ($highlight) {
+                    $class .= ' highlight-'.$highlight;
+                }
+
+                return trim($class);
+            })
             ->setRowId('id');
     }
 
@@ -59,6 +74,39 @@ class PumpnameDatatable extends Datatable
 
             Column::add(__('Phone'))
                 ->data('phone'),
+
+            Column::add('Highlight')
+                ->data('highlight', function ($row) {
+                    $colors = ['none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue'];
+
+                    $highlight = Highlight::where('module_name', 'pumpname')
+                        ->where('module_id', $row->id)
+                        ->first();
+
+                    $selected = $highlight->color ?? 'none';
+
+                    $options = '';
+                    foreach ($colors as $key => $label) {
+                        $sel = $key === $selected ? 'selected' : '';
+                        $options .= "<option value='{$key}' {$sel}>{$label}</option>";
+                    }
+
+                    return <<<HTML
+                        <select class="form-control form-control-sm highlight-select" data-id="{$row->id}" data-module="pumpname">
+                            {$options}
+                        </select>
+                    HTML;
+                })->notOrderable()
+                  ->filterOptions([
+                    'none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue'
+                  ])
+                  ->filter(function($query, $value) {
+                    if ($value !== 'none') {
+                        return $query->whereHas('highlight', function ($q) use ($value) {
+                            $q->where('color', $value);
+                        });
+                    }
+                  }),
 
             Column::add()
                 ->width('20px')

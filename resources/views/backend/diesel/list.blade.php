@@ -6,6 +6,8 @@
     ]
 ])
 
+@include('components.datatable-highlight-css')
+
 @section('content')
     <div class="row">
         <div class="col-12 mbl">            <span class="float-left pb-3">
@@ -58,4 +60,6 @@
             card.style.display = card.style.display === 'none' ? '' : 'none';
         });
     </script>
+
+@include('components.datatable-highlight-js')
 @endsection

@@ -25,5 +25,5 @@
     <x-boilerplate::datatable name="loadentry" />
     </x-boilerplate::card>
 
-    @include('components.datatable-highlight-js')
+@include('components.datatable-highlight-js')
 @endsection

@@ -44,4 +44,8 @@ class PumpName extends Model
             ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
     }
+
+    public function highlight() {
+        return $this->hasMany(Highlight::class, 'module_id', 'id')->where('module_name', 'pumpname');
+    }
 }

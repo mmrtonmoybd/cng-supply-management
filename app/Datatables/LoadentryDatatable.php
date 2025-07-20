@@ -126,6 +126,17 @@ class LoadentryDatatable extends Datatable
                     return $query->where('factory_id', $value);
                 }),
 
+            Column::add(__('Status'))
+                ->data('status', function ($user) {
+                    return $user->status == 1 ? '<span class="badge badge-pill badge-success">Use</span>' : '<span class="badge badge-pill badge-danger">Not Use</span>';
+                })->filterOptions([
+                    1 => 'Use',
+                    0 => 'Not Use',
+                ]),
+
+            Column::add(__('Remark'))
+                ->data('remark'),
+
             Column::add('Highlight')
                 ->data('highlight', function ($row) {
                     $colors = ['none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue'];
@@ -147,18 +158,17 @@ class LoadentryDatatable extends Datatable
                             {$options}
                         </select>
                     HTML;
-                })->notOrderable()->notSearchable(),
-
-            Column::add(__('Status'))
-                ->data('status', function ($user) {
-                    return $user->status == 1 ? '<span class="badge badge-pill badge-success">Use</span>' : '<span class="badge badge-pill badge-danger">Not Use</span>';
-                })->filterOptions([
-                    1 => 'Use',
-                    0 => 'Not Use',
-                ]),
-
-            Column::add(__('Remark'))
-                ->data('remark'),
+                })->notOrderable()
+                  ->filterOptions([
+                    'none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue'
+                  ])
+                  ->filter(function($query, $value) {
+                    if ($value !== 'none') {
+                        return $query->whereHas('highlight', function ($q) use ($value) {
+                            $q->where('color', $value);
+                        });
+                    }
+                  }),
 
             Column::add()
                 ->width('20px')

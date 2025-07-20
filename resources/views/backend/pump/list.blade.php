@@ -6,6 +6,7 @@
     ]
 ])
 
+@include('components.datatable-highlight-css')
 @section('content')
     <div class="mb-3">
         <a href="{{ route('backend.pump.filter') }}" class="btn btn-primary">
@@ -16,4 +17,5 @@
     <x-boilerplate::card>
         <x-boilerplate::datatable name="pump" />
     </x-boilerplate::card>
+@include('components.datatable-highlight-js')
 @endsection
