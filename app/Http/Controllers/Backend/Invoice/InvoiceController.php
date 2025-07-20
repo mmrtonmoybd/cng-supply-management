@@ -84,25 +84,6 @@ class InvoiceController extends Controller
 
         } elseif ($request->factory == 'cngpump') {
 
-            $model = Weight::whereIn('id', $request->factories_id)->whereNull('invoice_id');
-            $total = $model->sum('ftk');
-            $factory = $model->first()->factory_id;
-
-            $invoice = Invoice::create([
-                'date' => $request->input('date'),
-                'factory_type' => $request->input('factory'),
-                'total' => $total,
-                'factory_id' => $factory,
-                'invoice_number' => $request->input('invoice_number'),
-            ]);
-
-            Weight::whereIn('id', $request->factories_id)->whereNull('invoice_id')->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);
-
-            return redirect()->route('backend.factory.invoice.show', $invoice->id)
-                ->with('growl', ['Weight scale invoice created successfully.', 'success']);
-
-        } elseif ($request->factory == 'weight') {
-
             $model = CngPump::whereIn('id', $request->factories_id)->whereNull('invoice_id');
             $total = $model->sum('ftk');
             $factory = $model->first()->factory_id;
@@ -116,6 +97,25 @@ class InvoiceController extends Controller
             ]);
 
             CngPump::whereIn('id', $request->factories_id)->whereNull('invoice_id')->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);
+
+            return redirect()->route('backend.factory.invoice.show', $invoice->id)
+                ->with('growl', ['Weight scale invoice created successfully.', 'success']);
+
+        } elseif ($request->factory == 'weight') {
+
+            $model = Weight::whereIn('id', $request->factories_id)->whereNull('invoice_id');
+            $total = $model->sum('ftk');
+            $factory = $model->first()->factory_id;
+
+            $invoice = Invoice::create([
+                'date' => $request->input('date'),
+                'factory_type' => $request->input('factory'),
+                'total' => $total,
+                'factory_id' => $factory,
+                'invoice_number' => $request->input('invoice_number'),
+            ]);
+
+            Weight::whereIn('id', $request->factories_id)->whereNull('invoice_id')->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);
 
             return redirect()->route('backend.factory.invoice.show', $invoice->id)
                 ->with('growl', ['CNG Pump Slip invoice created successfully.', 'success']);
