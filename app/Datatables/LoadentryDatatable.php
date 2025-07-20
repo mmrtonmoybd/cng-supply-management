@@ -8,6 +8,7 @@ use App\Models\PumpName;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
+use App\Models\Highlight;
 
 class LoadentryDatatable extends Datatable
 {
@@ -15,7 +16,7 @@ class LoadentryDatatable extends Datatable
 
     public function datasource()
     {
-        return LoadEntry::with(['pumpname', 'factory'])->select('*');
+        return LoadEntry::with(['pumpname', 'factory'])->select('load_entries.*');
     }
 
     public function setUp()
@@ -24,6 +25,63 @@ class LoadentryDatatable extends Datatable
             ->permissions('load_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()->stateSave()
+            ->setRowClass(function ($row) {
+    $class = '';
+
+    // ✅ Mark this row as duplicate if an older identical row already exists
+    $isDuplicate = LoadEntry::where('id', '<', $row->id) // 👈 changed this
+        ->where('vehicle_reg_number', $row->vehicle_reg_number)
+        ->where('pumpName_id', $row->pumpName_id)
+        ->where('cng_purchase_m3', $row->cng_purchase_m3)
+        ->where('rate', $row->rate)
+        ->where('purchase_taka', $row->purchase_taka)
+        ->where('factory_id', $row->factory_id)
+        ->whereDate('date', $row->date)
+        ->exists();
+
+    if ($isDuplicate) {
+        $class .= ' alert-danger';
+    }
+
+    // Highlight color if set
+    $highlight = Highlight::where('module_name', 'loadEntry')
+        ->where('module_id', $row->id)
+        ->value('color');
+
+    if ($highlight) {
+        $class .= ' highlight-' . $highlight;
+    }
+
+    return trim($class);
+})
+
+->setRowAttr([
+    'data-toggle' => fn($row) => LoadEntry::where('id', '<', $row->id)
+        ->where('vehicle_reg_number', $row->vehicle_reg_number)
+        ->where('pumpName_id', $row->pumpName_id)
+        ->where('cng_purchase_m3', $row->cng_purchase_m3)
+        ->where('rate', $row->rate)
+        ->where('purchase_taka', $row->purchase_taka)
+        ->where('factory_id', $row->factory_id)
+        ->whereDate('date', $row->date)
+        ->exists() ? 'tooltip' : null,
+
+    'data-placement' => fn($row) => 'top',
+
+    'title' => fn($row) => LoadEntry::where('id', '<', $row->id)
+        ->where('vehicle_reg_number', $row->vehicle_reg_number)
+        ->where('pumpName_id', $row->pumpName_id)
+        ->where('cng_purchase_m3', $row->cng_purchase_m3)
+        ->where('rate', $row->rate)
+        ->where('purchase_taka', $row->purchase_taka)
+        ->where('factory_id', $row->factory_id)
+        ->whereDate('date', $row->date)
+        ->exists()
+            ? '🚨 This row appears to be a duplicate of a previous row with identical data. Please double-check before proceeding.'
+            : null,
+])
+
+
             ->setRowId('id');
     }
 
@@ -69,6 +127,29 @@ class LoadentryDatatable extends Datatable
                 ->filter(function ($query, $value) {
                     return $query->where('factory_id', $value);
                 }),
+
+            Column::add('Highlight')
+                ->data('highlight', function($row) {
+                    $colors = ['none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue'];
+
+                    $highlight = Highlight::where('module_name', 'loadEntry')
+                                        ->where('module_id', $row->id)
+                                        ->first();
+
+                    $selected = $highlight->color ?? 'none';
+
+                    $options = '';
+                    foreach ($colors as $key => $label) {
+                        $sel = $key === $selected ? 'selected' : '';
+                        $options .= "<option value='{$key}' {$sel}>{$label}</option>";
+                    }
+
+                    return <<<HTML
+                        <select class="form-control form-control-sm highlight-select" data-id="{$row->id}" data-module="loadEntry">
+                            {$options}
+                        </select>
+                    HTML;
+                })->notOrderable()->notSearchable(),
 
             Column::add(__('Status'))
                 ->data('status', function ($user) {

@@ -47,22 +47,6 @@ class LoadEntryController extends Controller
             'pumpName_id' => 'nullable|required',
         ]);
 
-        $duplicate = LoadEntry::whereDate('date', $validated['date'])
-            ->where('vehicle_reg_number', $validated['vehicle_reg_number'])
-            ->where('pumpName_id', $validated['pumpName_id'])
-            ->where('cng_purchase_m3', $validated['cng_purchase_m3'])
-            ->where('rate', $validated['rate'])
-            ->where('purchase_taka', $validated['purchase_taka'])
-            ->where('factory_id', $validated['factory_id'])
-            ->exists();
-
-        if ($duplicate) {
-            return back()->with('growl', [
-                'A similar Load Entry already exists in the system.',
-                'error',
-            ])->withInput();
-        }
-
         $data = [];
 
         $data['status'] = 0;
@@ -113,23 +97,6 @@ class LoadEntryController extends Controller
             'remark' => 'nullable|string',
             'pumpName_id' => 'nullable|required',
         ]);
-
-        $duplicate = LoadEntry::whereDate('date', $validated['date'])
-            ->where('vehicle_reg_number', $validated['vehicle_reg_number'])
-            ->where('pumpName_id', $validated['pumpName_id'])
-            ->where('cng_purchase_m3', $validated['cng_purchase_m3'])
-            ->where('rate', $validated['rate'])
-            ->where('purchase_taka', $validated['purchase_taka'])
-            ->where('factory_id', $validated['factory_id'])
-            ->where('id', '!=', $loadEntry->id)
-            ->exists();
-
-        if ($duplicate) {
-            return back()->with('growl', [
-                'A similar Load Entry already exists in the system.',
-                'error',
-            ])->withInput();
-        }
 
         $loadEntry->update($validated);
 
