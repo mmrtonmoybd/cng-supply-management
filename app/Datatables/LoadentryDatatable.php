@@ -3,12 +3,12 @@
 namespace App\Datatables;
 
 use App\Models\Factory;
+use App\Models\Highlight;
 use App\Models\LoadEntry;
 use App\Models\PumpName;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Highlight;
 
 class LoadentryDatatable extends Datatable
 {
@@ -26,61 +26,59 @@ class LoadentryDatatable extends Datatable
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()->stateSave()
             ->setRowClass(function ($row) {
-    $class = '';
+                $class = '';
 
-    // ✅ Mark this row as duplicate if an older identical row already exists
-    $isDuplicate = LoadEntry::where('id', '<', $row->id) // 👈 changed this
-        ->where('vehicle_reg_number', $row->vehicle_reg_number)
-        ->where('pumpName_id', $row->pumpName_id)
-        ->where('cng_purchase_m3', $row->cng_purchase_m3)
-        ->where('rate', $row->rate)
-        ->where('purchase_taka', $row->purchase_taka)
-        ->where('factory_id', $row->factory_id)
-        ->whereDate('date', $row->date)
-        ->exists();
+                // ✅ Mark this row as duplicate if an older identical row already exists
+                $isDuplicate = LoadEntry::where('id', '<', $row->id) // 👈 changed this
+                    ->where('vehicle_reg_number', $row->vehicle_reg_number)
+                    ->where('pumpName_id', $row->pumpName_id)
+                    ->where('cng_purchase_m3', $row->cng_purchase_m3)
+                    ->where('rate', $row->rate)
+                    ->where('purchase_taka', $row->purchase_taka)
+                    ->where('factory_id', $row->factory_id)
+                    ->whereDate('date', $row->date)
+                    ->exists();
 
-    if ($isDuplicate) {
-        $class .= ' alert-danger';
-    }
+                if ($isDuplicate) {
+                    $class .= ' alert-danger';
+                }
 
-    // Highlight color if set
-    $highlight = Highlight::where('module_name', 'loadEntry')
-        ->where('module_id', $row->id)
-        ->value('color');
+                // Highlight color if set
+                $highlight = Highlight::where('module_name', 'loadEntry')
+                    ->where('module_id', $row->id)
+                    ->value('color');
 
-    if ($highlight) {
-        $class .= ' highlight-' . $highlight;
-    }
+                if ($highlight) {
+                    $class .= ' highlight-'.$highlight;
+                }
 
-    return trim($class);
-})
+                return trim($class);
+            })
+            ->setRowAttr([
+                            'data-toggle' => fn ($row) => LoadEntry::where('id', '<', $row->id)
+                                ->where('vehicle_reg_number', $row->vehicle_reg_number)
+                                ->where('pumpName_id', $row->pumpName_id)
+                                ->where('cng_purchase_m3', $row->cng_purchase_m3)
+                                ->where('rate', $row->rate)
+                                ->where('purchase_taka', $row->purchase_taka)
+                                ->where('factory_id', $row->factory_id)
+                                ->whereDate('date', $row->date)
+                                ->exists() ? 'tooltip' : null,
 
-->setRowAttr([
-    'data-toggle' => fn($row) => LoadEntry::where('id', '<', $row->id)
-        ->where('vehicle_reg_number', $row->vehicle_reg_number)
-        ->where('pumpName_id', $row->pumpName_id)
-        ->where('cng_purchase_m3', $row->cng_purchase_m3)
-        ->where('rate', $row->rate)
-        ->where('purchase_taka', $row->purchase_taka)
-        ->where('factory_id', $row->factory_id)
-        ->whereDate('date', $row->date)
-        ->exists() ? 'tooltip' : null,
+                            'data-placement' => fn ($row) => 'top',
 
-    'data-placement' => fn($row) => 'top',
-
-    'title' => fn($row) => LoadEntry::where('id', '<', $row->id)
-        ->where('vehicle_reg_number', $row->vehicle_reg_number)
-        ->where('pumpName_id', $row->pumpName_id)
-        ->where('cng_purchase_m3', $row->cng_purchase_m3)
-        ->where('rate', $row->rate)
-        ->where('purchase_taka', $row->purchase_taka)
-        ->where('factory_id', $row->factory_id)
-        ->whereDate('date', $row->date)
-        ->exists()
-            ? '🚨 This row appears to be a duplicate of a previous row with identical data. Please double-check before proceeding.'
-            : null,
-])
-
+                            'title' => fn ($row) => LoadEntry::where('id', '<', $row->id)
+                                ->where('vehicle_reg_number', $row->vehicle_reg_number)
+                                ->where('pumpName_id', $row->pumpName_id)
+                                ->where('cng_purchase_m3', $row->cng_purchase_m3)
+                                ->where('rate', $row->rate)
+                                ->where('purchase_taka', $row->purchase_taka)
+                                ->where('factory_id', $row->factory_id)
+                                ->whereDate('date', $row->date)
+                                ->exists()
+                                    ? '🚨 This row appears to be a duplicate of a previous row with identical data. Please double-check before proceeding.'
+                                    : null,
+                        ])
 
             ->setRowId('id');
     }
@@ -129,12 +127,12 @@ class LoadentryDatatable extends Datatable
                 }),
 
             Column::add('Highlight')
-                ->data('highlight', function($row) {
+                ->data('highlight', function ($row) {
                     $colors = ['none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue'];
 
                     $highlight = Highlight::where('module_name', 'loadEntry')
-                                        ->where('module_id', $row->id)
-                                        ->first();
+                        ->where('module_id', $row->id)
+                        ->first();
 
                     $selected = $highlight->color ?? 'none';
 

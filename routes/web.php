@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\Backend\HighlightController;
 use App\Http\Controllers\Cashbook\CalculationController;
 use App\Http\Controllers\Cashbook\CategoryController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\HighlightController;
 
 $default = [
     'prefix' => config('boilerplate.app.prefix', ''),
