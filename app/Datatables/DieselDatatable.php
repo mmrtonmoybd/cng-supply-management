@@ -3,11 +3,11 @@
 namespace App\Datatables;
 
 use App\Models\Diesel;
+use App\Models\Highlight;
 use App\Models\PumpName;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Highlight;
 
 class DieselDatatable extends Datatable
 {
@@ -53,7 +53,7 @@ class DieselDatatable extends Datatable
                 return trim($class);
             })
             ->setRowAttr([
-                            'data-toggle' => fn ($row) => Diesel::where('id', '<', $row->id) // 👈 changed this
+                'data-toggle' => fn ($row) => Diesel::where('id', '<', $row->id) // 👈 changed this
                     ->where('d_date', $row->d_date)
                     ->where('d_time', $row->d_time)
                     ->where('slip_no', $row->slip_no)
@@ -63,9 +63,9 @@ class DieselDatatable extends Datatable
                     ->whereDate('taka', $row->taka)
                     ->exists() ? 'tooltip' : null,
 
-                            'data-placement' => fn ($row) => 'top',
+                'data-placement' => fn ($row) => 'top',
 
-                            'title' => fn ($row) => Diesel::where('id', '<', $row->id) // 👈 changed this
+                'title' => fn ($row) => Diesel::where('id', '<', $row->id) // 👈 changed this
                     ->where('d_date', $row->d_date)
                     ->where('d_time', $row->d_time)
                     ->where('slip_no', $row->slip_no)
@@ -74,9 +74,9 @@ class DieselDatatable extends Datatable
                     ->where('diesel_purchase_litre', $row->diesel_purchase_litre)
                     ->whereDate('taka', $row->taka)
                     ->exists()
-                                    ? '🚨 This row appears to be a duplicate of a previous row with identical data. Please double-check before proceeding.'
-                                    : null,
-                        ])
+                        ? '🚨 This row appears to be a duplicate of a previous row with identical data. Please double-check before proceeding.'
+                        : null,
+            ])
             ->permissions('diesel_crud')
             ->setRowId('id');
     }
@@ -163,16 +163,16 @@ class DieselDatatable extends Datatable
                         </select>
                     HTML;
                 })->notOrderable()
-                  ->filterOptions([
-                    'none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue'
-                  ])
-                  ->filter(function($query, $value) {
+                ->filterOptions([
+                    'none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue',
+                ])
+                ->filter(function ($query, $value) {
                     if ($value !== 'none') {
                         return $query->whereHas('highlight', function ($q) use ($value) {
                             $q->where('color', $value);
                         });
                     }
-                  }),
+                }),
 
             Column::add()
                 ->width('20px')

@@ -3,12 +3,12 @@
 namespace App\Datatables;
 
 use App\Models\Factory;
+use App\Models\Highlight;
 use App\Models\Pump;
 use App\Models\PumpName;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Highlight;
 
 class PumpDatatable extends Datatable
 {
@@ -150,16 +150,16 @@ class PumpDatatable extends Datatable
                         </select>
                     HTML;
                 })->notOrderable()
-                  ->filterOptions([
-                    'none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue'
-                  ])
-                  ->filter(function($query, $value) {
+                ->filterOptions([
+                    'none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue',
+                ])
+                ->filter(function ($query, $value) {
                     if ($value !== 'none') {
                         return $query->whereHas('highlight', function ($q) use ($value) {
                             $q->where('color', $value);
                         });
                     }
-                  }),
+                }),
 
             Column::add()
                 ->width('20px')
