@@ -102,7 +102,7 @@
                            @endphp                    @foreach ($items as $index => $item)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->date ? (\Carbon\Carbon::parse($item->date)->format('d-m-Y')) : 'N/A'  }}</td>
+                            <td>{{ $item->bill_date ? (\Carbon\Carbon::parse($item->bill_date)->format('d-m-Y')) : (\Carbon\Carbon::parse($item->date)->format('d-m-Y')) }}</td>
                             <td>{{ $item->bill_no }}</td>
                             <td>{{ $item->vehicle_reg_number }}</td>
 

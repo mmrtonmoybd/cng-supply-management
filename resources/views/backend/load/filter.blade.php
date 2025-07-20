@@ -109,6 +109,7 @@
                 </x-boilerplate::select2>
             </div>
         </div>
+        <input name="advancefilter" type="hidden" value="tonmoy">
         <div class="row mt-3">
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">
@@ -136,6 +137,7 @@
                         <th>Factory Name</th>
                         <th>Status</th>
                         <th>Remark</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -165,6 +167,24 @@
                                 @endif
                             </td>
                             <td>{{ $load->remark ?? '' }}</td>
+                            <td>
+                            <!--
+                            <a href="{{ route('backend.load.show', $load->id) }}?{{ http_build_query(request()->query()) }}" class="btn btn-sm btn-default ml-1" > 
+                                <i class="fas fa-fw fa-eye"></i>
+                            </a> 
+                             <a href="{{ route('backend.load.edit', $load->id) }}?{{ http_build_query(request()->query()) }}" class="btn btn-sm btn-primary ml-1" > 
+                                <i class="fas fa-edit"></i>
+                            </a> 
+                            
+                            <form action="{{ route('backend.load.destroy', $load->id) }}?{{ http_build_query(request()->query()) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger ml-1">
+                                    <i class="fas fa-fw fa-trash"></i>
+                                </button>
+                            </form>
+                            -->
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -178,6 +198,7 @@
                         <th></th>
                         <th>{{ $totalPurchaseTaka }}</th>
                         <th colspan="3"></th>
+                        <th></th>
                     </tr>
                 </tfoot>
             </table>

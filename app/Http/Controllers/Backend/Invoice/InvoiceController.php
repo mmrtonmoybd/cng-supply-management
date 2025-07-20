@@ -220,6 +220,27 @@ class InvoiceController extends Controller
 
         } elseif ($request->factory == 'cngpump') {
 
+            $model = CngPump::whereIn('id', $request->factories_id);
+            $total = $model->sum('ftk');
+            $factory = $model->first()->factory_id;
+
+            CngPump::where('invoice_id', $invoice->id)->update(['invoice_id' => null, 'invoice_date' => null]);
+
+            $invoice = Invoice::create([
+                'date' => $request->input('date'),
+                'factory_type' => $request->input('factory'),
+                'total' => $total,
+                'factory_id' => $factory,
+                'invoice_number' => $request->input('invoice_number'),
+            ]);
+
+            CngPump::whereIn('id', $request->factories_id)->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);
+
+            return redirect()->route('backend.factory.invoice.show', $invoice->id)
+                ->with('growl', ['CNG pump slip invoice updated successfully.', 'success']);
+
+        } elseif ($request->factory == 'weight') {
+
             $model = Weight::whereIn('id', $request->factories_id);
             $total = $model->sum('ftk');
             $factory = $model->first()->factory_id;
@@ -239,27 +260,6 @@ class InvoiceController extends Controller
             return redirect()->route('backend.factory.invoice.show', $invoice->id)
                 ->with('growl', ['Weight scale invoice updated successfully.', 'success']);
 
-        } elseif ($request->factory == 'weight') {
-
-            $model = CngPump::whereIn('id', $request->factories_id);
-            $total = $model->sum('ftk');
-            $factory = $model->first()->factory_id;
-
-            CngPump::where('invoice_id', $invoice->id)->update(['invoice_id' => null, 'invoice_date' => null]);
-
-            $invoice = Invoice::create([
-                'date' => $request->input('date'),
-                'factory_type' => $request->input('factory'),
-                'total' => $total,
-                'factory_id' => $factory,
-                'invoice_number' => $request->input('invoice_number'),
-            ]);
-
-            CngPump::whereIn('id', $request->factories_id)->update(['invoice_id' => $invoice->id, 'invoice_date' => $request->date]);
-
-            return redirect()->route('backend.factory.invoice.show', $invoice->id)
-                ->with('growl', ['CNG Pump Slip invoice updated successfully.', 'success']);
-
         }
     }
 
@@ -269,6 +269,11 @@ class InvoiceController extends Controller
     public function destroy(Invoice $invoice)
     {
         $this->authorize('invoice_crud');
+
+        $invoice->dispansar()->update(['invoice_date' => null]);
+        $invoice->cngpump()->update(['invoice_date' => null]);
+        $invoice->weight()->update(['invoice_date' => null]);
+        $invoice->weightone()->update(['invoice_date' => null]);
 
         return response()->json(['success' => $invoice->delete() ?? false]);
     }
