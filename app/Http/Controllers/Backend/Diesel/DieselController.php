@@ -173,56 +173,55 @@ class DieselController extends Controller
     }
 
     public function summary(Request $request)
-{
-    $this->authorize('diesel_crud');
+    {
+        $this->authorize('diesel_crud');
 
-    $diesels = collect([]);
-    $dbtotaldiesel = 0;
-    $dbtotaldiesel_purchase_litre = 0;
-    $dbtotaltaka = 0;
-    $dbtotaldistance = 0;
-    $dbtotaluse_litre = 0;
-    $dbtotaluse_balance = 0;
+        $diesels = collect([]);
+        $dbtotaldiesel = 0;
+        $dbtotaldiesel_purchase_litre = 0;
+        $dbtotaltaka = 0;
+        $dbtotaldistance = 0;
+        $dbtotaluse_litre = 0;
+        $dbtotaluse_balance = 0;
 
-    if ($request->has('filter')) {
-        $query = Diesel::query()->select('*');
+        if ($request->has('filter')) {
+            $query = Diesel::query()->select('*');
 
-        if ($request->filled('date_range')) {
-            $dates = explode(' - ', $request->date_range);
-            $query->whereBetween('d_date', [
-                date('Y-m-d', strtotime($dates[0])),
-                date('Y-m-d', strtotime($dates[1])),
-            ]);
+            if ($request->filled('date_range')) {
+                $dates = explode(' - ', $request->date_range);
+                $query->whereBetween('d_date', [
+                    date('Y-m-d', strtotime($dates[0])),
+                    date('Y-m-d', strtotime($dates[1])),
+                ]);
+            }
+
+            // Clone before modifying for grouped data
+            $totalQuery = clone $query;
+
+            // Get totals for summary boxes
+            $dbtotaldiesel = $totalQuery->count('id');
+            $dbtotaldiesel_purchase_litre = $totalQuery->sum('diesel_purchase_litre');
+            $dbtotaltaka = $totalQuery->sum('taka');
+            $dbtotaldistance = $totalQuery->sum('distance');
+            $dbtotaluse_litre = $totalQuery->sum('use_litre');
+            $dbtotaluse_balance = $totalQuery->sum('use_balance');
+
+            // Get grouped summary per vehicle
+            $diesels = $query
+                ->selectRaw('vehicle_reg_number, SUM(diesel_purchase_litre) as diesel_purchase_litre, SUM(taka) as taka, SUM(distance) as distance, SUM(use_litre) as use_litre, SUM(use_balance) as use_balance')
+                ->groupBy('vehicle_reg_number')
+                ->orderBy('vehicle_reg_number', 'ASC')
+                ->get();
         }
 
-        // Clone before modifying for grouped data
-        $totalQuery = clone $query;
-
-        // Get totals for summary boxes
-        $dbtotaldiesel = $totalQuery->count('id');
-        $dbtotaldiesel_purchase_litre = $totalQuery->sum('diesel_purchase_litre');
-        $dbtotaltaka = $totalQuery->sum('taka');
-        $dbtotaldistance = $totalQuery->sum('distance');
-        $dbtotaluse_litre = $totalQuery->sum('use_litre');
-        $dbtotaluse_balance = $totalQuery->sum('use_balance');
-
-        // Get grouped summary per vehicle
-        $diesels = $query
-            ->selectRaw('vehicle_reg_number, SUM(diesel_purchase_litre) as diesel_purchase_litre, SUM(taka) as taka, SUM(distance) as distance, SUM(use_litre) as use_litre, SUM(use_balance) as use_balance')
-            ->groupBy('vehicle_reg_number')
-            ->orderBy('vehicle_reg_number', 'ASC')
-            ->get();
+        return view('backend.diesel.summary', compact(
+            'diesels',
+            'dbtotaldiesel',
+            'dbtotaldiesel_purchase_litre',
+            'dbtotaltaka',
+            'dbtotaldistance',
+            'dbtotaluse_litre',
+            'dbtotaluse_balance'
+        ));
     }
-
-    return view('backend.diesel.summary', compact(
-        'diesels',
-        'dbtotaldiesel',
-        'dbtotaldiesel_purchase_litre',
-        'dbtotaltaka',
-        'dbtotaldistance',
-        'dbtotaluse_litre',
-        'dbtotaluse_balance'
-    ));
-}
-
 }

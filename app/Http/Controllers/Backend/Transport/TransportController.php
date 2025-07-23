@@ -198,7 +198,6 @@ class TransportController extends Controller
         return view('backend.transport.filter', compact('transports', 'totals', 'dbtotal'));
     }
 
-
     public function summary()
     {
         $this->authorize('transport_crud');
@@ -210,53 +209,53 @@ class TransportController extends Controller
      * Display the filtered results.
      */
     public function showSummary(Request $request)
-{
-    $this->authorize('transport_crud');
+    {
+        $this->authorize('transport_crud');
 
-    $groupedTransports = collect();
-    $dbtotal = 0;
-    $totals = [];
+        $groupedTransports = collect();
+        $dbtotal = 0;
+        $totals = [];
 
-    if ($request->has('filter')) {
-        $query = Transport::query();
+        if ($request->has('filter')) {
+            $query = Transport::query();
 
-        if ($request->filled('date_range')) {
-            $dates = explode(' - ', $request->date_range);
-            if (count($dates) === 2) {
-                $query->whereBetween('date', [$dates[0], $dates[1]]);
+            if ($request->filled('date_range')) {
+                $dates = explode(' - ', $request->date_range);
+                if (count($dates) === 2) {
+                    $query->whereBetween('date', [$dates[0], $dates[1]]);
+                }
             }
-        }
 
-        // Clone for total calculation before altering with groupBy
-        $clone = clone $query;
-        $dbtotal = $clone->count();
+            // Clone for total calculation before altering with groupBy
+            $clone = clone $query;
+            $dbtotal = $clone->count();
 
-        // Totals (like diesel)
-        $totals = [
-            'rent' => $clone->sum('rent'),
-            'maintenance_cost' => $clone->sum('maintenance_cost'),
-            'diesel_cost' => $clone->sum('diesel_cost'),
-            'toll_cost' => $clone->sum('toll_cost'),
-            'labour_cost' => $clone->sum('labour_cost'),
-            'chada_cost' => $clone->sum('chada_cost'),
-            'fooding_cost' => $clone->sum('fooding_cost'),
-            'police_cost' => $clone->sum('police_cost'),
-            'parking_cost' => $clone->sum('parking_cost'),
-            'other_cost' => $clone->sum('other_cost'),
-            'balance' => $clone->sum('balance'),
-            'cash_receipt_amount' => $clone->sum('cash_receipt_amount'),
-        ];
+            // Totals (like diesel)
+            $totals = [
+                'rent' => $clone->sum('rent'),
+                'maintenance_cost' => $clone->sum('maintenance_cost'),
+                'diesel_cost' => $clone->sum('diesel_cost'),
+                'toll_cost' => $clone->sum('toll_cost'),
+                'labour_cost' => $clone->sum('labour_cost'),
+                'chada_cost' => $clone->sum('chada_cost'),
+                'fooding_cost' => $clone->sum('fooding_cost'),
+                'police_cost' => $clone->sum('police_cost'),
+                'parking_cost' => $clone->sum('parking_cost'),
+                'other_cost' => $clone->sum('other_cost'),
+                'balance' => $clone->sum('balance'),
+                'cash_receipt_amount' => $clone->sum('cash_receipt_amount'),
+            ];
 
-        $totals['total_cost'] = $totals['maintenance_cost'] + $totals['diesel_cost'] + $totals['toll_cost'] +
-            $totals['labour_cost'] + $totals['chada_cost'] + $totals['fooding_cost'] +
-            $totals['police_cost'] + $totals['parking_cost'] + $totals['other_cost'];
+            $totals['total_cost'] = $totals['maintenance_cost'] + $totals['diesel_cost'] + $totals['toll_cost'] +
+                $totals['labour_cost'] + $totals['chada_cost'] + $totals['fooding_cost'] +
+                $totals['police_cost'] + $totals['parking_cost'] + $totals['other_cost'];
 
-        $totals['net_income'] = $totals['rent'] - $totals['total_cost'];
-        $totals['new_balance'] = $totals['cash_receipt_amount'] - ($totals['rent'] - $totals['cash_receipt_amount']);
+            $totals['net_income'] = $totals['rent'] - $totals['total_cost'];
+            $totals['new_balance'] = $totals['cash_receipt_amount'] - ($totals['rent'] - $totals['cash_receipt_amount']);
 
-        // Grouped vehicle-wise summary like diesel
-        $groupedTransports = $query
-            ->selectRaw('vehicle_id,
+            // Grouped vehicle-wise summary like diesel
+            $groupedTransports = $query
+                ->selectRaw('vehicle_id,
                 SUM(rent) AS rent,
                 SUM(maintenance_cost) AS maintenance_cost,
                 SUM(diesel_cost) AS diesel_cost,
@@ -270,17 +269,16 @@ class TransportController extends Controller
                 SUM(balance) AS balance,
                 SUM(cash_receipt_amount) AS cash_receipt_amount
             ')
-            ->groupBy('vehicle_id')
-            ->with('vehicle')
-            ->orderBy('vehicle_id')
-            ->get();
+                ->groupBy('vehicle_id')
+                ->with('vehicle')
+                ->orderBy('vehicle_id')
+                ->get();
+        }
+
+        return view('backend.transport.summary', [
+            'transports' => $groupedTransports,
+            'totals' => $totals,
+            'dbtotal' => $dbtotal,
+        ]);
     }
-
-    return view('backend.transport.summary', [
-        'transports' => $groupedTransports,
-        'totals' => $totals,
-        'dbtotal' => $dbtotal,
-    ]);
-}
-
 }
