@@ -4,11 +4,11 @@ namespace App\Datatables;
 
 use App\Models\CngPump;
 use App\Models\Factory;
+use App\Models\Highlight;
 use App\Models\PumpName;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Highlight;
 
 class CngpumpslipDatatable extends Datatable
 {

@@ -4,11 +4,11 @@ namespace App\Datatables;
 
 use App\Models\Dispansar;
 use App\Models\Factory;
+use App\Models\Highlight;
 use App\Models\PumpName;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Highlight;
 
 class DispansarDatatable extends Datatable
 {
@@ -68,7 +68,7 @@ class DispansarDatatable extends Datatable
                     ->where('lrate', $row->lrate)
                     ->where('purchase_taka', $row->purchase_taka)
                     ->where('bill_no', $row->bill_no)
-                    ->where('bill_date', $row->bill_date )
+                    ->where('bill_date', $row->bill_date)
                     ->where('opening_reading', $row->opening_reading)
                     ->where('closing_reading', $row->closing_reading)
                     ->where('rate', $row->rate)
@@ -85,7 +85,7 @@ class DispansarDatatable extends Datatable
                     ->where('lrate', $row->lrate)
                     ->where('purchase_taka', $row->purchase_taka)
                     ->where('bill_no', $row->bill_no)
-                    ->where('bill_date', $row->bill_date )
+                    ->where('bill_date', $row->bill_date)
                     ->where('opening_reading', $row->opening_reading)
                     ->where('closing_reading', $row->closing_reading)
                     ->where('rate', $row->rate)

@@ -2,12 +2,12 @@
 
 namespace App\Datatables;
 
+use App\Models\Highlight;
 use App\Models\Transport;
 use App\Models\Vehicle;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
-use App\Models\Highlight;
 
 class TransportDatatable extends Datatable
 {
