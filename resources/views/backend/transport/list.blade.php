@@ -6,6 +6,7 @@
     ]
 ])
 
+@include('components.datatable-highlight-css')
 @section('content')
     <div class="row">
         <div class="col-12 mbl">
@@ -24,4 +25,5 @@
     <x-boilerplate::card>
     <x-boilerplate::datatable name="transport" />
     </x-boilerplate::card>
+@include('components.datatable-highlight-js')
 @endsection

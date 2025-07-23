@@ -126,4 +126,9 @@ class CngPump extends Model
     {
         return $this->belongsTo(LoadEntry::class, 'load_entry_id', 'id');
     }
+
+    public function highlight()
+    {
+        return $this->hasMany(Highlight::class, 'module_id', 'id')->where('module_name', 'cngpump');
+    }
 }

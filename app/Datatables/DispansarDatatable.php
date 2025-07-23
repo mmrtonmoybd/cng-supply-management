@@ -8,6 +8,7 @@ use App\Models\PumpName;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
+use App\Models\Highlight;
 
 class DispansarDatatable extends Datatable
 {
@@ -15,7 +16,7 @@ class DispansarDatatable extends Datatable
 
     public function datasource()
     {
-        return Dispansar::with(['pumpname', 'factory'])->select('*');
+        return Dispansar::with(['pumpname', 'factory'])->select('dispansars.*');
     }
 
     public function setUp()
@@ -23,6 +24,75 @@ class DispansarDatatable extends Datatable
         $this->order('id', 'desc')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()->stateSave()
+            ->setRowClass(function ($row) {
+                $class = '';
+
+                // ✅ Mark this row as duplicate if an older identical row already exists
+                $isDuplicate = Dispansar::where('id', '<', $row->id) // 👈 changed this
+                    ->where('date', $row->date)
+                    ->where('vehicle_reg_number', $row->vehicle_reg_number)
+                    ->where('factory_id', $row->factory_id)
+                    ->where('pumpName_id', $row->pumpName_id)
+                    ->where('cng_purchase_m3', $row->cng_purchase_m3)
+                    ->where('lrate', $row->lrate)
+                    ->where('purchase_taka', $row->purchase_taka)
+                    ->where('bill_no', $row->bill_no)
+                    ->where('bill_date', $row->bill_date)
+                    ->where('opening_reading', $row->opening_reading)
+                    ->where('closing_reading', $row->closing_reading)
+                    ->where('rate', $row->rate)
+                    ->exists();
+
+                if ($isDuplicate) {
+                    $class .= ' alert-danger';
+                }
+
+                // Highlight color if set
+                $highlight = Highlight::where('module_name', 'dispansar')
+                    ->where('module_id', $row->id)
+                    ->value('color');
+
+                if ($highlight) {
+                    $class .= ' highlight-'.$highlight;
+                }
+
+                return trim($class);
+            })
+            ->setRowAttr([
+                'data-toggle' => fn ($row) => Dispansar::where('id', '<', $row->id) // 👈 changed this
+                    ->where('date', $row->date)
+                    ->where('vehicle_reg_number', $row->vehicle_reg_number)
+                    ->where('factory_id', $row->factory_id)
+                    ->where('pumpName_id', $row->pumpName_id)
+                    ->where('cng_purchase_m3', $row->cng_purchase_m3)
+                    ->where('lrate', $row->lrate)
+                    ->where('purchase_taka', $row->purchase_taka)
+                    ->where('bill_no', $row->bill_no)
+                    ->where('bill_date', $row->bill_date )
+                    ->where('opening_reading', $row->opening_reading)
+                    ->where('closing_reading', $row->closing_reading)
+                    ->where('rate', $row->rate)
+                    ->exists() ? 'tooltip' : null,
+
+                'data-placement' => fn ($row) => 'top',
+
+                'title' => fn ($row) => Dispansar::where('id', '<', $row->id) // 👈 changed this
+                    ->where('date', $row->date)
+                    ->where('vehicle_reg_number', $row->vehicle_reg_number)
+                    ->where('factory_id', $row->factory_id)
+                    ->where('pumpName_id', $row->pumpName_id)
+                    ->where('cng_purchase_m3', $row->cng_purchase_m3)
+                    ->where('lrate', $row->lrate)
+                    ->where('purchase_taka', $row->purchase_taka)
+                    ->where('bill_no', $row->bill_no)
+                    ->where('bill_date', $row->bill_date )
+                    ->where('opening_reading', $row->opening_reading)
+                    ->where('closing_reading', $row->closing_reading)
+                    ->where('rate', $row->rate)
+                    ->exists()
+                        ? '🚨 This row appears to be a duplicate of a previous row with identical data. Please double-check before proceeding.'
+                        : null,
+            ])
             ->permissions('dispansar_crud')
             ->setRowId('id');
     }
@@ -142,6 +212,39 @@ class DispansarDatatable extends Datatable
 
             Column::add(__('Remarks'))
                 ->data('remarks'),
+
+            Column::add('Highlight')
+                ->data('highlight', function ($row) {
+                    $colors = ['none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue'];
+
+                    $highlight = Highlight::where('module_name', 'dispansar')
+                        ->where('module_id', $row->id)
+                        ->first();
+
+                    $selected = $highlight->color ?? 'none';
+
+                    $options = '';
+                    foreach ($colors as $key => $label) {
+                        $sel = $key === $selected ? 'selected' : '';
+                        $options .= "<option value='{$key}' {$sel}>{$label}</option>";
+                    }
+
+                    return <<<HTML
+                        <select class="form-control form-control-sm highlight-select" data-id="{$row->id}" data-module="dispansar">
+                            {$options}
+                        </select>
+                    HTML;
+                })->notOrderable()
+                ->filterOptions([
+                    'none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue',
+                ])
+                ->filter(function ($query, $value) {
+                    if ($value !== 'none') {
+                        return $query->whereHas('highlight', function ($q) use ($value) {
+                            $q->where('color', $value);
+                        });
+                    }
+                }),
 
             Column::add()
                 ->width('20px')

@@ -8,6 +8,7 @@ use App\Models\WeightOne;
 use Sebastienheyd\Boilerplate\Datatables\Button;
 use Sebastienheyd\Boilerplate\Datatables\Column;
 use Sebastienheyd\Boilerplate\Datatables\Datatable;
+use App\Models\Highlight;
 
 class WeightoneDatatable extends Datatable
 {
@@ -15,7 +16,7 @@ class WeightoneDatatable extends Datatable
 
     public function datasource()
     {
-        return WeightOne::with(['pumpname', 'factory'])->select('*');
+        return WeightOne::with(['pumpname', 'factory'])->select('weight_ones.*');
     }
 
     public function setUp()
@@ -24,6 +25,75 @@ class WeightoneDatatable extends Datatable
             ->permissions('weightone_crud')
             ->buttons('filters', 'colvis', 'csv', 'excel', 'print', 'copy', 'refresh')
             ->condensed()->stateSave()
+            ->setRowClass(function ($row) {
+                $class = '';
+
+                // ✅ Mark this row as duplicate if an older identical row already exists
+                $isDuplicate = WeightOne::where('id', '<', $row->id) // 👈 changed this
+                    ->where('date', $row->date)
+                    ->where('vehicle_reg_number', $row->vehicle_reg_number)
+                    ->where('factory_id', $row->factory_id)
+                    ->where('pumpName_id', $row->pumpName_id)
+                    ->where('cng_purchase_m3', $row->cng_purchase_m3)
+                    ->where('lrate', $row->lrate)
+                    ->where('purchase_taka', $row->purchase_taka)
+                    ->where('bill_no', $row->bill_no)
+                    ->where('bill_date', $row->bill_date)
+                    ->where('fm3', $row->fm3)
+                    ->where('ftk', $row->ftk)
+                    ->where('rate', $row->rate)
+                    ->exists();
+
+                if ($isDuplicate) {
+                    $class .= ' alert-danger';
+                }
+
+                // Highlight color if set
+                $highlight = Highlight::where('module_name', 'weight_ones')
+                    ->where('module_id', $row->id)
+                    ->value('color');
+
+                if ($highlight) {
+                    $class .= ' highlight-'.$highlight;
+                }
+
+                return trim($class);
+            })
+            ->setRowAttr([
+                'data-toggle' => fn ($row) => WeightOne::where('id', '<', $row->id) // 👈 changed this
+                    ->where('date', $row->date)
+                    ->where('vehicle_reg_number', $row->vehicle_reg_number)
+                    ->where('factory_id', $row->factory_id)
+                    ->where('pumpName_id', $row->pumpName_id)
+                    ->where('cng_purchase_m3', $row->cng_purchase_m3)
+                    ->where('lrate', $row->lrate)
+                    ->where('purchase_taka', $row->purchase_taka)
+                    ->where('bill_no', $row->bill_no)
+                    ->where('bill_date', $row->bill_date)
+                    ->where('fm3', $row->fm3)
+                    ->where('ftk', $row->ftk)
+                    ->where('rate', $row->rate)
+                    ->exists() ? 'tooltip' : null,
+
+                'data-placement' => fn ($row) => 'top',
+
+                'title' => fn ($row) => WeightOne::where('id', '<', $row->id) // 👈 changed this
+                    ->where('date', $row->date)
+                    ->where('vehicle_reg_number', $row->vehicle_reg_number)
+                    ->where('factory_id', $row->factory_id)
+                    ->where('pumpName_id', $row->pumpName_id)
+                    ->where('cng_purchase_m3', $row->cng_purchase_m3)
+                    ->where('lrate', $row->lrate)
+                    ->where('purchase_taka', $row->purchase_taka)
+                    ->where('bill_no', $row->bill_no)
+                    ->where('bill_date', $row->bill_date)
+                    ->where('fm3', $row->fm3)
+                    ->where('ftk', $row->ftk)
+                    ->where('rate', $row->rate)
+                    ->exists()
+                        ? '🚨 This row appears to be a duplicate of a previous row with identical data. Please double-check before proceeding.'
+                        : null,
+            ])
             ->setRowId('id');
     }
 
@@ -124,6 +194,39 @@ class WeightoneDatatable extends Datatable
 
             Column::add(__('Remarks'))
                 ->data('remarks'),
+
+            Column::add('Highlight')
+                ->data('highlight', function ($row) {
+                    $colors = ['none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue'];
+
+                    $highlight = Highlight::where('module_name', 'weight_ones')
+                        ->where('module_id', $row->id)
+                        ->first();
+
+                    $selected = $highlight->color ?? 'none';
+
+                    $options = '';
+                    foreach ($colors as $key => $label) {
+                        $sel = $key === $selected ? 'selected' : '';
+                        $options .= "<option value='{$key}' {$sel}>{$label}</option>";
+                    }
+
+                    return <<<HTML
+                        <select class="form-control form-control-sm highlight-select" data-id="{$row->id}" data-module="weight_ones">
+                            {$options}
+                        </select>
+                    HTML;
+                })->notOrderable()
+                ->filterOptions([
+                    'none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue',
+                ])
+                ->filter(function ($query, $value) {
+                    if ($value !== 'none') {
+                        return $query->whereHas('highlight', function ($q) use ($value) {
+                            $q->where('color', $value);
+                        });
+                    }
+                }),
 
             Column::add()
                 ->width('20px')

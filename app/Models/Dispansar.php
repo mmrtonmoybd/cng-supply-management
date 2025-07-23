@@ -128,4 +128,9 @@ class Dispansar extends Model
     {
         return $this->belongsTo(Factory::class, 'factory_id', 'id');
     }
+
+    public function highlight()
+    {
+        return $this->hasMany(Highlight::class, 'module_id', 'id')->where('module_name', 'dispansar');
+    }
 }
