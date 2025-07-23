@@ -29,7 +29,7 @@ class DieselDatatable extends Datatable
                 // ✅ Mark this row as duplicate if an older identical row already exists
                 $isDuplicate = Diesel::where('id', '<', $row->id) // 👈 changed this
                     ->where('d_date', $row->d_date)
-                    //->where('d_time', $row->d_time)
+                    // ->where('d_time', $row->d_time)
                     ->where('slip_no', $row->slip_no)
                     ->where('pumpName_id', $row->pumpName_id)
                     ->where('vehicle_reg_number', $row->vehicle_reg_number)
@@ -55,7 +55,7 @@ class DieselDatatable extends Datatable
             ->setRowAttr([
                 'data-toggle' => fn ($row) => Diesel::where('id', '<', $row->id) // 👈 changed this
                     ->where('d_date', $row->d_date)
-                    //->where('d_time', $row->d_time)
+                    // ->where('d_time', $row->d_time)
                     ->where('slip_no', $row->slip_no)
                     ->where('pumpName_id', $row->pumpName_id)
                     ->where('vehicle_reg_number', $row->vehicle_reg_number)
@@ -67,7 +67,7 @@ class DieselDatatable extends Datatable
 
                 'title' => fn ($row) => Diesel::where('id', '<', $row->id) // 👈 changed this
                     ->where('d_date', $row->d_date)
-                    //->where('d_time', $row->d_time)
+                    // ->where('d_time', $row->d_time)
                     ->where('slip_no', $row->slip_no)
                     ->where('pumpName_id', $row->pumpName_id)
                     ->where('vehicle_reg_number', $row->vehicle_reg_number)
