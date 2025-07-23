@@ -9,6 +9,7 @@
 
 @section('content')
 
+@include('components.datatable-highlight-css')
 @if(isset($results) && $results->count() > 0)
 <div class="container-fluid">
     <div class="row">
@@ -150,7 +151,14 @@
                             $totalM3 += $load->cng_purchase_m3 ?? 0;
                             $totalPurchaseTaka += $load->purchase_taka ?? 0;
                         @endphp
-                        <tr>
+                            @php
+        $highlightColor = \App\Models\Highlight::where('module_name', 'loadEntry')
+                        ->where('module_id', $load->id)
+                        ->value('color');
+
+        $highlightClass = ($highlightColor && $highlightColor !== 'none') ? 'highlight-' . $highlightColor : '';
+    @endphp
+    <tr class="{{ $highlightClass }}">
                             <td>{{ $key + 1}}</td>
                             <td>{{ $load->date ? (\Carbon\Carbon::parse($load->date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $load->vehicle_reg_number ?? 'N/A' }}</td>

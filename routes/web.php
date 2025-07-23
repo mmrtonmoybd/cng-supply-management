@@ -126,8 +126,12 @@ Route::group($default, function () {
     Route::get('transport-filter', [App\Http\Controllers\Backend\Transport\TransportController::class, 'filter'])->name('transport.filter');
     Route::get('transport-filter/show', [App\Http\Controllers\Backend\Transport\TransportController::class, 'showFilter'])->name('transport.showFilter');
 
+    Route::get('transport-summary', [App\Http\Controllers\Backend\Transport\TransportController::class, 'summary'])->name('transport.summary');
+    Route::get('transport-summary/show', [App\Http\Controllers\Backend\Transport\TransportController::class, 'showSummary'])->name('transport.showSummary');
+
     Route::resource('diesel', App\Http\Controllers\Backend\Diesel\DieselController::class)->names('diesel');
     Route::get('diesel-filter', [App\Http\Controllers\Backend\Diesel\DieselController::class, 'filter'])->name('diesel.filter');
+    Route::get('diesel-summary', [App\Http\Controllers\Backend\Diesel\DieselController::class, 'summary'])->name('diesel.summary');
 
 });
 

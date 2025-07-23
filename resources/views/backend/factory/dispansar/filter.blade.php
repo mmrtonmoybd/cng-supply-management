@@ -7,6 +7,7 @@
     ]
 ])
 
+@include('components.datatable-highlight-css')
 @section('content')
  @if(isset($results) && $results->count() > 0)
 <div class="container-fluid">
@@ -311,7 +312,14 @@
                             $sumCash += $dispansar->cash_receipt_amount ?? 0;
                             $sumBalance += $dispansar->balance ?? 0;
                         @endphp
-                        <tr>
+                        @php
+        $highlightColor = \App\Models\Highlight::where('module_name', 'dispansar')
+                        ->where('module_id', $dispansar->id)
+                        ->value('color');
+
+        $highlightClass = ($highlightColor && $highlightColor !== 'none') ? 'highlight-' . $highlightColor : '';
+    @endphp
+    <tr class="{{ $highlightClass }}">
                             <td>{{ $key + 1}}</td>
                             <td>{{ $dispansar->date ? (\Carbon\Carbon::parse($dispansar->date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $dispansar->vehicle_reg_number }}</td>

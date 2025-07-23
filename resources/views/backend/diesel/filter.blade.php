@@ -24,6 +24,7 @@
 @include('components.datatable-print-css')
 @endpush
 
+@include('components.datatable-highlight-css')
 @section('content')
 
 @if(isset($diesels) && request('filter'))
@@ -258,7 +259,14 @@
                     </thead>
                     <tbody>
                         @forelse($diesels as $key => $diesel)
-                        <tr>
+                        @php
+        $highlightColor = \App\Models\Highlight::where('module_name', 'diesel')
+                        ->where('module_id', $diesel->id)
+                        ->value('color');
+
+        $highlightClass = ($highlightColor && $highlightColor !== 'none') ? 'highlight-' . $highlightColor : '';
+    @endphp
+    <tr class="{{ $highlightClass }}">
                             <td>{{ $key + 1 }}</td>                            <td>{{ $diesel->d_date ? date('d-m-Y', strtotime($diesel->d_date)) : '-' }}</td>
                             <td>{{ $diesel->d_time ? date('h:i A', strtotime($diesel->d_time)) : '-' }}</td>
                             <td>{{ $diesel->slip_no ?? '-' }}</td>

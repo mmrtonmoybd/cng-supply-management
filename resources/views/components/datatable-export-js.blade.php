@@ -19,6 +19,12 @@ if (request()->is('transport-filter/show')) {
 } elseif (request()->is('pump-summary/result')) {
     $default = 'Pump Summary Results';
 
+} elseif (request()->is('diesel-summary')) {
+    $default = 'Diesel Summary Results';
+
+} elseif (request()->is('transport-summary/show')) {
+    $default = 'M/S Musafir Motors Summary';
+
 } elseif (request()->is('diesel-filter')) {
     $default = request()->filled('pumpName_id') || request()->filled('car_no')
         ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Diesel Filter Results'

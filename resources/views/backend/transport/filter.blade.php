@@ -9,6 +9,7 @@
 
 @push('css')
 @include('components.datatable-print-css')
+@include('components.datatable-highlight-css')
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel="stylesheet" />
@@ -228,7 +229,14 @@
                                             $transport->police_cost + $transport->parking_cost + $transport->other_cost;
                                 $net_income = $transport->rent - $total_cost;
                             @endphp
-                            <tr>
+                             @php
+        $highlightColor = \App\Models\Highlight::where('module_name', 'transport')
+                        ->where('module_id', $transport->id)
+                        ->value('color');
+
+        $highlightClass = ($highlightColor && $highlightColor !== 'none') ? 'highlight-' . $highlightColor : '';
+    @endphp
+                            <tr class="{{ $highlightClass }}">
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $transport->date ? date('d-m-Y', strtotime($transport->date)) : '-' }}</td>
                                 <td>{{ $transport->vehicle->vehicle_number ?? '-' }}</td>

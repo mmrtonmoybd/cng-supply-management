@@ -22,6 +22,9 @@
                 <a href="{{ route('backend.diesel.create') }}" class="btn btn-primary">
                     <i class="fas fa-plus"></i> Diesel
                 </a>
+                <a href="{{ route('backend.diesel.summary') }}" class="btn btn-warning">
+                    <i class="fas fa-chart-bar"></i> Diesel summary
+                </a>
             </span>
         </div>
     </div>

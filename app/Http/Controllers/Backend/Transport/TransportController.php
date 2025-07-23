@@ -197,4 +197,90 @@ class TransportController extends Controller
 
         return view('backend.transport.filter', compact('transports', 'totals', 'dbtotal'));
     }
+
+
+    public function summary()
+    {
+        $this->authorize('transport_crud');
+
+        return view('backend.transport.summary');
+    }
+
+    /**
+     * Display the filtered results.
+     */
+    public function showSummary(Request $request)
+{
+    $this->authorize('transport_crud');
+
+    $groupedTransports = collect();
+    $dbtotal = 0;
+    $totals = [];
+
+    if ($request->has('filter')) {
+        $query = Transport::query();
+
+        if ($request->filled('date_range')) {
+            $dates = explode(' - ', $request->date_range);
+            if (count($dates) === 2) {
+                $query->whereBetween('date', [$dates[0], $dates[1]]);
+            }
+        }
+
+        // Clone for total calculation before altering with groupBy
+        $clone = clone $query;
+        $dbtotal = $clone->count();
+
+        // Totals (like diesel)
+        $totals = [
+            'rent' => $clone->sum('rent'),
+            'maintenance_cost' => $clone->sum('maintenance_cost'),
+            'diesel_cost' => $clone->sum('diesel_cost'),
+            'toll_cost' => $clone->sum('toll_cost'),
+            'labour_cost' => $clone->sum('labour_cost'),
+            'chada_cost' => $clone->sum('chada_cost'),
+            'fooding_cost' => $clone->sum('fooding_cost'),
+            'police_cost' => $clone->sum('police_cost'),
+            'parking_cost' => $clone->sum('parking_cost'),
+            'other_cost' => $clone->sum('other_cost'),
+            'balance' => $clone->sum('balance'),
+            'cash_receipt_amount' => $clone->sum('cash_receipt_amount'),
+        ];
+
+        $totals['total_cost'] = $totals['maintenance_cost'] + $totals['diesel_cost'] + $totals['toll_cost'] +
+            $totals['labour_cost'] + $totals['chada_cost'] + $totals['fooding_cost'] +
+            $totals['police_cost'] + $totals['parking_cost'] + $totals['other_cost'];
+
+        $totals['net_income'] = $totals['rent'] - $totals['total_cost'];
+        $totals['new_balance'] = $totals['cash_receipt_amount'] - ($totals['rent'] - $totals['cash_receipt_amount']);
+
+        // Grouped vehicle-wise summary like diesel
+        $groupedTransports = $query
+            ->selectRaw('vehicle_id,
+                SUM(rent) AS rent,
+                SUM(maintenance_cost) AS maintenance_cost,
+                SUM(diesel_cost) AS diesel_cost,
+                SUM(toll_cost) AS toll_cost,
+                SUM(labour_cost) AS labour_cost,
+                SUM(chada_cost) AS chada_cost,
+                SUM(fooding_cost) AS fooding_cost,
+                SUM(police_cost) AS police_cost,
+                SUM(parking_cost) AS parking_cost,
+                SUM(other_cost) AS other_cost,
+                SUM(balance) AS balance,
+                SUM(cash_receipt_amount) AS cash_receipt_amount
+            ')
+            ->groupBy('vehicle_id')
+            ->with('vehicle')
+            ->orderBy('vehicle_id')
+            ->get();
+    }
+
+    return view('backend.transport.summary', [
+        'transports' => $groupedTransports,
+        'totals' => $totals,
+        'dbtotal' => $dbtotal,
+    ]);
+}
+
 }

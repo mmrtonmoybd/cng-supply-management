@@ -19,6 +19,9 @@
                 <a href="{{ route('backend.transport.create') }}" class="btn btn-primary">
                     <i class="fas fa-plus"></i> Transport
                 </a>
+                <a href="{{ route('backend.transport.summary') }}" class="btn btn-warning">
+                    <i class="fas fa-chart-bar"></i> Diesel summary
+                </a>
             </span>
         </div>
     </div>

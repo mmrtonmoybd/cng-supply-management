@@ -7,6 +7,7 @@
     ]
 ])
 
+@include('components.datatable-highlight-css')
 @section('content')
 
 @if(isset($results) && $results->count() > 0)
@@ -273,7 +274,14 @@
                         $totalBalance = 0;
                     @endphp
                     @foreach($results as $key => $row)
-                        <tr>
+                        @php
+        $highlightColor = \App\Models\Highlight::where('module_name', 'cngpump')
+                        ->where('module_id', $row->id)
+                        ->value('color');
+
+        $highlightClass = ($highlightColor && $highlightColor !== 'none') ? 'highlight-' . $highlightColor : '';
+    @endphp
+    <tr class="{{ $highlightClass }}">
                             <td>{{ $key + 1}}</td>
                             <td>{{ $row->date ? (\Carbon\Carbon::parse($row->date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $row->vehicle_reg_number }}</td>
