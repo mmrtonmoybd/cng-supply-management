@@ -40,7 +40,7 @@
               <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-shuttle-van"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Total transport</span>
+                <span class="info-box-text">Total trip</span>
                 <span class="info-box-number">
                   {{ $dbtotal }}
                 </span>
@@ -184,6 +184,7 @@
                         <tr>
                             <th>S/L</th>
                             <th>Vehicle No</th>
+                            <th>Trip</th>
                             <th class="text-right">Rent</th>
                             <th class="text-right">Total Cost</th>
                             <th class="text-right">Net Income</th>
@@ -203,7 +204,7 @@
                                 <td>{{ $key + 1 }}</td>
                                 
                                 <td>{{ $transport->vehicle->vehicle_number ?? '-' }}</td>
-                                
+                                <td>{{ $transport->trip_count }}</td>
                                 <td class="text-right">{{ number_format($transport->rent, 2) }}</td>
                                 <td class="text-right">{{ number_format($total_cost, 2) }}</td>
                                 <td class="text-right">{{ number_format($net_income, 2) }}</td>
@@ -219,6 +220,7 @@
                     <tfoot>
                         <tr>
                             <th colspan="2" class="text-right">Total:</th>
+                            <th>{{ $dbtotal }}</th>
                             <th class="text-right">{{ number_format($totals['rent'], 2) }}</th>
                             <th class="text-right">{{ number_format($totals['total_cost'], 2) }}</th>
                             <th class="text-right">{{ number_format($totals['net_income'], 2) }}</th>

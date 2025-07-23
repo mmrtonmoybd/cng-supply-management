@@ -257,6 +257,7 @@ class TransportController extends Controller
             $groupedTransports = $query
                 ->selectRaw('vehicle_id,
                 SUM(rent) AS rent,
+                COUNT(*) AS trip_count,
                 SUM(maintenance_cost) AS maintenance_cost,
                 SUM(diesel_cost) AS diesel_cost,
                 SUM(toll_cost) AS toll_cost,
