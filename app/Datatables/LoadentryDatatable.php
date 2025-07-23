@@ -55,30 +55,30 @@ class LoadentryDatatable extends Datatable
                 return trim($class);
             })
             ->setRowAttr([
-                            'data-toggle' => fn ($row) => LoadEntry::where('id', '<', $row->id)
-                                ->where('vehicle_reg_number', $row->vehicle_reg_number)
-                                ->where('pumpName_id', $row->pumpName_id)
-                                ->where('cng_purchase_m3', $row->cng_purchase_m3)
-                                ->where('rate', $row->rate)
-                                ->where('purchase_taka', $row->purchase_taka)
-                                ->where('factory_id', $row->factory_id)
-                                ->whereDate('date', $row->date)
-                                ->exists() ? 'tooltip' : null,
+                'data-toggle' => fn ($row) => LoadEntry::where('id', '<', $row->id)
+                    ->where('vehicle_reg_number', $row->vehicle_reg_number)
+                    ->where('pumpName_id', $row->pumpName_id)
+                    ->where('cng_purchase_m3', $row->cng_purchase_m3)
+                    ->where('rate', $row->rate)
+                    ->where('purchase_taka', $row->purchase_taka)
+                    ->where('factory_id', $row->factory_id)
+                    ->whereDate('date', $row->date)
+                    ->exists() ? 'tooltip' : null,
 
-                            'data-placement' => fn ($row) => 'top',
+                'data-placement' => fn ($row) => 'top',
 
-                            'title' => fn ($row) => LoadEntry::where('id', '<', $row->id)
-                                ->where('vehicle_reg_number', $row->vehicle_reg_number)
-                                ->where('pumpName_id', $row->pumpName_id)
-                                ->where('cng_purchase_m3', $row->cng_purchase_m3)
-                                ->where('rate', $row->rate)
-                                ->where('purchase_taka', $row->purchase_taka)
-                                ->where('factory_id', $row->factory_id)
-                                ->whereDate('date', $row->date)
-                                ->exists()
-                                    ? '🚨 This row appears to be a duplicate of a previous row with identical data. Please double-check before proceeding.'
-                                    : null,
-                        ])
+                'title' => fn ($row) => LoadEntry::where('id', '<', $row->id)
+                    ->where('vehicle_reg_number', $row->vehicle_reg_number)
+                    ->where('pumpName_id', $row->pumpName_id)
+                    ->where('cng_purchase_m3', $row->cng_purchase_m3)
+                    ->where('rate', $row->rate)
+                    ->where('purchase_taka', $row->purchase_taka)
+                    ->where('factory_id', $row->factory_id)
+                    ->whereDate('date', $row->date)
+                    ->exists()
+                        ? '🚨 This row appears to be a duplicate of a previous row with identical data. Please double-check before proceeding.'
+                        : null,
+            ])
 
             ->setRowId('id');
     }
@@ -159,16 +159,16 @@ class LoadentryDatatable extends Datatable
                         </select>
                     HTML;
                 })->notOrderable()
-                  ->filterOptions([
-                    'none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue'
-                  ])
-                  ->filter(function($query, $value) {
+                ->filterOptions([
+                    'none' => 'None', 'yellow' => 'Yellow', 'red' => 'Red', 'green' => 'Green', 'blue' => 'Blue',
+                ])
+                ->filter(function ($query, $value) {
                     if ($value !== 'none') {
                         return $query->whereHas('highlight', function ($q) use ($value) {
                             $q->where('color', $value);
                         });
                     }
-                  }),
+                }),
 
             Column::add()
                 ->width('20px')
