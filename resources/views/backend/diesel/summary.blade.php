@@ -202,11 +202,11 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <x-boilerplate::select2 name="cash" :allow-clear=true label="Direct cash" :value="request('cash')" placeholder="Select direct cash">
+                <select name="cash" label="Direct cash" placeholder="Select direct cash">
                     <option value="">All</option>
                     <option value="1" {{ request('cash') === '1' ? 'selected' : '' }}>Cash payed</option>
                     <option value="0" {{ request('cash') === '0' ? 'selected' : '' }}>Not pay in cash</option>
-                </x-boilerplate::select2>
+                </select>
             </div>
         </div>
         <div class="row mt-2">
