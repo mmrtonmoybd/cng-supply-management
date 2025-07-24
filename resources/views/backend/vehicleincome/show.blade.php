@@ -19,8 +19,8 @@
                 <tbody>
                     <tr><th>Date</th><td>{{ $vehicleincome->date ? (\Carbon\Carbon::parse($vehicleincome->date)->format('d-m-Y')) : 'N/A' }}</td></tr>
                     <tr><th>Car No</th><td>{{ $vehicleincome->vehicle_reg_number ?? 'N/A' }}</td></tr>
-                    <tr><th>Pump Name</th><td>{{ $vehicleincome->pumpname->name }}</td></tr>
-                    <tr><th>Factory Name</th><td>{{ $vehicleincome->factory->name }}</td></tr>
+                    <tr><th>Pump Name</th><td>{{ $vehicleincome->pumpname?->name }}</td></tr>
+                    <tr><th>Factory Name</th><td>{{ $vehicleincome->factory?->name }}</td></tr>
                     <tr><th>Rent</th><td>{{ $vehicleincome->rent }}</td></tr>
                     <tr><th>M3</th><td>{{ $vehicleincome->cng_purchase_m3 }}</td></tr>
                     <tr><th>Load rate</th><td>{{ $vehicleincome->lrate }}</td></tr>
