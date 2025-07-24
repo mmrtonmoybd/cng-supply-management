@@ -184,7 +184,9 @@
                         <tr>
                             <th>S/L</th>
                             <th>Vehicle No</th>
+                            <th>Driver name</th>
                             <th>Trip</th>
+                            
                             <th class="text-right">Rent</th>
                             <th class="text-right">Total Cost</th>
                             <th class="text-right">Net Income</th>
@@ -204,12 +206,14 @@
                                 <td>{{ $key + 1 }}</td>
                                 
                                 <td>{{ $transport->vehicle->vehicle_number ?? '-' }}</td>
+                                <td>{{ $transport->vehicle->driver_name }}</td>
                                 <td>{{ $transport->trip_count }}</td>
+                                
                                 <td class="text-right">{{ number_format($transport->rent, 2) }}</td>
                                 <td class="text-right">{{ number_format($total_cost, 2) }}</td>
                                 <td class="text-right">{{ number_format($net_income, 2) }}</td>
                                 <td>{{ $transport->cash_receipt_amount }}</td>
-                                <td></td>
+                                <td>{{ $transport->cash_receipt_amount - $net_income }}</td>
                             </tr>
                         @empty
                             <tr>
@@ -220,7 +224,9 @@
                     <tfoot>
                         <tr>
                             <th colspan="2" class="text-right">Total:</th>
+                            <th></th>
                             <th>{{ $dbtotal }}</th>
+                            
                             <th class="text-right">{{ number_format($totals['rent'], 2) }}</th>
                             <th class="text-right">{{ number_format($totals['total_cost'], 2) }}</th>
                             <th class="text-right">{{ number_format($totals['net_income'], 2) }}</th>

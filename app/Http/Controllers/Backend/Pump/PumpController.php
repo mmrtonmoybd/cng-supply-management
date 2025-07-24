@@ -65,7 +65,7 @@ class PumpController extends Controller
 
         $request->validate([
             'payment_date' => 'nullable|date',
-            'payment' => 'nullable|numeric|min:0',
+            'payment' => 'nullable|numeric',
             'premarks' => 'nullable|string|max:1000',
             'new_rate' => 'nullable|numeric',
         ]);

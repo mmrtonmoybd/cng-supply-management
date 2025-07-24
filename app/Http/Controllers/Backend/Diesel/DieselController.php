@@ -195,6 +195,14 @@ class DieselController extends Controller
                 ]);
             }
 
+            if ($request->filled('cash')) {
+                if ($request->input('cash') == 1) {
+                    $query->whereNull('pumpName_id');
+                } elseif ($request->input('cash') == 0) {
+                    $query->whereNotNull('pumpName_id');
+                }
+            }
+
             // Clone before modifying for grouped data
             $totalQuery = clone $query;
 

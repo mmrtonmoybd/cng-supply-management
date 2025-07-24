@@ -201,6 +201,13 @@
                     <input type="text" class="form-control" required id="date_range" name="date_range" value="{{ request('date_range') }}" placeholder="Select Date Range">
                 </div>
             </div>
+            <div class="col-md-4">
+                <x-boilerplate::select2 name="cash" :allow-clear=true label="Direct cash" :value="request('cash')" placeholder="Select direct cash">
+                    <option value="">All</option>
+                    <option value="1" {{ request('cash') === '1' ? 'selected' : '' }}>Cash payed</option>
+                    <option value="0" {{ request('cash') === '0' ? 'selected' : '' }}>Not pay in cash</option>
+                </x-boilerplate::select2>
+            </div>
         </div>
         <div class="row mt-2">
             <div class="col-md-4 d-flex align-items-end">                <div class="form-group">

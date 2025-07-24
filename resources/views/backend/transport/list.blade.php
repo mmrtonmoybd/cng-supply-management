@@ -20,7 +20,7 @@
                     <i class="fas fa-plus"></i> Transport
                 </a>
                 <a href="{{ route('backend.transport.summary') }}" class="btn btn-warning">
-                    <i class="fas fa-chart-bar"></i> Diesel summary
+                    <i class="fas fa-chart-bar"></i> Transport summary
                 </a>
             </span>
         </div>
