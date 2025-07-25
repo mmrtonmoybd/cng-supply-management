@@ -157,7 +157,8 @@ window.initExportableDataTable = function(tableSelector) {
                 const dateRange = '{{ request('date_range') }}'; // Blade variable (ensure it's escaped correctly)
                 const url = "{{ route('backend.vehicleIncome.showFilterPrint') }}?pumpName_id={{ request('pumpName_id') }}&car_no={{ request('car_no') }}&date_range={{ request('date_range') }}";
                 window.open(url, '_blank');
-            }
+                 } 
+             }
                 @endif
             ],
             paging: false,
