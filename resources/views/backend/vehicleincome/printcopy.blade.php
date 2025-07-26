@@ -64,16 +64,21 @@
 <div style="text-align: center; font-family: sans-serif; font-size: 16pt; margin-bottom: 20px;">
   <u>Vehicle income summary</u>
 </div>
-    <table class="accounts-table">
+    
+<table class="accounts-table">
         <thead>
                     <tr>
                         <th>SL</th>
+                        <th>Date</th>
                         <th>Car No</th>
-                        <th>Trip</th>
+                        <th>Pump Name</th>
                         <th>M3</th>
+                        <th>Load Rate</th>
                         <th>Purchase Taka</th>
                         <th>Diesel</th>
+                        <th>F Date</th>
                         <th>FM3</th>
+                        <th>Rate</th>
                         <th>FTK</th>
                         <th>Difference</th>
                         <th>Net DIfference</th>
@@ -83,35 +88,44 @@
                     @foreach($results as $key => $row)
                         <tr>
                             <td>{{ $key + 1}}</td>
+                            <td>{{ $row->date ? (\Carbon\Carbon::parse($row->date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $row->vehicle_reg_number }}</td>
-                            <td>{{ $row->trip_count }}</td>
+                            <td>{{ $row->pumpname ? $row->pumpname->name : '' }}</td>
                             <td>{{ $row->cng_purchase_m3 }}</td>
+                            <td>{{ $row->lrate }}</td>
                             <td>{{ $row->purchase_taka }}</td>
                             <td></td>
+                            <td>{{ $row->bill_date ? (\Carbon\Carbon::parse($row->bill_date)->format('d-m-Y')) : 'N/A' }}</td>
                             <td>{{ $row->fm3 }}</td>
+                            <td>{{ $row->rate }}</td>
                             <td>{{ $row->ftk }}</td>
                             <td>{{ $row->difference }}</td>
                         </tr>
-                        
-                        @if($loop->last)
+                         @if($loop->last)
                         <tr>
-                            <th></th>
-                            <th class="text-right">Total</th>
-                            
-                            <th>{{ $dbtotal }}</th>
-                            <th>{{ number_format($dbtotalcng_purchase_m3, 2) }}</th>
-                            <th>{{ number_format($dbtotalpurchase_taka, 2) }}</th>
-                            <th>{{ number_format($dieselsum, 2) }}</th>
-                            <th>{{ number_format($dbtotalfm3, 2) }}</th>
-                            <th>{{ number_format($dbtotalftk, 2) }}</th>
-                            <th>{{ number_format($dbtotaldifference, 2) }}</th>
-                            <th>{{ number_format($dbtotalnet_difference, 2) }}</th>
-                        </tr>
-                        @endif
+                        <th></th>
+                        <th class="text-right">Total</th>
+                        <th></th>
+                        <th></th>
+                        <th>{{ number_format($dbtotalcng_purchase_m3, 2) }}</th>
+                        <th></th>
+                        <th>{{ number_format($dbtotalpurchase_taka, 2) }}</th>
+                        <th>{{ number_format($dieselsum, 2) }}</th>
+                        <th></th>
+                        <th>{{ number_format($dbtotalfm3, 2) }}</th>
+                        <th></th>
+                        <th>{{ number_format($dbtotalftk, 2) }}</th>
+                        <th>{{ number_format($dbtotaldifference, 2) }}</th>
+                        <th>{{ number_format($dbtotalnet_difference, 2) }}</th>
+                     <tr>
+                    @endif
                     @endforeach
                 </tbody>
                 
+                    
+                
     </table>
+
 
     <table>
         <tr>
