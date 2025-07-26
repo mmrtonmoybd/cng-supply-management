@@ -172,12 +172,12 @@ class VehicleIncomeController extends Controller
                 ]);
             }
         }
-        
-        // Clone for totals
-    $clone = clone $query;
 
-    // SQL group-by summary like transport
-    $results = $query->selectRaw('
+        // Clone for totals
+        $clone = clone $query;
+
+        // SQL group-by summary like transport
+        $results = $query->selectRaw('
             vehicle_reg_number,
             SUM(cng_purchase_m3) as cng_purchase_m3,
             SUM(purchase_taka) as purchase_taka,
@@ -190,42 +190,42 @@ class VehicleIncomeController extends Controller
             SUM(other) as other,
             COUNT(*) as trip_count
         ')
-        ->groupBy('vehicle_reg_number')
-        ->orderBy('vehicle_reg_number')
-        ->get();
+            ->groupBy('vehicle_reg_number')
+            ->orderBy('vehicle_reg_number')
+            ->get();
 
-    // Totals
-    $dbtotal = $clone->count();
-    $dbtotalcng_purchase_m3 = $clone->sum('cng_purchase_m3');
-    $dbtotalpurchase_taka = $clone->sum('purchase_taka');
-    $dbtotalfm3 = $clone->sum('fm3');
-    $dbtotalftk = $clone->sum('ftk');
-    $dbtotaldifference = $clone->sum('difference');
-    $dieselsum = $diesel->sum('taka');
-    $dbtotalnet_difference = $dbtotaldifference - $dieselsum;
-    $dbtotalrent = $clone->sum('rent');
-    $dbtotaldriver_fooding = $clone->sum('driver_fooding');
-    $dbtotalmaintenance = $clone->sum('maintenance');
-    $dbtotalother = $clone->sum('other');
-    $totalcost = $dbtotalrent + $dbtotaldriver_fooding + $dbtotalmaintenance + $dbtotalother;
-    $net_profit = $dbtotalnet_difference - $totalcost;
+        // Totals
+        $dbtotal = $clone->count();
+        $dbtotalcng_purchase_m3 = $clone->sum('cng_purchase_m3');
+        $dbtotalpurchase_taka = $clone->sum('purchase_taka');
+        $dbtotalfm3 = $clone->sum('fm3');
+        $dbtotalftk = $clone->sum('ftk');
+        $dbtotaldifference = $clone->sum('difference');
+        $dieselsum = $diesel->sum('taka');
+        $dbtotalnet_difference = $dbtotaldifference - $dieselsum;
+        $dbtotalrent = $clone->sum('rent');
+        $dbtotaldriver_fooding = $clone->sum('driver_fooding');
+        $dbtotalmaintenance = $clone->sum('maintenance');
+        $dbtotalother = $clone->sum('other');
+        $totalcost = $dbtotalrent + $dbtotaldriver_fooding + $dbtotalmaintenance + $dbtotalother;
+        $net_profit = $dbtotalnet_difference - $totalcost;
 
-    return view('backend.vehicleincome.printcopy', compact(
-        'results',
-        'dbtotal',
-        'dbtotalcng_purchase_m3',
-        'dbtotalpurchase_taka',
-        'dbtotalfm3',
-        'dbtotalftk',
-        'dbtotaldifference',
-        'dieselsum',
-        'dbtotalnet_difference',
-        'dbtotalrent',
-        'dbtotaldriver_fooding',
-        'dbtotalmaintenance',
-        'dbtotalother',
-        'totalcost',
-        'net_profit'
-    ));
+        return view('backend.vehicleincome.printcopy', compact(
+            'results',
+            'dbtotal',
+            'dbtotalcng_purchase_m3',
+            'dbtotalpurchase_taka',
+            'dbtotalfm3',
+            'dbtotalftk',
+            'dbtotaldifference',
+            'dieselsum',
+            'dbtotalnet_difference',
+            'dbtotalrent',
+            'dbtotaldriver_fooding',
+            'dbtotalmaintenance',
+            'dbtotalother',
+            'totalcost',
+            'net_profit'
+        ));
     }
 }
