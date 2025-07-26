@@ -20,7 +20,7 @@
 .login-page {
     background: linear-gradient(135deg, #ff416c, #ff4b2b, #ff6a00, #ffb347, #00c9ff, #845ec2, #d65db1);
     background-size: 400% 400%;
-    animation: rainbowShift 15s ease infinite;
+    animation: rainbowShift 6s ease infinite;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -36,7 +36,7 @@
 
 /* 🧊 Styled Login Box */
 .login-box, .register-box {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 191, 71, 0.95);
     border-radius: 1rem;
     padding: 2rem;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
