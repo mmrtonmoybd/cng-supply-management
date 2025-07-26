@@ -5,8 +5,7 @@
         </span>
         <span class="brand-text text-truncate pr-2" title="{!! strip_tags(config('boilerplate.theme.sidebar.brand.logo.text')) !!}">{!! config('boilerplate.theme.sidebar.brand.logo.text') !!}</span>
     </a>
-
-    {{-- 👇 This sets only the sidebar area background to indigo --}}
+    
     <div class="sidebar bg-{{ config('boilerplate.theme.sidebar.links.bg') }}">
         @if(config('boilerplate.theme.sidebar.user.visible'))
         <div class="user-panel d-flex align-items-center">
