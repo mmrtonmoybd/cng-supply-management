@@ -33,7 +33,7 @@ return [
         'short_name' => 'Mars Bangla',
         'description' => 'Reliable and efficient fuel delivery, storage, and management services across Bangladesh.',
         'theme_color' => '#007bff',
-        'background_color' => '#ffffff',
+        'background_color' => '#0069daff',
         'display' => 'standalone',
         'orientation' => 'portrait-primary',
         'apple_touch_icon' => 'logo/logo180.png',
