@@ -62,7 +62,11 @@
         <p>Address: House #43, Road #03, Sector #03, Uttra, Dhaka-1230</p>
     </div>
 <div style="text-align: center; font-family: sans-serif; font-size: 16pt; margin-bottom: 20px;">
-  <u>Vehicle income summary</u>
+  <u>Vehicle income summary
+  @if (request()->filled('car_no'))
+  <br> Car no: {{ request('car_no') }}
+  @endif
+</u>
 </div>
     
 <table class="accounts-table">
