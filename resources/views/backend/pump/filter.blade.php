@@ -268,7 +268,7 @@
                             <td>{{ $pump->payment ?? 'N/A' }}</td>
                             <td></td>
                             @if (request('type') === '0')
-                            <td>{{ $pump->factory->name }}</td>
+                            <td>{{ $pump->factory->name ?? 'N/A' }}</td>
                             @endif
                             <td>{{ $pump->remarks }}</td>
                             
