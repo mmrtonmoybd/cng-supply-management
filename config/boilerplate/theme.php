@@ -19,7 +19,7 @@ $theme += [
     ],
     'favicon' => '/logo/favicon.png',       // Favicon url
     'fullscreen' => false,      // Fullscreen switch
-    'darkmode' => true,       // Dark mode switch
+    'darkmode' => false,       // Dark mode switch
     'minify' => true,       // Minify inline JS / CSS when using boilerplate::minify component
 ];
 
