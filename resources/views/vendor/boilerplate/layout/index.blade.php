@@ -12,6 +12,7 @@
 @stack('plugin-css')
     <link rel="stylesheet" href="{{ mix('/plugins/fontawesome/fontawesome.min.css', '/assets/vendor/boilerplate') }}">
     <link rel="stylesheet" href="{{ mix('/adminlte.min.css', '/assets/vendor/boilerplate') }}">
+    <link rel="stylesheet" href="{{ asset('/custom.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -26,39 +27,6 @@
     <!-- NProgress CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
-    
-    <style>
-      #nprogress {
-        pointer-events: none;
-      }
-    
-      #nprogress .bar {
-        background: #ffc107 !important;
-        position: fixed;
-        z-index: 99999;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-      }
-    
-      #nprogress .peg {
-        display: block;
-        position: absolute;
-        right: 0px;
-        width: 100px;
-        height: 100%;
-        box-shadow: 0 0 10px #ffc107, 0 0 5px #ffc107;
-        opacity: 1.0;
-        -webkit-transform: rotate(3deg) translate(0px, -4px);
-            -ms-transform: rotate(3deg) translate(0px, -4px);
-                transform: rotate(3deg) translate(0px, -4px);
-      }
-    
-      #nprogress .spinner {
-        display: none !important;
-      }
-    </style>
 
 @endif
     <script src="{{ mix('/bootstrap.min.js', '/assets/vendor/boilerplate') }}"></script>

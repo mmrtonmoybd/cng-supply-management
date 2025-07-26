@@ -1,0 +1,44 @@
+.bg-indigo .nav-sidebar .nav-link {
+    color: #ffffff; /* white text */
+}
+
+.bg-indigo .nav-sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.bg-indigo .nav-sidebar .nav-link.active {
+    background-color: #007bff; /* active link stays blue */
+    color: #ffffff;
+}
+
+#nprogress {
+        pointer-events: none;
+      }
+    
+      #nprogress .bar {
+        background: #ffc107 !important;
+        position: fixed;
+        z-index: 99999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+      }
+    
+      #nprogress .peg {
+        display: block;
+        position: absolute;
+        right: 0px;
+        width: 100px;
+        height: 100%;
+        box-shadow: 0 0 10px #ffc107, 0 0 5px #ffc107;
+        opacity: 1.0;
+        -webkit-transform: rotate(3deg) translate(0px, -4px);
+            -ms-transform: rotate(3deg) translate(0px, -4px);
+                transform: rotate(3deg) translate(0px, -4px);
+      }
+    
+      #nprogress .spinner {
+        display: none !important;
+      }

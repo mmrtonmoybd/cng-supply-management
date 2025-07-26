@@ -1,18 +1,3 @@
-<style>
-    .bg-indigo .nav-sidebar .nav-link {
-    color: #ffffff; /* white text */
-}
-
-.bg-indigo .nav-sidebar .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-}
-
-.bg-indigo .nav-sidebar .nav-link.active {
-    background-color: #007bff; /* active link stays blue */
-    color: #ffffff;
-}
-</style>
 <aside class="main-sidebar sidebar-{{ config('boilerplate.theme.sidebar.type') }} elevation-{{ config('boilerplate.theme.sidebar.shadow') }}">
     <a href="{{ route('boilerplate.dashboard') }}" class="brand-link d-flex {{ !empty(config('boilerplate.theme.sidebar.brand.bg')) ? 'bg-'.config('boilerplate.theme.sidebar.brand.bg') : ''}}">
         <span class="brand-logo bg-{{ config('boilerplate.theme.sidebar.brand.logo.bg') }} elevation-{{ config('boilerplate.theme.sidebar.brand.logo.shadow') }}">
