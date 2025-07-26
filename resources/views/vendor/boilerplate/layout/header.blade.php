@@ -11,7 +11,7 @@
             @if(config('boilerplate.app.pwa.enabled', false))
             <!-- Install PWA Button -->
             <li class="nav-item">
-                <button id="installPwaBtn" class="btn btn-sm btn-primary" style="display: none; margin-top: 5px;">
+                <button id="installPwaBtn" class="btn btn-sm btn-success" style="display: none; margin-top: 5px;">
                 <i class="fas fa-download"></i> Install App
                 </button>
             </li>
