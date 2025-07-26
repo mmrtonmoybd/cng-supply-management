@@ -26,7 +26,7 @@ return [
             'shadow' => 1,
         ],
         'brand' => [
-            'bg' => 'indigo',
+            'bg' => 'blue',
             'logo' => [
                 'bg' => 'white',
                 'icon' => '<img src="/logo/new-logo.png" width="50" height="40">',
