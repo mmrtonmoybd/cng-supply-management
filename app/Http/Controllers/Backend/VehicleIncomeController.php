@@ -172,7 +172,7 @@ class VehicleIncomeController extends Controller
                 ]);
             }
         }
-        $results = $query->orderBy('date', 'ASC')->get();
+        $results = $query->orderBy('vehicle_reg_number', 'ASC')->orderBy('date', 'ASC')->get();
         $dbtotal = $query->count('id');
         $dbtotalcng_purchase_m3 = $query->sum('cng_purchase_m3');
         $dbtotalpurchase_taka = $query->sum('purchase_taka');
