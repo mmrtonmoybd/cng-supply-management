@@ -36,7 +36,7 @@ class ActivitylogDatatable extends Datatable
                 ->width('180px')
                 ->data('created_at')
                 ->filterType('daterangepicker')
-                ->dateFormat(__('YmdhiA')),
+                ->dateFormat('DD-MM-YYYY'),
 
             Column::add(__('Module'))
                 ->data('log_name')
