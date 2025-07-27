@@ -36,13 +36,16 @@ class ActivitylogDatatable extends Datatable
                 ->width('180px')
                 ->data('created_at')
                 ->filterType('daterangepicker')
-                ->dateFormat('DD-MM-YYYY hh:mm:ss A'),
+                ->dateFormat(__('YmdhiA')),
 
             Column::add(__('Module'))
                 ->data('log_name')
                 ->filterOptions([
                     'Asset' => 'Asset',
                     'Asset Document' => 'Asset Document',
+                    'Cashbook' => 'Cashbook',
+                    'Income entry' => 'Cashbook Income',
+                    'Expense entry' => 'Cachbook Expense',
                     'Diesel' => 'Diesel',
                     'Factory CNG Pump Slip' => 'Factory CNG Pump Slip',
                     'Factory Cng Pump & Weight Scale' => 'Factory Cng Pump & Weight Scale',
