@@ -195,8 +195,6 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
-                <tfoot>
                     <tr>
                         <th></th>
                         <th></th>
@@ -208,6 +206,9 @@
                         <th colspan="3"></th>
                         <th></th>
                     </tr>
+                </tbody>
+                <tfoot>
+                    
                 </tfoot>
             </table>
             @if(method_exists($results, 'links'))
