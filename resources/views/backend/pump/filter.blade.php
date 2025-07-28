@@ -306,7 +306,7 @@
                         <th></th>
                         <th>{{ $totalPayment }}</th >
                         
-                        <th>{{ $totalPayment - ($totalPurchaseTaka + $dieselsum) }} 
+                        <th>{{ number_format(($totalPayment - ($totalPurchaseTaka + $dieselsum)), 2) }} 
                             (@php 
                             if (($totalPayment - ($totalPurchaseTaka + $dieselsum)) > 0) {
                                 echo 'Advance';
