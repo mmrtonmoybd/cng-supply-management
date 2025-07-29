@@ -23,7 +23,7 @@ Schedule::command('backup:clean')
     ->dailyAt('03:00')
     ->appendOutputTo(storage_path('logs/backup-clean.log'));
 
-Schedule::command('activitylog:clean --days=61')
+Schedule::command('activitylog:clean --days=10 --force')
     ->daily()
     ->appendOutputTo(storage_path('logs/activity-clean.log'));
 

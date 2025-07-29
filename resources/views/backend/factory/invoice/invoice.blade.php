@@ -256,7 +256,66 @@
   </table>
   <div>
   <br>
-    <strong >In Words: <span >{{ Illuminate\Support\Number::spell(number_format($total)) }} only</span></strong>
+  @php
+function convertNumberToWordsIndian($number) {
+    $number = floor($number); // Remove decimal
+
+    $words = array(
+        '0' => '', '1' => 'One', '2' => 'Two',
+        '3' => 'Three', '4' => 'Four', '5' => 'Five',
+        '6' => 'Six', '7' => 'Seven', '8' => 'Eight',
+        '9' => 'Nine', '10' => 'Ten', '11' => 'Eleven',
+        '12' => 'Twelve', '13' => 'Thirteen', '14' => 'Fourteen',
+        '15' => 'Fifteen', '16' => 'Sixteen', '17' => 'Seventeen',
+        '18' => 'Eighteen', '19' => 'Nineteen', '20' => 'Twenty',
+        '30' => 'Thirty', '40' => 'Forty', '50' => 'Fifty',
+        '60' => 'Sixty', '70' => 'Seventy', '80' => 'Eighty',
+        '90' => 'Ninety'
+    );
+
+    $digits = array('', 'Hundred', 'Thousand', 'Lakh', 'Crore');
+    $result = '';
+
+    $i = 0;
+    $str = array();
+    $numberStr = (string) $number;
+
+    while ($number > 0) {
+        if ($i == 0) {
+            $divider = 100;
+        } elseif ($i == 1) {
+            $divider = 10;
+        } else {
+            $divider = 100;
+        }
+
+        $numberPart = $number % $divider;
+        $number = floor($number / $divider);
+
+        if ($numberPart) {
+            $strPart = '';
+            if ($numberPart < 21) {
+                $strPart = $words[$numberPart];
+            } else {
+                $tens = floor($numberPart / 10) * 10;
+                $units = $numberPart % 10;
+                $strPart = $words[$tens] . ' ' . $words[$units];
+            }
+
+            if ($i != 0 && $strPart != '') {
+                $strPart .= ' ' . $digits[$i];
+            }
+
+            array_unshift($str, $strPart);
+        }
+
+        $i++;
+    }
+
+    return implode(' ', $str);
+}
+@endphp
+    <strong >In Words: <span >{{ convertNumberToWordsIndian($total) }} only</span></strong>
   </div>
 
   <!-- Spacer before footer -->
