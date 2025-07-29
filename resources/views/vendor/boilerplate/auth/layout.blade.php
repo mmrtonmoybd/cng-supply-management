@@ -16,32 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
     @stack('css')
 <style>
-/* 🌈 Rainbow Gradient Background */
-.login-page {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b, #ff6a00, #ffb347, #00c9ff, #845ec2, #d65db1);
-    background-size: 400% 400%;
-    animation: rainbowShift 6s ease infinite;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Animate the gradient */
-@keyframes rainbowShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-/* 🧊 Styled Login Box */
-.login-box, .register-box {
-    background: rgba(255, 191, 71, 0.95);
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(10px);
-}
 .login-footer {
     position: fixed;
     bottom: 0;
@@ -52,19 +26,10 @@
     background-color: var(--bs-body-bg); /* Supports theme-aware backgrounds */
 }
 
-.login-footer {
-    background: transparent;
-    color: #ffffff;
-    border-top: none;
-}
-.login-footer a {
-    color: #ffffffff; /* yellowish link color for contrast */
-}
-
 /* Text color for light mode */
 .footer-left,
 .footer-right {
-    color: #fbfbfcff; /* Bootstrap's body text */
+    color: #212529; /* Bootstrap's body text */
 }
 
 /* Text color for dark mode - activated via .dark-mode class on body/html */
@@ -98,7 +63,7 @@
       }
     
       #nprogress .bar {
-        background: #1eff00ff !important;
+        background: #ffc107 !important;
         position: fixed;
         z-index: 99999;
         top: 0;
@@ -113,7 +78,7 @@
         right: 0px;
         width: 100px;
         height: 100%;
-        box-shadow: 0 0 10px #1eff00ff, 0 0 5px #1eff00ff;
+        box-shadow: 0 0 10px #ffc107, 0 0 5px #ffc107;
         opacity: 1.0;
         -webkit-transform: rotate(3deg) translate(0px, -4px);
             -ms-transform: rotate(3deg) translate(0px, -4px);

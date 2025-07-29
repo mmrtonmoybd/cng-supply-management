@@ -107,9 +107,11 @@ class DispansarController extends Controller
         Dispansar::create($finalData);
 
         if ($request->filled('load_entry_id')) {
-            // $load = LoadEntry::find($request->input('load_entry_id'));
-            $load->status = 1;
-            $load->save();
+            $load = \App\Models\LoadEntry::find($request->input('load_entry_id'));
+            if ($load) {
+                $load->status = 1;
+                $load->save();
+            }
         }
 
         return redirect()->route('backend.factory.dispansar.index')
@@ -216,15 +218,18 @@ class DispansarController extends Controller
         $dispansar->update($finalData);
 
         if ($request->filled('load_entry_id')) {
-            $load->date = $request->input('date');
-            $load->vehicle_reg_number = $request->input('vehicle_reg_number');
-            $load->pumpName_id = $request->input('pumpName_id');
-            $load->factory_id = $request->input('factory_id');
-            $load->cng_purchase_m3 = $request->input('cng_purchase_m3');
-            $load->rate = $request->input('lrate');
-            $load->purchase_taka = $request->input('purchase_taka');
-            $load->status = 1;
-            $load->save();
+            $load = \App\Models\LoadEntry::find($request->input('load_entry_id'));
+            if ($load) {
+                $load->date = $request->input('date');
+                $load->vehicle_reg_number = $request->input('vehicle_reg_number');
+                $load->pumpName_id = $request->input('pumpName_id');
+                $load->factory_id = $request->input('factory_id');
+                $load->cng_purchase_m3 = $request->input('cng_purchase_m3');
+                $load->rate = $request->input('lrate');
+                $load->purchase_taka = $request->input('purchase_taka');
+                $load->status = 1;
+                $load->save();
+            }
         }
 
         return redirect()->route('backend.factory.dispansar.index')

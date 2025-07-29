@@ -227,6 +227,7 @@
                         <th>Factory</th>
                         @endif
                         <th>Remarks</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -272,20 +273,16 @@
                             @endif
                             <td>{{ $pump->remarks }}</td>
                             
-                            <!--
+                            
                             <td>
-                                @if(auth()->user()->ability(['admin'], 'pump_crud'))
-                                    <a href="{{ route('backend.pump.show', $pump->id) }}" class="btn btn-sm btn-info" title="View">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                @endif
-                                @if(auth()->user()->ability(['admin'], 'pump_crud'))
-                                    <a href="{{ route('backend.pump.edit', $pump->id) }}" class="btn btn-sm btn-primary" title="Edit">
+                                
+                               
+                                    <a href="{{ route('backend.pump.edit', $pump->id) }}" target="_blank" class="btn btn-sm btn-primary" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                @endif
+                               
                             </td>
-                            -->
+                            
                         </tr>
                     @endforeach
                 </tbody>

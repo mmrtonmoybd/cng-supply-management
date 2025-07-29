@@ -26,15 +26,15 @@ class DieselDatatable extends Datatable
             ->setRowClass(function ($row) {
                 $class = '';
 
-                // ✅ Mark this row as duplicate if an older identical row already exists
-                $isDuplicate = Diesel::where('id', '<', $row->id) // 👈 changed this
+                // âœ… Mark this row as duplicate if an older identical row already exists
+                $isDuplicate = Diesel::where('id', '<', $row->id) // ðŸ‘ˆ changed this
                     ->where('d_date', $row->d_date)
                     // ->where('d_time', $row->d_time)
                     ->where('slip_no', $row->slip_no)
                     ->where('pumpName_id', $row->pumpName_id)
                     ->where('vehicle_reg_number', $row->vehicle_reg_number)
                     ->where('diesel_purchase_litre', $row->diesel_purchase_litre)
-                    ->whereDate('taka', $row->taka)
+                    ->where('taka', $row->taka)
                     ->exists();
 
                 if ($isDuplicate) {
@@ -53,28 +53,28 @@ class DieselDatatable extends Datatable
                 return trim($class);
             })
             ->setRowAttr([
-                'data-toggle' => fn ($row) => Diesel::where('id', '<', $row->id) // 👈 changed this
+                'data-toggle' => fn ($row) => Diesel::where('id', '<', $row->id) // ðŸ‘ˆ changed this
                     ->where('d_date', $row->d_date)
                     // ->where('d_time', $row->d_time)
                     ->where('slip_no', $row->slip_no)
                     ->where('pumpName_id', $row->pumpName_id)
                     ->where('vehicle_reg_number', $row->vehicle_reg_number)
-                    ->where('diesel_purchase_litre', $row->diesel_purchase_litre)
-                    ->whereDate('taka', $row->taka)
+                    //->where('diesel_purchase_litre', $row->diesel_purchase_litre)
+                    ->where('taka', $row->taka)
                     ->exists() ? 'tooltip' : null,
 
                 'data-placement' => fn ($row) => 'top',
 
-                'title' => fn ($row) => Diesel::where('id', '<', $row->id) // 👈 changed this
+                'title' => fn ($row) => Diesel::where('id', '<', $row->id) // ðŸ‘ˆ changed this
                     ->where('d_date', $row->d_date)
                     // ->where('d_time', $row->d_time)
                     ->where('slip_no', $row->slip_no)
                     ->where('pumpName_id', $row->pumpName_id)
                     ->where('vehicle_reg_number', $row->vehicle_reg_number)
                     ->where('diesel_purchase_litre', $row->diesel_purchase_litre)
-                    ->whereDate('taka', $row->taka)
+                    ->where('taka', $row->taka)
                     ->exists()
-                        ? '🚨 This row appears to be a duplicate of a previous row with identical data. Please double-check before proceeding.'
+                        ? 'ðŸš¨ This row appears to be a duplicate of a previous row with identical data. Please double-check before proceeding.'
                         : null,
             ])
             ->permissions('diesel_crud')

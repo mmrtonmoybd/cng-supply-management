@@ -31,8 +31,9 @@
     <div class="row">
         <div class="col-6">
             @php
-                $pumpOptions = \App\Models\PumpName::distinct()->where('is_diesel', 0)->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+                $pumpOptions = \App\Models\PumpName::distinct()->where('is_diesel', 0)->where('type', 'Main')->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
             @endphp
+            
             <select name="pumpName_id"  class="form-control" required>
                 <option value="">Select Pump Name</option>
                 @foreach ($pumpOptions as $key => $value)

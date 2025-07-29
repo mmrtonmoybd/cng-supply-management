@@ -123,7 +123,7 @@
       {{ $invoice->factory?->email ?? '' }}
     </div>
     <div class="right">
-      <strong>Invoice ID:</strong> #{{ $invoice->invoice_number }}<br>
+      <strong>Invoice no:</strong> #{{ $invoice->invoice_number }}<br>
       <strong>Invoice Date:</strong> {{ $invoice->date ? (\Carbon\Carbon::parse($invoice->date)->format('l, F j, Y')) : 'N/A' }}
     </div>
   </div>
@@ -256,7 +256,7 @@
   </table>
   <div>
   <br>
-    <strong >In Words: <span >{{ Illuminate\Support\Number::spell($total) }} only</span></strong>
+    <strong >In Words: <span >{{ Illuminate\Support\Number::spell(number_format($total)) }} only</span></strong>
   </div>
 
   <!-- Spacer before footer -->
