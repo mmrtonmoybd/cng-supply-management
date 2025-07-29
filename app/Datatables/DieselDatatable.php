@@ -59,7 +59,7 @@ class DieselDatatable extends Datatable
                     ->where('slip_no', $row->slip_no)
                     ->where('pumpName_id', $row->pumpName_id)
                     ->where('vehicle_reg_number', $row->vehicle_reg_number)
-                    //->where('diesel_purchase_litre', $row->diesel_purchase_litre)
+                    // ->where('diesel_purchase_litre', $row->diesel_purchase_litre)
                     ->where('taka', $row->taka)
                     ->exists() ? 'tooltip' : null,
 
