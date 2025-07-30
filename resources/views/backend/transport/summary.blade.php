@@ -223,8 +223,10 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="2" class="text-right">Total:</th>
                             <th></th>
+                            
+                            <th></th>
+                            <th  class="text-right">Total:</th>
                             <th>{{ $dbtotal }}</th>
                             
                             <th class="text-right">{{ number_format($totals['rent'], 2) }}</th>
