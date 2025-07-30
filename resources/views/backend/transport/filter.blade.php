@@ -268,7 +268,11 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="5" class="text-right">Total:</th>
+                            <th class="text-right"></th>
+                            <th class="text-right"></th>
+                            <th class="text-right"></th>
+                            <th class="text-right"></th>
+                            <th  class="text-right">Total:</th>
                             <th class="text-right">{{ number_format($totals['rent'], 2) }}</th>
                             <th class="text-right">{{ number_format($totals['maintenance_cost'], 2) }}</th>
                             <th class="text-right">{{ number_format($totals['diesel_cost'], 2) }}</th>
