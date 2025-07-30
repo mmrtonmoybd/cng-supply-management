@@ -46,6 +46,12 @@ class Diesel extends Model
 
                 $model->use_balance = $devide * $factor_balance;
             }
+            
+            if (is_null($model->distance)) {
+                $model->use_litre = null;
+
+                $model->use_balance = null;
+            }
 
             if (is_null($model->d_date)) {
                 $model->d_date = $model->date;
