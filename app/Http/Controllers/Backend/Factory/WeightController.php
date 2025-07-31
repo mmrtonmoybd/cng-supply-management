@@ -63,6 +63,7 @@ class WeightController extends Controller
             'difference_taka' => 'nullable|numeric|min:0',
             'difference_m3' => 'nullable|numeric|min:0',
             'bill_amount' => 'nullable|numeric|min:0',
+            'is_devide' => 'nullable|boolean',
         ]);
 
         $data = [];
@@ -102,7 +103,7 @@ class WeightController extends Controller
 
         $total_weight = $first_weight - $second_weight;
         $data['total_weight'] = $total_weight;
-        $data['receive_m3'] = $total_weight * $fact;
+        $data['receive_m3'] = ($request->is_devide == false) ? $total_weight * $fact : $total_weight / $fact;
         $data['ftk'] = $data['receive_m3'] * $rate;
         $data['difference_m3'] = $data['receive_m3'] - $cng_purchase_m3;
         $data['difference_taka'] = $data['ftk'] - $purchase_taka;
@@ -177,6 +178,7 @@ class WeightController extends Controller
             'difference_taka' => 'nullable|numeric|min:0',
             'difference_m3' => 'nullable|numeric|min:0',
             'bill_amount' => 'nullable|numeric|min:0',
+            'is_devide' => 'nullable|boolean',
         ]);
 
         $data = [];
@@ -216,7 +218,7 @@ class WeightController extends Controller
 
         $total_weight = $first_weight - $second_weight;
         $data['total_weight'] = $total_weight;
-        $data['receive_m3'] = $total_weight * $fact;
+        $data['receive_m3'] = ($request->is_devide == false) ? $total_weight * $fact : $total_weight / $fact;
         $data['ftk'] = $data['receive_m3'] * $rate;
         $data['difference_m3'] = $data['receive_m3'] - $cng_purchase_m3;
         $data['difference_taka'] = $data['ftk'] - $purchase_taka;

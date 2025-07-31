@@ -42,6 +42,7 @@ class Weight extends Model
         'bill_amount',
         'invoice_id',
         'invoice_date',
+        'is_devide',
     ];
 
     protected static function booted(): void

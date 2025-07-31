@@ -59,6 +59,10 @@
             <x-boilerplate::input name="fact" label="Fact" type="number" step="0.01" :value="old('fact')" placeholder="Fact" />
         </div>
         <div class="col-md-4">
+            <x-boilerplate::input name='is_devide' label='Calculation type' :value="old('is_devide')" :options="[false => 'Multiplication', true => 'Devide']" type="select" placeholder='Calculation Type'/>
+            <small>If empty multiplication is apply by default.</small>
+        </div>
+        <div class="col-md-4">
             <x-boilerplate::input name="rate" label="Rate" type="number" step="0.01" :value="old('fact')" placeholder="Rate" />
         </div>
         <div class="col-md-4" hidden>
