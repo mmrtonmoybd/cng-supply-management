@@ -146,6 +146,30 @@ window.initExportableDataTable = function(tableSelector) {
                             'font-size': '18pt',
                             'margin-bottom': '10px'
                         });
+                        
+                        // Remove ALL but the last <tfoot>
+                        const allTfoots = $(win.document.body).find('tfoot');
+                        if (allTfoots.length > 1) {
+                            allTfoots.slice(0, -1).remove();
+                        }
+                    
+                        // Make sure only the last <tfoot> remains
+                        const lastTfoot = $(win.document.body).find('tfoot').last();
+                    
+                        // Force it to stay with table body (avoid page break)
+                        lastTfoot.css({
+                            'display': 'table-row-group', // Prevent duplication
+                            'break-inside': 'avoid',
+                            'page-break-inside': 'avoid'
+                        });
+                    
+                        // Extra precaution to remove empty <tfoot>s again if needed
+                        $(win.document.body).find('table').each(function(i, table) {
+                            const tfoots = $(table).find('tfoot');
+                            if (tfoots.length > 1) {
+                                tfoots.slice(0, -1).remove();
+                            }
+                        });
                     }
 
                 }
@@ -164,7 +188,8 @@ window.initExportableDataTable = function(tableSelector) {
             paging: false,
             searching: false,
             ordering: false,
-            info: false
+            info: false,
+            footer: true
         });
     }
 };
