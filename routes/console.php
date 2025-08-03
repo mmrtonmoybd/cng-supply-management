@@ -19,9 +19,11 @@ Schedule::command('backup:run')
     ->dailyAt('00:30')
     ->appendOutputTo(storage_path('logs/backup.log'));
 
-Schedule::command('backup:clean')
+/***
+    Schedule::command('backup:clean')
     ->dailyAt('03:00')
     ->appendOutputTo(storage_path('logs/backup-clean.log'));
+***/
 
 Schedule::command('activitylog:clean --days=10 --force')
     ->daily()
