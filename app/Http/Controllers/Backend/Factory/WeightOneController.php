@@ -294,6 +294,8 @@ class WeightOneController extends Controller
         if ($request->filled('car_no')) {
             $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
         }
+        $clone_query = clone $query;
+
         if ($request->filled('date_range')) {
             $dates = explode(' - ', $request->date_range);
             if (count($dates) == 2) {
@@ -311,7 +313,8 @@ class WeightOneController extends Controller
         $dbtotalftk = $query->sum('ftk');
         $dbtotaldifference_taka = $query->sum('difference_taka');
         $dbtotalcash_receipt_amount = $query->sum('cash_receipt_amount');
+        $dbtotalbalance = $clone_query->sum('cash_receipt_amount') - $clone_query->sum('ftk');
 
-        return view('backend.factory.weightone.filter', compact('results', 'dbtotal', 'dbtotalcng_purchase_m3', 'dbtotalpurchase_taka', 'dbtotalfm3', 'dbtotalftk', 'dbtotaldifference_taka', 'dbtotalcash_receipt_amount'));
+        return view('backend.factory.weightone.filter', compact('results', 'dbtotal', 'dbtotalcng_purchase_m3', 'dbtotalpurchase_taka', 'dbtotalfm3', 'dbtotalftk', 'dbtotaldifference_taka', 'dbtotalcash_receipt_amount', 'dbtotalbalance'));
     }
 }

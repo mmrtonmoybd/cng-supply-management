@@ -119,11 +119,11 @@
               <div class="info-box-content">
                 <span class="info-box-text">Total balance</span>
                 <span class="info-box-number">
-                  {{ $dbtotal_payment - ($dieselsum + $dbtotal_purchase_taka) }} 
+                  {{ $dbtotal_pay }} 
                   (@php 
-                            if (($dbtotal_payment - ($dbtotal_purchase_taka + $dieselsum)) > 0) {
+                            if ($dbtotal_pay > 0) {
                                 echo 'Advance';
-                            } elseif ($dbtotal_payment - ($dbtotal_purchase_taka + $dieselsum) == 0) {
+                            } elseif ($dbtotal_pay == 0) {
                                 echo 'Paid';
                             } else {
                                 echo 'Due';
@@ -303,11 +303,11 @@
                         <th></th>
                         <th>{{ $totalPayment }}</th >
                         
-                        <th>{{ number_format(($totalPayment - ($totalPurchaseTaka + $dieselsum)), 2) }} 
+                        <th>{{ number_format(($dbtotal_pay), 2) }} 
                             (@php 
-                            if (($totalPayment - ($totalPurchaseTaka + $dieselsum)) > 0) {
+                            if ($dbtotal_pay > 0) {
                                 echo 'Advance';
-                            } elseif ($totalPayment - ($totalPurchaseTaka + $dieselsum) == 0) {
+                            } elseif ($dbtotal_pay == 0) {
                                 echo 'Paid';
                             } else {
                                 echo 'Due';

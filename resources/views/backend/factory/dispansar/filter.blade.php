@@ -182,11 +182,11 @@
               <div class="info-box-content">
                 <span class="info-box-text">Total balance</span>
                 <span class="info-box-number">
-                  {{ $dbtotalcash_receipt_amount - $dbtotalbill_amount }}
+                  {{ $dbtotalbalance }}
                   (@php 
-                            if (($dbtotalcash_receipt_amount - $dbtotalbill_amount) > 0) {
+                            if (($dbtotalbalance) > 0) {
                                 echo 'Advance';
-                            } elseif ($dbtotalcash_receipt_amount - $dbtotalbill_amount == 0) {
+                            } elseif ($dbtotalbalance == 0) {
                                 echo 'Paid';
                             } else {
                                 echo 'Due';
@@ -380,10 +380,10 @@
                         <th></th>
                         <th>{{ $sumCash }}</th>
                         <th></th>
-                        <th>{{ $sumCash - $sumBill}}(@php 
-                            if (($sumCash - $sumBill) > 0) {
+                        <th>{{ $dbtotalbalance}}(@php 
+                            if (($dbtotalbalance) > 0) {
                                 echo 'Advance';
-                            } elseif ($sumCash - $sumBill == 0) {
+                            } elseif ($dbtotalbalance == 0) {
                                 echo 'Paid';
                             } else {
                                 echo 'Due';

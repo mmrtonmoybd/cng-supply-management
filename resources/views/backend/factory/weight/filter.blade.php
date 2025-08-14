@@ -198,11 +198,11 @@
               <div class="info-box-content">
                 <span class="info-box-text">Total balance</span>
                 <span class="info-box-number">
-                  {{ $dbtotalcash_receipt_amount - $dbtotalftk }}
+                  {{ $dbtotalbalance }}
                   (@php 
-                            if (($dbtotalcash_receipt_amount - $dbtotalftk) > 0) {
+                            if ($dbtotalbalance > 0) {
                                 echo 'Advance';
-                            } elseif ($dbtotalcash_receipt_amount - $dbtotalftk == 0) {
+                            } elseif ($dbtotalbalance == 0) {
                                 echo 'Paid';
                             } else {
                                 echo 'Due';
@@ -418,10 +418,10 @@
                         <th>{{ number_format($totalCashReceiptAmount, 2) }}</th>
                         <th></th>
                         <th></th>
-                        <th>{{ number_format(($totalCashReceiptAmount - $totalFTK), 2) }}(@php 
-                            if (($totalCashReceiptAmount - $totalFTK) > 0) {
+                        <th>{{ number_format(($dbtotalbalance), 2) }}(@php 
+                            if ($dbtotalbalance > 0) {
                                 echo 'Advance';
-                            } elseif ($totalCashReceiptAmount - $totalFTK == 0) {
+                            } elseif ($dbtotalbalance == 0) {
                                 echo 'Paid';
                             } else {
                                 echo 'Due';

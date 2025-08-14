@@ -274,6 +274,9 @@ class CngPumpSlipController extends Controller
         if ($request->filled('car_no')) {
             $query->where('vehicle_reg_number', 'like', '%'.$request->car_no.'%');
         }
+
+        $clone_query = clone $query;
+
         if ($request->filled('date_range')) {
             $dates = explode(' - ', $request->date_range);
             if (count($dates) == 2) {
@@ -293,7 +296,9 @@ class CngPumpSlipController extends Controller
         $dbtotaldifference_m3 = $query->sum('difference_m3');
         $dbtotalcash_receipt_amount = $query->sum('cash_receipt_amount');
 
+        $dbtotalbalance = $clone_query->sum('cash_receipt_amount') - $clone_query->sum('ftk');
+
         return view('backend.factory.cngpump.filter', compact('results', 'dbtotal', 'dbtotalcng_purchase_m3',
-            'dbtotalpurchase_taka', 'dbtotalfm3', 'dbtotalftk', 'dbtotaldifference_taka', 'dbtotaldifference_m3', 'dbtotalcash_receipt_amount'));
+            'dbtotalpurchase_taka', 'dbtotalfm3', 'dbtotalftk', 'dbtotaldifference_taka', 'dbtotaldifference_m3', 'dbtotalcash_receipt_amount', 'dbtotalbalance'));
     }
 }

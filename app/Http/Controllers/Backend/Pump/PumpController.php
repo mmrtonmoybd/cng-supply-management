@@ -161,6 +161,9 @@ class PumpController extends Controller
             });
         }
 
+        $query_clone = clone $query;
+        $diesel_clone = clone $diesel;
+
         if ($request->filled('date_range')) {
             $dates = explode(' - ', $request->date_range);
             if (count($dates) == 2) {
@@ -184,6 +187,8 @@ class PumpController extends Controller
         $dbtotal_purchase_taka = $query->sum('purchase_taka');
         $dbtotal_payment = $query->sum('payment');
 
-        return view('backend.pump.filter', compact('results', 'dieselsum', 'dbtotal_m3', 'dbtotal_purchase_taka', 'dbtotalpump', 'dbtotal_payment'));
+        $dbtotal_pay = $query_clone->sum('payment') - ( $diesel_clone->sum('taka') - $query_clone->sum('purchase_taka'));
+
+        return view('backend.pump.filter', compact('results', 'dieselsum', 'dbtotal_m3', 'dbtotal_purchase_taka', 'dbtotalpump', 'dbtotal_payment', 'dbtotal_pay'));
     }
 }
