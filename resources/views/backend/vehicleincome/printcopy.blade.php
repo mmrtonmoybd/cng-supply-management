@@ -153,8 +153,8 @@
             <td><strong>{{ $totalcost }}</strong></td>
         </tr>
         <tr>
-            <td style="text-align: right;"><strong><font color="red">Net profit</font></strong></td>
-            <td><strong><font color="red"><u>{{ $net_profit }}</u></font></strong></td>
+            <td style="text-align: right;"><strong>Net profit</strong></td>
+            <td><strong>{{ $net_profit }}</strong></td>
         </tr>
     </table>
 

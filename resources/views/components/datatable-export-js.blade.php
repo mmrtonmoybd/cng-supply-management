@@ -1,20 +1,20 @@
 @php
-$default = 'Filter Results';
+$default = 'Statement';
 
 if (request()->is('transport-filter/show')) {
     $default = request()->filled('vehicle_id')
-        ? \App\Models\Vehicle::find(request()->vehicle_id)?->vehicle_number . ' Filter Results'
-        : 'Transport Filter Results';
+        ? \App\Models\Vehicle::find(request()->vehicle_id)?->vehicle_number . ' Statement'
+        : 'Transport Statement';
 
 } elseif (request()->is('load-filter/show')) {
     $default = request()->filled('pumpName_id') || request()->filled('car_no')
-        ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Load Filter Results'
-        : 'Load Filter Results';
+        ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Load Statement'
+        : 'Load Statement';
 
 } elseif (request()->is('pump-filter/show')) {
     $default = request()->filled('pumpName_id') || request()->filled('car_no')
-        ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Pump Filter Results'
-        : 'Pump Filter Results';
+        ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Pump Statement'
+        : 'Pump Statement';
 
 } elseif (request()->is('pump-summary/result')) {
     $default = 'Pump Summary Results';
@@ -27,37 +27,37 @@ if (request()->is('transport-filter/show')) {
 
 } elseif (request()->is('diesel-filter')) {
     $default = request()->filled('pumpName_id') || request()->filled('car_no')
-        ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Diesel Filter Results'
-        : 'Diesel Filter Results';
+        ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Diesel Statement'
+        : 'Diesel Statement';
 
 } elseif (request()->is('vehicleincome-filter/show')) {
     $default = request()->filled('pumpName_id') || request()->filled('car_no')
-        ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Vehicle Income Filter Results'
-        : 'Vehicle Income Filter Results';
+        ? \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Vehicle Income Statement'
+        : 'Vehicle Income Statement';
 
 } elseif(request()->is('factory/dispansar-filter/show')) {
     $default = request()->filled('pumpName_id') || request()->filled('car_no') || request()->filled('factory_id')
-        ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Filter Results'
-        : 'Dispansar Filter Results';
+        ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Statement'
+        : 'Dispansar Statement';
 } elseif(request()->is('factory/weightone-filter/show')) {
     $default = request()->filled('pumpName_id') || request()->filled('car_no') || request()->filled('factory_id')
-        ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Filter Results'
-        : 'Cng Pump & Weight Scale Filter Results';
+        ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Statement'
+        : 'Cng Pump & Weight Scale Statement';
     } elseif(request()->is('factory/weight-filter/show')) {
     $default = request()->filled('pumpName_id') || request()->filled('car_no') || request()->filled('factory_id')
-        ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Filter Results'
-        : 'Weight Filter Filter Results';
+        ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Statement'
+        : 'Weight Filter Statement';
     } elseif(request()->is('factory/cngPump-filter/show')) {
     $default = request()->filled('pumpName_id') || request()->filled('car_no') || request()->filled('factory_id')
-        ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Filter Results'
-        : 'Cng Pump Slip Filter Results';
+        ? \App\Models\Factory::find(request()->factory_id)?->name . ' '. \App\Models\PumpName::find(request()->pumpName_id)?->name . ' ' . request()->car_no . ' Statement'
+        : 'Cng Pump Slip Statement';
     } elseif (request()->is('factory/factory-summary/result')) {
     $default = 'Factory Summary Results';
 
     } elseif (request()->is('transport-filter/show')) {
     $default =  request()->filled('vehicle_id')
-        ? \App\Models\Vehicle::find(request()->vehicle_id)?->vehicle_number . ' Filter Results'
-        : 'Transport Filter Results';
+        ? \App\Models\Vehicle::find(request()->vehicle_id)?->vehicle_number . ' Statement'
+        : 'Transport Statement';
     }
 @endphp
 
@@ -88,7 +88,7 @@ window.initExportableDataTable = function(tableSelector) {
                 },
                 {
                     extend: 'excelHtml5',
-                    title: 'Filter Results',
+                    title: 'Statement',
                     filename: fileName,
                     exportOptions: { columns: ':visible' },
                     footer: true
