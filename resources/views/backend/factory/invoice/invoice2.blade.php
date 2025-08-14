@@ -433,7 +433,7 @@
         <td colspan="4"><strong>Total</strong></td>
         <td id="total-gas">{{ $m3 }}</td>
         <td></td>
-        <td id="total-taka">{{ $total }}</td>
+        <td id="total-taka">{{ number_format($total, 2) }}</td>
       </tr>
     </tfoot>
   </table>
@@ -442,61 +442,60 @@
   
       @php
 function convertNumberToWordsIndian($number) {
-    $number = floor($number); // Remove decimal
+    $number = number_format($number, 2, '.', ''); // Ensure 2 decimals
+    $parts = explode('.', $number);
+    $integerPart = intval($parts[0]);
+    $decimalPart = intval($parts[1]);
 
-    $words = array(
-        '0' => '', '1' => 'One', '2' => 'Two',
-        '3' => 'Three', '4' => 'Four', '5' => 'Five',
-        '6' => 'Six', '7' => 'Seven', '8' => 'Eight',
-        '9' => 'Nine', '10' => 'Ten', '11' => 'Eleven',
-        '12' => 'Twelve', '13' => 'Thirteen', '14' => 'Fourteen',
-        '15' => 'Fifteen', '16' => 'Sixteen', '17' => 'Seventeen',
-        '18' => 'Eighteen', '19' => 'Nineteen', '20' => 'Twenty',
-        '30' => 'Thirty', '40' => 'Forty', '50' => 'Fifty',
-        '60' => 'Sixty', '70' => 'Seventy', '80' => 'Eighty',
-        '90' => 'Ninety'
-    );
+    // Function to convert integer numbers
+    $convert = function($num) {
+        $words = array(
+            '0' => '', '1' => 'One', '2' => 'Two',
+            '3' => 'Three', '4' => 'Four', '5' => 'Five',
+            '6' => 'Six', '7' => 'Seven', '8' => 'Eight',
+            '9' => 'Nine', '10' => 'Ten', '11' => 'Eleven',
+            '12' => 'Twelve', '13' => 'Thirteen', '14' => 'Fourteen',
+            '15' => 'Fifteen', '16' => 'Sixteen', '17' => 'Seventeen',
+            '18' => 'Eighteen', '19' => 'Nineteen', '20' => 'Twenty',
+            '30' => 'Thirty', '40' => 'Forty', '50' => 'Fifty',
+            '60' => 'Sixty', '70' => 'Seventy', '80' => 'Eighty',
+            '90' => 'Ninety'
+        );
 
-    $digits = array('', 'Hundred', 'Thousand', 'Lakh', 'Crore');
-    $result = '';
+        $digits = array('', 'Hundred', 'Thousand', 'Lakh', 'Crore');
+        $result = '';
+        $i = 0;
+        $str = array();
 
-    $i = 0;
-    $str = array();
-    $numberStr = (string) $number;
+        while ($num > 0) {
+            if ($i == 0) $divider = 100;
+            elseif ($i == 1) $divider = 10;
+            else $divider = 100;
 
-    while ($number > 0) {
-        if ($i == 0) {
-            $divider = 100;
-        } elseif ($i == 1) {
-            $divider = 10;
-        } else {
-            $divider = 100;
-        }
+            $numberPart = $num % $divider;
+            $num = floor($num / $divider);
 
-        $numberPart = $number % $divider;
-        $number = floor($number / $divider);
-
-        if ($numberPart) {
-            $strPart = '';
-            if ($numberPart < 21) {
-                $strPart = $words[$numberPart];
-            } else {
-                $tens = floor($numberPart / 10) * 10;
-                $units = $numberPart % 10;
-                $strPart = $words[$tens] . ' ' . $words[$units];
+            if ($numberPart) {
+                $strPart = '';
+                if ($numberPart < 21) $strPart = $words[$numberPart];
+                else {
+                    $tens = floor($numberPart / 10) * 10;
+                    $units = $numberPart % 10;
+                    $strPart = $words[$tens] . ' ' . $words[$units];
+                }
+                if ($i != 0 && $strPart != '') $strPart .= ' ' . $digits[$i];
+                array_unshift($str, $strPart);
             }
-
-            if ($i != 0 && $strPart != '') {
-                $strPart .= ' ' . $digits[$i];
-            }
-
-            array_unshift($str, $strPart);
+            $i++;
         }
+        return implode(' ', $str);
+    };
 
-        $i++;
+    $inWords = $convert($integerPart);
+    if ($decimalPart > 0) {
+        $inWords .= ' and ' . $convert($decimalPart) . ' Paise';
     }
-
-    return implode(' ', $str);
+    return $inWords;
 }
 @endphp
     <strong >In Words: <span >{{ convertNumberToWordsIndian($total) }} only</span></strong>
