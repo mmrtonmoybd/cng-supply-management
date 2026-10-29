@@ -1,66 +1,109 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# CNG Supply Management
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A management system for a CNG gas supply business, built for Mars Bangla Fuel Solution Ltd. It tracks gas bought from CNG pumps, delivered by truck to factory customers, and billed to them, along with the fleet, transport, diesel, and cash book.
 
-## About Laravel
+Built with Laravel 11 and [sebastienheyd/boilerplate](https://github.com/sebastienheyd/boilerplate) (AdminLTE).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Modules
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Loads
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Record each gas load: date, vehicle, source pump, destination factory, CNG purchased (m³), rate, purchase amount, fuel cost, and diesel
+- Notifications when a load is added, and when a load has stayed inactive for more than 12 hours
 
-## Learning Laravel
+### Factory billing
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Each factory is billed by one of three methods:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Dispenser:** opening and closing meter readings
+- **Weight scale:** first and second weights converted to m³
+- **CNG pump slip:** volume from the pump slip
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Each method records the bill, received volume and rate, the difference against the purchase, and cash received with a running balance. There is also a factory summary by date range.
 
-## Laravel Sponsors
+- **Invoices** per factory, exportable, with a public verification link (`/factory/invoice/verify/{hash}`)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Pumps
 
-### Premium Partners
+- Pump directory (CNG and diesel pumps)
+- Payments to pumps with running balance, commission rate, and third-party pump purchases
+- Pump summary by date range
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Fleet and transport
 
-## Contributing
+- **Vehicles:** type, driver details, status, and maintenance date
+- **Vehicle documents** with expiry dates and a daily expiry check
+- **Vehicle maintenance** costs
+- **Vehicle income** per load: rent, driver food, maintenance, and other costs, with a printable filtered report
+- **Transport trips:** route, rent, and cost breakdown (diesel, toll, labour, food, police, parking, and more), with export
+- **Diesel:** purchase slips, litres, distance, and usage balance
+- **Assets** with attached documents
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Cash book
 
-## Code of Conduct
+- Cash books with opening balance, income and expense entries under entry headings, and filtered exports
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### System
 
-## Security Vulnerabilities
+- Roles and permissions for every module, with create, update, and delete rights
+- Activity log, row highlighting, and in-app notifications
+- Media manager, log viewer, and daily database backups
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Scheduled tasks
 
-## License
+| Task                                  | When          |
+| ------------------------------------- | ------------- |
+| `vehicle:check-documents`             | Daily, 09:00  |
+| `loads:check-inactive`                | Hourly        |
+| `backup:run` (Spatie Backup)          | Daily, 00:30  |
+| Clean activity log older than 10 days | Daily         |
+| Delete read notifications older than 60 days | Daily  |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Add the Laravel scheduler to cron so these run:
+
+```cron
+* * * * * cd /path/to/project && php artisan schedule:run >> /dev/null 2>&1
+```
+
+## Tech stack
+
+| Layer    | Packages                                                       |
+| -------- | -------------------------------------------------------------- |
+| Backend  | PHP 8.2+, Laravel 11                                           |
+| Admin UI | sebastienheyd/boilerplate, AdminLTE, Boilerplate Media Manager |
+| Data     | Spatie Activitylog, Spatie Backup, Laravel Settings            |
+| Tooling  | PHPUnit, Pint, Debugbar                                        |
+
+## Getting started
+
+### Requirements
+
+- PHP 8.2+
+- Composer
+- MySQL (needed for backups through `mysqldump`)
+
+### Installation
+
+```bash
+git clone https://github.com/mmrtonmoybd/cng-supply-management.git
+cd cng-supply-management
+
+composer install
+cp .env.example .env
+php artisan key:generate
+# set the DB_* and MAIL_* values in .env
+php artisan migrate
+php artisan storage:link
+```
+
+Open `/register` and create the first account; it becomes the admin. Public registration stays off after that (`config/boilerplate/auth.php`). The admin then adds staff users and gives them roles.
+
+### Run locally
+
+```bash
+php artisan serve
+```
+
+## Author
+
+Moshiur Rahman — [rmedha037@gmail.com](mailto:rmedha037@gmail.com)
